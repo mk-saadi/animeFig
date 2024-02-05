@@ -3,11 +3,15 @@ import { AuthContext } from "../provider/AuthProvider";
 import MyToysD from "./MyToysD";
 import Swal from "sweetalert2";
 import useTitle from "../hooks/useWebTitle";
+import { useToast } from "../hooks/ToastProvider";
+import axios from "axios";
 
 const MyToys = () => {
 	const { user } = useContext(AuthContext);
 	const [figs, setFig] = useState([]);
 	useTitle("myFigures");
+
+	const { showToast } = useToast();
 
 	const url = `${import.meta.env.VITE_URL}/addedFigure?email=${user.email}`;
 
@@ -17,30 +21,21 @@ const MyToys = () => {
 			.then((data) => setFig(data));
 	}, [url]);
 
-	const handleDeleteOP = (id) => {
-		Swal.fire({
-			title: "Are you sure you want to delete this figure?",
-			showDenyButton: true,
-			showCancelButton: true,
-			confirmButtonText: "Delete",
-			denyButtonText: `Don't save`,
-		}).then((result) => {
-			if (result.isConfirmed) {
-				fetch(`https://server-anime-fig.vercel.app/addedFigure/${id}`, {
-					method: "DELETE",
-				})
-					.then((res) => res.json())
-					.then((data) => {
-						if (data.deletedCount > 0) {
-							Swal.fire("Deleted!", "", "success");
-							const updated = figs.filter((fig) => fig._id !== id);
-							setFig(updated);
-						}
-					});
-			} else if (result.isDenied) {
-				Swal.fire("Delete unsuccessful", "", "info");
+	const handleDeleteOP = async (id) => {
+		const confirm = await showToast("confirm", "Are you sure you want to delete this figure?");
+		if (confirm) {
+			try {
+				const res = await axios.delete(`https://server-anime-fig.vercel.app/addedFigure/${id}`);
+				const data = res.data;
+				if (data.deletedCount > 0) {
+					showToast("success", "figure deleted successfully.");
+					const updated = figs.filter((fig) => fig._id !== id);
+					setFig(updated);
+				}
+			} catch (error) {
+				showToast("error", "couldn't delete. please try again.");
 			}
-		});
+		}
 	};
 
 	return (

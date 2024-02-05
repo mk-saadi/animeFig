@@ -17,7 +17,7 @@ const Exp = () => {
 	// const [page, setPage] = useState(0);
 	// const [total, setTotal] = useState(0);
 	// const limit = 6;
-	const { showToast, showConfirmToast } = useToast();
+	const { showToast } = useToast();
 
 	// useEffect(() => {
 	// 	const fetchData = async () => {
@@ -58,12 +58,16 @@ const Exp = () => {
 	// };
 
 	const handleCheck = async () => {
-		const isClickedConfirm = await showToast("confirm", "Are you sure you want to delete this user?");
-		console.log("confirm: ", isClickedConfirm);
-		if (isClickedConfirm) {
-			showToast("success", "user deleted!");
-		}
-		// showToast("success", "true");
+		// const isClickedConfirm = await showToast("confirm", "Are you sure you want to delete this user?");
+		// if (isClickedConfirm) {
+		// 	showToast("success", "user deleted!");
+		// }
+		showToast(
+			"infoStay",
+			"Take me there!",
+			'<a href="https://mk-saadi.web.app/" target="_blank" >Why do I have this issue?</a>'
+		);
+		// '<a href="https://mk-saadi.web.app/">Why do I have this issue?</a>'
 	};
 
 	return (
