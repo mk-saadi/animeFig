@@ -1,0 +1,16 @@
+.footing {
+    background-image: url("https://wallpapercave.com/wp/wp6327604.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+}
+.footing::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.697), rgba(0, 0, 0, 0));
+}
