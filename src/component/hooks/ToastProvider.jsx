@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 import { BsFillInfoSquareFill } from "react-icons/bs";
 import { TbAlertSquareFilled } from "react-icons/tb";
 import { IoCheckbox } from "react-icons/io5";
@@ -67,12 +67,12 @@ export const ToastProvider = ({ children }) => {
 	};
 
 	const toastClasses = {
-		success: "border-2 border-[#2d5e2e] text-[#98bc62]",
-		error: "border-2 border-red-400 text-red-400",
-		loading: "border-2 border-[#a16c46] text-[#fab07a]",
-		info: "border-2 border-[#008294] text-[#008294]",
-		infoStay: "border-2 border-[#008294] text-[#008294]",
-		confirm: "border-2 border-gray-700 text-gray-700",
+		success: "border-[1px] border-[#2d5e2e] text-[#98bc62] bg-green-50",
+		error: "border-[1px] border-red-400 text-red-400 bg-red-50",
+		loading: "border-[1px] border-[#a16c46] text-[#fab07a] bg-amber-50",
+		info: "border-[1px] border-[#54B4D3] text-[#54B4D3] bg-sky-50",
+		infoStay: "border-[1px] border-[#54B4D3] text-[#54B4D3] bg-blue-50",
+		confirm: "border-[1px] border-gray-700 text-gray-700 bg-gray-50",
 	};
 
 	const iconComponent = {
@@ -94,7 +94,8 @@ export const ToastProvider = ({ children }) => {
 						style={{ zIndex: "999999" }}
 					>
 						<div
-							className={`flex flex-col bg-white  rounded-md shadow-md drop-shadow-md  ${toastClasses[toastType]}`}
+							// className={`flex flex-col bg-white  rounded-md shadow-md drop-shadow-md ${toastClasses[toastType]}`}
+							className={`flex flex-col rounded-lg shadow-md drop-shadow-md  ${toastClasses[toastType]}`}
 							onMouseEnter={() => {
 								if (toastType !== "confirm" && toastType !== "infoStay") {
 									clearTimeout(toastTimeout);
@@ -117,11 +118,11 @@ export const ToastProvider = ({ children }) => {
 										</p>
 									</div>
 
-									{toastType !== "confirm" && (
+									{/* {toastType !== "confirm" && (
 										<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
 											<button onClick={hideToast}>Close</button>
 										</div>
-									)}
+									)} */}
 								</div>
 
 								{/* if toast is "confirm" type then show these two buttons */}

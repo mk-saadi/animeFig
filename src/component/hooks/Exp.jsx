@@ -69,10 +69,14 @@ const Exp = () => {
 		const isConfirm = await showToast({
 			type: "confirm",
 			message: "Are you sure you want to delete this user?",
-			// footer: '<a href="https://mk-saadi.web.app/" target="_blank" >Not sure what to do?</a>',
+			footer: '<a href="https://mk-saadi.web.app/" target="_blank" >Not sure what to do?</a>',
 		});
 		if (isConfirm) {
-			showToast({ type: "success", message: "user deleted!" });
+			showToast({
+				type: "infoStay",
+				message: "user deleted!",
+				// footer: '<a href="https://mk-saadi.web.app/" target="_blank" >Not sure what to do?</a>',
+			});
 		}
 	};
 	// showToast(
@@ -84,7 +88,12 @@ const Exp = () => {
 
 	return (
 		<>
-			<button onClick={handleCheck}>load</button>
+			<button
+				onClick={handleCheck}
+				className="border-2"
+			>
+				load
+			</button>
 			{/* <div className="mt-20">
 				<div
 					className="grid grid-cols-2 gap-4 mx-4 mt-16 sm:grid-cols-3 md:grid-cols-6 sm:mx-20"
