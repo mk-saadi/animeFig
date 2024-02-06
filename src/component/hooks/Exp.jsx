@@ -57,18 +57,30 @@ const Exp = () => {
 	// 	showToast("confirm", "Are you sure?", () => window.location.reload(true));
 	// };
 
+	// const isClickedConfirm = await showToast(
+	// 	"confirm",
+	// 	"Are you sure you want to delete this user?",
+	// 	'<a href="https://mk-saadi.web.app/" target="_blank" >Not sure what to do?</a>'
+	// );
+	// if (isClickedConfirm) {
+	// 	showToast("success", "user deleted!");
+	// }
 	const handleCheck = async () => {
-		// const isClickedConfirm = await showToast("confirm", "Are you sure you want to delete this user?");
-		// if (isClickedConfirm) {
-		// 	showToast("success", "user deleted!");
-		// }
-		showToast(
-			"infoStay",
-			"Take me there!",
-			'<a href="https://mk-saadi.web.app/" target="_blank" >Why do I have this issue?</a>'
-		);
-		// '<a href="https://mk-saadi.web.app/">Why do I have this issue?</a>'
+		const isConfirm = await showToast({
+			type: "confirm",
+			message: "Are you sure you want to delete this user?",
+			// footer: '<a href="https://mk-saadi.web.app/" target="_blank" >Not sure what to do?</a>',
+		});
+		if (isConfirm) {
+			showToast({ type: "success", message: "user deleted!" });
+		}
 	};
+	// showToast(
+	// 	"success",
+	// 	"Something went wrong!",
+	// 	'<a href="https://mk-saadi.web.app/" target="_blank">Why do I have this issue?</a>'
+	// );
+	// ('<a href="https://mk-saadi.web.app/">Why do I have this issue?</a>');
 
 	return (
 		<>

@@ -1,10 +1,9 @@
 import { createContext, useState, useContext } from "react";
-import { Fade } from "react-awesome-reveal";
+import { Fade, Slide } from "react-awesome-reveal";
 import { BsFillInfoSquareFill } from "react-icons/bs";
 import { TbAlertSquareFilled } from "react-icons/tb";
 import { IoCheckbox } from "react-icons/io5";
 import { BiLoaderCircle } from "react-icons/bi";
-import { X } from "lucide-react";
 const ToastContext = createContext();
 
 export const useToast = () => useContext(ToastContext);
@@ -13,13 +12,16 @@ export const ToastProvider = ({ children }) => {
 	const [toastType, setToastType] = useState("");
 	const [toastMessage, setToastMessage] = useState("");
 	const [confirmResolve, setConfirmResolve] = useState(null);
+	const [toastTimeout, setToastTimeout] = useState(null);
+	const [toastFooter, setToastFooter] = useState(null);
 
-	// const showToast = (type, message) => {
+	// const showToast = (type, message, footer = null) => {
 	// 	setToastType(type);
 	// 	setToastMessage(message);
+	// 	setToastFooter(footer);
 
 	// 	if (type === "success" || type === "error" || type === "info") {
-	// 		setTimeout(() => hideToast(), 3000);
+	// 		setToastTimeout(setTimeout(() => hideToast(), 3000));
 	// 	}
 	// 	if (type === "confirm") {
 	// 		return new Promise((resolve) => {
@@ -28,13 +30,14 @@ export const ToastProvider = ({ children }) => {
 	// 	}
 	// };
 
-	const [toastFooter, setToastFooter] = useState(null);
-	const showToast = (type, message, footer = null) => {
+	const showToast = (toast) => {
+		const { type, message, footer = null } = toast;
 		setToastType(type);
 		setToastMessage(message);
 		setToastFooter(footer);
+
 		if (type === "success" || type === "error" || type === "info") {
-			setTimeout(() => hideToast(), 3000);
+			setToastTimeout(setTimeout(() => hideToast(), 3000));
 		}
 		if (type === "confirm") {
 			return new Promise((resolve) => {
@@ -46,6 +49,7 @@ export const ToastProvider = ({ children }) => {
 	const hideToast = () => {
 		setToastType("");
 		setToastMessage("");
+		clearTimeout(toastTimeout);
 	};
 
 	const handleConfirm = () => {
@@ -84,18 +88,28 @@ export const ToastProvider = ({ children }) => {
 			<>
 				{children}
 				{toastType && (
-					<Fade
+					<Slide
 						direction="down"
-						className="fixed z-50 flex justify-start w-full transform toast-animation md:justify-center left:4 md:left:auto bottom-6 md:bottom-auto md:right-0 md:-translate-x-1/2 md:top-5"
+						className="fixed z-50 flex justify-center w-full transform toast-animation md:justify-center left:4 md:left:auto top-4 md:bottom-auto md:right-0 md:-translate-x-1/2 md:top-5"
 						style={{ zIndex: "999999" }}
 					>
 						<div
 							className={`flex flex-col bg-white  rounded-md shadow-md drop-shadow-md  ${toastClasses[toastType]}`}
+							onMouseEnter={() => {
+								if (toastType !== "confirm" && toastType !== "infoStay") {
+									clearTimeout(toastTimeout);
+								}
+							}}
+							onMouseLeave={() => {
+								if (toastType !== "confirm" && toastType !== "infoStay") {
+									setToastTimeout(setTimeout(() => hideToast(), 1000));
+								}
+							}}
 						>
-							<div className="select-none font-semibold md:px-3 md:py-2.5  px-2 py-1">
-								<div className="flex items-center justify-center gap-x-6">
+							<div className=" font-semibold md:px-12 md:py-2.5  px-2.5 py-1">
+								<div className="flex flex-col items-center justify-center gap-y-3">
 									<div className="">
-										<p className="flex flex-row items-center justify-center text-sm font-semibold gap-x-4 md:text-lg">
+										<p className="flex flex-row items-center justify-center text-sm font-semibold gap-x-4 md:text-base lg:text-lg">
 											<span className="text-lg md:text-2xl">
 												{iconComponent[toastType]}
 											</span>
@@ -103,25 +117,25 @@ export const ToastProvider = ({ children }) => {
 										</p>
 									</div>
 
-									<div className="mt-1 text-red-400">
-										<button onClick={hideToast}>
-											<X />
-										</button>
-									</div>
+									{toastType !== "confirm" && (
+										<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
+											<button onClick={hideToast}>Close</button>
+										</div>
+									)}
 								</div>
 
-								{/* if toast is "confirm" type */}
+								{/* if toast is "confirm" type then show these two buttons */}
 								<>
 									{toastType === "confirm" && (
-										<div className="flex justify-center mt-2">
+										<div className="flex justify-center mt-4 font-semibold text-gray-800 gap-x-3">
 											<button
-												className="px-4 py-2 text-sm font-medium text-white bg-gray-400 rounded-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+												className="px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-1 rounded-md shadow-sm"
 												onClick={handleCancel}
 											>
 												Cancel
 											</button>
 											<button
-												className="px-4 py-2 ml-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+												className="px-2.5 mt-1 duration-200 bg-sky-200 hover:bg-sky-300/70 py-1 rounded-md shadow-sm"
 												onClick={handleConfirm}
 											>
 												Confirm
@@ -135,13 +149,13 @@ export const ToastProvider = ({ children }) => {
 								{/* footer if it exist */}
 								{toastFooter && (
 									<div
-										className="flex justify-center py-1.5 underline border-t text-sky-500"
+										className="flex justify-center py-1.5 underline border-t border-gray-400/60 text-sky-500"
 										dangerouslySetInnerHTML={{ __html: toastFooter }}
 									></div>
 								)}
 							</div>
 						</div>
-					</Fade>
+					</Slide>
 				)}
 			</>
 		</ToastContext.Provider>
