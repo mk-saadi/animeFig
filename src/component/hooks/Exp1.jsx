@@ -57,6 +57,16 @@ export const ToastProvider = ({ children }) => {
 		confirm: "border-2 border-gray-700 text-gray-700",
 	};
 
+
+	const toastClassesBackground = {
+		bgWhite: "bg-white border-[1px] border-gray-700",
+		bgError: "bg-[#ff4444] border-[1px] border-[#a16c46] ",
+		bgLoading: "bg-[#ff4444] border-[1px] border-[#a16c46] ",
+		bgInfo: "bg-[#4285F4] border-[1px] border-[#0d47a1] ",
+		bgInfoStay: "bg-[#4285F4] border-[1px] border-[#0d47a1] ",
+		bgConfirm: "bg-[#ff4444] border-[1px] border-[#a16c46] ",
+	};
+
 	const iconComponent = {
 		success: <IoCheckbox />,
 		error: <TbAlertSquareFilled />,
