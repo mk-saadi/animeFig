@@ -46,7 +46,7 @@ const AddToys = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.insertedId) {
-					toast.success("Your new booking was successfully added.", {
+					toast.success("Figure successfully added!", {
 						position: "top-center",
 						autoClose: 4000,
 						hideProgressBar: false,
