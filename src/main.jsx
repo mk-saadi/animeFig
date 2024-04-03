@@ -20,6 +20,8 @@ import Categories from "./component/category/Categories";
 import Exp from "./component/hooks/Exp";
 import { CartProvider } from "./component/provider/CartProvider";
 import { ToastProvider } from "./component/hooks/ToastProvider";
+// import { ToastProvider } from "../../../react-toast-master-demo/src/ToastProvider";
+// import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
 	{
@@ -30,8 +32,8 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
-				// loader: () => fetch(`${import.meta.env.VITE_URL}/figures`),
-				loader: () => fetch("http://localhost:3000/figures"),
+				loader: () => fetch(`${import.meta.env.VITE_URL}/figures`),
+				// loader: () => fetch("http://localhost:3000/figures"),
 			},
 			{
 				path: "/login",
@@ -48,7 +50,7 @@ const router = createBrowserRouter([
 						<FiguresD />
 					</PrivateRoute>
 				),
-				loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
+				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
 			},
 			{
 				path: "/products/:id",
@@ -57,7 +59,7 @@ const router = createBrowserRouter([
 						<Products />
 					</PrivateRoute>
 				),
-				loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
+				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
 			},
 			{
 				path: "/allToys",
@@ -96,7 +98,7 @@ const router = createBrowserRouter([
 						<EditMyToys />
 					</PrivateRoute>
 				),
-				loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/addedFigure/${params.id}`),
+				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/addedFigure/${params.id}`),
 			},
 			{
 				path: "/category",
@@ -105,7 +107,7 @@ const router = createBrowserRouter([
 			{
 				path: "/exp",
 				element: <Exp />,
-				loader: () => fetch("http://localhost:3000/totalAddedFigure"),
+				// loader: () => fetch("http://localhost:3000/totalAddedFigure"),
 			},
 		],
 	},

@@ -6,8 +6,7 @@ const CartContext = createContext();
 const cartReducer = (state, action) => {
 	switch (action.type) {
 		case "ADD_TO_CART": {
-			const { figId } = action.payload; // not getting figId
-			console.log("figId: ", figId); // result: figId:  undefined
+			const { figId } = action.payload;
 
 			const existingProductIndex = state.cartItems.findIndex((item) => item.figId === figId);
 

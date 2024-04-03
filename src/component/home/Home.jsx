@@ -10,8 +10,8 @@ import axios from "axios";
 
 const Home = () => {
 	const figures = useLoaderData();
+	console.log("figures: ", figures);
 	const [showFig, setFig] = useState([]);
-	console.log("showFig: ", showFig);
 	const [banner, setBanner] = useState([]);
 
 	useTitle("Home");

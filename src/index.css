@@ -5,5 +5,7 @@
 	color: rgb(8, 8, 8);
 	background-color: rgb(111, 196, 249);
 }
-
+body {
+	font-family: "jetBrains mono";
+}
 /* .toast-animation{} */

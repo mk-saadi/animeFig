@@ -8,6 +8,7 @@ import imageCompression from "browser-image-compression";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
 	const { newUser, updateProfileInfo } = useContext(AuthContext);
@@ -160,8 +161,8 @@ const Register = () => {
 	};
 
 	return (
-		<div className="min-h-screen hero">
-			<div className="flex-shrink-0 w-full max-w-sm shadow-2xl card">
+		<div className="min-h-screen py-10 hero">
+			<div className="flex-shrink-0 w-full max-w-md bg-white shadow-xl card">
 				<form
 					onSubmit={handleRegister}
 					className="card-body"
@@ -257,17 +258,37 @@ const Register = () => {
 							placeholder="your password"
 							className="text-gray-600 bg-white input input-bordered"
 						/>
-						<label className="label">
-							<p
-								href="#"
-								className="text-sm"
+					</div>
+					{/* <label className="label">
+						<p
+							href="#"
+							className="text-sm"
+						>
+							Accept our{" "}
+							<span className="text-sm label-text-alt link link-hover">
+								terms and conditions
+							</span>
+						</p>
+					</label> */}
+					<div className="bg-[#42486a]">
+						<p className="text-sm font-medium text-gray-400">Password</p>
+						<div className="flex">
+							<input
+								id="inputForm"
+								name="password"
+								autoComplete="off"
+								required
+								type={showPassword ? "text" : "password"}
+							/>
+
+							<button
+								type="button"
+								onClick={handleTogglePassword}
+								className="text-gray-300 outline-none"
 							>
-								Accept our{" "}
-								<span className="text-sm label-text-alt link link-hover">
-									terms and conditions
-								</span>
-							</p>
-						</label>
+								{showPassword ? <EyeOff /> : <Eye />}
+							</button>
+						</div>
 					</div>
 					<div className="mt-6 form-control">
 						<input

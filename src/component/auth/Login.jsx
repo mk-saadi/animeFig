@@ -22,7 +22,7 @@ const Login = () => {
 		if (password.length < 6) {
 			toast.error("password must be at least 6 characters long!", {
 				position: "top-center",
-				autoClose: 3000,
+				autoClose: 30000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
@@ -66,13 +66,13 @@ const Login = () => {
 	};
 
 	return (
-		<div className="hero min-h-screen">
-			<div className="card flex-shrink-0 w-full max-w-sm shadow-2xl">
+		<div className="min-h-screen hero">
+			<div className="flex-shrink-0 w-full max-w-sm shadow-2xl card">
 				<form
 					onSubmit={handleLogin}
 					className="card-body"
 				>
-					<h2 className="text-5xl font-bold text-center text-error mb-10">Login!</h2>
+					<h2 className="mb-10 text-5xl font-bold text-center text-error">Login!</h2>
 					<div className="form-control">
 						<label className="label">
 							<span className="label-text">Email</span>
@@ -81,7 +81,7 @@ const Login = () => {
 							type="email"
 							name="email"
 							placeholder="email"
-							className="input input-bordered bg-white text-gray-600"
+							className="text-gray-600 bg-white input input-bordered"
 						/>
 					</div>
 					<div className="form-control">
@@ -92,7 +92,7 @@ const Login = () => {
 							type="password"
 							name="password"
 							placeholder="password"
-							className="input input-bordered bg-white text-gray-600"
+							className="text-gray-600 bg-white input input-bordered"
 						/>
 						<label className="label">
 							<a
@@ -103,15 +103,25 @@ const Login = () => {
 							</a>
 						</label>
 					</div>
-					<div className="form-control mt-6">
+					{/* <div className="mt-6 form-control">
 						<input
 							type="submit"
 							value="Login"
-							className="btn btn-info rounded-sm text-white"
+							className="text-white rounded-sm btn btn-info"
+						/>
+					</div> */}
+					<div className="relative flex items-center justify-center px-8 py-1 mt-6 overflow-hidden text-lg font-bold duration-300 bg-gray-900 border-2 border-yellow-500 rounded-md shadow-lg cursor-pointer form-control shadow-amber-800 group hover:scale-105 hover:shadow-amber-800 hover:shadow-xl active:scale-95 focus:border-white">
+						<span className="text-white duration-300 cursor-pointer group-hover:-translate-y-10 whitespace-nowrap">
+							Login
+						</span>
+						<input
+							type="submit"
+							value="Login"
+							className="absolute py-2 text-gray-900 duration-300 translate-y-10 bg-white cursor-pointer px-44 group-hover:translate-y-0 whitespace-nowrap"
 						/>
 					</div>
-					<div className="flex justify-center items-center mt-8">
-						<p className=" flex gap-2">
+					<div className="flex items-center justify-center mt-8">
+						<p className="flex gap-2 ">
 							New To AnimeFig?
 							<Link
 								className="flex justify-around link link-error"
