@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingBag, X } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 
-export default function Example() {
+const Cart = () => {
 	const [open, setOpen] = useState(false);
 
 	const { cartItems } = useCart();
@@ -18,14 +18,14 @@ export default function Example() {
 	// console.log("allQuantity: ", allQuantity);
 
 	const handleRemove = (productId) => {
-		const storedCartItems = JSON.parse(localStorage.getItem("cartItemsInnovation")) || [];
+		const storedCartItems = JSON.parse(localStorage.getItem("cartItems-animeFig")) || [];
 
 		const itemIndexToRemove = storedCartItems.findIndex((item) => item.productId === productId);
 
 		if (itemIndexToRemove !== -1) {
 			storedCartItems.splice(itemIndexToRemove, 1);
 
-			localStorage.setItem("cartItemsInnovation", JSON.stringify(storedCartItems));
+			localStorage.setItem("cartItems-animeFig", JSON.stringify(storedCartItems));
 
 			// Dispatch the REMOVE_FROM_CART action to update the state
 			dispatch({ type: "REMOVE_FROM_CART", payload: productId });
@@ -203,4 +203,5 @@ export default function Example() {
 			</Transition.Root>
 		</>
 	);
-}
+};
+export default Cart;
