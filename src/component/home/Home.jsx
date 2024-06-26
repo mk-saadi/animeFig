@@ -47,11 +47,11 @@ const Home = () => {
 
 	return (
 		<>
-			<header className="relative h-screen mx-3 sm:mx-20 mt-14">
+			<header className="relative h-[36rem] mx-3 sm:mx-20 mt-14">
 				<img
 					src={image}
 					alt=""
-					className="object-cover w-full rounded-md shadow-lg h-5/6 sm:h-screen"
+					className="object-cover w-full rounded-md shadow-lg h-5/6 sm:h-[36rem]"
 				/>
 				<div className="flex justify-center gap-2 absolute bottom-0 w-full rounded-md bg-gradient-to-t from-[#000] to-[rgba(21,21,21,0)] shadow-lg">
 					{banner.map((banner) => (
