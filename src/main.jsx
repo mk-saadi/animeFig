@@ -19,8 +19,9 @@ import ErrorPage from "./component/errorPage/ErrorPage";
 import Categories from "./component/category/Categories";
 import Exp from "./component/hooks/Exp";
 import { CartProvider } from "./component/provider/CartProvider";
-import { ToastProvider } from "./component/hooks/ToastProvider";
-// import { ToastProvider } from "../../../react-toast-master-demo/src/ToastProvider";
+// import { ToastProvider } from "./component/hooks/ToastProvider";
+import { ToastProvider } from "react-toast-master";
+import AuthContainer from "./component/auth/AuthContainer";
 // import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
@@ -35,14 +36,7 @@ const router = createBrowserRouter([
 				// loader: () => fetch(`${import.meta.env.VITE_URL}/figures`),
 				loader: () => fetch("http://localhost:3000/figures"),
 			},
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/register",
-				element: <Register />,
-			},
+
 			{
 				path: "/figures/:id",
 				element: (
@@ -108,6 +102,20 @@ const router = createBrowserRouter([
 				path: "/exp",
 				element: <Exp />,
 				// loader: () => fetch("http://localhost:3000/totalAddedFigure"),
+			},
+		],
+	},
+	{
+		path: "/auth",
+		element: <AuthContainer />,
+		children: [
+			{
+				path: "login",
+				element: <Login />,
+			},
+			{
+				path: "register",
+				element: <Register />,
 			},
 		],
 	},

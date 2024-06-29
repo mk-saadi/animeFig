@@ -9,10 +9,13 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useToast } from "react-toast-master";
+import Button from "../hooks/Button";
 
 const Register = () => {
 	const { newUser, updateProfileInfo } = useContext(AuthContext);
 	const navigate = useNavigate();
+	const { toastMaster, hideToast } = useToast();
 
 	useTitle("register");
 
@@ -26,14 +29,20 @@ const Register = () => {
 		const password = form.password.value;
 
 		if (password.length < 6) {
-			toast.error("password must be at least 6 characters long!", {
-				position: "top-center",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
+			// toast.error("password must be at least 6 characters long!", {
+			// 	position: "top-center",
+			// 	autoClose: 3000,
+			// 	hideProgressBar: false,
+			// 	closeOnClick: true,
+			// 	pauseOnHover: true,
+			// 	draggable: true,
+			// 	progress: undefined,
+			// });
+
+			toastMaster({
+				type: "errorWhite",
+				message: "password must be at least 6 characters long!",
+				bg: "error",
 			});
 			return;
 		}
@@ -290,11 +299,11 @@ const Register = () => {
 							</button>
 						</div>
 					</div>
-					<div className="mt-6 form-control">
-						<input
+					<div className="w-full mt-6 form-control">
+						<Button
 							type="submit"
-							value="Register"
-							className="text-white rounded-sm btn btn-info"
+							span1="Login?"
+							span2="Login"
 						/>
 					</div>
 					<div className="flex items-center justify-center mt-8">
