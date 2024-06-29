@@ -8,4 +8,10 @@
 body {
 	font-family: "jetBrains mono";
 }
-/* .toast-animation{} */
+
+.loginActive a.active {
+	color: rgb(111, 196, 249);
+	border-bottom: 1px solid rgb(185, 185, 185);
+	padding: 0.5rem 0rem;
+	background-color: #4f5d72;
+}

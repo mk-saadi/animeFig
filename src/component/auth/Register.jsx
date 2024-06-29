@@ -170,13 +170,12 @@ const Register = () => {
 	};
 
 	return (
-		<div className="min-h-screen py-10 hero">
-			<div className="flex-shrink-0 w-full max-w-md bg-white shadow-xl card">
+		<div className="py-10 hero">
+			<div className="flex-shrink-0 w-full bg-white shadow-xl min-w-96 md card">
 				<form
 					onSubmit={handleRegister}
 					className="card-body"
 				>
-					<h2 className="mb-10 text-5xl font-bold text-center text-error">Register!</h2>
 					<div className="form-control">
 						<label className="label">
 							<span className="label-text">Name</span>
