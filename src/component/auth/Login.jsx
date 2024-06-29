@@ -24,25 +24,30 @@ const Login = () => {
 		const email = form.email.value;
 		const password = form.password.value;
 
+		if (!email) {
+			return toastMaster({
+				transition: "down",
+				type: "errorWhite",
+				message: "Kindly enter your email!",
+				bg: "gray",
+			});
+		}
 		if (password.length < 6) {
-			toastMaster({
-				radius: "none",
+			return toastMaster({
 				transition: "down",
 				type: "errorWhite",
 				message: "password must be at least 6 characters long!",
-				bg: "warning",
+				bg: "gray",
 			});
-			return;
 		}
 
 		form.reset();
 
 		toastMaster({
-			radius: "none",
-			transition: "fade",
+			transition: "down",
 			type: "loadingWhite",
 			message: "Logging in...",
-			bg: "warning",
+			bg: "gray",
 		});
 
 		try {
@@ -51,30 +56,27 @@ const Login = () => {
 			navigate(from, { replace: true });
 			if (user.uid) {
 				toastMaster({
-					radius: "none",
-					transition: "fade",
+					transition: "down",
 					type: "successWhite",
 					message: "Successfully Logged In",
-					bg: "success",
+					bg: "gray",
 				});
 			}
 		} catch (error) {
-			console.log("error: ", error);
 			toastMaster({
-				radius: "none",
-				transition: "fade",
+				transition: "down",
 				type: "errorWhite",
 				message: "Login Failed",
-				bg: "error",
+				bg: "gray",
 			});
 		}
 	};
 
 	return (
-		<div className="flex flex-col hero min-w-96">
+		<div className="flex flex-col hero min-w-[28rem]">
 			<form
 				onSubmit={handleLogin}
-				className="flex flex-col w-full px-4 py-6 rounded-md shadow-md gap-y-4"
+				className="flex flex-col w-full px-4 py-12 rounded-md shadow-md gap-y-4"
 			>
 				<InputField
 					label="Your Email"

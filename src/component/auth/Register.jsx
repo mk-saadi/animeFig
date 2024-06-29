@@ -8,9 +8,11 @@ import imageCompression from "browser-image-compression";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ImagePlus } from "lucide-react";
 import { useToast } from "react-toast-master";
 import Button from "../hooks/Button";
+import InputField from "../hooks/InputField";
+import PasswordInputField from "../hooks/PasswordInputField";
 
 const Register = () => {
 	const { newUser, updateProfileInfo } = useContext(AuthContext);
@@ -164,160 +166,89 @@ const Register = () => {
 		}
 	};
 
-	const [showPassword, setShowPassword] = useState(false);
-	const handleTogglePassword = () => {
-		setShowPassword(!showPassword);
-	};
-
 	return (
-		<div className="py-10 hero">
-			<div className="flex-shrink-0 w-full bg-white shadow-xl min-w-96 md card">
-				<form
-					onSubmit={handleRegister}
-					className="card-body"
-				>
-					<div className="form-control">
-						<label className="label">
-							<span className="label-text">Name</span>
-						</label>
-						<input
-							type="text"
-							name="name"
-							required
-							placeholder="your name"
-							className="text-gray-600 bg-white input input-bordered"
-						/>
-					</div>
+		<div className="flex flex-col hero min-w-[28rem]">
+			<form
+				onSubmit={handleRegister}
+				className="flex flex-col w-full px-4 py-12 rounded-md shadow-md gap-y-4"
+			>
+				<InputField
+					label="Your Name"
+					type="text"
+					id="name"
+					name="name"
+				/>
 
-					{/* <div className="form-control">
-						<label className="label">
-							<span className="label-text">Profile</span>
-						</label>
-						<input
-							name="profile"
-							type="file"
-							required
-							className="w-full max-w-xs file-input file-input-bordered file-input-error"
-						/>
-					</div> */}
-					<div
-						className="bg-[#42486a]"
-						id="parag"
-						tabIndex={1}
+				<div className="flex flex-col w-full gap-y-1.5">
+					<label
+						htmlFor="image"
+						className="text-sm font-medium text-gray-500"
 					>
-						<p className="text-sm font-medium text-gray-400">Your Photo</p>
+						Upload photo
+					</label>
 
-						{selectedFile ? (
-							<label
-								htmlFor="inputFormPic"
-								className="flex gap-2 text-gray-300 cursor-pointer"
-							>
-								{imagePreview && (
-									<img
-										id="preview-image"
-										src={imagePreview}
-										alt="Image preview"
-										className="object-cover rounded-full w-7 h-7"
-									/>
-								)}
-								{selectedFile.name.length > 25
-									? `${selectedFile.name.slice(0, 25)}...`
-									: selectedFile.name}
-							</label>
-						) : (
-							<label
-								htmlFor="inputFormPic"
-								className="flex items-center justify-start text-gray-300 cursor-pointer gap-x-2"
-							>
-								{/* <ImagePlus /> */}
-								Upload photo
-							</label>
-						)}
-						<input
-							type="file"
-							id="inputFormPic"
-							name="image"
-							accept="image/*"
-							onChange={handleChange}
-							style={{ display: "none" }}
-						/>
-					</div>
-
-					<div className="form-control">
-						<label className="label">
-							<span className="label-text">Email</span>
-						</label>
-						<input
-							type="email"
-							name="email"
-							required
-							placeholder="your email"
-							className="text-gray-600 bg-white input input-bordered"
-						/>
-					</div>
-					<div className="form-control">
-						<label className="label">
-							<span className="label-text">Password</span>
-						</label>
-						<input
-							type="password"
-							name="password"
-							required
-							placeholder="your password"
-							className="text-gray-600 bg-white input input-bordered"
-						/>
-					</div>
-					{/* <label className="label">
-						<p
-							href="#"
-							className="text-sm"
+					{selectedFile ? (
+						<label
+							htmlFor="inputFormPic"
+							className="flex gap-x-4 justify-start items-center px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none cursor-pointer shadow-md"
 						>
-							Accept our{" "}
-							<span className="text-sm label-text-alt link link-hover">
-								terms and conditions
-							</span>
-						</p>
-					</label> */}
-					<div className="bg-[#42486a]">
-						<p className="text-sm font-medium text-gray-400">Password</p>
-						<div className="flex">
-							<input
-								id="inputForm"
-								name="password"
-								autoComplete="off"
-								required
-								type={showPassword ? "text" : "password"}
-							/>
+							{imagePreview && (
+								<img
+									id="preview-image"
+									src={imagePreview}
+									alt="Image preview"
+									className="object-cover rounded-md w-14 h-7"
+								/>
+							)}
+							{selectedFile.name.length > 25
+								? `${selectedFile.name.slice(0, 25)}...`
+								: selectedFile.name}
+						</label>
+					) : (
+						<label
+							htmlFor="inputFormPic"
+							className="px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none shadow-md cursor-pointer"
+							// className="flex items-center justify-start text-gray-300 cursor-pointer gap-x-2"
+						>
+							<ImagePlus />
+						</label>
+					)}
+					<input
+						type="file"
+						id="inputFormPic"
+						name="profile"
+						accept="image/*"
+						onChange={handleChange}
+						style={{ display: "none" }}
+						// className="px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none shadow-md"
+					/>
+				</div>
 
-							<button
-								type="button"
-								onClick={handleTogglePassword}
-								className="text-gray-300 outline-none"
-							>
-								{showPassword ? <EyeOff /> : <Eye />}
-							</button>
-						</div>
-					</div>
-					<div className="w-full mt-6 form-control">
-						<Button
-							type="submit"
-							span1="Login?"
-							span2="Login"
-						/>
-					</div>
-					<div className="flex items-center justify-center mt-8">
-						<p className="flex gap-2 ">
-							Already Have An Account
-							<Link
-								className="flex justify-around link link-error"
-								to="/login"
-							>
-								Login Now
-							</Link>
-						</p>
-					</div>
-				</form>
-			</div>
+				<InputField
+					label="Your Email"
+					type="email"
+					id="email"
+					name="email"
+				/>
+
+				<PasswordInputField
+					label="Your Password"
+					id="password"
+					name="password"
+				/>
+
+				<PasswordInputField
+					label="Confirm Password"
+					id="confirmPassword"
+					name="confirmPassword"
+				/>
+
+				<Button
+					type="submit"
+					span1="Login?"
+					span2="Login"
+				/>
+			</form>
 		</div>
 	);
 };

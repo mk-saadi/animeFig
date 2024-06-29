@@ -5,7 +5,7 @@ const Button = ({ type, span1, span2 }) => {
 				{span1}
 			</span>
 			<button
-				className="absolute py-2 text-gray-900 duration-300 translate-y-10 bg-white cursor-pointer px-44 group-hover:translate-y-0 whitespace-nowrap"
+				className="absolute px-48 py-2 text-gray-900 duration-300 translate-y-10 bg-white cursor-pointer group-hover:translate-y-0 whitespace-nowrap"
 				type={type}
 			>
 				{span2}
