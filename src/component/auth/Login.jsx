@@ -27,17 +27,17 @@ const Login = () => {
 		if (!email) {
 			return toastMaster({
 				transition: "down",
-				type: "errorWhite",
+				type: "error",
 				message: "Kindly enter your email!",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 		if (password.length < 6) {
 			return toastMaster({
 				transition: "down",
-				type: "errorWhite",
+				type: "error",
 				message: "password must be at least 6 characters long!",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 
@@ -45,9 +45,9 @@ const Login = () => {
 
 		toastMaster({
 			transition: "down",
-			type: "loadingWhite",
+			type: "loading",
 			message: "Logging in...",
-			bg: "gray",
+			bg: "white",
 		});
 
 		try {
@@ -57,17 +57,18 @@ const Login = () => {
 			if (user.uid) {
 				toastMaster({
 					transition: "down",
-					type: "successWhite",
+					type: "success",
 					message: "Successfully Logged In",
-					bg: "gray",
+					bg: "white",
 				});
 			}
 		} catch (error) {
+			console.log("error: ", error);
 			toastMaster({
 				transition: "down",
-				type: "errorWhite",
+				type: "error",
 				message: "Login Failed",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 	};
@@ -76,7 +77,7 @@ const Login = () => {
 		<div className="flex flex-col hero min-w-[28rem]">
 			<form
 				onSubmit={handleLogin}
-				className="flex flex-col w-full px-4 py-12 rounded-md shadow-md gap-y-4"
+				className="flex flex-col w-full px-4 pt-8 pb-12 rounded-md shadow-md gap-y-4"
 			>
 				<InputField
 					label="Your Email"
@@ -84,16 +85,16 @@ const Login = () => {
 					id="email"
 					name="email"
 				/>
-				<div>
+				<>
 					<PasswordInputField
 						label="Your Password"
 						id="password"
 						name="password"
 					/>
-					<p className="mt-2 font-medium text-gray-500 cursor-pointer hover:underline w-fit">
+					<p className="mt-1 font-medium cursor-pointer text-white-500 hover:underline w-fit">
 						<small>Forgot Password?</small>
 					</p>
-				</div>
+				</>
 
 				<Button
 					type="submit"

@@ -22,6 +22,7 @@ const PasswordInputField = ({ label, id, name }) => {
 					id={id}
 					name={name}
 					className="px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none shadow-md"
+					required
 				/>
 				<button
 					type="button"
