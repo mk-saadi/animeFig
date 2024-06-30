@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import { storage } from "../../firebase/firebase.config";
@@ -26,6 +26,103 @@ const Register = () => {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [imagePreview, setImagePreview] = useState(null);
 
+	const handleChange = (event) => {
+		if (event.target.files.length > 0) {
+			const file = event.target.files[0];
+			setSelectedFile(file);
+			const imageUrl = URL.createObjectURL(file);
+			setImagePreview(imageUrl);
+		}
+	};
+
+	// const handleRegister = async (event) => {
+	// 	event.preventDefault();
+
+	// 	const form = event.target;
+	// 	const name = form.name.value;
+	// 	const image = form.image.files[0];
+	// 	const email = form.email.value;
+	// 	const password = form.password.value;
+	// 	const confirmPassword = form.confirmPassword.value;
+
+	// 	if (password.length < 6) {
+	// 		return;
+	// 	}
+	// 	if (!image) {
+	// 		alert("Profile image is required.");
+	// 		return;
+	// 	}
+
+	// 	if (password !== confirmPassword) {
+	// 		return;
+	// 	}
+
+	// 	form.reset();
+
+	// 	const options = {
+	// 		maxSizeMB: 0.06,
+	// 		maxWidthOrHeight: 800,
+	// 		useWebWorker: true,
+	// 	};
+
+	// 	try {
+	// 		const compressedImage = await imageCompression(image, options);
+	// 		const blob = await imageCompression.getFilefromDataUrl(
+	// 			await imageCompression.getDataUrlFromFile(compressedImage),
+	// 			image.type
+	// 		);
+
+	// 		const res = await newUser(email, password);
+	// 		if (res.user) {
+	// 			const userId = res.user.uid;
+	// 			const fileName = encodeURIComponent(image.name);
+	// 			const storageRef = ref(storage, `users/${userId}/profileImages/${fileName}`);
+	// 			const uploadTask = uploadBytesResumable(storageRef, blob);
+
+	// 			uploadTask.on(
+	// 				"state_changed",
+	// 				(snapshot) => {
+	// 					console.log(
+	// 						"Upload is " + (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + "% done"
+	// 					);
+	// 				},
+	// 				(error) => {
+	// 					console.error("Upload error: ", error.message);
+	// 				},
+	// 				async () => {
+	// 					const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+	// 					const userDocument = {
+	// 						photo: downloadURL,
+	// 						name: name,
+	// 						email: email,
+	// 						registrationDate: new Date(),
+	// 						role: "general-user",
+	// 					};
+	// 					await updateProfileInfo(name, downloadURL);
+
+	// 					axios
+	// 						.post(`${import.meta.env.VITE_URL}/users`, userDocument)
+	// 						.then((response) => {
+	// 							if (response.data.acknowledged === true) {
+	// 								console.log("User document saved successfully");
+
+	// 								setTimeout(() => {
+	// 									navigate(from, { replace: true });
+	// 								}, 500);
+	// 							}
+	// 						})
+	// 						.catch((error) => {
+	// 							console.error("Error saving user document: ", error.message);
+	// 						});
+	// 				}
+	// 			);
+	// 		} else {
+	// 			console.log("User registration failed");
+	// 		}
+	// 	} catch (error) {
+	// 		console.error("Registration error: ", error.message);
+	// 	}
+	// };
 	const handleRegister = async (event) => {
 		event.preventDefault();
 
@@ -34,93 +131,104 @@ const Register = () => {
 		const image = form.image.files[0];
 		const email = form.email.value;
 		const password = form.password.value;
-		const confirmPassword = form.confirmPassword.value;
-
-		if (password.length < 6) {
-			return;
-		}
-		if (!image) {
-			alert("Profile image is required.");
-			return;
-		}
-
-		if (password !== confirmPassword) {
-			return;
-		}
 
 		form.reset();
 
 		const options = {
-			maxSizeMB: 0.05,
-			maxWidthOrHeight: 400,
+			maxSizeMB: 0.06,
+			maxWidthOrHeight: 800,
 			useWebWorker: true,
 		};
 
 		try {
 			const compressedImage = await imageCompression(image, options);
-			const blob = await imageCompression.getFilefromDataUrl(
-				await imageCompression.getDataUrlFromFile(compressedImage),
-				image.type
-			);
 
-			const res = await newUser(email, password);
-			if (res.user) {
-				const userId = res.user.uid;
-				const fileName = encodeURIComponent(image.name);
-				const storageRef = ref(storage, `users/${userId}/profileImages/${fileName}`);
-				const uploadTask = uploadBytesResumable(storageRef, blob);
+			const img = new Image();
+			img.src = URL.createObjectURL(compressedImage);
 
-				uploadTask.on(
-					"state_changed",
-					(snapshot) => {
-						console.log(
-							"Upload is " + (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + "% done"
-						);
-					},
-					(error) => {
-						console.error("Upload error: ", error.message);
-					},
-					async () => {
-						const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-						const userDocument = {
-							photo: downloadURL,
-							name: name,
-							email: email,
-							registrationDate: new Date(),
-							role: "general-user",
-						};
-						await updateProfileInfo(name, downloadURL);
+			const cropImage = (img) => {
+				const canvas = document.createElement("canvas");
+				const ctx = canvas.getContext("2d");
 
-						axios
-							.post(`${import.meta.env.VITE_URL}/users`, userDocument)
-							.then((response) => {
-								if (response.data.acknowledged === true) {
-									console.log("User document saved successfully");
+				const maxSize = 800;
+				const size = Math.min(maxSize, img.width, img.height);
 
-									setTimeout(() => {
-										navigate(from, { replace: true });
-									}, 500);
-								}
-							})
-							.catch((error) => {
-								console.error("Error saving user document: ", error.message);
-							});
-					}
+				canvas.width = size;
+				canvas.height = size;
+
+				ctx.drawImage(
+					img,
+					(img.width - size) / 2,
+					(img.height - size) / 2,
+					size,
+					size,
+					0,
+					0,
+					size,
+					size
 				);
-			} else {
-				console.log("User registration failed");
-			}
+
+				return canvas.toDataURL("image/jpeg");
+			};
+
+			img.onload = async () => {
+				const croppedDataURL = cropImage(img);
+
+				// Convert cropped data URL back to Blob for upload
+				const blob = await fetch(croppedDataURL).then((res) => res.blob());
+
+				const res = await newUser(email, password);
+				if (res.user) {
+					const userId = res.user.uid;
+					const fileName = encodeURIComponent(image.name);
+					const storageRef = ref(storage, `users/${userId}/profileImages/${fileName}`);
+					const uploadTask = uploadBytesResumable(storageRef, blob);
+
+					uploadTask.on(
+						"state_changed",
+						(snapshot) => {
+							console.log(
+								"Upload is " +
+									(snapshot.bytesTransferred / snapshot.totalBytes) * 100 +
+									"% done"
+							);
+						},
+						(error) => {
+							console.error("Upload error: ", error.message);
+						},
+						async () => {
+							const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+							const userDocument = {
+								photo: downloadURL,
+								name: name,
+								email: email,
+								registrationDate: new Date(),
+								role: "general-user",
+							};
+							await updateProfileInfo(name, downloadURL);
+
+							axios
+								.post(`${import.meta.env.VITE_URL}/users`, userDocument)
+								.then((response) => {
+									if (response.data.acknowledged === true) {
+										console.log("User document saved successfully");
+
+										setTimeout(() => {
+											navigate(from, { replace: true });
+										}, 500);
+									}
+								})
+								.catch((error) => {
+									console.error("Error saving user document: ", error.message);
+								});
+						}
+					);
+				} else {
+					console.log("User registration failed");
+				}
+			};
 		} catch (error) {
 			console.error("Registration error: ", error.message);
-		}
-	};
-
-	const handleChange = (event) => {
-		if (event.target.files.length > 0) {
-			const file = event.target.files[0];
-			setSelectedFile(file);
-			const imageUrl = URL.createObjectURL(file);
-			setImagePreview(imageUrl);
 		}
 	};
 
