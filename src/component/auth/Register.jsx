@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import { storage } from "../../firebase/firebase.config";
@@ -16,7 +16,7 @@ import PasswordInputField from "../hooks/PasswordInputField";
 const Register = () => {
 	const { newUser, updateProfileInfo } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const { toastMaster, hideToast } = useToast();
+	const { toastMaster } = useToast();
 	const location = useLocation();
 
 	useTitle("register");
@@ -35,94 +35,6 @@ const Register = () => {
 		}
 	};
 
-	// const handleRegister = async (event) => {
-	// 	event.preventDefault();
-
-	// 	const form = event.target;
-	// 	const name = form.name.value;
-	// 	const image = form.image.files[0];
-	// 	const email = form.email.value;
-	// 	const password = form.password.value;
-	// 	const confirmPassword = form.confirmPassword.value;
-
-	// 	if (password.length < 6) {
-	// 		return;
-	// 	}
-	// 	if (!image) {
-	// 		alert("Profile image is required.");
-	// 		return;
-	// 	}
-
-	// 	if (password !== confirmPassword) {
-	// 		return;
-	// 	}
-
-	// 	form.reset();
-
-	// 	const options = {
-	// 		maxSizeMB: 0.06,
-	// 		maxWidthOrHeight: 800,
-	// 		useWebWorker: true,
-	// 	};
-
-	// 	try {
-	// 		const compressedImage = await imageCompression(image, options);
-	// 		const blob = await imageCompression.getFilefromDataUrl(
-	// 			await imageCompression.getDataUrlFromFile(compressedImage),
-	// 			image.type
-	// 		);
-
-	// 		const res = await newUser(email, password);
-	// 		if (res.user) {
-	// 			const userId = res.user.uid;
-	// 			const fileName = encodeURIComponent(image.name);
-	// 			const storageRef = ref(storage, `users/${userId}/profileImages/${fileName}`);
-	// 			const uploadTask = uploadBytesResumable(storageRef, blob);
-
-	// 			uploadTask.on(
-	// 				"state_changed",
-	// 				(snapshot) => {
-	// 					console.log(
-	// 						"Upload is " + (snapshot.bytesTransferred / snapshot.totalBytes) * 100 + "% done"
-	// 					);
-	// 				},
-	// 				(error) => {
-	// 					console.error("Upload error: ", error.message);
-	// 				},
-	// 				async () => {
-	// 					const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-	// 					const userDocument = {
-	// 						photo: downloadURL,
-	// 						name: name,
-	// 						email: email,
-	// 						registrationDate: new Date(),
-	// 						role: "general-user",
-	// 					};
-	// 					await updateProfileInfo(name, downloadURL);
-
-	// 					axios
-	// 						.post(`${import.meta.env.VITE_URL}/users`, userDocument)
-	// 						.then((response) => {
-	// 							if (response.data.acknowledged === true) {
-	// 								console.log("User document saved successfully");
-
-	// 								setTimeout(() => {
-	// 									navigate(from, { replace: true });
-	// 								}, 500);
-	// 							}
-	// 						})
-	// 						.catch((error) => {
-	// 							console.error("Error saving user document: ", error.message);
-	// 						});
-	// 				}
-	// 			);
-	// 		} else {
-	// 			console.log("User registration failed");
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Registration error: ", error.message);
-	// 	}
-	// };
 	const handleRegister = async (event) => {
 		event.preventDefault();
 
@@ -131,6 +43,29 @@ const Register = () => {
 		const image = form.image.files[0];
 		const email = form.email.value;
 		const password = form.password.value;
+		const confirmPassword = form.confirmPassword.value;
+
+		if (password.length < 6) {
+			return toastMaster({
+				type: "error",
+				message: "password must be at least 6 characters long",
+				bg: "gray",
+			});
+		}
+		if (password !== confirmPassword) {
+			return toastMaster({
+				type: "error",
+				message: "Passwords do not match",
+				bg: "gray",
+			});
+		}
+		if (!image) {
+			return toastMaster({
+				type: "error",
+				message: "Please select an image",
+				bg: "gray",
+			});
+		}
 
 		form.reset();
 
@@ -139,6 +74,12 @@ const Register = () => {
 			maxWidthOrHeight: 800,
 			useWebWorker: true,
 		};
+
+		toastMaster({
+			type: "loading",
+			message: "Please wait...",
+			bg: "gray",
+		});
 
 		try {
 			const compressedImage = await imageCompression(image, options);
@@ -173,8 +114,6 @@ const Register = () => {
 
 			img.onload = async () => {
 				const croppedDataURL = cropImage(img);
-
-				// Convert cropped data URL back to Blob for upload
 				const blob = await fetch(croppedDataURL).then((res) => res.blob());
 
 				const res = await newUser(email, password);
@@ -211,7 +150,11 @@ const Register = () => {
 								.post(`${import.meta.env.VITE_URL}/users`, userDocument)
 								.then((response) => {
 									if (response.data.acknowledged === true) {
-										console.log("User document saved successfully");
+										toastMaster({
+											type: "success",
+											message: "Registration successful",
+											bg: "gray",
+										});
 
 										setTimeout(() => {
 											navigate(from, { replace: true });
@@ -219,16 +162,28 @@ const Register = () => {
 									}
 								})
 								.catch((error) => {
-									console.error("Error saving user document: ", error.message);
+									toastMaster({
+										type: "error",
+										message: "Registration failed",
+										bg: "gray",
+									});
 								});
 						}
 					);
 				} else {
-					console.log("User registration failed");
+					toastMaster({
+						type: "error",
+						message: "Registration failed",
+						bg: "gray",
+					});
 				}
 			};
 		} catch (error) {
-			console.error("Registration error: ", error.message);
+			toastMaster({
+				type: "error",
+				message: "Registration failed",
+				bg: "gray",
+			});
 		}
 	};
 
@@ -325,34 +280,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// newUser(email, password)
-// 	.then((res) => {
-// 		const user = res.user;
-// 		updateProfile(auth.currentUser, {
-// 			displayName: name,
-// 			photoURL: URL.createObjectURL(profile),
-// 		});
-// 		if (user.uid) {
-// 			toast.success("Account successfully created", {
-// 				position: "top-center",
-// 				autoClose: 4000,
-// 				hideProgressBar: false,
-// 				closeOnClick: true,
-// 				pauseOnHover: true,
-// 				draggable: true,
-// 				progress: undefined,
-// 			});
-// 		}
-// 	})
-// 	.catch((error) => {
-// 		toast.error(error.message, {
-// 			position: "top-center",
-// 			autoClose: 4000,
-// 			hideProgressBar: false,
-// 			closeOnClick: true,
-// 			pauseOnHover: true,
-// 			draggable: true,
-// 			progress: undefined,
-// 		});
-// 	});
