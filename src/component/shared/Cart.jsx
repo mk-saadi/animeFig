@@ -37,7 +37,7 @@ const Cart = () => {
 			<div>
 				<button
 					type="button"
-					className="relative flex items-center justify-start p-1 text-gray-400 bg-gray-800 rounded-full gap-x-px hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+					className="relative flex items-center justify-start p-1 text-gray-400 bg-transparent rounded-full gap-x-px hover:text-white focus:outline-none"
 					onClick={() => setOpen(true)}
 				>
 					<span className="absolute -inset-1.5" />
@@ -56,7 +56,7 @@ const Cart = () => {
 			>
 				<Dialog
 					as="div"
-					className="relative z-10"
+					className="relative z-50"
 					onClose={setOpen}
 				>
 					<Transition.Child

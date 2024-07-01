@@ -24,13 +24,14 @@ const Login = () => {
 		const email = form.email.value;
 		const password = form.password.value;
 
-		if (!email) {
-			return toastMaster({
+		if (email === "") {
+			toastMaster({
 				transition: "down",
 				type: "error",
-				message: "Kindly enter your email!",
+				message: "kindly enter your email!",
 				bg: "white",
 			});
+			return;
 		}
 		if (password.length < 6) {
 			return toastMaster({
@@ -63,7 +64,6 @@ const Login = () => {
 				});
 			}
 		} catch (error) {
-			console.log("error: ", error);
 			toastMaster({
 				transition: "down",
 				type: "error",

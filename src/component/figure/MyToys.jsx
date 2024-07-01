@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import MyToysD from "./MyToysD";
-import Swal from "sweetalert2";
 import useTitle from "../hooks/useWebTitle";
 import { useToast } from "../hooks/ToastProvider";
 import axios from "axios";

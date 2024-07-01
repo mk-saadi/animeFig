@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ label, type = "text", id, name }) => {
+const InputField = ({ label, type = "text", id, name, placeholder }) => {
 	return (
 		<div className="flex flex-col w-full gap-y-1.5">
 			<label
@@ -14,7 +14,7 @@ const InputField = ({ label, type = "text", id, name }) => {
 				id={id}
 				name={name}
 				className="px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none shadow-md"
-				required
+				placeholder={placeholder}
 			/>
 		</div>
 	);

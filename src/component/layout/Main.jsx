@@ -5,10 +5,10 @@ import { Toaster } from "react-hot-toast";
 
 const Main = () => {
 	return (
-		<div className="bg-gray-800">
+		<div className="bg-gray-100">
 			<Navbar />
 
-			<div>
+			<div className="pt-16">
 				<Outlet />
 			</div>
 			<Footer />

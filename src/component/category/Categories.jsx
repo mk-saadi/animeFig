@@ -41,7 +41,7 @@ const Categories = () => {
 					onCategorySelect={handleCategorySelect}
 				/>
 
-				<div className="grid grid-cols-2 mx-4 bg-gray-900 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:mx-20">
+				<div className="grid grid-cols-2 mx-4 bg-gray-200 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:mx-20">
 					{latestFigures.map((figS) => (
 						<CategoryD
 							key={figS._id}

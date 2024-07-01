@@ -35,9 +35,15 @@ const Register = () => {
 		}
 	};
 
+	/**
+	 * Handles the registration form submission.
+	 * @param {Event} event - The form submission event.
+	 * @returns {Promise<void>} - A promise that resolves when the registration is complete.
+	 */
 	const handleRegister = async (event) => {
 		event.preventDefault();
 
+		// Get form values
 		const form = event.target;
 		const name = form.name.value;
 		const image = form.image.files[0];
@@ -45,6 +51,16 @@ const Register = () => {
 		const password = form.password.value;
 		const confirmPassword = form.confirmPassword.value;
 
+		if (email === "") {
+			toastMaster({
+				transition: "down",
+				type: "error",
+				message: "kindly enter your email!",
+				bg: "white",
+			});
+			return;
+		}
+		// Validate password and confirm password
 		if (password.length < 6) {
 			return toastMaster({
 				type: "error",
@@ -69,6 +85,7 @@ const Register = () => {
 
 		form.reset();
 
+		// Compress image
 		const options = {
 			maxSizeMB: 0.06,
 			maxWidthOrHeight: 800,
@@ -84,6 +101,7 @@ const Register = () => {
 		try {
 			const compressedImage = await imageCompression(image, options);
 
+			// Crop and resize image
 			const img = new Image();
 			img.src = URL.createObjectURL(compressedImage);
 
@@ -112,6 +130,7 @@ const Register = () => {
 				return canvas.toDataURL("image/jpeg");
 			};
 
+			// Upload and register user
 			img.onload = async () => {
 				const croppedDataURL = cropImage(img);
 				const blob = await fetch(croppedDataURL).then((res) => res.blob());
@@ -146,6 +165,7 @@ const Register = () => {
 							};
 							await updateProfileInfo(name, downloadURL);
 
+							// Register user in the database
 							axios
 								.post(`${import.meta.env.VITE_URL}/users`, userDocument)
 								.then((response) => {
