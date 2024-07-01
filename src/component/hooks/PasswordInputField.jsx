@@ -21,13 +21,13 @@ const PasswordInputField = ({ label, id, name }) => {
 					type={showPassword ? "text" : "password"}
 					id={id}
 					name={name}
-					className="px-3 py-1.5 w-full rounded-md bg-slate-600 text-gray-100 placeholder:text-gray-400 focus:outline-none shadow-md"
+					className="w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-lg shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-nill"
 					required
 				/>
 				<button
 					type="button"
 					onClick={togglePasswordVisibility}
-					className="absolute p-1 text-gray-400 transform -translate-y-1/2 right-1 top-1/2 hover:text-gray-200 focus:outline-none"
+					className="absolute p-1 transform -translate-y-1/2 text-ash right-1 top-1/2 hover:text-nill focus:outline-none"
 				>
 					{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
 				</button>

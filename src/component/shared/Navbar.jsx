@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import img from "../../assets/img.png";
-import { useContext, useState, Fragment } from "react";
+import { useContext, useState, Fragment, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { X, Menu as MenuIcon, UserCircle, Search } from "lucide-react";
+import { X, Menu as MenuIcon, UserCircle, Search, Plus, User2, PartyPopper, DollarSign } from "lucide-react";
 import InputField from "../hooks/InputField";
 
 const navigation = [
@@ -32,6 +32,8 @@ const Navbar = () => {
 	console.log("user: ", user);
 	const [showUserName, setShowUserName] = useState(false);
 	const { cartItems, dispatch } = useCart();
+
+	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
 	const handleLogOut = () => {
 		logOut()
@@ -78,16 +80,93 @@ const Navbar = () => {
 	// 	</>
 	// );
 
+	const [isScrolled, setIsScrolled] = useState(false);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const topNavbarHeight = document.getElementById("top-navbar").offsetHeight;
+			if (window.scrollY > topNavbarHeight) {
+				setIsScrolled(true);
+			} else {
+				setIsScrolled(false);
+			}
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
 		<div className="w-full shadow-lg h-fit">
-			<div className="w-full h-12 ">
-				<p>first navbaer</p>
+			<div
+				id="top-navbar"
+				className={`bg-white overflow-hidden fixed w-full top-0 z-[30] h-[45px] transition-transform${
+					isScrolled ? "-translate-y-full" : "translate-y-0"
+				}`}
+			>
+				<div className="flex items-center justify-between h-full mx-8">
+					<Link
+						to="/"
+						className="flex items-center gap-x-1.5 justify-center"
+					>
+						<img
+							src={img}
+							alt="logo"
+							className="w-9 h-9"
+						/>
+						<h1 className="text-base text-ash">animeFig</h1>
+					</Link>
+					<div className="flex items-center justify-center gap-x-1.5 h-full">
+						<div className="text-sm font-medium text-ash">
+							<p className="flex gap-x-1.5 items-center justify-center">
+								<PartyPopper
+									size={20}
+									className="text-nill"
+								/>
+								Get free delivery on orders over $100
+								<PartyPopper
+									size={20}
+									className="text-nill"
+								/>
+							</p>
+						</div>
+						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+						<div className="flex items-center text-ash duration-300 justify-center gap-x-1.5 text-sm">
+							<Link
+								className="flex hover:text-nill items-center justify-center gap-x-1.5"
+								to="/auth/login"
+							>
+								<User2 size={20} /> Login
+							</Link>
+							<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+							<Link
+								className="flex hover:text-nill items-center justify-center gap-x-1.5"
+								to="/auth/register"
+							>
+								<Plus size={20} /> Create Account
+							</Link>
+						</div>
+						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+						{/* cart item below */}
+						<div className="-ml-1.5 flex justify-center items-center gap-x-1.5">
+							<Cart />
+							<span className="flex items-center justify-center text-sm text-ash ">
+								<DollarSign size={20} />
+								{totalPrice.toFixed(2)}
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<Disclosure
 				as="nav"
+				className={`border-b bg-gradient-to-r from-[#2772c2] to-blue-400 duration-100  fixed z-50 w-full border-blue-600/50 ${
+					isScrolled ? "top-0" : "top-[45px]"
+				}`}
 				// className="bg-[#60acfb] border-b border-blue-600/50"
 				// className="border-b bg-gradient-to-r from-[#2772c2] to-blue-400 border-blue-600/50"
-				className="fixed top-0 z-40 w-full border-b bg-gradient-to-r from-[#2772c2] to-blue-400 border-blue-600/50"
 			>
 				{({ open }) => (
 					<>

@@ -34,22 +34,20 @@ const Cart = () => {
 
 	return (
 		<>
-			<div>
+			<>
 				<button
 					type="button"
-					className="relative flex items-center justify-start p-1 text-gray-400 bg-transparent rounded-full gap-x-px hover:text-white focus:outline-none"
+					className="relative flex items-center justify-start p-1 duration-300 bg-transparent rounded-full text-ash gap-x-px hover:text-nill focus:outline-none"
 					onClick={() => setOpen(true)}
 				>
 					<span className="absolute -inset-1.5" />
 					<span className="sr-only">open cart</span>
 					<ShoppingBag
-						className="w-6 h-6"
+						className="w-6 h-6 focus:outline-none"
 						aria-hidden="true"
 					/>
-
-					{/* <span className="ml-2 text-sm font-medium text-[#fab07a]">{cartItems.length}</span> */}
 				</button>
-			</div>
+			</>
 			<Transition.Root
 				show={open}
 				as={Fragment}
