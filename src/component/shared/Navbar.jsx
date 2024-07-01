@@ -79,10 +79,10 @@ const Navbar = () => {
 	// );
 
 	return (
-		<div className="fixed top-0 z-40 w-full shadow-md h-fit">
+		<div className="fixed top-0 z-40 w-full shadow-lg h-fit">
 			<Disclosure
 				as="nav"
-				className="bg-gray-200 border-b border-blue-400/50"
+				className="bg-[#60acfb] border-b border-blue-600/50"
 			>
 				{({ open }) => (
 					<>
@@ -191,15 +191,22 @@ const Navbar = () => {
 												to="/auth/login"
 												className="relative w-full"
 											>
-												<div className="-mt-1.5">
-													<InputField
-														type="email"
+												<div className="mt-1">
+													{/* <InputField
+														type="text"
 														id="email"
 														name="email"
 														placeholder="Search a product"
+													/> */}
+													<input
+														type="search"
+														name=""
+														className="w-full pl-3 bg-transparent border-b border-gray-800"
+														placeholder="Search a product"
+														id=""
 													/>
 												</div>
-												<button className="absolute flex items-center pr-3 transform -translate-y-1/2 cursor-pointer right-1 top-1/2">
+												<button className="absolute right-0 flex items-center pr-3 transform -translate-y-1/2 cursor-pointer top-1/2">
 													<Search />
 												</button>
 											</Link>
