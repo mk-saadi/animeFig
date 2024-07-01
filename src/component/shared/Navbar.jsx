@@ -79,10 +79,15 @@ const Navbar = () => {
 	// );
 
 	return (
-		<div className="fixed top-0 z-40 w-full shadow-lg h-fit">
+		<div className="w-full shadow-lg h-fit">
+			<div className="w-full h-12 ">
+				<p>first navbaer</p>
+			</div>
 			<Disclosure
 				as="nav"
-				className="bg-[#60acfb] border-b border-blue-600/50"
+				// className="bg-[#60acfb] border-b border-blue-600/50"
+				// className="border-b bg-gradient-to-r from-[#2772c2] to-blue-400 border-blue-600/50"
+				className="fixed top-0 z-40 w-full border-b bg-gradient-to-r from-[#2772c2] to-blue-400 border-blue-600/50"
 			>
 				{({ open }) => (
 					<>
