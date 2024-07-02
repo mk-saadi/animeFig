@@ -57,7 +57,6 @@ export const ToastProvider = ({ children }) => {
 		confirm: "border-2 border-gray-700 text-gray-700",
 	};
 
-
 	const toastClassesBackground = {
 		bgWhite: "bg-white border-[1px] border-gray-700",
 		bgError: "bg-[#ff4444] border-[1px] border-[#a16c46] ",
@@ -100,7 +99,7 @@ export const ToastProvider = ({ children }) => {
 								</p>
 
 								{toastType !== "confirm" && (
-									<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
+									<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-dhusor /70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
 										<button onClick={hideToast}>Close</button>
 									</div>
 								)}

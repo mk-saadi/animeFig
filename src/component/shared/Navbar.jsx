@@ -7,7 +7,15 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+	Disclosure,
+	Menu,
+	Transition,
+	Popover,
+	PopoverButton,
+	PopoverGroup,
+	PopoverPanel,
+} from "@headlessui/react";
 import {
 	X,
 	Menu as MenuIcon,
@@ -21,19 +29,40 @@ import {
 	Facebook,
 	Youtube,
 	Linkedin,
+	User,
+	ChevronDownIcon,
+	PlayCircleIcon,
+	PhoneIcon,
 } from "lucide-react";
 import InputField from "../hooks/InputField";
+import useScroll from "../hooks/Scroll";
 
-const navigation = [
-	{ name: "Home", to: "#", current: true },
-	{ name: "Shop", to: "#", current: false },
-	{ name: "News", to: "#", current: false },
-	{ name: "Gallery", to: "#", current: false },
+const products = [
+	{
+		name: "Analytics",
+		description: "Get a better understanding of your traffic",
+		href: "#",
+	},
+	{
+		name: "Engagement",
+		description: "Speak directly to your customers",
+		href: "#",
+	},
+	{
+		name: "Security",
+		description: "Your customers’ data will be safe and secure",
+		href: "#",
+	},
+	{ name: "Integrations", description: "Connect with third-party tools", href: "#" },
+	{
+		name: "Automations",
+		description: "Build strategic funnels that will convert",
+		href: "#",
+	},
 ];
-const userNavigation = [
-	{ name: "Your Profile", to: "#" },
-	{ name: "Settings", to: "#" },
-	{ name: "Sign out", to: "#" },
+const callsToAction = [
+	{ name: "Watch demo", href: "#", icon: PlayCircleIcon },
+	{ name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 
 function classNames(...classes) {
@@ -45,6 +74,7 @@ const Navbar = () => {
 	console.log("user: ", user);
 	const [showUserName, setShowUserName] = useState(false);
 	const { cartItems, dispatch } = useCart();
+	const isScrolled = useScroll("top-navbar");
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
@@ -93,23 +123,23 @@ const Navbar = () => {
 	// 	</>
 	// );
 
-	const [isScrolled, setIsScrolled] = useState(false);
+	// const [isScrolled, setIsScrolled] = useState(false);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			const topNavbarHeight = document.getElementById("top-navbar").offsetHeight;
-			if (window.scrollY > topNavbarHeight) {
-				setIsScrolled(true);
-			} else {
-				setIsScrolled(false);
-			}
-		};
+	// useEffect(() => {
+	// 	const handleScroll = () => {
+	// 		const topNavbarHeight = document.getElementById("top-navbar").offsetHeight;
+	// 		if (window.scrollY > topNavbarHeight) {
+	// 			setIsScrolled(true);
+	// 		} else {
+	// 			setIsScrolled(false);
+	// 		}
+	// 	};
 
-		window.addEventListener("scroll", handleScroll);
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
+	// 	window.addEventListener("scroll", handleScroll);
+	// 	return () => {
+	// 		window.removeEventListener("scroll", handleScroll);
+	// 	};
+	// }, []);
 
 	return (
 		<div className="w-full shadow-lg h-fit">
@@ -127,50 +157,47 @@ const Navbar = () => {
 								to="/"
 								className="flex items-center gap-x-1.5 justify-center"
 							>
-								<img
-									src={img}
-									alt="logo"
-									className="w-9 h-9"
-								/>
-								<h1 className="text-base text-ash">animeFig</h1>
+								<h1 className="text-base text-laal uppercase font-[900] font-serif">
+									anime-Fig
+								</h1>
 							</Link>
 						</div>
-						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300 lg:block hidden" />
+						<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor  lg:block hidden" />
 						<div className="flex items-end justify-start gap-x-2.5 text-ash">
 							<Twitter
-								className="cursor-pointer hover:text-nill"
+								className="cursor-pointer hover:text-laal"
 								size={20}
 							/>
 							<Facebook
-								className="cursor-pointer hover:text-nill"
+								className="cursor-pointer hover:text-laal"
 								size={20}
 							/>
 							<Youtube
-								className="cursor-pointer hover:text-nill"
+								className="cursor-pointer hover:text-laal"
 								size={20}
 							/>
 							<Linkedin
-								className="cursor-pointer hover:text-nill"
+								className="cursor-pointer hover:text-laal"
 								size={20}
 							/>
 						</div>
 					</div>
 					{/* second div end */}
 					<div className="flex items-center justify-center gap-x-1.5 h-full">
-						<div className="hidden text-sm font-medium lg:block text-ash">
-							<p className="flex gap-x-1.5 items-center justify-center">
+						<div className="hidden text-sm lg:block text-ash">
+							<p className="flex gap-x-1.5 font-normal items-center justify-center">
 								<PartyPopper
 									size={20}
-									className="text-nill"
+									className="text-laal"
 								/>
 								Get free delivery on orders over $100
 								<PartyPopper
 									size={20}
-									className="text-nill"
+									className="text-laal"
 								/>
 							</p>
 						</div>
-						<span className="mx-2.5 w-px lg:block hidden h-[20px] py-px bg-gray-300" />
+						<span className="mx-2.5 w-px lg:block hidden h-[20px] py-px bg-dhusor " />
 						{user ? (
 							<>
 								<div className="flex items-center justify-center gap-x-1.5">
@@ -185,25 +212,25 @@ const Navbar = () => {
 						) : (
 							<div className="flex items-center text-ash duration-300 justify-center gap-x-1.5 text-sm">
 								<Link
-									className="flex hover:text-nill items-center justify-center gap-x-1.5"
+									className="font-normal flex hover:text-laal items-center justify-center gap-x-1.5"
 									to="/auth/login"
 								>
 									<User2 size={20} /> Login
 								</Link>
-								<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+								<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
 								<Link
-									className="flex hover:text-nill items-center justify-center gap-x-1.5"
+									className="font-normal flex hover:text-laal items-center justify-center gap-x-1.5"
 									to="/auth/register"
 								>
 									<Plus size={20} /> Create Account
 								</Link>
 							</div>
 						)}
-						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+						<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
 						{/* cart item below */}
 						<div className="-ml-1.5 flex justify-center items-center gap-x-1.5">
 							<Cart />
-							<span className="flex items-center justify-center text-sm text-ash ">
+							<span className="flex items-center justify-center text-sm font-normal text-ash ">
 								<DollarSign size={20} />
 								{totalPrice.toFixed(2)}
 							</span>
@@ -213,7 +240,7 @@ const Navbar = () => {
 			</div>
 			<Disclosure
 				as="nav"
-				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100  fixed z-50 w-full border-black border-opacity-30 shadow-lg ${
+				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full border-black border-opacity-30 shadow-lg ${
 					isScrolled ? "top-0" : "top-[45px]"
 				}`}
 			>
@@ -222,31 +249,104 @@ const Navbar = () => {
 						<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
 							<div className="flex items-center justify-between h-16">
 								<div className="flex items-center">
-									<div className="flex-shrink-0">
-										<img
-											className="w-8 h-8"
-											src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+									<div
+										className={`flex-shrink-0 text-white flex font-sans flex-col leading-3 items-end ${
+											isScrolled ? "block" : "hidden"
+										}`}
+									>
+										{/* <img
+											className="w-9 h-9"
+											src={img}
 											alt="Your Company"
-										/>
+										/> */}
+										<h2 className="text-2xl font-extrabold">ANIME</h2>
+										<h3 className="text-lg font-extrabold leading-3">FIG</h3>
 									</div>
+									<span
+										className={`mx-2.5 w-px h-[30px] py-px bg-dhusor lg:block hidden ${
+											isScrolled ? "bg-opacity-100" : "bg-opacity-0 -mr-2.5"
+										}`}
+									/>
 									<div className="hidden md:block">
 										<div className="flex items-baseline ml-10 space-x-4">
-											{/* {navigation.map((item) => (
-												<Link
-													key={item.name}
-													to={item.to}
-													className={classNames(
-														item.current
-															? "bg-gray-900 text-white"
-															: "text-gray-300 hover:bg-gray-700 hover:text-white",
-														"rounded-md px-3 py-2 text-sm font-medium"
-													)}
-													aria-current={item.current ? "page" : undefined}
+											<PopoverGroup className="hidden lg:flex lg:gap-x-12">
+												<Popover className="relative">
+													<PopoverButton className="flex items-center text-sm font-semibold leading-6 text-gray-900 gap-x-1">
+														Product
+														<ChevronDownIcon
+															className="flex-none w-5 h-5 text-gray-400"
+															aria-hidden="true"
+														/>
+													</PopoverButton>
+
+													<PopoverPanel
+														transition
+														className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+													>
+														<div className="p-4">
+															{products.map((item) => (
+																<div
+																	key={item.name}
+																	className="relative flex items-center p-4 text-sm leading-6 rounded-lg group gap-x-6 hover:bg-gray-50"
+																>
+																	<div className="flex items-center justify-center flex-none rounded-lg h-11 w-11 bg-gray-50 group-hover:bg-white">
+																		<item.icon
+																			className="w-6 h-6 text-gray-600 group-hover:text-indigo-600"
+																			aria-hidden="true"
+																		/>
+																	</div>
+																	<div className="flex-auto">
+																		<a
+																			href={item.href}
+																			className="block font-semibold text-gray-900"
+																		>
+																			{item.name}
+																			<span className="absolute inset-0" />
+																		</a>
+																		<p className="mt-1 text-gray-600">
+																			{item.description}
+																		</p>
+																	</div>
+																</div>
+															))}
+														</div>
+														<div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+															{callsToAction.map((item) => (
+																<a
+																	key={item.name}
+																	href={item.href}
+																	className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+																>
+																	<item.icon
+																		className="flex-none w-5 h-5 text-gray-400"
+																		aria-hidden="true"
+																	/>
+																	{item.name}
+																</a>
+															))}
+														</div>
+													</PopoverPanel>
+												</Popover>
+
+												<a
+													href="#"
+													className="text-sm font-semibold leading-6 text-gray-900"
 												>
-													{item.name}
-												</Link>
-											))} */}
-											c
+													Features
+												</a>
+												<a
+													href="#"
+													className="text-sm font-semibold leading-6 text-gray-900"
+												>
+													Marketplace
+												</a>
+												<a
+													href="#"
+													className="text-sm font-semibold leading-6 text-gray-900"
+												>
+													Company
+												</a>
+											</PopoverGroup>
 										</div>
 									</div>
 								</div>
@@ -262,12 +362,12 @@ const Navbar = () => {
 													<input
 														type="search"
 														name=""
-														className="w-full pl-3 bg-transparent border-b border-gray-200 placeholder:text-gray-200 focus:outline-none"
+														className="w-full pl-3 font-[300] bg-transparent border-b border-white placeholder:text-white focus:outline-none"
 														placeholder="Search a product"
 														id=""
 													/>
 												</div>
-												<button className="absolute right-0 flex items-center pr-3 text-gray-200 transform -translate-y-1/2 cursor-pointer top-1/2">
+												<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
 													<Search size={20} />
 												</button>
 											</Link>
@@ -278,15 +378,23 @@ const Navbar = () => {
 												as="div"
 												className="relative"
 											>
-												<Menu.Button className="relative flex items-center max-w-xs text-sm bg-transparent rounded-full focus:outline-none">
-													<span className="absolute -inset-1.5" />
-													<span className="sr-only">Open user menu</span>
-													<img
-														className="w-8 h-8 rounded-full"
-														src={user?.photoURL}
-														alt=""
-													/>
-												</Menu.Button>
+												{user ? (
+													<Menu.Button className="relative flex items-center max-w-xs text-sm bg-transparent rounded-full focus:outline-none">
+														<span className="absolute -inset-1.5" />
+														<span className="sr-only">Open user menu</span>
+														<img
+															className="w-8 h-8 rounded-full ring-2 ring-white"
+															src={user?.photoURL}
+															alt=""
+														/>
+													</Menu.Button>
+												) : (
+													<Menu.Button className="relative flex items-center text-white bg-transparent rounded-full focus:outline-none">
+														<span className="absolute -inset-1.5" />
+														<span className="sr-only">Open user menu</span>
+														<UserCircle size={25} />
+													</Menu.Button>
+												)}
 												<Transition
 													as={Fragment}
 													enter="transition ease-out duration-100"
@@ -296,25 +404,59 @@ const Navbar = () => {
 													leaveFrom="transform opacity-100 scale-100"
 													leaveTo="transform opacity-0 scale-95"
 												>
-													<Menu.Items className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<Menu.Items className="absolute right-0 z-10 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg w-60 ring-1 ring-dhusor focus:outline-none">
+														{user && (
+															<div className="overflow-hidden border-b border-gray-200">
+																<p className="block px-4 py-2 text-sm text-gray-700">
+																	{user?.displayName}
+																</p>
+																<p className="block px-4 pb-2 text-sm text-gray-700">
+																	{user?.email}
+																</p>
+															</div>
+														)}
+														{user && (
+															<Menu.Item>
+																<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
+																	Profile
+																</Link>
+															</Menu.Item>
+														)}
+														{!user && (
+															<Menu.Item>
+																<Link
+																	className="block px-4 py-2 text-sm text-ash hover:text-laal"
+																	to="/auth/login"
+																>
+																	Sign In
+																</Link>
+															</Menu.Item>
+														)}
 														<Menu.Item>
-															<Link className="block px-4 py-2 text-sm text-gray-700">
-																Profile
+															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
+																View Cart
 															</Link>
 														</Menu.Item>
 														<Menu.Item>
-															<Link className="block px-4 py-2 text-sm text-gray-700">
+															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
+																Checkout
+															</Link>
+														</Menu.Item>
+														<Menu.Item>
+															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
 																Settings
 															</Link>
 														</Menu.Item>
-														<Menu.Item>
-															<Link
-																onClick={handleLogOut}
-																className="block px-4 py-2 text-sm text-gray-700"
-															>
-																Logout
-															</Link>
-														</Menu.Item>
+														{user && (
+															<Menu.Item className="duration-300 border-t border-gray-200 hover:text-laal">
+																<Link
+																	onClick={handleLogOut}
+																	className="block px-4 py-2 text-sm text-ash"
+																>
+																	Logout
+																</Link>
+															</Menu.Item>
+														)}
 													</Menu.Items>
 												</Transition>
 											</Menu>
@@ -367,7 +509,7 @@ const Navbar = () => {
 							<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 								<Disclosure.Button
 									as="p"
-									className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+									className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md text-dhusor hover:bg-gray-700 hover:text-white"
 								>
 									Home
 								</Disclosure.Button>
@@ -379,6 +521,7 @@ const Navbar = () => {
 											className="w-10 h-10 rounded-full"
 											src={user?.photoURL}
 											alt=""
+											loading="lazy"
 										/>
 									</div>
 									<div className="ml-3">

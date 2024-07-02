@@ -6,10 +6,11 @@
 	background-color: rgb(111, 196, 249);
 }
 body {
-	font-family: "jetBrains mono";
+	font-family: "source code pro";
 }
 
 .loginActive a.active {
-	color: #3b82f6;
+	color: #e7230d;
 	background-color: #e5e7eb;
+	/* color: #00000033; */
 }

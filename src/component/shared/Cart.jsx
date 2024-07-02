@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingBag, X } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
+import useScroll from "../hooks/Scroll";
 
 const Cart = () => {
 	const [open, setOpen] = useState(false);
@@ -32,23 +33,7 @@ const Cart = () => {
 		}
 	};
 
-	const [isScrolled, setIsScrolled] = useState(false);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			const topNavbarHeight = document.getElementById("top-navbar").offsetHeight;
-			if (window.scrollY > topNavbarHeight) {
-				setIsScrolled(true);
-			} else {
-				setIsScrolled(false);
-			}
-		};
-
-		window.addEventListener("scroll", handleScroll);
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
+	const isScrolled = useScroll("top-navbar");
 
 	return (
 		<>
@@ -56,7 +41,7 @@ const Cart = () => {
 				<button
 					type="button"
 					className={`relative flex items-center justify-start duration-300 bg-transparent  ${
-						isScrolled ? "text-white hover:text-nill" : "hover:text-nill text-white"
+						isScrolled ? "text-white hover:text-laal" : "hover:text-laal text-ash"
 					}`}
 					onClick={() => setOpen(true)}
 				>

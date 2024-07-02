@@ -13,7 +13,7 @@ const InputField = ({ label, type = "text", id, name, placeholder }) => {
 				type={type}
 				id={id}
 				name={name}
-				className="w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-lg shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-nill"
+				className="w-full px-3 py-2 bg-transparent border border-dhusor  rounded-md shadow-lg shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash"
 				placeholder={placeholder}
 			/>
 		</div>

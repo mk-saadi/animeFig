@@ -230,7 +230,7 @@ const Register = () => {
 					{selectedFile ? (
 						<label
 							htmlFor="inputFormPic"
-							className="flex items-center justify-start w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-lg cursor-pointer shadow-gray-900/10 gap-x-4 text-ash placeholder:text-gray-400 focus:outline-none"
+							className="flex items-center justify-start w-full px-3 py-2 bg-transparent border border-dhusor  rounded-md shadow-lg cursor-pointer shadow-gray-900/10 gap-x-4 text-ash placeholder:text-gray-400 focus:outline-none"
 						>
 							{imagePreview && (
 								<img
@@ -248,7 +248,7 @@ const Register = () => {
 					) : (
 						<label
 							htmlFor="inputFormPic"
-							className="w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-lg cursor-pointer shadow-gray-900/10 text-ash focus:outline-none"
+							className="w-full px-3 py-2 bg-transparent border border-dhusor  rounded-md shadow-lg cursor-pointer shadow-gray-900/10 text-ash focus:outline-none"
 						>
 							<ImagePlus />
 						</label>

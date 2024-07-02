@@ -35,7 +35,7 @@ const Banner = ({ banner }) => {
 					alt=""
 				/>
 			</div>
-			<div className="text-gray-300 absolute bottom-0 h-full w-full rounded-lg bg-gradient-to-t from-[#0c0c0c] to-[rgba(21,21,21,0)] shadow-lg">
+			<div className="text-dhusor  absolute bottom-0 h-full w-full rounded-lg bg-gradient-to-t from-[#0c0c0c] to-[rgba(21,21,21,0)] shadow-lg">
 				<p className="absolute w-full font-normal text-center transition-opacity duration-300 md:text-sm lg:text-base sm:text-base bottom-14 md:bottom-8 lg:bottom-14 xl:bottom-8 btn-xs opacity-1 group-hover:opacity-0">
 					{banner?.name.slice(0, charLimit)}
 					{banner?.name.length > charLimit ? "..." : ""}

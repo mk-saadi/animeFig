@@ -119,7 +119,7 @@ export const ToastProvider = ({ children }) => {
 									</div>
 
 									{/* {toastType !== "confirm" && (
-										<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
+										<div className="px-1.5 md:px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-dhusor /70 py-px md:py-1 rounded-sm text-gray-800 text-sm md:text-base lg:text-lg">
 											<button onClick={hideToast}>Close</button>
 										</div>
 									)} */}
@@ -130,7 +130,7 @@ export const ToastProvider = ({ children }) => {
 									{toastType === "confirm" && (
 										<div className="flex justify-center mt-4 font-semibold text-gray-800 gap-x-3">
 											<button
-												className="px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-gray-300/70 py-1 rounded-md shadow-sm"
+												className="px-2.5 mt-1 duration-200 bg-gray-200 hover:bg-dhusor /70 py-1 rounded-md shadow-sm"
 												onClick={handleCancel}
 											>
 												Cancel
@@ -536,20 +536,20 @@ export const ToastProvider = ({ children }) => {
 // 									{toastType === "confirm" && (
 // 										<div className="flex items-center justify-center mt-3 font-semibold text-gray-700 gap-x-3">
 // 											<button
-// 												className={`sm:px-4 px-2  duration-300 ring-[1px] ring-gray-300 py-px rounded-sm shadow-sm flex justify-center items-center gap-x-[2px] sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
+// 												className={`sm:px-4 px-2  duration-300 ring-[1px] ring-dhusor  py-px rounded-sm shadow-sm flex justify-center items-center gap-x-[2px] sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
 // 													toastBG === "dark"
 // 														? "bg-[#09090b] hover:bg-[#18181d] ring-[1px] ring-gray-800 hover:ring-gray-700 duration-300 text-white"
 // 														: toastBG === "white"
-// 														? "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
+// 														? "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
 // 														: toastBG === "error"
 // 														? "bg-[#ef4255] hover:bg-[#ef4260] ring-[1px] ring-gray-400 text-gray-800 hover:ring-gray-500 duration-300"
 // 														: toastBG === "success"
-// 														? "bg-[#07bc0c] hover:bg-[#31bc07] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-100 duration-300"
+// 														? "bg-[#07bc0c] hover:bg-[#31bc07] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-100 duration-300"
 // 														: toastBG === "warning"
 // 														? "bg-[#edc319] hover:bg-[#edbb19] ring-[1px] ring-gray-400 text-gray-800 hover:ring-gray-500 duration-300"
 // 														: toastBG === "info"
-// 														? "bg-[#2196f3] hover:bg-[#219ff3] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
-// 														: "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
+// 														? "bg-[#2196f3] hover:bg-[#219ff3] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
+// 														: "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
 // 												}`}
 // 												onClick={handleCancel}
 // 											>
@@ -563,7 +563,7 @@ export const ToastProvider = ({ children }) => {
 // 											<button
 // 												className={`flex items-center justify-center sm:px-4 px-2  py-px duration-300 rounded-sm shadow-sm gap-x-1 sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
 // 													toastBG === "dark"
-// 														? "bg-white hover:bg-[#f1f1f1]  ring-[1px] ring-gray-300 text-gray-800" //bg-[#7f53d7]
+// 														? "bg-white hover:bg-[#f1f1f1]  ring-[1px] ring-dhusor  text-gray-800" //bg-[#7f53d7]
 // 														: "bg-gray-700 ring-[1px] ring-gray-500 text-white"
 // 												}`}
 // 												onClick={handleConfirm}
@@ -584,20 +584,20 @@ export const ToastProvider = ({ children }) => {
 // 									{toastType === "confirmDark" && (
 // 										<div className="flex items-center justify-center mt-3 text-sm font-medium text-gray-700 sm:text-base gap-x-3">
 // 											<button
-// 												className={`sm:px-4 px-2  duration-300 ring-[1px] ring-gray-300 py-px rounded-sm shadow-sm flex justify-center items-center gap-x-[2px] sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
+// 												className={`sm:px-4 px-2  duration-300 ring-[1px] ring-dhusor  py-px rounded-sm shadow-sm flex justify-center items-center gap-x-[2px] sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
 // 													toastBG === "dark"
 // 														? "bg-[#09090b] hover:bg-[#18181d] ring-[1px] ring-gray-800 hover:ring-gray-700 duration-300 text-white"
 // 														: toastBG === "white"
-// 														? "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
+// 														? "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
 // 														: toastBG === "error"
 // 														? "bg-[#ef4255] hover:bg-[#ef4260] ring-[1px] ring-gray-400 text-gray-800 hover:ring-gray-500 duration-300"
 // 														: toastBG === "success"
-// 														? "bg-[#07bc0c] hover:bg-[#31bc07] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-100 duration-300"
+// 														? "bg-[#07bc0c] hover:bg-[#31bc07] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-100 duration-300"
 // 														: toastBG === "warning"
 // 														? "bg-[#edc319] hover:bg-[#edbb19] ring-[1px] ring-gray-400 text-gray-800 hover:ring-gray-500 duration-300"
 // 														: toastBG === "info"
-// 														? "bg-[#2196f3] hover:bg-[#219ff3] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
-// 														: "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-gray-300 text-gray-800 hover:ring-gray-400 duration-300"
+// 														? "bg-[#2196f3] hover:bg-[#219ff3] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
+// 														: "bg-white hover:bg-[#f1f1f1] ring-[1px] ring-dhusor  text-gray-800 hover:ring-gray-400 duration-300"
 // 												}`}
 // 												onClick={handleCancelDark}
 // 											>
@@ -611,7 +611,7 @@ export const ToastProvider = ({ children }) => {
 // 											<button
 // 												className={`flex items-center justify-center sm:px-4 px-2  py-px duration-300 rounded-sm shadow-sm gap-x-1 sm:gap-x-2 whitespace-nowrap md:text-base text-sm active:scale-95 ${
 // 													toastBG === "dark"
-// 														? "bg-white hover:bg-[#f1f1f1]  ring-[1px] ring-gray-300 text-gray-800" //bg-[#7f53d7]
+// 														? "bg-white hover:bg-[#f1f1f1]  ring-[1px] ring-dhusor  text-gray-800" //bg-[#7f53d7]
 // 														: "bg-gray-900 ring-[1px] ring-gray-700 text-white"
 // 												}`}
 // 												onClick={handleConfirmDark}
@@ -633,14 +633,14 @@ export const ToastProvider = ({ children }) => {
 // 								{showLoadFooter && toastLoadFooter && (
 // 									<div
 // 										// className={` flex items-center justify-center md:py-1.5 px-2.5 py-[2px] text-sm underline border-t  sm:w-[380px] w-[270px] md:w-[430px] xl:w-[460px] border-gray-400/60 ${
-// 										// 	toastBG === "info" ? "text-gray-300" : "text-blue-500"
+// 										// 	toastBG === "info" ? "text-dhusor " : "text-blue-500"
 // 										// }`}
 // 										className={`whitespace-break-spaces text-center text-xs sm:text-sm md:py-1.5 px-2.5 border-t py-[2px] sm:w-[380px] w-[270px] md:w-[430px] xl:w-[460px] font-normal ${
 // 											toastBG === "dark" || toastBG === "warning"
 // 												? "text-gray-600 border-gray-600/50"
 // 												: toastBG === "white"
 // 												? "text-gray-500 border-gray-400/60"
-// 												: "text-gray-300 border-gray-400/60"
+// 												: "text-dhusor  border-gray-400/60"
 // 										}`}
 // 										dangerouslySetInnerHTML={{ __html: toastLoadFooter }}
 // 									></div>
@@ -652,7 +652,7 @@ export const ToastProvider = ({ children }) => {
 // 									<div
 // 										className={` flex items-center justify-center md:py-1.5 px-2.5 py-[2px] text-sm underline border-t  sm:w-[380px] w-[270px] md:w-[430px] xl:w-[460px] ${
 // 											toastBG === "info"
-// 												? "text-gray-300 border-gray-200/60"
+// 												? "text-dhusor  border-gray-200/60"
 // 												: "text-blue-500 border-gray-400/60"
 // 										}`}
 // 										dangerouslySetInnerHTML={{ __html: toastFooter }}
@@ -670,9 +670,9 @@ export const ToastProvider = ({ children }) => {
 // 												: toastBG === "white"
 // 												? "text-gray-500 border-gray-400/60"
 // 												: toastBG === "info"
-// 												? "text-gray-300 border-gray-200/60"
+// 												? "text-dhusor  border-gray-200/60"
 // 												: toastBG === "error"
-// 												? "text-gray-300 border-gray-400/60"
+// 												? "text-dhusor  border-gray-400/60"
 // 												: "text-gray-500 border-gray-400/60"
 // 										}`}
 // 										// dangerouslySetInnerHTML={{ __html: toastFooterNoUrl }}
