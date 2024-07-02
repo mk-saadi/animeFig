@@ -8,7 +8,20 @@ import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { X, Menu as MenuIcon, UserCircle, Search, Plus, User2, PartyPopper, DollarSign } from "lucide-react";
+import {
+	X,
+	Menu as MenuIcon,
+	UserCircle,
+	Search,
+	Plus,
+	User2,
+	PartyPopper,
+	DollarSign,
+	Twitter,
+	Facebook,
+	Youtube,
+	Linkedin,
+} from "lucide-react";
 import InputField from "../hooks/InputField";
 
 const navigation = [
@@ -107,19 +120,44 @@ const Navbar = () => {
 				}`}
 			>
 				<div className="flex items-center justify-between h-full mx-8">
-					<Link
-						to="/"
-						className="flex items-center gap-x-1.5 justify-center"
-					>
-						<img
-							src={img}
-							alt="logo"
-							className="w-9 h-9"
-						/>
-						<h1 className="text-base text-ash">animeFig</h1>
-					</Link>
+					{/* first div start */}
+					<div className="flex items-center justify-center gap-x-1.5">
+						<div className="hidden lg:block">
+							<Link
+								to="/"
+								className="flex items-center gap-x-1.5 justify-center"
+							>
+								<img
+									src={img}
+									alt="logo"
+									className="w-9 h-9"
+								/>
+								<h1 className="text-base text-ash">animeFig</h1>
+							</Link>
+						</div>
+						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300 lg:block hidden" />
+						<div className="flex items-end justify-start gap-x-2.5 text-ash">
+							<Twitter
+								className="cursor-pointer hover:text-nill"
+								size={20}
+							/>
+							<Facebook
+								className="cursor-pointer hover:text-nill"
+								size={20}
+							/>
+							<Youtube
+								className="cursor-pointer hover:text-nill"
+								size={20}
+							/>
+							<Linkedin
+								className="cursor-pointer hover:text-nill"
+								size={20}
+							/>
+						</div>
+					</div>
+					{/* second div end */}
 					<div className="flex items-center justify-center gap-x-1.5 h-full">
-						<div className="text-sm font-medium text-ash">
+						<div className="hidden text-sm font-medium lg:block text-ash">
 							<p className="flex gap-x-1.5 items-center justify-center">
 								<PartyPopper
 									size={20}
@@ -132,22 +170,35 @@ const Navbar = () => {
 								/>
 							</p>
 						</div>
-						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
-						<div className="flex items-center text-ash duration-300 justify-center gap-x-1.5 text-sm">
-							<Link
-								className="flex hover:text-nill items-center justify-center gap-x-1.5"
-								to="/auth/login"
-							>
-								<User2 size={20} /> Login
-							</Link>
-							<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
-							<Link
-								className="flex hover:text-nill items-center justify-center gap-x-1.5"
-								to="/auth/register"
-							>
-								<Plus size={20} /> Create Account
-							</Link>
-						</div>
+						<span className="mx-2.5 w-px lg:block hidden h-[20px] py-px bg-gray-300" />
+						{user ? (
+							<>
+								<div className="flex items-center justify-center gap-x-1.5">
+									<img
+										src={user?.photoURL}
+										alt=""
+										className="w-8 h-8 rounded-full"
+									/>
+									<p className="text-sm text-ash">{user?.displayName}</p>
+								</div>
+							</>
+						) : (
+							<div className="flex items-center text-ash duration-300 justify-center gap-x-1.5 text-sm">
+								<Link
+									className="flex hover:text-nill items-center justify-center gap-x-1.5"
+									to="/auth/login"
+								>
+									<User2 size={20} /> Login
+								</Link>
+								<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
+								<Link
+									className="flex hover:text-nill items-center justify-center gap-x-1.5"
+									to="/auth/register"
+								>
+									<Plus size={20} /> Create Account
+								</Link>
+							</div>
+						)}
 						<span className="mx-2.5 w-px h-[20px] py-px bg-gray-300" />
 						{/* cart item below */}
 						<div className="-ml-1.5 flex justify-center items-center gap-x-1.5">
@@ -162,11 +213,9 @@ const Navbar = () => {
 			</div>
 			<Disclosure
 				as="nav"
-				className={`border-b bg-gradient-to-r from-[#2772c2] to-blue-400 duration-100  fixed z-50 w-full border-blue-600/50 ${
+				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100  fixed z-50 w-full border-black border-opacity-30 shadow-lg ${
 					isScrolled ? "top-0" : "top-[45px]"
 				}`}
-				// className="bg-[#60acfb] border-b border-blue-600/50"
-				// className="border-b bg-gradient-to-r from-[#2772c2] to-blue-400 border-blue-600/50"
 			>
 				{({ open }) => (
 					<>
@@ -202,32 +251,42 @@ const Navbar = () => {
 									</div>
 								</div>
 								<div className="hidden md:block">
-									<div className="flex items-center ml-4 gap-x-3 md:ml-6">
-										<button
-											type="button"
-											className="relative bg-transparent rounded-full hover:text-white focus:outline-none "
-										>
-											<span className="absolute -inset-1.5" />
-											<span className="sr-only">View cart items</span>
-											<Cart aria-hidden="true" />
-										</button>
+									<div className="flex items-center gap-x-4">
+										{/* search bar */}
+										<div className="hidden md:block w-[24rem] ml-1">
+											<Link
+												to="/auth/login"
+												className="relative w-full"
+											>
+												<div className="mt-1">
+													<input
+														type="search"
+														name=""
+														className="w-full pl-3 bg-transparent border-b border-gray-200 placeholder:text-gray-200 focus:outline-none"
+														placeholder="Search a product"
+														id=""
+													/>
+												</div>
+												<button className="absolute right-0 flex items-center pr-3 text-gray-200 transform -translate-y-1/2 cursor-pointer top-1/2">
+													<Search size={20} />
+												</button>
+											</Link>
+										</div>
 										{/* Profile dropdown large device */}
-										{user ? (
+										{isScrolled && (
 											<Menu
 												as="div"
 												className="relative"
 											>
-												<div>
-													<Menu.Button className="relative flex items-center max-w-xs text-sm bg-transparent rounded-full focus:outline-none">
-														<span className="absolute -inset-1.5" />
-														<span className="sr-only">Open user menu</span>
-														<img
-															className="w-8 h-8 rounded-full"
-															src={user?.photoURL}
-															alt=""
-														/>
-													</Menu.Button>
-												</div>
+												<Menu.Button className="relative flex items-center max-w-xs text-sm bg-transparent rounded-full focus:outline-none">
+													<span className="absolute -inset-1.5" />
+													<span className="sr-only">Open user menu</span>
+													<img
+														className="w-8 h-8 rounded-full"
+														src={user?.photoURL}
+														alt=""
+													/>
+												</Menu.Button>
 												<Transition
 													as={Fragment}
 													enter="transition ease-out duration-100"
@@ -259,42 +318,28 @@ const Navbar = () => {
 													</Menu.Items>
 												</Transition>
 											</Menu>
-										) : (
-											<>
-												<Link
-													to="/auth/login"
-													className="flex items-center justify-center gap-x-2"
-												>
-													<UserCircle /> Login
-												</Link>
-											</>
 										)}
-										{/* search bar */}
-										<div className="hidden md:block w-[24rem] ml-1">
-											<Link
-												to="/auth/login"
-												className="relative w-full"
+										{isScrolled && (
+											<button
+												type="button"
+												className="relative bg-transparent "
 											>
-												<div className="mt-1">
-													{/* <InputField
-														type="text"
-														id="email"
-														name="email"
-														placeholder="Search a product"
-													/> */}
-													<input
-														type="search"
-														name=""
-														className="w-full pl-3 bg-transparent border-b border-gray-800"
-														placeholder="Search a product"
-														id=""
-													/>
-												</div>
-												<button className="absolute right-0 flex items-center pr-3 transform -translate-y-1/2 cursor-pointer top-1/2">
-													<Search />
-												</button>
-											</Link>
-										</div>
+												<span className="absolute -inset-1.5" />
+												<span className="sr-only">View cart items</span>
+												<Cart aria-hidden="true" />
+											</button>
+										)}
+										{/* // ) : (
+										// 	<>
+										// 		<Link
+										// 			to="/auth/login"
+										// 			className="flex items-center justify-center gap-x-2"
+										// 		>
+										// 			<UserCircle /> Login
+										// 		</Link>
+										// 	</>
+										// )}*/}
+										{/* search bar */}
 									</div>
 								</div>
 								<div className="flex -mr-2 md:hidden">
