@@ -37,20 +37,39 @@ import {
 	Youtube,
 	Linkedin,
 	User,
+	ChevronDownIcon,
+	PlayCircleIcon,
+	PhoneIcon,
 } from "lucide-react";
 import InputField from "../hooks/InputField";
 import useScroll from "../hooks/Scroll";
 
-const navigation = [
-	{ name: "Home", to: "#", current: true },
-	{ name: "Shop", to: "#", current: false },
-	{ name: "News", to: "#", current: false },
-	{ name: "Gallery", to: "#", current: false },
+const products = [
+	{
+		name: "Analytics",
+		description: "Get a better understanding of your traffic",
+		href: "#",
+	},
+	{
+		name: "Engagement",
+		description: "Speak directly to your customers",
+		href: "#",
+	},
+	{
+		name: "Security",
+		description: "Your customers’ data will be safe and secure",
+		href: "#",
+	},
+	{ name: "Integrations", description: "Connect with third-party tools", href: "#" },
+	{
+		name: "Automations",
+		description: "Build strategic funnels that will convert",
+		href: "#",
+	},
 ];
-const userNavigation = [
-	{ name: "Your Profile", to: "#" },
-	{ name: "Settings", to: "#" },
-	{ name: "Sign out", to: "#" },
+const callsToAction = [
+	{ name: "Watch demo", href: "#" },
+	{ name: "Contact sales", href: "#" },
 ];
 
 function classNames(...classes) {
@@ -59,10 +78,11 @@ function classNames(...classes) {
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
-	console.log("user: ", user);
 	const [showUserName, setShowUserName] = useState(false);
 	const { cartItems, dispatch } = useCart();
 	const isScrolled = useScroll("top-navbar");
+	const [isButtonHovered, setIsButtonHovered] = useState(false);
+	const [isPanelHovered, setIsPanelHovered] = useState(false);
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
@@ -226,6 +246,7 @@ const Navbar = () => {
 					</div>
 				</div>
 			</div>
+			{/* second/bottom navbar */}
 			<Disclosure
 				as="nav"
 				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full lg:w-[calc(100vw-10px)] border-black border-opacity-30 shadow-lg ${
@@ -236,11 +257,11 @@ const Navbar = () => {
 					<>
 						<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
 							<div className="flex items-center justify-between h-16">
-								<div className="flex items-center">
+								<div className="flex items-center gap-x-1.5 justify-start">
 									<Link
 										to="/"
 										className={`flex-shrink-0 text-white select-none flex font-sans flex-col leading-3 items-end ${
-											isScrolled ? "block duration-300" : "hidden"
+											isScrolled ? "block duration-300 mr-2" : "hidden"
 										}`}
 									>
 										<h2 className="text-2xl font-extrabold">ANIME</h2>
@@ -248,12 +269,139 @@ const Navbar = () => {
 									</Link>
 									<span
 										className={`mx-2.5 w-px h-[30px] py-px bg-dhusor lg:block hidden ${
-											isScrolled ? "bg-opacity-100" : "bg-opacity-0 -mr-2.5"
+											isScrolled ? "bg-opacity-100" : "bg-opacity-0 -mr-2"
 										}`}
 									/>
 									<div className="hidden md:block">
-										<div className="flex items-baseline ml-10 space-x-4">
+										<div className="flex items-center justify-center gap-x-1.5">
 											{/* TODO: dropdown will go here */}
+											<PopoverGroup className="flex items-center gap-x-1.5">
+												<Popover className={`relative group`}>
+													<div className="flex flex-col items-center w-[9ch] justify-center overflow-x-hidden group">
+														<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none">
+															Figures
+															<ChevronDownIcon
+																// size={26}
+																className="size-5 group-data-[open]:rotate-180"
+															/>
+														</PopoverButton>
+														<span className="w-[100px] h-px group-hover:bg-dhusor duration-300" />
+													</div>
+													<PopoverPanel
+														transition
+														anchor="bottom"
+														className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+													>
+														<div className="p-3">
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold ">Insights</p>
+																<p className="">
+																	Measure actions your users take
+																</p>
+															</a>
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold">Automations</p>
+																<p className="">
+																	Create your own targeted content
+																</p>
+															</a>
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold text-white">
+																	Reports
+																</p>
+																<p className="text-white/50">
+																	Keep track of your growth
+																</p>
+															</a>
+														</div>
+														<div className="p-3">
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold text-white">
+																	Documentation
+																</p>
+																<p className="text-white/50">
+																	Start integrating products and tools
+																</p>
+															</a>
+														</div>
+													</PopoverPanel>
+												</Popover>
+												{/* by series */}
+												<Popover className={`relative group`}>
+													<div className="flex flex-col items-center w-[8ch] justify-center overflow-x-hidden group">
+														<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none">
+															Series
+															<ChevronDownIcon
+																// size={26}
+																className="size-5 group-data-[open]:rotate-180"
+															/>
+														</PopoverButton>
+														<span className="w-[100px] h-px group-hover:bg-dhusor duration-300" />
+													</div>
+													<PopoverPanel
+														transition
+														anchor="bottom"
+														className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+													>
+														<div className="p-3">
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold ">Insights</p>
+																<p className="">
+																	Measure actions your users take
+																</p>
+															</a>
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold">Automations</p>
+																<p className="">
+																	Create your own targeted content
+																</p>
+															</a>
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold text-white">
+																	Reports
+																</p>
+																<p className="text-white/50">
+																	Keep track of your growth
+																</p>
+															</a>
+														</div>
+														<div className="p-3">
+															<a
+																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+																href="#"
+															>
+																<p className="font-semibold text-white">
+																	Documentation
+																</p>
+																<p className="text-white/50">
+																	Start integrating products and tools
+																</p>
+															</a>
+														</div>
+													</PopoverPanel>
+												</Popover>
+											</PopoverGroup>
 										</div>
 									</div>
 								</div>
@@ -481,3 +629,238 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// import {
+// 	Disclosure,
+// 	DisclosureButton,
+// 	DisclosurePanel,
+// 	Menu,
+// 	MenuButton,
+// 	MenuItem,
+// 	MenuItems,
+// } from "@headlessui/react";
+// import { MenuIcon, BellIcon, X } from "lucide-react";
+
+// const user = {
+// 	name: "Tom Cook",
+// 	email: "tom@example.com",
+// 	imageUrl:
+// 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+// };
+// const navigation = [
+// 	{ name: "Dashboard", href: "#", current: true },
+// 	{ name: "Team", href: "#", current: false },
+// 	{ name: "Projects", href: "#", current: false },
+// 	{ name: "Calendar", href: "#", current: false },
+// 	{ name: "Reports", href: "#", current: false },
+// ];
+// const userNavigation = [
+// 	{ name: "Your Profile", href: "#" },
+// 	{ name: "Settings", href: "#" },
+// 	{ name: "Sign out", href: "#" },
+// ];
+
+// function classNames(...classes) {
+// 	return classes.filter(Boolean).join(" ");
+// }
+
+// export default function Navbar() {
+// 	return (
+// 		<>
+// 			{/*
+//         This example requires updating your template:
+
+//         ```
+//         <html class="h-full bg-gray-100">
+//         <body class="h-full">
+//         ```
+//       */}
+// 			<div className="min-h-full">
+// 				<Disclosure
+// 					as="nav"
+// 					className="bg-gray-800"
+// 				>
+// 					{({ open }) => (
+// 						<>
+// 							<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+// 								<div className="flex items-center justify-between h-16">
+// 									<div className="flex items-center">
+// 										<div className="flex-shrink-0">
+// 											<img
+// 												className="w-8 h-8"
+// 												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+// 												alt="Your Company"
+// 											/>
+// 										</div>
+// 										<div className="hidden md:block">
+// 											<div className="flex items-baseline ml-10 space-x-4">
+// 												{navigation.map((item) => (
+// 													<a
+// 														key={item.name}
+// 														href={item.href}
+// 														className={classNames(
+// 															item.current
+// 																? "bg-gray-900 text-white"
+// 																: "text-gray-300 hover:bg-gray-700 hover:text-white",
+// 															"rounded-md px-3 py-2 text-sm font-medium"
+// 														)}
+// 														aria-current={item.current ? "page" : undefined}
+// 													>
+// 														{item.name}
+// 													</a>
+// 												))}
+// 											</div>
+// 										</div>
+// 									</div>
+// 									<div className="hidden md:block">
+// 										<div className="flex items-center ml-4 md:ml-6">
+// 											<button
+// 												type="button"
+// 												className="relative p-1 text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+// 											>
+// 												<span className="absolute -inset-1.5" />
+// 												<span className="sr-only">View notifications</span>
+// 												<BellIcon
+// 													className="w-6 h-6"
+// 													aria-hidden="true"
+// 												/>
+// 											</button>
+
+// 											{/* Profile dropdown */}
+// 											<Menu
+// 												as="div"
+// 												className="relative ml-3"
+// 											>
+// 												<div>
+// 													<MenuButton className="relative flex items-center max-w-xs text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+// 														<span className="absolute -inset-1.5" />
+// 														<span className="sr-only">Open user menu</span>
+// 														<img
+// 															className="w-8 h-8 rounded-full"
+// 															src={user.imageUrl}
+// 															alt=""
+// 														/>
+// 													</MenuButton>
+// 												</div>
+// 												<MenuItems
+// 													transition
+// 													className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+// 												>
+// 													{userNavigation.map((item) => (
+// 														<MenuItem key={item.name}>
+// 															{({ focus }) => (
+// 																<a
+// 																	href={item.href}
+// 																	className={classNames(
+// 																		focus ? "bg-gray-100" : "",
+// 																		"block px-4 py-2 text-sm text-gray-700"
+// 																	)}
+// 																>
+// 																	{item.name}
+// 																</a>
+// 															)}
+// 														</MenuItem>
+// 													))}
+// 												</MenuItems>
+// 											</Menu>
+// 										</div>
+// 									</div>
+// 									<div className="flex -mr-2 md:hidden">
+// 										{/* Mobile menu button */}
+// 										<DisclosureButton className="relative inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+// 											<span className="absolute -inset-0.5" />
+// 											<span className="sr-only">Open main menu</span>
+// 											{open ? (
+// 												<X
+// 													className="block w-6 h-6"
+// 													aria-hidden="true"
+// 												/>
+// 											) : (
+// 												<MenuIcon
+// 													className="block w-6 h-6"
+// 													aria-hidden="true"
+// 												/>
+// 											)}
+// 										</DisclosureButton>
+// 									</div>
+// 								</div>
+// 							</div>
+
+// 							<DisclosurePanel className="md:hidden">
+// 								<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+// 									{navigation.map((item) => (
+// 										<DisclosureButton
+// 											key={item.name}
+// 											as="a"
+// 											href={item.href}
+// 											className={classNames(
+// 												item.current
+// 													? "bg-gray-900 text-white"
+// 													: "text-gray-300 hover:bg-gray-700 hover:text-white",
+// 												"block rounded-md px-3 py-2 text-base font-medium"
+// 											)}
+// 											aria-current={item.current ? "page" : undefined}
+// 										>
+// 											{item.name}
+// 										</DisclosureButton>
+// 									))}
+// 								</div>
+// 								<div className="pt-4 pb-3 border-t border-gray-700">
+// 									<div className="flex items-center px-5">
+// 										<div className="flex-shrink-0">
+// 											<img
+// 												className="w-10 h-10 rounded-full"
+// 												src={user.imageUrl}
+// 												alt=""
+// 											/>
+// 										</div>
+// 										<div className="ml-3">
+// 											<div className="text-base font-medium leading-none text-white">
+// 												{user.name}
+// 											</div>
+// 											<div className="text-sm font-medium leading-none text-gray-400">
+// 												{user.email}
+// 											</div>
+// 										</div>
+// 										<button
+// 											type="button"
+// 											className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+// 										>
+// 											<span className="absolute -inset-1.5" />
+// 											<span className="sr-only">View notifications</span>
+// 											<BellIcon
+// 												className="w-6 h-6"
+// 												aria-hidden="true"
+// 											/>
+// 										</button>
+// 									</div>
+// 									<div className="px-2 mt-3 space-y-1">
+// 										{userNavigation.map((item) => (
+// 											<DisclosureButton
+// 												key={item.name}
+// 												as="a"
+// 												href={item.href}
+// 												className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
+// 											>
+// 												{item.name}
+// 											</DisclosureButton>
+// 										))}
+// 									</div>
+// 								</div>
+// 							</DisclosurePanel>
+// 						</>
+// 					)}
+// 				</Disclosure>
+
+// 				<header className="bg-white shadow">
+// 					<div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+// 						<h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+// 					</div>
+// 				</header>
+// 				<main>
+// 					<div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">{/* Your content */}</div>
+// 				</main>
+// 			</div>
+// 		</>
+// 	);
+// }

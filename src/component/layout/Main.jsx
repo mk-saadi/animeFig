@@ -5,10 +5,10 @@ import { Toaster } from "react-hot-toast";
 
 const Main = () => {
 	return (
-		<div className="bg-white">
+		<div className="w-full bg-white">
 			<Navbar />
 
-			<div className="pt-28">
+			<div className="w-full overflow-x-hidden overflow-y-auto pt-28 will-change-scroll">
 				<Outlet />
 			</div>
 			<Footer />
