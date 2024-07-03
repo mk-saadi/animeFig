@@ -7,15 +7,22 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
+
+// import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
+	Dialog,
+	DialogPanel,
 	Disclosure,
-	Menu,
-	Transition,
+	DisclosureButton,
+	DisclosurePanel,
 	Popover,
 	PopoverButton,
 	PopoverGroup,
 	PopoverPanel,
+	Menu,
+	Transition,
 } from "@headlessui/react";
+
 import {
 	X,
 	Menu as MenuIcon,
@@ -30,39 +37,20 @@ import {
 	Youtube,
 	Linkedin,
 	User,
-	ChevronDownIcon,
-	PlayCircleIcon,
-	PhoneIcon,
 } from "lucide-react";
 import InputField from "../hooks/InputField";
 import useScroll from "../hooks/Scroll";
 
-const products = [
-	{
-		name: "Analytics",
-		description: "Get a better understanding of your traffic",
-		href: "#",
-	},
-	{
-		name: "Engagement",
-		description: "Speak directly to your customers",
-		href: "#",
-	},
-	{
-		name: "Security",
-		description: "Your customers’ data will be safe and secure",
-		href: "#",
-	},
-	{ name: "Integrations", description: "Connect with third-party tools", href: "#" },
-	{
-		name: "Automations",
-		description: "Build strategic funnels that will convert",
-		href: "#",
-	},
+const navigation = [
+	{ name: "Home", to: "#", current: true },
+	{ name: "Shop", to: "#", current: false },
+	{ name: "News", to: "#", current: false },
+	{ name: "Gallery", to: "#", current: false },
 ];
-const callsToAction = [
-	{ name: "Watch demo", href: "#", icon: PlayCircleIcon },
-	{ name: "Contact sales", href: "#", icon: PhoneIcon },
+const userNavigation = [
+	{ name: "Your Profile", to: "#" },
+	{ name: "Settings", to: "#" },
+	{ name: "Sign out", to: "#" },
 ];
 
 function classNames(...classes) {
@@ -142,10 +130,10 @@ const Navbar = () => {
 	// }, []);
 
 	return (
-		<div className="w-full shadow-lg h-fit">
+		<div className="w-full shadow-lg h-fit ">
 			<div
 				id="top-navbar"
-				className={`bg-white overflow-hidden fixed w-full top-0 z-[30] h-[45px] transition-transform${
+				className={`bg-white overflow-hidden fixed w-full lg:w-[calc(100vw-10px)] top-0 z-[30] h-[45px] transition-transform${
 					isScrolled ? "-translate-y-full" : "translate-y-0"
 				}`}
 			>
@@ -240,8 +228,8 @@ const Navbar = () => {
 			</div>
 			<Disclosure
 				as="nav"
-				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full border-black border-opacity-30 shadow-lg ${
-					isScrolled ? "top-0" : "top-[45px]"
+				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full lg:w-[calc(100vw-10px)] border-black border-opacity-30 shadow-lg ${
+					isScrolled ? "top-0 left-0" : "top-[45px]"
 				}`}
 			>
 				{({ open }) => (
@@ -249,19 +237,15 @@ const Navbar = () => {
 						<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
 							<div className="flex items-center justify-between h-16">
 								<div className="flex items-center">
-									<div
-										className={`flex-shrink-0 text-white flex font-sans flex-col leading-3 items-end ${
-											isScrolled ? "block" : "hidden"
+									<Link
+										to="/"
+										className={`flex-shrink-0 text-white select-none flex font-sans flex-col leading-3 items-end ${
+											isScrolled ? "block duration-300" : "hidden"
 										}`}
 									>
-										{/* <img
-											className="w-9 h-9"
-											src={img}
-											alt="Your Company"
-										/> */}
 										<h2 className="text-2xl font-extrabold">ANIME</h2>
-										<h3 className="text-lg font-extrabold leading-3">FIG</h3>
-									</div>
+										<h3 className="text-lg font-extrabold leading-[8px]">FIG</h3>
+									</Link>
 									<span
 										className={`mx-2.5 w-px h-[30px] py-px bg-dhusor lg:block hidden ${
 											isScrolled ? "bg-opacity-100" : "bg-opacity-0 -mr-2.5"
@@ -269,84 +253,7 @@ const Navbar = () => {
 									/>
 									<div className="hidden md:block">
 										<div className="flex items-baseline ml-10 space-x-4">
-											<PopoverGroup className="hidden lg:flex lg:gap-x-12">
-												<Popover className="relative">
-													<PopoverButton className="flex items-center text-sm font-semibold leading-6 text-gray-900 gap-x-1">
-														Product
-														<ChevronDownIcon
-															className="flex-none w-5 h-5 text-gray-400"
-															aria-hidden="true"
-														/>
-													</PopoverButton>
-
-													<PopoverPanel
-														transition
-														className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-													>
-														<div className="p-4">
-															{products.map((item) => (
-																<div
-																	key={item.name}
-																	className="relative flex items-center p-4 text-sm leading-6 rounded-lg group gap-x-6 hover:bg-gray-50"
-																>
-																	<div className="flex items-center justify-center flex-none rounded-lg h-11 w-11 bg-gray-50 group-hover:bg-white">
-																		<item.icon
-																			className="w-6 h-6 text-gray-600 group-hover:text-indigo-600"
-																			aria-hidden="true"
-																		/>
-																	</div>
-																	<div className="flex-auto">
-																		<a
-																			href={item.href}
-																			className="block font-semibold text-gray-900"
-																		>
-																			{item.name}
-																			<span className="absolute inset-0" />
-																		</a>
-																		<p className="mt-1 text-gray-600">
-																			{item.description}
-																		</p>
-																	</div>
-																</div>
-															))}
-														</div>
-														<div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-															{callsToAction.map((item) => (
-																<a
-																	key={item.name}
-																	href={item.href}
-																	className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-																>
-																	<item.icon
-																		className="flex-none w-5 h-5 text-gray-400"
-																		aria-hidden="true"
-																	/>
-																	{item.name}
-																</a>
-															))}
-														</div>
-													</PopoverPanel>
-												</Popover>
-
-												<a
-													href="#"
-													className="text-sm font-semibold leading-6 text-gray-900"
-												>
-													Features
-												</a>
-												<a
-													href="#"
-													className="text-sm font-semibold leading-6 text-gray-900"
-												>
-													Marketplace
-												</a>
-												<a
-													href="#"
-													className="text-sm font-semibold leading-6 text-gray-900"
-												>
-													Company
-												</a>
-											</PopoverGroup>
+											{/* TODO: dropdown will go here */}
 										</div>
 									</div>
 								</div>

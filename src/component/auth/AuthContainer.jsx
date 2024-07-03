@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import image from "../../assets/background.jpg";
+import Footer from "../shared/Footer";
 
 const AuthContainer = () => {
 	return (
@@ -30,11 +31,15 @@ const AuthContainer = () => {
 							Register
 						</NavLink>
 					</div>
-					<div className="flex items-center justify-center w-full bg-white border rounded-b-lg border-dhusor  h-fit">
+					<div className="flex items-center justify-center w-full bg-white border rounded-b-lg border-dhusor h-fit">
 						<Outlet />
 					</div>
 				</div>
 			</div>
+
+			<>
+				<Footer />
+			</>
 		</>
 	);
 };
