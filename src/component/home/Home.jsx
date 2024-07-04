@@ -7,14 +7,15 @@ import ShowFig from "../showFig/ShowFig";
 import Categories from "../category/Categories";
 import useTitle from "../hooks/useWebTitle";
 import axios from "axios";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const Home = () => {
 	const figures = useLoaderData();
-	console.log("figures: ", figures);
 	const [showFig, setFig] = useState([]);
 	const [banner, setBanner] = useState([]);
 
 	useTitle("Home");
+	useScrollToTop();
 
 	useEffect(() => {
 		const fetchData = async () => {

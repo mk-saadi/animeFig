@@ -2,8 +2,11 @@ import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import image from "../../assets/background.jpg";
 import Footer from "../shared/Footer";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const AuthContainer = () => {
+	useScrollToTop();
+
 	return (
 		<>
 			<>
