@@ -148,6 +148,7 @@ const Navbar = () => {
 	// 		window.removeEventListener("scroll", handleScroll);
 	// 	};
 	// }, []);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div className="w-full shadow-lg h-fit ">
@@ -275,133 +276,50 @@ const Navbar = () => {
 									<div className="hidden md:block">
 										<div className="flex items-center justify-center gap-x-1.5">
 											{/* TODO: dropdown will go here */}
-											<PopoverGroup className="flex items-center gap-x-1.5">
-												<Popover className={`relative group`}>
-													<div className="flex flex-col items-center w-[9ch] justify-center overflow-x-hidden group">
-														<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none">
-															Figures
-															<ChevronDownIcon
-																// size={26}
-																className="size-5 group-data-[open]:rotate-180"
-															/>
-														</PopoverButton>
-														<span className="w-[100px] h-px group-hover:bg-dhusor duration-300" />
+											<div className="relative">
+												<button
+													className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-md focus:outline-none hover:bg-blue-700"
+													onMouseEnter={() => setIsOpen(true)}
+													onMouseLeave={() => setIsOpen(false)}
+												>
+													Menu
+													<ChevronDownIcon
+														className={`w-5 h-5 ml-2 transition-transform duration-300 ${
+															isOpen ? "rotate-180" : ""
+														}`}
+													/>
+												</button>
+												<div
+													className={`absolute left-0 w-48 origin-top-left transition-all duration-300 ease-in-out ${
+														isOpen
+															? "opacity-100 transform translate-y-0"
+															: "opacity-0 transform -translate-y-2 pointer-events-none"
+													}`}
+													onMouseEnter={() => setIsOpen(true)}
+													onMouseLeave={() => setIsOpen(false)}
+												>
+													<div className="mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ">
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 1
+														</a>
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 2
+														</a>
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 3
+														</a>
 													</div>
-													<PopoverPanel
-														transition
-														anchor="bottom"
-														className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
-													>
-														<div className="p-3">
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold ">Insights</p>
-																<p className="">
-																	Measure actions your users take
-																</p>
-															</a>
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold">Automations</p>
-																<p className="">
-																	Create your own targeted content
-																</p>
-															</a>
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold text-white">
-																	Reports
-																</p>
-																<p className="text-white/50">
-																	Keep track of your growth
-																</p>
-															</a>
-														</div>
-														<div className="p-3">
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold text-white">
-																	Documentation
-																</p>
-																<p className="text-white/50">
-																	Start integrating products and tools
-																</p>
-															</a>
-														</div>
-													</PopoverPanel>
-												</Popover>
-												{/* by series */}
-												<Popover className={`relative group`}>
-													<div className="flex flex-col items-center w-[8ch] justify-center overflow-x-hidden group">
-														<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none">
-															Series
-															<ChevronDownIcon
-																// size={26}
-																className="size-5 group-data-[open]:rotate-180"
-															/>
-														</PopoverButton>
-														<span className="w-[100px] h-px group-hover:bg-dhusor duration-300" />
-													</div>
-													<PopoverPanel
-														transition
-														anchor="bottom"
-														className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
-													>
-														<div className="p-3">
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold ">Insights</p>
-																<p className="">
-																	Measure actions your users take
-																</p>
-															</a>
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold">Automations</p>
-																<p className="">
-																	Create your own targeted content
-																</p>
-															</a>
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold text-white">
-																	Reports
-																</p>
-																<p className="text-white/50">
-																	Keep track of your growth
-																</p>
-															</a>
-														</div>
-														<div className="p-3">
-															<a
-																className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
-																href="#"
-															>
-																<p className="font-semibold text-white">
-																	Documentation
-																</p>
-																<p className="text-white/50">
-																	Start integrating products and tools
-																</p>
-															</a>
-														</div>
-													</PopoverPanel>
-												</Popover>
-											</PopoverGroup>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
