@@ -276,13 +276,13 @@ const Navbar = () => {
 									<div className="hidden md:block">
 										<div className="flex items-center justify-center gap-x-1.5">
 											{/* TODO: dropdown will go here */}
-											<div className="relative">
+											<div className="relative w-full">
 												<button
-													className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-md focus:outline-none hover:bg-blue-700"
+													className="flex items-center text-white focus:outline-none"
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													Menu
+													Figures
 													<ChevronDownIcon
 														className={`w-5 h-5 ml-2 transition-transform duration-300 ${
 															isOpen ? "rotate-180" : ""
@@ -290,7 +290,7 @@ const Navbar = () => {
 													/>
 												</button>
 												<div
-													className={`absolute left-0 w-48 origin-top-left transition-all duration-300 ease-in-out ${
+													className={`absolute border w-[100vw] left-0 origin-top-left transition-all duration-300 ease-in-out ${
 														isOpen
 															? "opacity-100 transform translate-y-0"
 															: "opacity-0 transform -translate-y-2 pointer-events-none"
@@ -298,7 +298,7 @@ const Navbar = () => {
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													<div className="mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ">
+													<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
 														<a
 															href="#"
 															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
