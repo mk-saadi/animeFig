@@ -256,3 +256,145 @@ export default function Example() {
 		</header>
 	);
 }
+
+// "devDependencies": {
+// 	"@types/react": "^18.3.3",
+// 	"@types/react-dom": "^18.3.0",
+// 	"@vitejs/plugin-react": "^4.3.1",
+// 	"autoprefixer": "^10.4.17",
+// 	"eslint": "^8.55.0",
+// 	"eslint-plugin-react": "^7.34.2",
+// 	"eslint-plugin-react-hooks": "^4.6.2",
+// 	"eslint-plugin-react-refresh": "^0.4.7",
+// 	"postcss": "^8.4.33",
+// 	"tailwindcss": "^3.4.1",
+// 	"vite": "^5.3.1"
+// }
+
+// <PopoverGroup className="flex items-center gap-x-1.5">
+// 	<Popover className={`relative group`}>
+// 		<div className="flex flex-col items-center w-[9ch] justify-center overflow-x-hidden group">
+// 			<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none focus:outline-none">
+// 				Figures
+// 				<ChevronDownIcon
+// 					// size={26}
+// 					className="size-5 group-data-[open]:rotate-180"
+// 				/>
+// 			</PopoverButton>
+// 			<span className="w-[100px] h-px group-hover:bg-white group-focus:outline-none bg-opacity-0 group-hover:bg-opacity-100 p-0 duration-300" />
+// 		</div>
+// 		<PopoverPanel
+// 			transition
+// 			anchor="bottom"
+// 			className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+// 		>
+// 			<div className="p-3">
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold ">Insights</p>
+// 					<p className="">
+// 						Measure actions your users take
+// 					</p>
+// 				</a>
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold">Automation's</p>
+// 					<p className="">
+// 						Create your own targeted content
+// 					</p>
+// 				</a>
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold text-white">
+// 						Reports
+// 					</p>
+// 					<p className="text-white/50">
+// 						Keep track of your growth
+// 					</p>
+// 				</a>
+// 			</div>
+// 			<div className="p-3">
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold text-white">
+// 						Documentation
+// 					</p>
+// 					<p className="text-white/50">
+// 						Start integrating products and tools
+// 					</p>
+// 				</a>
+// 			</div>
+// 		</PopoverPanel>
+// 	</Popover>
+// 	{/* by series */}
+// 	<Popover className={`relative group`}>
+// 		<div className="flex flex-col items-center w-[8ch] justify-center overflow-x-hidden group">
+// 			<PopoverButton className="px-1 justify-center items-center gap-x-1.5 text-base duration-300 flex text-white font-[300] data-[focus]:outline-none focus:outline-none">
+// 				Series
+// 				<ChevronDownIcon
+// 					// size={26}
+// 					className="size-5 group-data-[open]:rotate-180"
+// 				/>
+// 			</PopoverButton>
+// 			<span className="w-[100px] h-px group-hover:bg-white group-focus:outline-none bg-opacity-0 group-hover:bg-opacity-100 p-0 duration-300" />
+// 		</div>
+// 		<PopoverPanel
+// 			transition
+// 			anchor="bottom"
+// 			className="divide-y divide-white/5 z-50 border-dhusor border rounded-xl bg-white text-ash text-sm transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] mt-7 data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+// 		>
+// 			<div className="p-3">
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold ">Insights</p>
+// 					<p className="">
+// 						Measure actions your users take
+// 					</p>
+// 				</a>
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold">automation's</p>
+// 					<p className="">
+// 						Create your own targeted content
+// 					</p>
+// 				</a>
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold text-white">
+// 						Reports
+// 					</p>
+// 					<p className="text-white/50">
+// 						Keep track of your growth
+// 					</p>
+// 				</a>
+// 			</div>
+// 			<div className="p-3">
+// 				<a
+// 					className="block px-3 py-2 transition rounded-lg hover:bg-white/5"
+// 					href="#"
+// 				>
+// 					<p className="font-semibold text-white">
+// 						Documentation
+// 					</p>
+// 					<p className="text-white/50">
+// 						Start integrating products and tools
+// 					</p>
+// 				</a>
+// 			</div>
+// 		</PopoverPanel>
+// 	</Popover>
+// </PopoverGroup>;

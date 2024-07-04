@@ -1,16 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*::selection {
-	color: rgb(8, 8, 8);
-	background-color: rgb(111, 196, 249);
-}
+
 body {
-	font-family: "source code pro";
+	/* font-family: "source code pro"; */
+	overflow-y: auto;
+}
+
+.text-gradient {
+	background: linear-gradient(90deg, #e7230d, #f4ae18);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
+	background-clip: text;
+	color: transparent;
+	background-color: #e5e7eb; /* Fallback background color */
 }
 
 .loginActive a.active {
-	color: #e7230d;
-	background-color: #e5e7eb;
-	/* color: #00000033; */
+	background: linear-gradient(90deg, #e7230d, #f4ae18);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	background-color: #e5e7eb; /* Fallback background color */
+}
+
+@media (min-width: 1024px) {
+	::-webkit-scrollbar-track {
+		/* background-color: #f1f1f1; */
+		background-color: inherit;
+		z-index: 9999999;
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+		z-index: 9999999;
+		/* background-color: #f1f1f1; */
+		padding: 0px 10px;
+		position: fixed;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #c1c1c1;
+		z-index: 99999999;
+		transition: 0.2s ease;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background-color: #a8a8a8;
+	}
+	::-webkit-scrollbar-thumb:active {
+		background-color: #787878;
+	}
 }
