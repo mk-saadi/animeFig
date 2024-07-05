@@ -6,6 +6,7 @@ import Button from "../hooks/Button";
 import InputField from "../hooks/InputField";
 import PasswordInputField from "../hooks/PasswordInputField";
 import { useToast } from "react-toast-master";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const Login = () => {
 	const { toastMaster } = useToast();
@@ -14,6 +15,7 @@ const Login = () => {
 	const location = useLocation();
 
 	useTitle("login");
+	useScrollToTop();
 
 	const from = location.state?.from?.pathname || "/";
 
