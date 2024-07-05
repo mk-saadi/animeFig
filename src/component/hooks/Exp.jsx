@@ -7,7 +7,7 @@ import useTitle from "./useWebTitle";
 import Categories from "../category/Categories";
 import CategoryD from "../category/CategoryD";
 import ShowFig from "../showFig/ShowFig";
-import useScrollToTop from "./useScrollToTop";
+// import useScrollToTop from "./useScrollToTop";
 import Products from "../prouducts/Products";
 // import { useToast } from "../../../../../react-toast-master-demo/src/ToastProvider";
 // import { useToast } from "../../../../../../npm package/react-toast-master-demo/src/ToastProvider";

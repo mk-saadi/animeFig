@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import img from "../../assets/img.png";
 import { useContext, useState, Fragment, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-hot-toast";
@@ -7,8 +6,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
-
-// import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
 	Dialog,
 	DialogPanel,
@@ -22,7 +19,6 @@ import {
 	Menu,
 	Transition,
 } from "@headlessui/react";
-
 import {
 	X,
 	Menu as MenuIcon,
@@ -40,49 +36,22 @@ import {
 	ChevronDownIcon,
 	PlayCircleIcon,
 	PhoneIcon,
+	UserCircleIcon,
+	LogOut,
+	Settings,
+	LogIn,
+	ShoppingCart,
+	ArrowRightFromLine,
 } from "lucide-react";
-import InputField from "../hooks/InputField";
 import useScroll from "../hooks/Scroll";
-
-const products = [
-	{
-		name: "Analytics",
-		description: "Get a better understanding of your traffic",
-		href: "#",
-	},
-	{
-		name: "Engagement",
-		description: "Speak directly to your customers",
-		href: "#",
-	},
-	{
-		name: "Security",
-		description: "Your customers’ data will be safe and secure",
-		href: "#",
-	},
-	{ name: "Integrations", description: "Connect with third-party tools", href: "#" },
-	{
-		name: "Automations",
-		description: "Build strategic funnels that will convert",
-		href: "#",
-	},
-];
-const callsToAction = [
-	{ name: "Watch demo", href: "#" },
-	{ name: "Contact sales", href: "#" },
-];
-
-function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
-}
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
-	const [showUserName, setShowUserName] = useState(false);
 	const { cartItems, dispatch } = useCart();
 	const isScrolled = useScroll("top-navbar");
-	const [isButtonHovered, setIsButtonHovered] = useState(false);
-	const [isPanelHovered, setIsPanelHovered] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenSeries, setIsOpenSeries] = useState(false);
+	const [isOpenMenu, setIsOpenMenu] = useState(false);
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
@@ -130,31 +99,15 @@ const Navbar = () => {
 	// 		)}
 	// 	</>
 	// );
+	const [isOpenCart, setIsOpenCart] = useState(false);
 
-	// const [isScrolled, setIsScrolled] = useState(false);
-
-	// useEffect(() => {
-	// 	const handleScroll = () => {
-	// 		const topNavbarHeight = document.getElementById("top-navbar").offsetHeight;
-	// 		if (window.scrollY > topNavbarHeight) {
-	// 			setIsScrolled(true);
-	// 		} else {
-	// 			setIsScrolled(false);
-	// 		}
-	// 	};
-
-	// 	window.addEventListener("scroll", handleScroll);
-	// 	return () => {
-	// 		window.removeEventListener("scroll", handleScroll);
-	// 	};
-	// }, []);
-	const [isOpen, setIsOpen] = useState(false);
+	const toggleDrawer = () => setIsOpenCart(!isOpenCart);
 
 	return (
 		<div className="w-full shadow-lg h-fit ">
 			<div
 				id="top-navbar"
-				className={`bg-white overflow-hidden fixed w-full lg:w-[calc(100vw-10px)] top-0 z-[30] h-[45px] transition-transform${
+				className={`bg-white overflow-hidden fixed w-full lg:w-full top-0 z-[30] h-[45px] transition-transform${
 					isScrolled ? "-translate-y-full" : "translate-y-0"
 				}`}
 			>
@@ -224,7 +177,7 @@ const Navbar = () => {
 									className="font-normal flex hover:text-laal items-center justify-center gap-x-1.5"
 									to="/auth/login"
 								>
-									<User2 size={20} /> Login
+									<LogIn size={20} /> Login
 								</Link>
 								<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
 								<Link
@@ -250,7 +203,7 @@ const Navbar = () => {
 			{/* second/bottom navbar */}
 			<Disclosure
 				as="nav"
-				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full lg:w-[calc(100vw-10px)] border-black border-opacity-30 shadow-lg ${
+				className={`border-b bg-gradient-to-r from-[#e7230d] to-[#f4ae18] duration-100 fixed z-50 w-full lg:w-full border-black border-opacity-30 shadow-lg ${
 					isScrolled ? "top-0 left-0" : "top-[45px]"
 				}`}
 			>
@@ -274,23 +227,23 @@ const Navbar = () => {
 										}`}
 									/>
 									<div className="hidden md:block">
-										<div className="flex items-center justify-center gap-x-1.5">
+										<div className="flex items-center justify-center gap-x-2.5">
 											{/* TODO: dropdown will go here */}
-											<div className="relative">
+											<div className="relative w-full">
 												<button
-													className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-md focus:outline-none hover:bg-blue-700"
+													className="flex items-center justify-center p-0 text-white duration-300 gap-x-1 focus:outline-none"
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													Menu
+													Figures
 													<ChevronDownIcon
-														className={`w-5 h-5 ml-2 transition-transform duration-300 ${
-															isOpen ? "rotate-180" : ""
+														className={`w-5 h-5 duration-300 ${
+															isOpen ? "mt-1" : ""
 														}`}
 													/>
 												</button>
 												<div
-													className={`absolute left-0 w-48 origin-top-left transition-all duration-300 ease-in-out ${
+													className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
 														isOpen
 															? "opacity-100 transform translate-y-0"
 															: "opacity-0 transform -translate-y-2 pointer-events-none"
@@ -298,7 +251,52 @@ const Navbar = () => {
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													<div className="mt-2 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg ">
+													<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 1
+														</a>
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 2
+														</a>
+														<a
+															href="#"
+															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+														>
+															Option 3
+														</a>
+													</div>
+												</div>
+											</div>
+											{/* series */}
+											<div className="relative w-full">
+												<button
+													className="flex items-center justify-center text-white gap-x-1 focus:outline-none"
+													onMouseEnter={() => setIsOpenSeries(true)}
+													onMouseLeave={() => setIsOpenSeries(false)}
+												>
+													Series
+													<ChevronDownIcon
+														className={`w-5 h-5 duration-300 ${
+															isOpenSeries ? "mt-1" : ""
+														}`}
+													/>
+												</button>
+												<div
+													className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
+														isOpenSeries
+															? "opacity-100 transform translate-y-0"
+															: "opacity-0 transform -translate-y-2 pointer-events-none"
+													}`}
+													onMouseEnter={() => setIsOpenSeries(true)}
+													onMouseLeave={() => setIsOpenSeries(false)}
+												>
+													<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
 														<a
 															href="#"
 															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
@@ -335,7 +333,7 @@ const Navbar = () => {
 													<input
 														type="search"
 														name=""
-														className="w-full pl-3 font-[300] bg-transparent border-b border-white placeholder:text-white focus:outline-none"
+														className="w-full pl-3 font-[200] font-sans bg-transparent border-b border-white placeholder:text-white focus:outline-none text-base"
 														placeholder="Search a product"
 														id=""
 													/>
@@ -347,39 +345,36 @@ const Navbar = () => {
 										</div>
 										{/* Profile dropdown large device */}
 										{isScrolled && (
-											<Menu
-												as="div"
-												className="relative"
-											>
+											<div className="relative w-fit">
+												{/* Profile dropdown large device */}
 												{user ? (
-													<Menu.Button className="relative flex items-center max-w-xs text-sm bg-transparent rounded-full focus:outline-none">
-														<span className="absolute -inset-1.5" />
-														<span className="sr-only">Open user menu</span>
-														<img
-															className="w-8 h-8 rounded-full ring-2 ring-white"
-															src={user?.photoURL}
-															alt=""
-														/>
-													</Menu.Button>
+													<img
+														className="w-8 h-8 rounded-full cursor-pointer ring-2 ring-white"
+														src={user?.photoURL}
+														alt=""
+														onMouseEnter={() => setIsOpenMenu(true)}
+														onMouseLeave={() => setIsOpenMenu(false)}
+													/>
 												) : (
-													<Menu.Button className="relative flex items-center text-white bg-transparent rounded-full focus:outline-none">
-														<span className="absolute -inset-1.5" />
-														<span className="sr-only">Open user menu</span>
-														<UserCircle size={25} />
-													</Menu.Button>
+													<p
+														onMouseEnter={() => setIsOpenMenu(true)}
+														onMouseLeave={() => setIsOpenMenu(false)}
+													>
+														<UserCircleIcon className="text-white rounded-full cursor-pointer w-7 h-7" />
+													</p>
 												)}
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
+												<div
+													className={`absolute w-fit min-w-44 -right-1.5 origin-top-right transition-all duration-300 ease-in-out ${
+														isOpenMenu
+															? "opacity-100 transform translate-y-0"
+															: "opacity-0 transform -translate-y-2 pointer-events-none"
+													}`}
+													onMouseEnter={() => setIsOpenMenu(true)}
+													onMouseLeave={() => setIsOpenMenu(false)}
 												>
-													<Menu.Items className="absolute right-0 z-10 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg w-60 ring-1 ring-dhusor focus:outline-none">
+													<div className="w-full mt-3 bg-white border border-gray-300 divide-y divide-gray-100 rounded-md shadow-lg h-fit">
 														{user && (
-															<div className="overflow-hidden border-b border-gray-200">
+															<div className="overflow-hidden ">
 																<p className="block px-4 py-2 text-sm text-gray-700">
 																	{user?.displayName}
 																</p>
@@ -389,72 +384,67 @@ const Navbar = () => {
 															</div>
 														)}
 														{user && (
-															<Menu.Item>
-																<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
-																	Profile
-																</Link>
-															</Menu.Item>
+															<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+																<User size={20} />
+																Profile
+															</Link>
 														)}
 														{!user && (
-															<Menu.Item>
-																<Link
-																	className="block px-4 py-2 text-sm text-ash hover:text-laal"
-																	to="/auth/login"
-																>
-																	Sign In
-																</Link>
-															</Menu.Item>
+															<Link
+																className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal"
+																to="/auth/login"
+															>
+																<LogIn size={20} />
+																Login
+															</Link>
 														)}
-														<Menu.Item>
-															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
-																View Cart
-															</Link>
-														</Menu.Item>
-														<Menu.Item>
-															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
-																Checkout
-															</Link>
-														</Menu.Item>
-														<Menu.Item>
-															<Link className="block px-4 py-2 text-sm text-ash hover:text-laal">
-																Settings
-															</Link>
-														</Menu.Item>
+														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+															<ShoppingCart size={20} />
+															View Cart
+														</Link>
+														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+															<ArrowRightFromLine size={20} />
+															Checkout
+														</Link>
+														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+															<Settings size={20} /> Settings
+														</Link>
 														{user && (
-															<Menu.Item className="duration-300 border-t border-gray-200 hover:text-laal">
-																<Link
-																	onClick={handleLogOut}
-																	className="block px-4 py-2 text-sm text-ash"
-																>
-																	Logout
-																</Link>
-															</Menu.Item>
+															<p
+																onClick={handleLogOut}
+																className="flex justify-start cursor-pointer items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal"
+															>
+																<LogOut size={20} />
+																Logout
+															</p>
 														)}
-													</Menu.Items>
-												</Transition>
-											</Menu>
+													</div>
+												</div>
+											</div>
 										)}
 										{isScrolled && (
-											<button
-												type="button"
-												className="relative bg-transparent "
+											// <button
+											// 	type="button"
+											// 	className="relative bg-transparent "
+											// >
+											// 	<span className="absolute -inset-1.5" />
+											// 	<span className="sr-only">View cart items</span>
+											// 	<Cart aria-hidden="true" />
+											// </button>
+											<Cart
+												isOpen={isOpenCart}
+												onCloseCart={toggleDrawer}
 											>
-												<span className="absolute -inset-1.5" />
-												<span className="sr-only">View cart items</span>
-												<Cart aria-hidden="true" />
-											</button>
+												<p>This is the drawer content.</p>
+												<button
+													type="button"
+													onClick={toggleDrawer}
+													className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
+												>
+													Close Drawer
+												</button>
+											</Cart>
 										)}
-										{/* // ) : (
-										// 	<>
-										// 		<Link
-										// 			to="/auth/login"
-										// 			className="flex items-center justify-center gap-x-2"
-										// 		>
-										// 			<UserCircle /> Login
-										// 		</Link>
-										// 	</>
-										// )}*/}
-										{/* search bar */}
 									</div>
 								</div>
 								<div className="flex -mr-2 md:hidden">
@@ -482,7 +472,7 @@ const Navbar = () => {
 							<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 								<Disclosure.Button
 									as="p"
-									className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md text-dhusor hover:bg-gray-700 hover:text-white"
+									className="block px-3 py-2 text-base font-medium rounded-md text-dhusor hover:bg-gray-700 hover:text-white"
 								>
 									Home
 								</Disclosure.Button>
@@ -548,237 +538,14 @@ const Navbar = () => {
 
 export default Navbar;
 
-// import {
-// 	Disclosure,
-// 	DisclosureButton,
-// 	DisclosurePanel,
-// 	Menu,
-// 	MenuButton,
-// 	MenuItem,
-// 	MenuItems,
-// } from "@headlessui/react";
-// import { MenuIcon, BellIcon, X } from "lucide-react";
-
-// const user = {
-// 	name: "Tom Cook",
-// 	email: "tom@example.com",
-// 	imageUrl:
-// 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-// };
-// const navigation = [
-// 	{ name: "Dashboard", href: "#", current: true },
-// 	{ name: "Team", href: "#", current: false },
-// 	{ name: "Projects", href: "#", current: false },
-// 	{ name: "Calendar", href: "#", current: false },
-// 	{ name: "Reports", href: "#", current: false },
-// ];
-// const userNavigation = [
-// 	{ name: "Your Profile", href: "#" },
-// 	{ name: "Settings", href: "#" },
-// 	{ name: "Sign out", href: "#" },
-// ];
-
-// function classNames(...classes) {
-// 	return classes.filter(Boolean).join(" ");
-// }
-
-// export default function Navbar() {
-// 	return (
-// 		<>
-// 			{/*
-//         This example requires updating your template:
-
-//         ```
-//         <html class="h-full bg-gray-100">
-//         <body class="h-full">
-//         ```
-//       */}
-// 			<div className="min-h-full">
-// 				<Disclosure
-// 					as="nav"
-// 					className="bg-gray-800"
-// 				>
-// 					{({ open }) => (
-// 						<>
-// 							<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-// 								<div className="flex items-center justify-between h-16">
-// 									<div className="flex items-center">
-// 										<div className="flex-shrink-0">
-// 											<img
-// 												className="w-8 h-8"
-// 												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-// 												alt="Your Company"
-// 											/>
-// 										</div>
-// 										<div className="hidden md:block">
-// 											<div className="flex items-baseline ml-10 space-x-4">
-// 												{navigation.map((item) => (
-// 													<a
-// 														key={item.name}
-// 														href={item.href}
-// 														className={classNames(
-// 															item.current
-// 																? "bg-gray-900 text-white"
-// 																: "text-gray-300 hover:bg-gray-700 hover:text-white",
-// 															"rounded-md px-3 py-2 text-sm font-medium"
-// 														)}
-// 														aria-current={item.current ? "page" : undefined}
-// 													>
-// 														{item.name}
-// 													</a>
-// 												))}
-// 											</div>
-// 										</div>
-// 									</div>
-// 									<div className="hidden md:block">
-// 										<div className="flex items-center ml-4 md:ml-6">
-// 											<button
-// 												type="button"
-// 												className="relative p-1 text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-// 											>
-// 												<span className="absolute -inset-1.5" />
-// 												<span className="sr-only">View notifications</span>
-// 												<BellIcon
-// 													className="w-6 h-6"
-// 													aria-hidden="true"
-// 												/>
-// 											</button>
-
-// 											{/* Profile dropdown */}
-// 											<Menu
-// 												as="div"
-// 												className="relative ml-3"
-// 											>
-// 												<div>
-// 													<MenuButton className="relative flex items-center max-w-xs text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-// 														<span className="absolute -inset-1.5" />
-// 														<span className="sr-only">Open user menu</span>
-// 														<img
-// 															className="w-8 h-8 rounded-full"
-// 															src={user.imageUrl}
-// 															alt=""
-// 														/>
-// 													</MenuButton>
-// 												</div>
-// 												<MenuItems
-// 													transition
-// 													className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-// 												>
-// 													{userNavigation.map((item) => (
-// 														<MenuItem key={item.name}>
-// 															{({ focus }) => (
-// 																<a
-// 																	href={item.href}
-// 																	className={classNames(
-// 																		focus ? "bg-gray-100" : "",
-// 																		"block px-4 py-2 text-sm text-gray-700"
-// 																	)}
-// 																>
-// 																	{item.name}
-// 																</a>
-// 															)}
-// 														</MenuItem>
-// 													))}
-// 												</MenuItems>
-// 											</Menu>
-// 										</div>
-// 									</div>
-// 									<div className="flex -mr-2 md:hidden">
-// 										{/* Mobile menu button */}
-// 										<DisclosureButton className="relative inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-// 											<span className="absolute -inset-0.5" />
-// 											<span className="sr-only">Open main menu</span>
-// 											{open ? (
-// 												<X
-// 													className="block w-6 h-6"
-// 													aria-hidden="true"
-// 												/>
-// 											) : (
-// 												<MenuIcon
-// 													className="block w-6 h-6"
-// 													aria-hidden="true"
-// 												/>
-// 											)}
-// 										</DisclosureButton>
-// 									</div>
-// 								</div>
-// 							</div>
-
-// 							<DisclosurePanel className="md:hidden">
-// 								<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-// 									{navigation.map((item) => (
-// 										<DisclosureButton
-// 											key={item.name}
-// 											as="a"
-// 											href={item.href}
-// 											className={classNames(
-// 												item.current
-// 													? "bg-gray-900 text-white"
-// 													: "text-gray-300 hover:bg-gray-700 hover:text-white",
-// 												"block rounded-md px-3 py-2 text-base font-medium"
-// 											)}
-// 											aria-current={item.current ? "page" : undefined}
-// 										>
-// 											{item.name}
-// 										</DisclosureButton>
-// 									))}
-// 								</div>
-// 								<div className="pt-4 pb-3 border-t border-gray-700">
-// 									<div className="flex items-center px-5">
-// 										<div className="flex-shrink-0">
-// 											<img
-// 												className="w-10 h-10 rounded-full"
-// 												src={user.imageUrl}
-// 												alt=""
-// 											/>
-// 										</div>
-// 										<div className="ml-3">
-// 											<div className="text-base font-medium leading-none text-white">
-// 												{user.name}
-// 											</div>
-// 											<div className="text-sm font-medium leading-none text-gray-400">
-// 												{user.email}
-// 											</div>
-// 										</div>
-// 										<button
-// 											type="button"
-// 											className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-// 										>
-// 											<span className="absolute -inset-1.5" />
-// 											<span className="sr-only">View notifications</span>
-// 											<BellIcon
-// 												className="w-6 h-6"
-// 												aria-hidden="true"
-// 											/>
-// 										</button>
-// 									</div>
-// 									<div className="px-2 mt-3 space-y-1">
-// 										{userNavigation.map((item) => (
-// 											<DisclosureButton
-// 												key={item.name}
-// 												as="a"
-// 												href={item.href}
-// 												className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
-// 											>
-// 												{item.name}
-// 											</DisclosureButton>
-// 										))}
-// 									</div>
-// 								</div>
-// 							</DisclosurePanel>
-// 						</>
-// 					)}
-// 				</Disclosure>
-
-// 				<header className="bg-white shadow">
-// 					<div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-// 						<h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-// 					</div>
-// 				</header>
-// 				<main>
-// 					<div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">{/* Your content */}</div>
-// 				</main>
-// 			</div>
-// 		</>
-// 	);
-// }
+// import { getAuth, deleteUser } from "firebase/auth";
+// const auth = getAuth();
+// const user = auth.currentUser;
+// deleteUser(user)
+// 	.then(() => {
+// 		// User deleted.
+// 	})
+// 	.catch((error) => {
+// 		// An error ocurred
+// 		// ...
+// 	});

@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	/* font-family: "source code pro"; */
 	overflow-y: auto;
 }
 
@@ -26,16 +29,14 @@ body {
 	background-color: #e5e7eb; /* Fallback background color */
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
 	::-webkit-scrollbar-track {
-		/* background-color: #f1f1f1; */
 		background-color: inherit;
 		z-index: 9999999;
 	}
 	::-webkit-scrollbar {
 		width: 10px;
 		z-index: 9999999;
-		/* background-color: #f1f1f1; */
 		padding: 0px 10px;
 		position: fixed;
 	}
@@ -50,4 +51,4 @@ body {
 	::-webkit-scrollbar-thumb:active {
 		background-color: #787878;
 	}
-}
+} */
