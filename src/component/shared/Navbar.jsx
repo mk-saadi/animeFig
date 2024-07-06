@@ -222,8 +222,7 @@ const Navbar = () => {
 							{/* <Cart /> */}
 							<ShoppingCart size={22} />
 							<span className="flex items-center justify-center text-sm font-normal">
-								<DollarSign size={20} />
-								{totalPrice.toFixed(2)}
+								${totalPrice.toFixed(2)}
 							</span>
 						</div>
 					</div>
