@@ -95,7 +95,7 @@ const router = createBrowserRouter([
 				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/addedFigure/${params.id}`),
 			},
 			{
-				path: "/category",
+				path: "/categories/:category",
 				element: <Categories />,
 			},
 			{

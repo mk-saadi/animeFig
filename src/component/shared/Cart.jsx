@@ -211,11 +211,13 @@
 
 import React, { useEffect, useState } from "react";
 import useScroll from "../hooks/Scroll";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, ShoppingCart, ShoppingCartIcon, X } from "lucide-react";
+import { useCart } from "../provider/CartProvider";
 
 function Cart() {
 	const [isOpen, setIsOpen] = useState(false);
 	const isScrolled = useScroll("top-navbar");
+	const { cartItems } = useCart();
 
 	useEffect(() => {
 		const handleKeyDown = (event) => {
@@ -230,41 +232,64 @@ function Cart() {
 		};
 	}, []);
 
+	// Add or remove the class to disable/enable scrolling
+	// useEffect(() => {
+	// 	if (isOpen) {
+	// 		document.body.classList.add("overflow-hidden");
+	// 	} else {
+	// 		document.body.classList.remove("overflow-hidden");
+	// 	}
+	// }, [isOpen]);
+
 	return (
 		<div>
 			<button
-				className={`relative flex items-center justify-start duration-300 bg-transparent  ${
-					isScrolled ? "text-white hover:text-laal" : "hover:text-laal text-ash"
-				}`}
+				// className={`relative py-1 flex items-center justify-start duration-300 bg-transparent  ${
+				// 	isScrolled ? "text-white hover:text-laal" : ""
+				// }`}
+				className="relative flex items-center justify-start p-2 text-white duration-300 rounded-md bg-ash/15 hover:text-laal"
 				onClick={() => setIsOpen(true)}
+				// onMouseEnter={() => setIsOpen(true)}
 			>
-				<ShoppingBag
+				<ShoppingCartIcon
 					className="w-6 h-6"
 					aria-hidden="true"
 				/>
+				{cartItems?.length > 0 && (
+					<span className="absolute inline-flex items-center px-2 py-1 text-xs font-medium text-white rounded-md -top-2 -right-3 bg-laal">
+						{cartItems?.length}
+					</span>
+				)}
 			</button>
 
 			{/* Drawer Overlay */}
 			<div
-				className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 backdrop-blur-sm ${
+				className={`fixed inset-0 bg-black bg-opacity-40 transition-opacity duration-300 backdrop-blur-[1px] ${
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 				onClick={() => setIsOpen(false)}
+				// onMouseEnter={() => setIsOpen(false)}
 			/>
 
 			{/* Drawer */}
 			<div
-				className={`fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform transition-transform duration-300 ${
+				className={`fixed top-0 right-0 w-56 md:w-80 lg:w-96 h-full bg-white shadow-2xl transform transition-transform duration-300 ${
 					isOpen ? "translate-x-0" : "translate-x-full"
 				}`}
 			>
 				<div className="p-4 z-[999999]">
-					<button
-						className="p-2 text-white bg-red-500 rounded"
-						onClick={() => setIsOpen(false)}
-					>
-						Close Drawer
-					</button>
+					<div className="flex justify-end w-full">
+						<button
+							className="p-2 duration-300 bg-transparent rounded text-ash hover:bg-ash/10 hover:text-laal"
+							onClick={() => setIsOpen(false)}
+						>
+							<X
+								// className="w-5 h-5"
+								size={20}
+								aria-hidden="true"
+							/>
+						</button>
+					</div>
 					<div className="mt-4">
 						<p>This is the content of the drawer.</p>
 						{/* Add your content here */}

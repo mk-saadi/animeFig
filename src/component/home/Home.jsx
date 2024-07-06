@@ -4,7 +4,7 @@ import image from "../../assets/background.jpg";
 import Products from "../prouducts/Products";
 import { useEffect, useState } from "react";
 import ShowFig from "../showFig/ShowFig";
-import Categories from "../category/Categories";
+// import Categories from "../category/Categories";
 import useTitle from "../hooks/useWebTitle";
 import axios from "axios";
 import useScrollToTop from "../hooks/useScrollToTop";
@@ -67,12 +67,12 @@ const Home = () => {
 
 			<main className="mt-20">
 				{/* sub-category */}
-				<div
+				{/* <div
 					className="mb-16"
 					style={{ minHeight: "510px" }}
 				>
 					<Categories />
-				</div>
+				</div> */}
 
 				{/* shop section */}
 				<h3 className="pl-4 mt-20 ml-4 -mb-12 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">

@@ -1,56 +1,90 @@
-import { useEffect, useState } from "react";
-import CategoryList from "./CategoryList";
-import CategoryD from "./CategoryD";
+import { useFigures } from "../hooks/APIS";
+import { Link, useParams } from "react-router-dom";
+import useScrollToTop from "../hooks/useScrollToTop";
+import useTitle from "../hooks/useWebTitle";
+import { Heart, ShoppingCart } from "lucide-react";
+import { useCart } from "../provider/CartProvider";
 
 const Categories = () => {
-	const [figures, setFigures] = useState([]);
-	const [selectedCategory, setSelectedCategory] = useState(null);
+	const { category } = useParams();
+	const { addToCart } = useCart();
 
-	useEffect(() => {
-		fetch(`https://server-anime-fig.vercel.app/addedFigure`)
-			.then((res) => res.json())
-			.then((data) => {
-				setFigures(data);
-				setSelectedCategory(data.length > 0 ? data[0].category : null);
-			});
-	}, []);
+	useScrollToTop();
+	useTitle("Category: " + category);
 
-	const handleCategorySelect = (category) => {
-		setSelectedCategory(category);
+	const { figureData, isLoading, error } = useFigures({ category: category });
+
+	const addFigToCart = (id, name, img, price) => {
+		const figName = name;
+		const figImg = img;
+		const figId = id;
+		const figPrice = price;
+
+		const selectedFig = {
+			figName,
+			figImg,
+			figId,
+			figPrice,
+		};
+
+		addToCart(selectedFig);
 	};
 
-	const filteredFigures = selectedCategory
-		? figures.filter((fig) => fig.category === selectedCategory)
-		: figures;
-
-	const numberOfEntriesToShow = 6; // For example, show the latest 5 entries
-
-	// Slice the array to show only the latest entries
-	const latestFigures = filteredFigures.slice(0, numberOfEntriesToShow);
-
 	return (
-		<>
-			<div className="mt-20">
-				<h3 className="pl-4 mt-20 ml-4 -mb-12 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
-					Shop Merch By Sub-category
-				</h3>
+		<div className="min-h-screen bg-white">
+			<h1>Category: {category}</h1>
+			{isLoading && <p>Loading figures...</p>}
+			{error && <p>Error fetching figures: {error.message}</p>}
 
-				<CategoryList
-					figures={figures}
-					selectedCategory={selectedCategory}
-					onCategorySelect={handleCategorySelect}
-				/>
-
-				<div className="grid grid-cols-2 mx-4 bg-gray-200 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:mx-20">
-					{latestFigures.map((figS) => (
-						<CategoryD
-							key={figS._id}
-							figS={figS}
-						></CategoryD>
-					))}
-				</div>
+			<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-6">
+				{figureData.map((figure) => (
+					<div
+						key={figure._id}
+						className="relative rounded-md hover:shadow-xl group"
+					>
+						<div className="absolute top-0 border-b-2 border-white border-s-2 right-0 z-[1] px-2 py-px text-sm text-white rounded-md shadow-xl bg-ash">
+							<p>Pre-owned</p>
+						</div>
+						<div className="p-4 h-[30rem]">
+							<Link to={`/figDetails/${figure._id}`}>
+								<div className="relative overflow-hidden rounded-md h-fit">
+									<img
+										src={figure?.img}
+										alt={figure.name}
+										className="object-cover w-full h-64 duration-300 group-hover:scale-105"
+									/>
+								</div>
+								<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-ash">
+									{figure.name}
+								</h2>
+								<p className="mt-1 text-sm">{figure.category}</p>
+							</Link>
+						</div>
+						{/* button component */}
+						<div className="absolute bottom-0 left-0 w-full">
+							<div className="flex flex-col justify-between p-3 gap-y-2">
+								<Link
+									to={`/figDetails/${figure._id}`}
+									className="flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-xl bg-laal"
+								>
+									<span className="text-xs">New Arrival</span>
+									<span className="text-base font-semibold">$ {figure.price}</span>
+								</Link>
+								<button
+									className="flex items-center justify-center w-full p-2 text-sm rounded-md shadow-md gap-x-1 text-ash bg-holud"
+									onClick={() =>
+										addFigToCart(figure._id, figure.name, figure.img, figure.price)
+									}
+								>
+									<ShoppingCart size={18} />
+									<span>Add to cart</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				))}
 			</div>
-		</>
+		</div>
 	);
 };
 

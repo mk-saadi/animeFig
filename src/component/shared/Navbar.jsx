@@ -44,6 +44,7 @@ import {
 	ArrowRightFromLine,
 } from "lucide-react";
 import useScroll from "../hooks/Scroll";
+import { useCategoriesState } from "../hooks/APIS";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
@@ -52,6 +53,7 @@ const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
+	const [categories] = useCategoriesState();
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
@@ -102,6 +104,32 @@ const Navbar = () => {
 	const [isOpenCart, setIsOpenCart] = useState(false);
 
 	const toggleDrawer = () => setIsOpenCart(!isOpenCart);
+
+	// const [hoveredCategory, setHoveredCategory] = useState(null);
+	// const handleMouseEnter = (categoryId) => {
+	// 	setHoveredCategory(categoryId);
+	// };
+	// const handleMouseLeave = () => {
+	// 	setHoveredCategory(null);
+	// };
+	const [hoveredCategory, setHoveredCategory] = useState(null);
+	const [initialImage, setInitialImage] = useState(null);
+
+	useEffect(() => {
+		// Find the category with the name "Figma" and set it as the initial image
+		const figmaCategory = categories.find((category) => category.name === "Figma");
+		if (figmaCategory) {
+			setInitialImage(figmaCategory.img);
+		}
+	}, [categories]);
+
+	const handleMouseEnter = (categoryId) => {
+		setHoveredCategory(categoryId);
+	};
+
+	const handleMouseLeave = () => {
+		setHoveredCategory(null);
+	};
 
 	return (
 		<div className="w-full shadow-lg h-fit ">
@@ -190,9 +218,10 @@ const Navbar = () => {
 						)}
 						<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
 						{/* cart item below */}
-						<div className="-ml-1.5 flex justify-center items-center gap-x-1.5">
-							<Cart />
-							<span className="flex items-center justify-center text-sm font-normal text-ash ">
+						<div className=" flex justify-center items-center gap-x-1.5 text-ash">
+							{/* <Cart /> */}
+							<ShoppingCart size={22} />
+							<span className="flex items-center justify-center text-sm font-normal">
 								<DollarSign size={20} />
 								{totalPrice.toFixed(2)}
 							</span>
@@ -231,7 +260,7 @@ const Navbar = () => {
 											{/* TODO: dropdown will go here */}
 											<div className="relative w-full">
 												<button
-													className="flex items-center justify-center p-0 text-white duration-300 gap-x-1 focus:outline-none"
+													className="flex items-center justify-center p-0 text-white duration-300 gap-x-[2px] focus:outline-none"
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
@@ -251,32 +280,58 @@ const Navbar = () => {
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 1
-														</a>
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 2
-														</a>
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 3
-														</a>
+													<div className="grid justify-between items-start grid-cols-5 mt-4 bg-white border px-6 h-[16rem] border-gray-200 rounded-md shadow-lg w-[30rem]">
+														{/* category list component */}
+														<div className="col-span-2">
+															{categories.map((category) => (
+																<div
+																	key={category._id}
+																	onMouseEnter={() =>
+																		handleMouseEnter(category._id)
+																	}
+																	onMouseLeave={handleMouseLeave}
+																	className="flex flex-col h-full text-sm"
+																>
+																	<Link
+																		to={`/categories/${category.name}`}
+																		className="block px-4 py-2 duration-300 text-ash hover:text-laal"
+																		onClick={() => setIsOpen(false)}
+																	>
+																		{category.name}
+																	</Link>
+																</div>
+															))}
+														</div>
+														{/* image component */}
+														<div className="flex items-center justify-start w-full col-span-3 border border-laal h-fit">
+															{hoveredCategory
+																? categories.map(
+																		(category) =>
+																			category._id ===
+																				hoveredCategory && (
+																				<img
+																					key={category._id}
+																					src={category.img}
+																					alt={category.name}
+																					className="object-cover w-64 h-56"
+																				/>
+																			)
+																  )
+																: initialImage && (
+																		<img
+																			src={initialImage}
+																			alt="Figma"
+																			className="object-cover w-64 h-56"
+																		/>
+																  )}
+														</div>
 													</div>
 												</div>
 											</div>
 											{/* series */}
 											<div className="relative w-full">
 												<button
-													className="flex items-center justify-center text-white gap-x-1 focus:outline-none"
+													className="flex items-center justify-center p-0 text-white duration-300 gap-x-[2px] focus:outline-none"
 													onMouseEnter={() => setIsOpenSeries(true)}
 													onMouseLeave={() => setIsOpenSeries(false)}
 												>
@@ -316,6 +371,18 @@ const Navbar = () => {
 															Option 3
 														</a>
 													</div>
+												</div>
+											</div>
+											{/* trending */}
+											<div className="relative w-full">
+												<div className="text-white duration-300 cursor-pointer hover:underline">
+													<p>Trending</p>
+												</div>
+											</div>
+											{/* contacts */}
+											<div className="relative w-full">
+												<div className="text-white duration-300 cursor-pointer hover:underline">
+													<p>Contacts</p>
 												</div>
 											</div>
 										</div>
@@ -364,7 +431,7 @@ const Navbar = () => {
 													</p>
 												)}
 												<div
-													className={`absolute w-fit min-w-44 -right-1.5 origin-top-right transition-all duration-300 ease-in-out ${
+													className={`absolute w-fit min-w-56 -right-1.5 origin-top-right transition-all duration-300 ease-in-out ${
 														isOpenMenu
 															? "opacity-100 transform translate-y-0"
 															: "opacity-0 transform -translate-y-2 pointer-events-none"
@@ -384,35 +451,35 @@ const Navbar = () => {
 															</div>
 														)}
 														{user && (
-															<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+															<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
 																<User size={20} />
 																Profile
 															</Link>
 														)}
 														{!user && (
 															<Link
-																className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal"
+																className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
 																to="/auth/login"
 															>
 																<LogIn size={20} />
 																Login
 															</Link>
 														)}
-														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
 															<ShoppingCart size={20} />
 															View Cart
 														</Link>
-														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
 															<ArrowRightFromLine size={20} />
 															Checkout
 														</Link>
-														<Link className="flex justify-start items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal">
+														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
 															<Settings size={20} /> Settings
 														</Link>
 														{user && (
 															<p
 																onClick={handleLogOut}
-																className="flex justify-start cursor-pointer items-center gap-x-2.5 px-4 py-2 text-sm duration-300 text-ash hover:text-laal"
+																className="flex items-center justify-start px-4 py-2 text-sm duration-300 cursor-pointer gap-x-4 text-ash hover:text-laal"
 															>
 																<LogOut size={20} />
 																Logout
@@ -434,22 +501,13 @@ const Navbar = () => {
 											<Cart
 												isOpen={isOpenCart}
 												onCloseCart={toggleDrawer}
-											>
-												<p>This is the drawer content.</p>
-												<button
-													type="button"
-													onClick={toggleDrawer}
-													className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
-												>
-													Close Drawer
-												</button>
-											</Cart>
+											/>
 										)}
 									</div>
 								</div>
 								<div className="flex -mr-2 md:hidden">
 									{/* Mobile menu button */}
-									<Disclosure.Button className="relative inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+									<Disclosure.Button className="relative inline-flex items-center justify-center p-2 text-white rounded-md bg-ash/10 focus:outline-none">
 										<span className="absolute -inset-0.5" />
 										<span className="sr-only">Open main menu</span>
 										{open ? (
@@ -467,8 +525,7 @@ const Navbar = () => {
 								</div>
 							</div>
 						</div>
-
-						<Disclosure.Panel className="md:hidden">
+						<Disclosure.Panel className="md:hidden bg-ash">
 							<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 								<Disclosure.Button
 									as="p"
@@ -497,14 +554,20 @@ const Navbar = () => {
 									</div>
 
 									{/* cart drawer */}
-									<button
+									{/* <button
 										type="button"
 										className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
 									>
 										<span className="absolute -inset-1.5" />
 										<span className="sr-only">View cart items</span>
 										<Cart aria-hidden="true" />
-									</button>
+									</button> */}
+									<div className="relative flex justify-end w-full">
+										<Cart
+											isOpen={isOpenCart}
+											onCloseCart={toggleDrawer}
+										/>
+									</div>
 								</div>
 								<div className="px-2 mt-3 space-y-1">
 									<Disclosure.Button
