@@ -38,22 +38,13 @@ const router = createBrowserRouter([
 			},
 
 			{
-				path: "/figures/:id",
+				path: "/:id",
 				element: (
 					<PrivateRoute>
 						<FiguresD />
 					</PrivateRoute>
 				),
-				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
-			},
-			{
-				path: "/products/:id",
-				element: (
-					<PrivateRoute>
-						<Products />
-					</PrivateRoute>
-				),
-				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
+				loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
 			},
 			{
 				path: "/allToys",

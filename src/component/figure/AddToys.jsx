@@ -33,8 +33,8 @@ const AddToys = () => {
 		const newFiles = event.target.files;
 
 		// Check if total selected files exceed 2
-		if (selectedFiles.length + newFiles.length > 2) {
-			alert("Maximum 2 images allowed!");
+		if (selectedFiles.length + newFiles.length > 3) {
+			alert("Maximum 3 images allowed!");
 			return;
 		}
 
@@ -111,7 +111,7 @@ const AddToys = () => {
 		const brand = form.brand.value;
 		const category = form.category.value;
 		const label = form.label.value;
-		const offer = parseFloat(form.offer.value);
+		const offer = parseInt(form.offer.value);
 		const release = form.release.value;
 		const series = form.series.value;
 		const character = form.character.value;
@@ -208,10 +208,10 @@ const AddToys = () => {
 								htmlFor="image"
 								className="text-sm font-medium text-gray-500"
 							>
-								Upload photo (Max 2 images) *
+								Upload photo (Max 3 images) *
 							</label>
 							{selectedFiles.length > 0 ? (
-								<div className="grid grid-cols-2 gap-2">
+								<div className="grid grid-cols-3 gap-2">
 									{imagePreviews.map((preview, index) => (
 										<img
 											key={index}
@@ -238,7 +238,7 @@ const AddToys = () => {
 								accept="image/*"
 								onChange={handleChange}
 								style={{ display: "none" }}
-								required={selectedFiles.length < 2} // Disable when 2 images are selected
+								required={selectedFiles.length < 3} // Disable when 3 images are selected
 							/>
 						</div>
 						{/* quantity */}
