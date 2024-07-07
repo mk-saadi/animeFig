@@ -99,6 +99,7 @@ const Login = () => {
 				</>
 
 				<Button
+					classname={"text-lg mt-6"}
 					type="submit"
 					span1="Login?"
 					span2="Login"

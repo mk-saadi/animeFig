@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ChevronRight, ShoppingCartIcon, Trash2, X } from "lucide-react";
+import {
+	ChevronRight,
+	MinusCircle,
+	PlusCircle,
+	ShoppingCart,
+	ShoppingCartIcon,
+	Trash2,
+	X,
+} from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
+import Button from "../hooks/Button";
 
 function Cart() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +57,7 @@ function Cart() {
 	return (
 		<div>
 			<button
-				className="relative flex items-center justify-start p-2 text-white duration-300 rounded-md bg-ash/15 hover:text-laal"
+				className="relative flex items-center justify-start p-2 text-white duration-300 rounded-md bg-ash/15 hover:text-laal focus:outline-0"
 				onClick={() => setIsOpen(true)}
 				// onMouseEnter={() => setIsOpen(true)}
 			>
@@ -65,7 +74,7 @@ function Cart() {
 
 			{/* Drawer Overlay */}
 			<div
-				className={`fixed inset-0 bg-black bg-opacity-40 transition-opacity duration-300 backdrop-blur-[1.5px] ${
+				className={`fixed inset-0 bg-black bg-opacity-40 transition-opacity duration-300 backdrop-blur-[1.8px] ${
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 				onClick={() => setIsOpen(false)}
@@ -80,9 +89,14 @@ function Cart() {
 			>
 				<div className="px-0 z-[999999] relative overflow-y-auto flex h-full flex-col">
 					<div className="sticky top-0 flex items-center justify-between w-full px-4 py-2 bg-white border-b shadow-md shadow-ash/5 border-ash/20">
-						<h2 className="text-lg font-medium text-ash">Shopping Cart</h2>
+						{cartItems.length === 0 && (
+							<h2 className="text-lg font-medium text-ash">Cart is empty.</h2>
+						)}
+						{cartItems.length > 0 && (
+							<h2 className="text-lg font-medium text-ash">Cart Items {cartItems.length}</h2>
+						)}
 						<button
-							className="p-2 duration-300 bg-transparent rounded text-ash hover:bg-ash/10 hover:text-laal"
+							className="p-2 duration-300 rounded text-ash bg-laal/5 hover:bg-laal/10 hover:text-laal"
 							onClick={() => setIsOpen(false)}
 						>
 							<X
@@ -92,52 +106,78 @@ function Cart() {
 							/>
 						</button>
 					</div>
-					{/* Cart Items */}
-					<div className="flex flex-1 px-4 my-4 bg-white">
-						<div className="flex flex-col gap-y-2.5">
-							{cartItems.map((item) => (
-								<div
-									key={item.figId}
-									className="flex items-center justify-between gap-x-4"
-								>
-									<div className="flex h-full items-start gap-x-1.5 justify-start">
-										<Link
-											to={`/figDetails/${item.figId}`}
-											onClick={() => setIsOpen(false)}
-											className="flex-shrink-0 w-24 overflow-hidden rounded-md h-28"
-										>
-											<img
-												src={item.figImg}
-												className="object-cover object-center w-full h-full"
-											/>
-										</Link>
-										<div className="flex flex-col h-full py-1.5">
-											<div className="flex flex-col flex-1 gap-y-1">
-												<Link
-													to={`/figDetails/${item.figId}`}
-													className="text-base hover:underline line-clamp-1 text-ash"
-													onClick={() => setIsOpen(false)}
-												>
-													{item.figName}
-												</Link>
-												<p className="text-sm text-ash/80">${item.figPrice}</p>
+					{/* Cart Items if there is nothing */}
+					{cartItems.length === 0 && (
+						<div className="flex items-center justify-center flex-1 px-4 my-4 bg-white">
+							<div className="flex flex-col items-center justify-center gap-y-4 text-ash/90">
+								<ShoppingCart size={40} />
+								<p>Figures added to cart will show here.</p>
+							</div>
+						</div>
+					)}
+					{/* Cart Items if it exist */}
+					{cartItems.length > 0 && (
+						<div className="flex flex-1 px-4 my-4 bg-white">
+							<div className="flex flex-col gap-y-2.5">
+								{cartItems.map((item) => (
+									<div
+										key={item.figId}
+										className="flex items-center justify-between gap-x-4"
+									>
+										<div className="flex h-full items-start gap-x-1.5 justify-start">
+											<Link
+												to={`/figDetails/${item.figId}`}
+												onClick={() => setIsOpen(false)}
+												className="flex-shrink-0 w-24 overflow-hidden rounded-md h-28"
+											>
+												<img
+													src={item.figImg}
+													className="object-cover object-center w-full h-full"
+												/>
+											</Link>
+											<div className="flex flex-col h-full py-1.5">
+												<div className="flex flex-col flex-1 gap-y-1">
+													<Link
+														to={`/figDetails/${item.figId}`}
+														className="text-base hover:underline line-clamp-1 text-ash"
+														onClick={() => setIsOpen(false)}
+													>
+														{item.figName}
+													</Link>
+													<p className="text-sm text-ash/80">${item.figPrice}</p>
+												</div>
+												<p className="flex items-center justify-start text-ash gap-x-3">
+													{/* <span
+														className="p-1 duration-300 rounded-md cursor-pointer hover:text-green-500 bg-laal/10"
+														title="increase quantity"
+													>
+														<PlusCircle size={16} />
+													</span>{" "}
+													1{" "}
+													<span
+														className="p-1 duration-300 rounded-md cursor-pointer hover:text-laal bg-laal/10"
+														title="decrease quantity"
+													>
+														<MinusCircle size={16} />
+													</span> */}
+													Quantity 1
+												</p>
 											</div>
-											<p className="text-ash">Quantity: 1</p>
+										</div>
+										<div className="">
+											<button
+												className="p-2 duration-300 rounded-md hover:underline text-laal bg-laal/5 hover:bg-laal/10"
+												onClick={() => handleRemove(item.figId)}
+												title="Remove from cart"
+											>
+												<Trash2 size={24} />
+											</button>
 										</div>
 									</div>
-									<div className="">
-										<button
-											className="p-2 rounded-md hover:underline text-laal bg-laal/10"
-											onClick={() => handleRemove(item.figId)}
-											title="Remove from cart"
-										>
-											<Trash2 size={24} />
-										</button>
-									</div>
-								</div>
-							))}
+								))}
+							</div>
 						</div>
-					</div>
+					)}
 					{/* Cart Footer */}
 					<div className="sticky bottom-0 w-full bg-white border-t border-ash/20">
 						<div className="flex flex-col items-start justify-center p-4">
@@ -147,9 +187,15 @@ function Cart() {
 							</div>
 							<p className="text-sm text-ash/70">Shipping and taxes calculated at checkout.</p>
 							<div className="flex items-center justify-center w-full mt-2">
-								<button className="flex items-center justify-center w-full p-2 text-sm rounded-md shadow-md gap-x-1 text-ash bg-holud">
+								<button className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud">
 									Checkout
 								</button>
+								{/* <Button
+									classname={"w-full mt-0 text-base font-bold"}
+									type="button"
+									span1="Checkout?"
+									span2="Checkout"
+								/> */}
 							</div>
 						</div>
 						<div className="flex items-center justify-center">

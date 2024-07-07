@@ -7,7 +7,7 @@ import { useCart } from "../provider/CartProvider";
 
 const Categories = () => {
 	const { category } = useParams();
-	const { addToCart } = useCart();
+	const { addToCart, isItemInCart } = useCart();
 
 	useScrollToTop();
 	useTitle("Category: " + category);
@@ -40,10 +40,10 @@ const Categories = () => {
 				{figureData.map((figure) => (
 					<div
 						key={figure._id}
-						className="relative rounded-md hover:shadow-xl group"
+						className="relative duration-300 rounded-md hover:shadow-xl group"
 					>
-						<div className="absolute top-0 border-b-2 border-white border-s-2 right-0 z-[1] px-2 py-px text-sm text-white rounded-md shadow-xl bg-ash">
-							<p>Pre-owned</p>
+						<div className="absolute duration-300 group-hover:top-0 border-b-2 border-white border-s-2 -top-2 -right-2 group-hover:right-0 z-[1] px-2 py-px text-sm text-white rounded-md shadow-xl bg-ash opacity-0 group-hover:opacity-100">
+							<p>Out of Stock</p>
 						</div>
 						<div className="p-4 h-[30rem]">
 							<Link to={`/figDetails/${figure._id}`}>
@@ -70,14 +70,24 @@ const Categories = () => {
 									<span className="text-xs">New Arrival</span>
 									<span className="text-base font-semibold">$ {figure.price}</span>
 								</Link>
-								<button
-									className="flex items-center justify-center w-full p-2 text-sm rounded-md shadow-md gap-x-1 text-ash bg-holud"
+								{/* <button
+									className="flex items-center justify-center w-full p-2 text-sm text-white rounded-md shadow-md gap-x-1 bg-holud"
 									onClick={() =>
 										addFigToCart(figure._id, figure.name, figure.img, figure.price)
 									}
 								>
 									<ShoppingCart size={18} />
 									<span>Add to cart</span>
+								</button> */}
+								<button
+									className="flex items-center justify-center w-full p-2 text-sm text-white rounded-md shadow-md gap-x-1 bg-holud"
+									onClick={() =>
+										addFigToCart(figure._id, figure.name, figure.img, figure.price)
+									}
+									disabled={isItemInCart(figure._id)}
+								>
+									<ShoppingCart size={18} />
+									<span>{isItemInCart(figure._id) ? "Added" : "Add to cart"}</span>
 								</button>
 							</div>
 						</div>

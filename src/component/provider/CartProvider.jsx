@@ -141,12 +141,25 @@ const CartProvider = ({ children }) => {
 	);
 };
 
+// const useCart = () => {
+// 	const context = useContext(CartContext);
+// 	if (!context) {
+// 		throw new Error("useCart must be used within a CartProvider");
+// 	}
+// 	return context;
+// };
 const useCart = () => {
 	const context = useContext(CartContext);
 	if (!context) {
 		throw new Error("useCart must be used within a CartProvider");
 	}
-	return context;
+	const { cartItems, addToCart } = context;
+
+	const isItemInCart = (figId) => {
+		return cartItems.some((item) => item.figId === figId);
+	};
+
+	return { ...context, isItemInCart, addToCart };
 };
 
 export { CartProvider, useCart };

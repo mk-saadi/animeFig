@@ -1,24 +1,10 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, Fragment, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-hot-toast";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { FaSearch } from "react-icons/fa";
 import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
-import {
-	Dialog,
-	DialogPanel,
-	Disclosure,
-	DisclosureButton,
-	DisclosurePanel,
-	Popover,
-	PopoverButton,
-	PopoverGroup,
-	PopoverPanel,
-	Menu,
-	Transition,
-} from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import {
 	X,
 	Menu as MenuIcon,
@@ -48,7 +34,7 @@ import { useCategoriesState } from "../hooks/APIS";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
-	const { cartItems, dispatch } = useCart();
+	const { cartItems } = useCart();
 	const isScrolled = useScroll("top-navbar");
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);

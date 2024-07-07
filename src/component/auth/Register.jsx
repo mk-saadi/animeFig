@@ -53,35 +53,26 @@ const Register = () => {
 		const password = form.password.value;
 		const confirmPassword = form.confirmPassword.value;
 
-		if (email === "") {
-			toastMaster({
-				transition: "down",
-				type: "error",
-				message: "kindly enter your email!",
-				bg: "white",
-			});
-			return;
-		}
 		// Validate password and confirm password
 		if (password.length < 6) {
 			return toastMaster({
 				type: "error",
 				message: "password must be at least 6 characters long",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 		if (password !== confirmPassword) {
 			return toastMaster({
 				type: "error",
 				message: "Passwords do not match",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 		if (!image) {
 			return toastMaster({
 				type: "error",
 				message: "Please select an image",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 
@@ -97,7 +88,7 @@ const Register = () => {
 		toastMaster({
 			type: "loading",
 			message: "Please wait...",
-			bg: "gray",
+			bg: "white",
 		});
 
 		try {
@@ -175,7 +166,7 @@ const Register = () => {
 										toastMaster({
 											type: "success",
 											message: "Registration successful",
-											bg: "gray",
+											bg: "white",
 										});
 
 										setTimeout(() => {
@@ -187,7 +178,7 @@ const Register = () => {
 									toastMaster({
 										type: "error",
 										message: "Registration failed",
-										bg: "gray",
+										bg: "white",
 									});
 								});
 						}
@@ -196,7 +187,7 @@ const Register = () => {
 					toastMaster({
 						type: "error",
 						message: "Registration failed",
-						bg: "gray",
+						bg: "white",
 					});
 				}
 			};
@@ -204,7 +195,7 @@ const Register = () => {
 			toastMaster({
 				type: "error",
 				message: "Registration failed",
-				bg: "gray",
+				bg: "white",
 			});
 		}
 	};
@@ -291,6 +282,7 @@ const Register = () => {
 				</>
 
 				<Button
+					classname={"text-lg mt-6"}
 					type="submit"
 					span1="Register?"
 					span2="Register"
