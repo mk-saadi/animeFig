@@ -183,7 +183,10 @@ function Cart() {
 						<div className="flex flex-col items-start justify-center p-4">
 							<div className="flex items-center justify-between w-full font-medium text-ash">
 								<p>Total: </p>
-								<p>${totalPrice.toFixed(2)}</p>
+								<p>
+									<span className="text-lg">$</span>
+									{totalPrice.toFixed(2)}
+								</p>
 							</div>
 							<p className="text-sm text-ash/70">Shipping and taxes calculated at checkout.</p>
 							<div className="flex items-center justify-center w-full mt-2">

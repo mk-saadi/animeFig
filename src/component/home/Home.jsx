@@ -66,23 +66,15 @@ const Home = () => {
 			</header>
 
 			<main className="mt-20">
-				{/* sub-category */}
-				{/* <div
-					className="mb-16"
-					style={{ minHeight: "510px" }}
-				>
-					<Categories />
-				</div> */}
-
 				{/* shop section */}
 				<h3 className="pl-4 mt-20 ml-4 -mb-12 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
 					Best Selling Merch
 				</h3>
-				<div className="grid grid-cols-2 gap-4 mx-4 mt-16 sm:grid-cols-3 md:grid-cols-6 sm:mx-20">
-					{figures.map((figS) => (
+				<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-6">
+					{figures.map((figure) => (
 						<Products
-							key={figS._id}
-							figS={figS}
+							key={figure._id}
+							figure={figure}
 						></Products>
 					))}
 				</div>

@@ -20,7 +20,7 @@ export const useUsersState = () => {
 	return [users, setUsers];
 };
 
-export const useFiguresState = () => {
+export const useAddedFiguresState = () => {
 	const [figures, setFigures] = useState([]);
 	const fetchFigures = async () => {
 		try {
@@ -58,7 +58,7 @@ export const useCategoriesState = () => {
 	return [categories, setCategories];
 };
 
-export const useFigures = (params = {}) => {
+export const useAddedFigures = (params = {}) => {
 	const [figureData, setFigureData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false); // Added loading state
 	const [error, setError] = useState(null); // Added error state
@@ -79,7 +79,7 @@ export const useFigures = (params = {}) => {
 					url += `${_id}`;
 				} else {
 					// Handle case where no params are provided (optional)
-					console.warn("No category or _id provided to useFigures hook.");
+					console.warn("No category or _id provided to useAddedFigures hook.");
 				}
 
 				const res = await axios.get(url);
@@ -99,7 +99,35 @@ export const useFigures = (params = {}) => {
 	return { figureData, isLoading, error }; // Return all relevant data
 };
 
-// export const useFigures = (params = {}) => {
+export const useFigures = (endpoint = "/figures") => {
+	const [figure, setFigure] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const fetchFigures = async () => {
+			setIsLoading(true);
+			setError(null); // Reset error on each fetch
+
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_URL}${endpoint}`);
+				const data = res.data;
+				setFigure(data);
+			} catch (err) {
+				console.error(`Failed to fetch figures from ${endpoint}:`, err);
+				setError(err); // Set error state
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchFigures();
+	}, [endpoint]); // Include endpoint as a dependency
+
+	return { figure, isLoading, error };
+};
+
+// export const useAddedFigures = (params = {}) => {
 //   const [figureData, setFigureData] = useState([]);
 //   const [isLoading, setIsLoading] = useState(false); // Added loading state
 //   const [error, setError] = useState(null); // Added error state
@@ -114,7 +142,7 @@ export const useFigures = (params = {}) => {
 //     } else if (_id) {
 //       return `${baseUrl}${_id}`;
 //     } else {
-//       console.warn("No category or _id provided to useFigures hook.");
+//       console.warn("No category or _id provided to useAddedFigures hook.");
 //       return baseUrl;
 //     }
 //   }, [category, _id]);

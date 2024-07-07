@@ -265,7 +265,7 @@ const Navbar = () => {
 													onMouseEnter={() => setIsOpen(true)}
 													onMouseLeave={() => setIsOpen(false)}
 												>
-													<div className="grid justify-between items-start grid-cols-5 mt-4 bg-white border px-6 h-[16rem] border-gray-200 rounded-md shadow-lg w-[30rem]">
+													<div className="grid justify-between items-start grid-cols-5 mt-4 bg-white border px-6 h-[22rem] border-gray-200 rounded-md shadow-lg w-[55rem]">
 														{/* category list component */}
 														<div className="col-span-2">
 															{categories.map((category) => (
@@ -288,7 +288,7 @@ const Navbar = () => {
 															))}
 														</div>
 														{/* image component */}
-														<div className="flex items-center justify-start w-full col-span-3 border border-laal h-fit">
+														<div className="flex items-center justify-start col-span-3 border w-60 h-80 border-laal">
 															{hoveredCategory
 																? categories.map(
 																		(category) =>
@@ -298,7 +298,7 @@ const Navbar = () => {
 																					key={category._id}
 																					src={category.img}
 																					alt={category.name}
-																					className="object-cover w-64 h-56"
+																					className="object-cover w-full h-full"
 																				/>
 																			)
 																  )
@@ -306,7 +306,7 @@ const Navbar = () => {
 																		<img
 																			src={initialImage}
 																			alt="Figma"
-																			className="object-cover w-64 h-56"
+																			className="object-cover w-full h-full"
 																		/>
 																  )}
 														</div>

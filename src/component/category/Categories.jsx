@@ -1,4 +1,4 @@
-import { useFigures } from "../hooks/APIS";
+import { useAddedFigures } from "../hooks/APIS";
 import { Link, useParams } from "react-router-dom";
 import useScrollToTop from "../hooks/useScrollToTop";
 import useTitle from "../hooks/useWebTitle";
@@ -12,7 +12,7 @@ const Categories = () => {
 	useScrollToTop();
 	useTitle("Category: " + category);
 
-	const { figureData, isLoading, error } = useFigures({ category: category });
+	const { figureData, isLoading, error } = useAddedFigures({ category: category });
 
 	const addFigToCart = (id, name, img, price) => {
 		const figName = name;
