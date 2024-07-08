@@ -36,15 +36,14 @@ const router = createBrowserRouter([
 				// loader: () => fetch(`${import.meta.env.VITE_URL}/figures`),
 				loader: () => fetch("http://localhost:3000/figures"),
 			},
-
 			{
-				path: "/:id",
+				path: "/figures/:id",
 				element: (
 					<PrivateRoute>
 						<FiguresD />
 					</PrivateRoute>
 				),
-				loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
+				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
 			},
 			{
 				path: "/allToys",

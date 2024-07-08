@@ -1,11 +1,19 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { BsFillArrowLeftSquareFill } from "react-icons/bs";
 import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useCart } from "../provider/CartProvider";
+import { useFigures } from "../hooks/APIS";
 
 const FiguresD = () => {
-	const fig = useLoaderData();
+	const { id } = useParams();
+
+	const {
+		figure: fig,
+		isLoading: isLoadingFormValues,
+		error: errorFormValues,
+	} = useFigures(`/figures/${id}`);
+
 	const navigate = useNavigate();
 	const { addToCart, isItemInCart } = useCart();
 
@@ -32,17 +40,24 @@ const FiguresD = () => {
 		navigate(-1);
 	};
 
+	console.log(fig?.images);
+
 	return (
 		<div className="mx-2 my-16">
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-				<div className="mx-4">
-					<img
-						src={fig?.images[0]}
-						alt=""
-						className="h-[350px] sm:h-[500px] sm:w-auto object-cover rounded-lg mx-auto"
-					/>
-					<p className="text-xs italic text-center">{fig?.name}</p>
+				{/* Assuming fig.images is an array of image URLs */}
+				<div className="flex flex-wrap justify-center">
+					{fig?.images.map((imageUrl, index) => (
+						<img
+							key={index} // Use a unique key (e.g., index) for each image
+							src={imageUrl}
+							alt={`Image ${index + 1}`}
+							className="h-[350px] sm:h-[500px] sm:w-auto object-cover rounded-lg mx-auto m-2"
+						/>
+					))}
 				</div>
+
+				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
 				<div className="sm:mr-10 md:mr-36">
 					<div>
 						<p className="mb-4 text-xl font-semibold sm:text-2xl text-slate-200">{fig?.name}</p>

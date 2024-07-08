@@ -135,13 +135,13 @@ const AddToys = () => {
 			images: [], // Initialize an empty array for image URLs
 		};
 
-		// Image Upload Logic (using async/await for clarity):
+		// Image Upload Logic (using async/await for clarity):s
 		try {
 			if (images.length > 0) {
 				const storage = getStorage(); // Assuming you have Firebase storage initialized
 
 				for (const imageFile of images) {
-					const imageRef = ref(storage, `figures/${imageFile.name}`); // Create ref for each image
+					const imageRef = ref(storage, `figures/${series}/${imageFile.name}`); // Create ref for each image
 					await uploadBytes(imageRef, imageFile); // Upload image
 
 					const imageURL = await getDownloadURL(imageRef); // Get image URL after upload

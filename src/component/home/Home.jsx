@@ -8,12 +8,18 @@ import ShowFig from "../showFig/ShowFig";
 import useTitle from "../hooks/useWebTitle";
 import axios from "axios";
 import useScrollToTop from "../hooks/useScrollToTop";
+import { useFigures } from "../hooks/APIS";
 
 const Home = () => {
 	const figures = useLoaderData();
-	console.log("figures: ", figures);
 	const [showFig, setFig] = useState([]);
 	const [banner, setBanner] = useState([]);
+
+	const {
+		figure: formValues,
+		isLoading: isLoadingFormValues,
+		error: errorFormValues,
+	} = useFigures(`/figures/series?series=Neon`);
 
 	useTitle("Home");
 	useScrollToTop();
