@@ -4,6 +4,10 @@ import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useCart } from "../provider/CartProvider";
 import { useFigures } from "../hooks/APIS";
+import ImageZoom from "../hooks/ImageZoom";
+import ZoomImage from "../hooks/ImageZoom";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const FiguresD = () => {
 	const { id } = useParams();
@@ -39,22 +43,60 @@ const FiguresD = () => {
 	const handleGoBack = () => {
 		navigate(-1);
 	};
+	const [currentIndex, setCurrentIndex] = useState(0);
 
-	console.log(fig?.images);
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) => (prevIndex + 1) % fig?.images.length);
+	};
+
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) => (prevIndex - 1 + fig?.images.length) % fig?.images.length);
+	};
 
 	return (
-		<div className="mx-2 my-16">
+		<div className="min-h-screen mx-2 my-16">
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 				{/* Assuming fig.images is an array of image URLs */}
-				<div className="flex flex-wrap justify-center">
-					{fig?.images.map((imageUrl, index) => (
-						<img
-							key={index} // Use a unique key (e.g., index) for each image
-							src={imageUrl}
-							alt={`Image ${index + 1}`}
-							className="h-[350px] sm:h-[500px] sm:w-auto object-cover rounded-lg mx-auto m-2"
-						/>
-					))}
+
+				{/* Assuming fig.images is an array of image URLs */}
+				<div className="flex overflow-hidden flex-wrap justify-center w-[400px] h-fit">
+					{fig?.images && (
+						<>
+							<div className="relative flex overflow-hidden rounded-md carousel carousel-center">
+								{fig?.images.map((imageUrl, index) => (
+									<div
+										key={index}
+										className={`carousel-item  w-full transition ease-linear duration-300 ${
+											currentIndex === index ? "block" : "hidden"
+										}`}
+									>
+										<ZoomImage
+											key={index}
+											src={imageUrl}
+											alt={`Image ${index + 1}`}
+										/>
+									</div>
+								))}
+								{/* carousel Previous and next buttons */}
+								<button
+									className="absolute left-0 btn btn-sm hover:bg-opacity-70 top-1/2"
+									type="button"
+									onClick={handlePrev}
+									aria-label="Previous image"
+								>
+									<ChevronLeft />
+								</button>
+								<button
+									className="absolute right-0 btn btn-sm hover:bg-opacity-70 top-1/2"
+									type="button"
+									onClick={handleNext}
+									aria-label="Next image"
+								>
+									<ChevronRight />
+								</button>
+							</div>
+						</>
+					)}
 				</div>
 
 				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
