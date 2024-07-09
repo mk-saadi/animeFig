@@ -54,7 +54,7 @@ const Home = () => {
 
 	return (
 		<>
-			<header className="relative h-[36rem] mx-3 sm:mx-20 mt-14">
+			<header className="relative h-[36rem]">
 				<img
 					src={image}
 					alt=""
@@ -90,7 +90,7 @@ const Home = () => {
 				<h3 className="pl-4 mt-20 mb-4 ml-4 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
 					Discover Latest Merch
 				</h3>
-				<div className="grid grid-cols-2 gap-4 mx-4 sm:grid-cols-3 md:grid-cols-6 sm:mx-20">
+				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
 					{showFig.slice(0, 6).map((fi) => (
 						<ShowFig
 							key={fi._id}

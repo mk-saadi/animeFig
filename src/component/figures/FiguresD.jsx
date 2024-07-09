@@ -1,24 +1,22 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsFillArrowLeftSquareFill } from "react-icons/bs";
 import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useCart } from "../provider/CartProvider";
 import { useFigures } from "../hooks/APIS";
 import ImageZoom from "../hooks/ImageZoom";
-import ZoomImage from "../hooks/ImageZoom";
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Breadcrumbs from "../hooks/BreadCrumbs";
 
 const FiguresD = () => {
-	const { id } = useParams();
+	const { link } = useParams();
 
 	const {
 		figure: fig,
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
-	} = useFigures(`/figures/${id}`);
+	} = useFigures(`/figures/${link}`);
+	console.log("fig: ", fig);
 
-	const navigate = useNavigate();
 	const { addToCart, isItemInCart } = useCart();
 
 	useScrollToTop();
@@ -43,63 +41,17 @@ const FiguresD = () => {
 	const handleGoBack = () => {
 		navigate(-1);
 	};
-	const [currentIndex, setCurrentIndex] = useState(0);
-
-	const handleNext = () => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % fig?.images.length);
-	};
-
-	const handlePrev = () => {
-		setCurrentIndex((prevIndex) => (prevIndex - 1 + fig?.images.length) % fig?.images.length);
-	};
 
 	return (
-		<div className="min-h-screen mx-2 my-16">
-			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+		<div className="min-h-screen">
+			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-6">
 				{fig?.images && (
 					<>
-						{/* <div className="relative rounded-md flex justify-center overflow-hidden w-[480px] h-fit ">
-							<div
-								className="flex transition-transform duration-300 ease-linear rounded-md"
-								style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-							>
-								{fig?.images.map((imageUrl, index) => (
-									<div
-										key={index}
-										className="flex-shrink-0 w-full rounded-md"
-									>
-										<ZoomImage
-											src={imageUrl}
-											alt={`Image ${index + 1}`}
-										/>
-									</div>
-								))}
-							</div>
-							<div className="absolute right-0 flex flex-col items-center justify-center text-white -translate-y-1/2 top-1/2 gap-y-2">
-								<button
-									className="px-1 py-3 duration-300 rounded-lg focus:outline-0 bg-ash/30 hover:bg-ash/40"
-									type="button"
-									onClick={handlePrev}
-									aria-label="Previous image"
-								>
-									<ChevronLeft />
-								</button>
-								<button
-									className="px-1 py-3 duration-300 rounded-lg focus:outline-0 bg-ash/30 hover:bg-ash/40"
-									type="button"
-									onClick={handleNext}
-									aria-label="Next image"
-								>
-									<ChevronRight />
-								</button>
-							</div>
-						</div> */}
-
-						<div className="flex flex-col items-center justify-center gap-y-4">
+						<div className="flex flex-col items-center justify-start gap-y-2">
 							<div className="w-[480px] h-fit">
 								<ImageZoom src={fig?.images[0]} />
 							</div>
-							<div className="flex items-center justify-center w-full gap-x-2 h-fit">
+							<div className="flex items-start justify-center w-full gap-x-2 h-fit">
 								<ImageZoom src={fig?.images[1]} />
 								<ImageZoom src={fig?.images[2]} />
 							</div>
@@ -109,6 +61,9 @@ const FiguresD = () => {
 
 				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
 				<div className="sm:mr-10 md:mr-36">
+					<div>
+						<Breadcrumbs />
+					</div>
 					<div>
 						<p className="mb-4 text-xl font-semibold sm:text-2xl text-slate-200">{fig?.name}</p>
 						<p className="font-semibold text-red-600">

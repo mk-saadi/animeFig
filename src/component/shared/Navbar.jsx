@@ -28,6 +28,8 @@ import {
 	LogIn,
 	ShoppingCart,
 	ArrowRightFromLine,
+	Globe,
+	Trophy,
 } from "lucide-react";
 import useScroll from "../hooks/Scroll";
 import { useCategoriesState } from "../hooks/APIS";
@@ -162,13 +164,9 @@ const Navbar = () => {
 					<div className="flex items-center justify-center gap-x-1.5 h-full">
 						<div className="hidden text-sm lg:block text-ash">
 							<p className="flex gap-x-1.5 font-normal items-center justify-center">
-								<PartyPopper
-									size={20}
-									className="text-laal"
-								/>
-								Get free delivery on orders over $100
-								<PartyPopper
-									size={20}
+								Shipping Japan&apos;s finest OTAKU goods to the world!
+								<Globe
+									size={18}
 									className="text-laal"
 								/>
 							</p>

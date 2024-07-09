@@ -65,6 +65,16 @@ const AddToys = () => {
 		const character = form.character.value;
 		const dimension = form.dimension.value;
 
+		const processFigureName = (name) => {
+			return name
+				.toLowerCase()
+				.replace(/[^\w\s-]/g, "")
+				.replace(/\s+/g, "-")
+				.replace(/-+/g, "-");
+		};
+
+		const link = processFigureName(name);
+
 		const figure = {
 			email,
 			name,
@@ -81,35 +91,35 @@ const AddToys = () => {
 			offer,
 			dimension,
 			images: [],
+			link,
 		};
 
 		toastMaster({
-			type: "loading",
+			type: "loadingWhite",
 			message: "Please wait...",
 			transition: "down",
 			bg: "glass",
+			loadFooter: "This seems to be a long process, please wait",
 		});
 
-		// Image Upload Logic (using async/await for clarity):s
 		try {
 			if (images.length > 0) {
-				const storage = getStorage(); // Assuming you have Firebase storage initialized
+				const storage = getStorage();
 
 				for (const imageFile of images) {
-					const imageRef = ref(storage, `figures/${series}/${imageFile.name}`); // Create ref for each image
-					await uploadBytes(imageRef, imageFile); // Upload image
+					const imageRef = ref(storage, `figures/${series}/${imageFile.name}`);
+					await uploadBytes(imageRef, imageFile);
 
-					const imageURL = await getDownloadURL(imageRef); // Get image URL after upload
-					figure.images.push(imageURL); // Add URL to figure.images
+					const imageURL = await getDownloadURL(imageRef);
+					figure.images.push(imageURL);
 				}
 			}
 
-			// Send figure data to backend (after successful image uploads):
 			const res = await axios.post(`${import.meta.env.VITE_URL}/figures`, figure);
 			console.log("res: ", res);
 			if (res.data.acknowledged === true) {
 				toastMaster({
-					type: "success",
+					type: "successWhite",
 					bg: "glass",
 					message: "Figure successfully added!",
 					transition: "down",

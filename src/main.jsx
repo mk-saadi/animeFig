@@ -35,7 +35,7 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/figures/:id",
+				path: "/figures/:link",
 				element: (
 					<PrivateRoute>
 						<FiguresD />
