@@ -40,7 +40,7 @@ const ZoomImage = ({ src, alt }) => {
 			<img
 				src={src}
 				alt={alt}
-				className="object-cover w-full h-full rounded-md shadow-md"
+				className="object-cover w-full h-full border rounded-md shadow-md"
 			/>
 		</div>
 	);

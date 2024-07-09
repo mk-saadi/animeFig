@@ -33,8 +33,6 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
-				// loader: () => fetch(`${import.meta.env.VITE_URL}/figures`),
-				loader: () => fetch("http://localhost:3000/figures"),
 			},
 			{
 				path: "/figures/:id",

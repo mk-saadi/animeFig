@@ -11,15 +11,15 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import { useFigures } from "../hooks/APIS";
 
 const Home = () => {
-	const figures = useLoaderData();
+	// const figures = useLoaderData();
 	const [showFig, setFig] = useState([]);
 	const [banner, setBanner] = useState([]);
 
 	const {
-		figure: formValues,
+		figure: figures,
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
-	} = useFigures(`/figures/series?series=Neon`);
+	} = useFigures(`/figures`);
 
 	useTitle("Home");
 	useScrollToTop();
