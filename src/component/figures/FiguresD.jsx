@@ -56,30 +56,28 @@ const FiguresD = () => {
 	return (
 		<div className="min-h-screen mx-2 my-16">
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-				{/* Assuming fig.images is an array of image URLs */}
-
-				{/* Assuming fig.images is an array of image URLs */}
-				<div className="flex overflow-hidden flex-wrap justify-center w-[400px] h-fit">
-					{fig?.images && (
-						<>
-							<div className="relative flex overflow-hidden rounded-md carousel carousel-center">
+				{fig?.images && (
+					<>
+						<div className="relative rounded-md flex justify-center overflow-hidden w-[480px] h-fit ">
+							<div
+								className="flex transition-transform duration-300 ease-linear rounded-md"
+								style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+							>
 								{fig?.images.map((imageUrl, index) => (
 									<div
 										key={index}
-										className={`carousel-item  w-full transition ease-linear duration-300 ${
-											currentIndex === index ? "block" : "hidden"
-										}`}
+										className="flex-shrink-0 w-full rounded-md"
 									>
 										<ZoomImage
-											key={index}
 											src={imageUrl}
 											alt={`Image ${index + 1}`}
 										/>
 									</div>
 								))}
-								{/* carousel Previous and next buttons */}
+							</div>
+							<div className="absolute right-0 flex flex-col items-center justify-center -translate-y-1/2 top-1/2 gap-y-2">
 								<button
-									className="absolute left-0 btn btn-sm hover:bg-opacity-70 top-1/2"
+									className="px-1 py-3 duration-300 rounded-lg text-ash focus:outline-0 bg-white/20 hover:bg-white/30"
 									type="button"
 									onClick={handlePrev}
 									aria-label="Previous image"
@@ -87,7 +85,7 @@ const FiguresD = () => {
 									<ChevronLeft />
 								</button>
 								<button
-									className="absolute right-0 btn btn-sm hover:bg-opacity-70 top-1/2"
+									className="px-1 py-3 duration-300 rounded-lg text-ash focus:outline-0 bg-white/20 hover:bg-white/30"
 									type="button"
 									onClick={handleNext}
 									aria-label="Next image"
@@ -95,9 +93,9 @@ const FiguresD = () => {
 									<ChevronRight />
 								</button>
 							</div>
-						</>
-					)}
-				</div>
+						</div>
+					</>
+				)}
 
 				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
 				<div className="sm:mr-10 md:mr-36">
@@ -113,7 +111,10 @@ const FiguresD = () => {
 							<span className="font-semibold">Product Name:</span> {fig?.name}
 						</p>
 						<p>
-							<span className="font-semibold">Manufacturer:</span> {fig?.Manufacturer}
+							<span className="font-semibold">Manufacturer:</span> {fig?.brand}
+						</p>
+						<p>
+							<span className="font-semibold">Manufacturer:</span> {fig?.dimension}
 						</p>
 						<p>
 							<span className="font-semibold">Seller:</span> {fig?.seller}

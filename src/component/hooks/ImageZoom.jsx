@@ -32,7 +32,7 @@ const ZoomImage = ({ src, alt }) => {
 
 	return (
 		<div
-			className="imageZoom cursor-crosshair"
+			className="overflow-hidden imageZoom cursor-crosshair"
 			style={style}
 			onMouseMove={handleMouseMove}
 			onMouseOut={handleMouseOut}
@@ -40,6 +40,7 @@ const ZoomImage = ({ src, alt }) => {
 			<img
 				src={src}
 				alt={alt}
+				className="object-cover w-full h-full rounded-md shadow-md"
 			/>
 		</div>
 	);

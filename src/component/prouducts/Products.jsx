@@ -44,27 +44,27 @@ const Products = ({ figure }) => {
 			>
 				<p>{figure.label}</p>
 			</div>
-			<div className="p-4 h-[30rem]">
+			<div className="p-4 h-[27.8rem]">
 				<Link to={`/figures/${figure._id}`}>
 					<div className="relative overflow-hidden rounded-md h-fit">
 						{/* First image */}
 						<img
-							src={figure?.images}
+							src={figure?.images[0]}
 							alt={figure.name}
-							className="object-cover w-full h-64 duration-300 group-hover:scale-105"
+							className="object-cover w-full h-56 duration-300 group-hover:scale-105"
 						/>
 
 						{/* Second image (hidden by default) */}
-						{/* <img
+						<img
 							src={figure?.images[1]}
 							alt={figure.name}
-							className="absolute top-0 left-0 object-cover w-full h-64 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-						/> */}
+							className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+						/>
 					</div>
-
 					<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-ash">
 						{figure.name}
 					</h2>
+					<p className="text-sm text-ash/70">{figure?.series}</p>
 					<p className="mt-1 text-sm">{figure.category}</p>
 				</Link>
 			</div>

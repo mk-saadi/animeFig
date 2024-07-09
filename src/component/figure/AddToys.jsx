@@ -135,6 +135,12 @@ const AddToys = () => {
 			images: [], // Initialize an empty array for image URLs
 		};
 
+		toastMaster({
+			type: "loading",
+			message: "Please wait...",
+			bg: "white",
+		});
+
 		// Image Upload Logic (using async/await for clarity):s
 		try {
 			if (images.length > 0) {
@@ -150,7 +156,16 @@ const AddToys = () => {
 			}
 
 			// Send figure data to backend (after successful image uploads):
-			await axios.post(`${import.meta.env.VITE_URL}/figures`, figure);
+			const res = await axios.post(`${import.meta.env.VITE_URL}/figures`, figure);
+			console.log("res: ", res);
+			if (res.data.acknowledged === true) {
+				toastMaster({
+					type: "success",
+					bg: "white",
+					message: "Figure successfully added!",
+				});
+				form.reset();
+			}
 
 			// Handle success or error messages here
 		} catch (error) {
