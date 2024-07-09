@@ -115,14 +115,14 @@ export const useFigures = (endpoint = "/figures") => {
 				setFigure(data);
 			} catch (err) {
 				console.error(`Failed to fetch figures from ${endpoint}:`, err);
-				setError(err); // Set error state
+				setError(err);
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
 		fetchFigures();
-	}, [endpoint]); // Include endpoint as a dependency
+	}, [endpoint]);
 
 	return { figure, isLoading, error };
 };
