@@ -11,7 +11,6 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import { useFigures } from "../hooks/APIS";
 
 const Home = () => {
-	// const figures = useLoaderData();
 	const [showFig, setFig] = useState([]);
 	const [banner, setBanner] = useState([]);
 
