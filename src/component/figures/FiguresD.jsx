@@ -58,7 +58,7 @@ const FiguresD = () => {
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 				{fig?.images && (
 					<>
-						<div className="relative rounded-md flex justify-center overflow-hidden w-[480px] h-fit ">
+						{/* <div className="relative rounded-md flex justify-center overflow-hidden w-[480px] h-fit ">
 							<div
 								className="flex transition-transform duration-300 ease-linear rounded-md"
 								style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -92,6 +92,16 @@ const FiguresD = () => {
 								>
 									<ChevronRight />
 								</button>
+							</div>
+						</div> */}
+
+						<div className="flex flex-col items-center justify-center gap-y-4">
+							<div className="w-[480px] h-fit">
+								<ImageZoom src={fig?.images[0]} />
+							</div>
+							<div className="flex items-center justify-center w-full gap-x-2 h-fit">
+								<ImageZoom src={fig?.images[1]} />
+								<ImageZoom src={fig?.images[2]} />
 							</div>
 						</div>
 					</>

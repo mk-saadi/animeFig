@@ -86,7 +86,8 @@ const AddToys = () => {
 		toastMaster({
 			type: "loading",
 			message: "Please wait...",
-			bg: "white",
+			transition: "down",
+			bg: "glass",
 		});
 
 		// Image Upload Logic (using async/await for clarity):s
@@ -109,8 +110,9 @@ const AddToys = () => {
 			if (res.data.acknowledged === true) {
 				toastMaster({
 					type: "success",
-					bg: "white",
+					bg: "glass",
 					message: "Figure successfully added!",
+					transition: "down",
 				});
 				form.reset();
 			}
