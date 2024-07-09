@@ -107,7 +107,7 @@ export const useFigures = (endpoint = "/figures") => {
 	useEffect(() => {
 		const fetchFigures = async () => {
 			setIsLoading(true);
-			setError(null); // Reset error on each fetch
+			setError(null);
 
 			try {
 				const res = await axios.get(`${import.meta.env.VITE_URL}${endpoint}`);
@@ -126,46 +126,3 @@ export const useFigures = (endpoint = "/figures") => {
 
 	return { figure, isLoading, error };
 };
-
-// export const useAddedFigures = (params = {}) => {
-//   const [figureData, setFigureData] = useState([]);
-//   const [isLoading, setIsLoading] = useState(false); // Added loading state
-//   const [error, setError] = useState(null); // Added error state
-
-//   const { category, _id } = params; // Destructure params
-
-//   // Memoize URL to avoid re-renders
-//   const url = useMemo(() => {
-//     let baseUrl = `${import.meta.env.VITE_URL}/addedFigure/`;
-//     if (category) {
-//       return `${baseUrl}category?category=${category}`;
-//     } else if (_id) {
-//       return `${baseUrl}${_id}`;
-//     } else {
-//       console.warn("No category or _id provided to useAddedFigures hook.");
-//       return baseUrl;
-//     }
-//   }, [category, _id]);
-
-//   const fetchFigures = useCallback(async () => {
-//     setIsLoading(true);
-//     setError(null); // Reset error on each fetch
-
-//     try {
-//       const res = await axios.get(url);
-//       const data = res.data;
-//       setFigureData(data);
-//     } catch (err) {
-//       console.error("Failed to fetch figures:", err);
-//       setError(err); // Set error state
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }, [url]);
-
-//   useEffect(() => {
-//     fetchFigures();
-//   }, [fetchFigures]);
-
-//   return { figureData, isLoading, error }; // Return all relevant data
-// };
