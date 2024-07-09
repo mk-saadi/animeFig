@@ -75,9 +75,9 @@ const FiguresD = () => {
 									</div>
 								))}
 							</div>
-							<div className="absolute right-0 flex flex-col items-center justify-center -translate-y-1/2 top-1/2 gap-y-2">
+							<div className="absolute right-0 flex flex-col items-center justify-center text-white -translate-y-1/2 top-1/2 gap-y-2">
 								<button
-									className="px-1 py-3 duration-300 rounded-lg text-ash focus:outline-0 bg-white/20 hover:bg-white/30"
+									className="px-1 py-3 duration-300 rounded-lg focus:outline-0 bg-ash/30 hover:bg-ash/40"
 									type="button"
 									onClick={handlePrev}
 									aria-label="Previous image"
@@ -85,7 +85,7 @@ const FiguresD = () => {
 									<ChevronLeft />
 								</button>
 								<button
-									className="px-1 py-3 duration-300 rounded-lg text-ash focus:outline-0 bg-white/20 hover:bg-white/30"
+									className="px-1 py-3 duration-300 rounded-lg focus:outline-0 bg-ash/30 hover:bg-ash/40"
 									type="button"
 									onClick={handleNext}
 									aria-label="Next image"
@@ -114,10 +114,13 @@ const FiguresD = () => {
 							<span className="font-semibold">Manufacturer:</span> {fig?.brand}
 						</p>
 						<p>
-							<span className="font-semibold">Manufacturer:</span> {fig?.dimension}
+							<span className="font-semibold">Dimension:</span> {fig?.dimension}
 						</p>
 						<p>
 							<span className="font-semibold">Seller:</span> {fig?.seller}
+						</p>
+						<p>
+							<span className="font-semibold">character:</span> {fig?.character}
 						</p>
 						<p className="my-3 text-gray-400">Order Limit: 3 per person</p>
 						<p

@@ -45,58 +45,6 @@ const AddToys = () => {
 		);
 	};
 
-	// const handlePost = (event) => {
-	// 	event.preventDefault();
-
-	// 	const form = event.target;
-	// 	const img = form.img.value;
-	// 	const email = form.email.value;
-	// 	const name = form.name.value;
-	// 	const price = parseFloat(form.price.value);
-	// 	const quantity = parseFloat(form.quantity.value);
-	// 	const description = form.description.value;
-	// 	const seller = form.seller.value;
-	// 	const Manufacturer = form.Manufacturer.value;
-	// 	const category = form.category.value;
-	// 	const rating = parseFloat(form.ratings.value);
-
-	// 	const figure = {
-	// 		img: img,
-	// 		email: email,
-	// 		name: name,
-	// 		price: price,
-	// 		quantity: quantity,
-	// 		seller: seller,
-	// 		description: description,
-	// 		Manufacturer: Manufacturer,
-	// 		category: category,
-	// 		rating: rating,
-	// 	};
-
-	// 	fetch(`${import.meta.env.VITE_URL}/addedFigure`, {
-	// 		method: "POST",
-	// 		headers: {
-	// 			"content-type": "application/json",
-	// 		},
-	// 		body: JSON.stringify(figure),
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			if (data.insertedId) {
-	// 				toast.success("Figure successfully added!", {
-	// 					position: "top-center",
-	// 					autoClose: 4000,
-	// 					hideProgressBar: false,
-	// 					closeOnClick: true,
-	// 					pauseOnHover: true,
-	// 					draggable: true,
-	// 					progress: undefined,
-	// 				});
-	// 			}
-	// 			form.reset();
-	// 		});
-	// };
-
 	const handlePost = async (event) => {
 		event.preventDefault();
 
@@ -132,7 +80,7 @@ const AddToys = () => {
 			label,
 			offer,
 			dimension,
-			images: [], // Initialize an empty array for image URLs
+			images: [],
 		};
 
 		toastMaster({
