@@ -114,7 +114,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// http://localhost:3000/figures/search?category=Scale%20Figures&page=2&limit=2
+// http://localhost:3000/figures/search?category=Scale%20Figures&series=Fate%20Series&page=1&limit=2
 
 const Exp = () => {
 	const [figures, setFigures] = useState([]);
@@ -124,7 +124,7 @@ const Exp = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	const itemsPerPage = 6; // Adjust this as needed
+	const itemsPerPage = 6;
 
 	useEffect(() => {
 		const fetchData = async () => {
