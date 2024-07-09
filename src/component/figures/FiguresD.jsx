@@ -6,33 +6,36 @@ import { useCart } from "../provider/CartProvider";
 import { useFigures } from "../hooks/APIS";
 import ImageZoom from "../hooks/ImageZoom";
 import Breadcrumbs from "../hooks/BreadCrumbs";
+import { Facebook, Mail, MessageCircle, Twitter } from "lucide-react";
 
 const FiguresD = () => {
 	const { link } = useParams();
-
 	const {
 		figure: fig,
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
 	} = useFigures(`/figures/${link}`);
-	console.log("fig: ", fig);
+
+	const navigate = useNavigate();
 
 	const { addToCart, isItemInCart } = useCart();
 
 	useScrollToTop();
 	useTitle("figure: " + fig?.name);
 
-	const addFigToCart = (id, name, img, price) => {
+	const addFigToCart = (id, name, img, price, link) => {
 		const figName = name;
 		const figImg = img;
 		const figId = id;
 		const figPrice = price;
+		const figLink = link;
 
 		const selectedFig = {
 			figName,
 			figImg,
 			figId,
 			figPrice,
+			figLink,
 		};
 
 		addToCart(selectedFig);
@@ -60,16 +63,39 @@ const FiguresD = () => {
 				)}
 
 				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
-				<div className="sm:mr-10 md:mr-36">
-					<div>
+				<div className="">
+					<>
 						<Breadcrumbs />
+					</>
+					<div className="flex flex-col items-start justify-start mt-2">
+						<p className="mb-4 text-lg font-normal sm:text-2xl text-ash">{fig?.name}</p>
+						<div className="flex flex-row items-center justify-center w-full gap-4">
+							<button className="flex items-center justify-center w-full py-1.5 text-base font-semibold font-serif text-white duration-300 rounded-md shadow-md gap-x-1 bg-holud">
+								Buy now
+							</button>
+							<button className="flex items-center justify-center w-full py-1.5 text-base font-semibold font-serif text-white duration-300 rounded-md shadow-md gap-x-1 bg-holud">
+								Add to cart
+							</button>
+						</div>
 					</div>
-					<div>
-						<p className="mb-4 text-xl font-semibold sm:text-2xl text-slate-200">{fig?.name}</p>
-						<p className="font-semibold text-red-600">
-							US <span className="text-xl">{fig?.price}</span>
-						</p>
-						<p>0.62% cash back</p>
+					{/* share figure */}
+					<div className="w-full flex p-[1px] justify-center items-center border mt-4 rounded-md  bg-gradient-to-r from-[#e7230d] to-[#f4ae18]">
+						<div className="p-[11px] bg-white rounded-[0.29rem] w-full text-ash">
+							<div className="flex items-center justify-between">
+								<div className="flex flex-col items-start justify-start">
+									<p className="text-sm text-ash">Share This Figure With Friends</p>
+									<p className="text-[15px] -mt-[3px] text-ash">
+										<small>Earn upto 10% commission</small>
+									</p>
+								</div>
+								<div className="flex gap-x-2.5">
+									<Twitter size={18} />
+									<Facebook size={18} />
+									<Mail size={18} />
+									<MessageCircle size={18} />
+								</div>
+							</div>
+						</div>
 					</div>
 					<div className="mt-10 text-slate-300">
 						<p>

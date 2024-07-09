@@ -1,18 +1,55 @@
-import { useAddedFigures } from "../hooks/APIS";
+import { useAddedFigures, useFigures } from "../hooks/APIS";
 import { Link, useParams } from "react-router-dom";
 import useScrollToTop from "../hooks/useScrollToTop";
 import useTitle from "../hooks/useWebTitle";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+// http://localhost:3000/figures/search?category=Scale%20Figures&series=Fate%20Series&page=1&limit=2
 
 const Categories = () => {
 	const { category } = useParams();
 	const { addToCart, isItemInCart } = useCart();
+	// const [currentPage, setCurrentPage] = useState(1);
+	// const [totalPages, setTotalPages] = useState(0);
 
 	useScrollToTop();
 	useTitle("Category: " + category);
 
-	const { figureData, isLoading, error } = useAddedFigures({ category: category });
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(0);
+	const [figures, setFigures] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
+
+	useScrollToTop();
+	useTitle("Category: " + category);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setIsLoading(true);
+			try {
+				const response = await axios.get(`${import.meta.env.VITE_URL}/figures/search`, {
+					params: {
+						category,
+						page: currentPage,
+						limit: 6,
+					},
+				});
+				setFigures(response.data.figures);
+				setTotalPages(Math.ceil(response.data.totalMatchingFigures / 6));
+				setIsLoading(false);
+			} catch (error) {
+				console.error("Error fetching figures:", error);
+				setError(error);
+				setIsLoading(false);
+			}
+		};
+
+		fetchData();
+	}, [category, currentPage]);
 
 	const addFigToCart = (id, name, img, price) => {
 		const figName = name;
@@ -30,6 +67,10 @@ const Categories = () => {
 		addToCart(selectedFig);
 	};
 
+	const handlePageChange = (pageNumber) => {
+		setCurrentPage(pageNumber);
+	};
+
 	return (
 		<div className="min-h-screen bg-white">
 			<h1>Category: {category}</h1>
@@ -37,62 +78,93 @@ const Categories = () => {
 			{error && <p>Error fetching figures: {error.message}</p>}
 
 			<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-6">
-				{figureData.map((figure) => (
+				{figures.map((figure) => (
 					<div
-						key={figure._id}
-						className="relative duration-300 rounded-md hover:shadow-xl group"
+						key={figure?._id}
+						className="relative duration-300 rounded-md hover:shadow-lg group"
 					>
-						<div className="absolute duration-300 group-hover:top-0 border-b-2 border-white border-s-2 -top-2 -right-2 group-hover:right-0 z-[1] px-2 py-px text-sm text-white rounded-md shadow-xl bg-ash opacity-0 group-hover:opacity-100">
-							<p>Out of Stock</p>
+						<div
+							className={`absolute duration-300 group-hover:top-0 border-2 border-white -top-2 -right-2 group-hover:right-0 z-[1] px-2 py-px text-sm text-white rounded-md opacity-0 group-hover:opacity-100 ${
+								{
+									Limited: "bg-red-500",
+									"Coming Soon": "bg-blue-500",
+									"Pre Owned": "bg-yellow-500",
+									"In Stock": "bg-green-500",
+									"Re-Release": "bg-purple-500",
+									"Out Of Stock": "bg-ash",
+								}[figure?.label] || ""
+							}`}
+						>
+							<p>{figure?.label}</p>
 						</div>
-						<div className="p-4 h-[30rem]">
-							<Link to={`/figDetails/${figure._id}`}>
+						<div className="p-4 h-[27.8rem]">
+							<Link to={`/figures/${figure?.link}`}>
 								<div className="relative overflow-hidden rounded-md h-fit">
 									<img
-										src={figure?.img}
-										alt={figure.name}
-										className="object-cover w-full h-64 duration-300 group-hover:scale-105"
+										src={figure?.images[0]}
+										alt={figure?.name}
+										className="object-cover w-full h-56 duration-300 group-hover:scale-105"
+									/>
+									<img
+										src={figure?.images[1]}
+										alt={figure?.name}
+										className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
 									/>
 								</div>
 								<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-ash">
-									{figure.name}
+									{figure?.name}
 								</h2>
-								<p className="mt-1 text-sm">{figure.category}</p>
+								<p className="text-sm text-ash/70 line-clamp-2">{figure?.series}</p>
+								<p className="mt-1 text-sm">{figure?.category}</p>
 							</Link>
 						</div>
-						{/* button component */}
 						<div className="absolute bottom-0 left-0 w-full">
 							<div className="flex flex-col justify-between p-3 gap-y-2">
 								<Link
-									to={`/figDetails/${figure._id}`}
+									to={`/figures/${figure?.link}`}
 									className="flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-xl bg-laal"
 								>
 									<span className="text-xs">New Arrival</span>
-									<span className="text-base font-semibold">$ {figure.price}</span>
+									<span className="text-base font-semibold">$ {figure?.price}</span>
 								</Link>
-								{/* <button
-									className="flex items-center justify-center w-full p-2 text-sm text-white rounded-md shadow-md gap-x-1 bg-holud"
-									onClick={() =>
-										addFigToCart(figure._id, figure.name, figure.img, figure.price)
-									}
-								>
-									<ShoppingCart size={18} />
-									<span>Add to cart</span>
-								</button> */}
 								<button
-									className="flex items-center justify-center w-full p-2 text-sm text-white rounded-md shadow-md gap-x-1 bg-holud"
+									className={`flex items-center justify-center w-full p-2 text-sm rounded-md shadow-md gap-x-1 ${
+										isItemInCart(figure?._id)
+											? "bg-holud/70 cursor-not-allowed text-ash"
+											: "bg-holud cursor-pointer text-white"
+									}`}
 									onClick={() =>
-										addFigToCart(figure._id, figure.name, figure.img, figure.price)
+										addFigToCart(
+											figure?._id,
+											figure?.name,
+											figure?.images[0],
+											figure?.price,
+											figure?.link
+										)
 									}
-									disabled={isItemInCart(figure._id)}
+									disabled={isItemInCart(figure?._id)}
 								>
 									<ShoppingCart size={18} />
-									<span>{isItemInCart(figure._id) ? "Added" : "Add to cart"}</span>
+									<span>{isItemInCart(figure?._id) ? "Added" : "Add to cart"}</span>
 								</button>
 							</div>
 						</div>
 					</div>
 				))}
+			</div>
+
+			<div className="flex items-center justify-center gap-x-7">
+				<button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}>Previous</button>
+				{Array.from({ length: totalPages }, (_, i) => (
+					<button
+						key={i + 1}
+						onClick={() => handlePageChange(i + 1)}
+						className={currentPage === i + 1 ? "active" : ""}
+					>
+						{i + 1}
+					</button>
+				))}
+				<button onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}>Next</button>
 			</div>
 		</div>
 	);

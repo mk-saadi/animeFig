@@ -167,7 +167,7 @@ const Navbar = () => {
 								Shipping Japan&apos;s finest OTAKU goods to the world!
 								<Globe
 									size={18}
-									className="text-laal"
+									className="text-ash"
 								/>
 							</p>
 						</div>

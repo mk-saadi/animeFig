@@ -1,4 +1,6 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 
 const Breadcrumbs = () => {
 	const location = useLocation();
@@ -6,18 +8,33 @@ const Breadcrumbs = () => {
 	let breadcrumbPath = "";
 
 	return (
-		<div className="breadcrumbs">
-			<Link to="/">Home</Link>
-			{pathnames.map((name, index) => {
-				breadcrumbPath += `/${decodeURIComponent(name)}`; // Decode encoded spaces
+		<div className="p-0 m-0 text-sm text-ash/70">
+			<Link
+				to="/"
+				className="hover:underline"
+			>
+				Home
+			</Link>
+			{pathnames.map((link, index) => {
+				breadcrumbPath += `/${decodeURIComponent(link)}`;
 				const isLast = index === pathnames.length - 1;
 
-				return isLast ? (
-					<span key={breadcrumbPath}> / {decodeURIComponent(name)}</span>
-				) : (
+				return (
 					<span key={breadcrumbPath}>
-						{" "}
-						/ <Link to={breadcrumbPath}>{decodeURIComponent(name)}</Link>
+						<ChevronRight
+							className="inline-block mx-1"
+							size={14}
+						/>
+						{isLast ? (
+							<span>{decodeURIComponent(link)}</span>
+						) : (
+							<Link
+								className="hover:underline"
+								to={breadcrumbPath}
+							>
+								{decodeURIComponent(link)}
+							</Link>
+						)}
 					</span>
 				);
 			})}

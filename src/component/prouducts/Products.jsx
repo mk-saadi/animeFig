@@ -9,17 +9,19 @@ const Products = ({ figure }) => {
 
 	// const { figureData, isLoading, error } = useAddedFigures({ category: category });
 
-	const addFigToCart = (id, name, img, price) => {
+	const addFigToCart = (id, name, img, price, link) => {
 		const figName = name;
 		const figImg = img;
 		const figId = id;
 		const figPrice = price;
+		const figLink = link;
 
 		const selectedFig = {
 			figName,
 			figImg,
 			figId,
 			figPrice,
+			figLink,
 		};
 
 		addToCart(selectedFig);
@@ -86,7 +88,13 @@ const Products = ({ figure }) => {
 								: "bg-holud cursor-pointer text-white"
 						}`}
 						onClick={() =>
-							addFigToCart(figure?._id, figure?.name, figure?.images[0], figure?.price)
+							addFigToCart(
+								figure?._id,
+								figure?.name,
+								figure?.images[0],
+								figure?.price,
+								figure?.link
+							)
 						}
 						disabled={isItemInCart(figure?._id)}
 					>
