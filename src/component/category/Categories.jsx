@@ -12,19 +12,13 @@ import axios from "axios";
 const Categories = () => {
 	const { category } = useParams();
 	const { addToCart, isItemInCart } = useCart();
-	// const [currentPage, setCurrentPage] = useState(1);
-	// const [totalPages, setTotalPages] = useState(0);
-
-	useScrollToTop();
-	useTitle("Category: " + category);
-
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
 	const [figures, setFigures] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	useScrollToTop();
+	// useScrollToTop();
 	useTitle("Category: " + category);
 
 	useEffect(() => {
@@ -35,11 +29,11 @@ const Categories = () => {
 					params: {
 						category,
 						page: currentPage,
-						limit: 6,
+						limit: 12,
 					},
 				});
 				setFigures(response.data.figures);
-				setTotalPages(Math.ceil(response.data.totalMatchingFigures / 6));
+				setTotalPages(Math.ceil(response.data.totalMatchingFigures / 12));
 				setIsLoading(false);
 			} catch (error) {
 				console.error("Error fetching figures:", error);
@@ -69,7 +63,12 @@ const Categories = () => {
 
 	const handlePageChange = (pageNumber) => {
 		setCurrentPage(pageNumber);
+		window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top
 	};
+
+	useEffect(() => {
+		handlePageChange(1);
+	}, [category]);
 
 	return (
 		<div className="min-h-screen bg-white">
@@ -98,7 +97,7 @@ const Categories = () => {
 							<p>{figure?.label}</p>
 						</div>
 						<div className="p-4 h-[27.8rem]">
-							<Link to={`/figures/${figure?.link}`}>
+							<Link to={`/${figure?.link}`}>
 								<div className="relative overflow-hidden rounded-md h-fit">
 									<img
 										src={figure?.images[0]}
@@ -121,7 +120,7 @@ const Categories = () => {
 						<div className="absolute bottom-0 left-0 w-full">
 							<div className="flex flex-col justify-between p-3 gap-y-2">
 								<Link
-									to={`/figures/${figure?.link}`}
+									to={`/${figure?.link}`}
 									className="flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-xl bg-laal"
 								>
 									<span className="text-xs">New Arrival</span>
@@ -153,18 +152,32 @@ const Categories = () => {
 				))}
 			</div>
 
-			<div className="flex items-center justify-center gap-x-7">
-				<button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}>Previous</button>
-				{Array.from({ length: totalPages }, (_, i) => (
+			<div className="flex items-center justify-center w-full">
+				<div className="flex items-center justify-center p-2 text-white rounded-md shadow-md w-fit bg-ash/50 gap-x-3">
 					<button
-						key={i + 1}
-						onClick={() => handlePageChange(i + 1)}
-						className={currentPage === i + 1 ? "active" : ""}
+						onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+						className="px-2"
 					>
-						{i + 1}
+						Previous
 					</button>
-				))}
-				<button onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}>Next</button>
+					<span className="mx-2.5 w-px lg:block hidden h-[15px] py-px bg-ash/70 " />
+					{Array.from({ length: totalPages }, (_, i) => (
+						<button
+							key={i + 1}
+							onClick={() => handlePageChange(i + 1)}
+							className={`px-2 rounded-md ${currentPage === i + 1 ? "bg-holud " : ""}`}
+						>
+							{i + 1}
+						</button>
+					))}
+					<span className="mx-2.5 w-px lg:block hidden h-[15px] py-px bg-ash/70 " />
+					<button
+						className="px-2"
+						onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+					>
+						Next
+					</button>
+				</div>
 			</div>
 		</div>
 	);

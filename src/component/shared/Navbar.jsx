@@ -276,7 +276,7 @@ const Navbar = () => {
 																	className="flex flex-col h-full text-sm"
 																>
 																	<Link
-																		to={`/categories/${category.name}`}
+																		to={`/collections/${category.name}`}
 																		className="block px-4 py-2 duration-300 text-ash hover:text-laal"
 																		onClick={() => setIsOpen(false)}
 																	>

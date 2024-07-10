@@ -48,7 +48,7 @@ const Products = ({ figure }) => {
 				<p>{figure?.label}</p>
 			</div>
 			<div className="p-4 h-[27.8rem]">
-				<Link to={`/figures/${figure?.link}`}>
+				<Link to={`/${figure?.link}`}>
 					<div className="relative overflow-hidden rounded-md h-fit">
 						{/* First image */}
 						<img
@@ -75,7 +75,7 @@ const Products = ({ figure }) => {
 			<div className="absolute bottom-0 left-0 w-full">
 				<div className="flex flex-col justify-between p-3 gap-y-2">
 					<Link
-						to={`/figures/${figure?.link}`}
+						to={`/${figure?.link}`}
 						className="flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-xl bg-laal"
 					>
 						<span className="text-xs">New Arrival</span>

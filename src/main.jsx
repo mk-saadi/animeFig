@@ -35,7 +35,7 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/figures/:link",
+				path: "/:link",
 				element: (
 					<PrivateRoute>
 						<FiguresD />
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
 				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/addedFigure/${params.id}`),
 			},
 			{
-				path: "/categories/:category",
+				path: "/collections/:category",
 				element: <Categories />,
 			},
 			{
