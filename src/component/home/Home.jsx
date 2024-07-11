@@ -75,15 +75,13 @@ const Home = () => {
 				<h3 className="pl-4 mt-20 ml-4 -mb-12 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
 					Best Selling Merch
 				</h3>
-				<div className="grid grid-cols-1 mt-8 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-6">
-					{figures
-						.map((figure) => (
-							<Products
-								key={figure._id}
-								figure={figure}
-							></Products>
-						))
-						.reverse()}
+				<div className="grid grid-cols-1 mt-8 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
+					{figures.map((fig) => (
+						<Products
+							key={fig._id}
+							fig={fig}
+						></Products>
+					))}
 				</div>
 
 				{/* latest merch */}

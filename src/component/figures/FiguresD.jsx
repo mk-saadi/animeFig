@@ -13,7 +13,6 @@ const FiguresD = () => {
 	const { link } = useParams();
 
 	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
-	console.log("fig: ", fig);
 	const navigate = useNavigate();
 
 	const { addToCart, isItemInCart } = useCart();
@@ -102,19 +101,19 @@ const FiguresD = () => {
 							<div
 								className={`${
 									fig?.label === "Out Of Stock"
-										? "overflow-hidden w-full relative"
+										? "overflow-hidden w-full relative cursor-auto"
 										: "w-full"
 								}`}
 							>
 								{fig ? (
 									<div
-										className={`flex hover:scale-105 duration-300 relative items-center p-3 cursor-pointer rounded-md justify-start w-full ${
+										className={`flex relative items-center p-3 cursor-pointer rounded-md justify-start w-full ${
 											{
-												Limited: "bg-red-500",
-												"Coming Soon": "bg-blue-500",
-												"Pre Owned": "bg-yellow-500",
-												"Brand New": "bg-green-500",
-												"Re-Release": "bg-purple-500",
+												Limited: "bg-red-500 hover:scale-105 duration-300",
+												"Coming Soon": "bg-blue-500 hover:scale-105 duration-300",
+												"Pre Owned": "bg-yellow-500 hover:scale-105 duration-300",
+												"Brand New": "bg-green-500 hover:scale-105 duration-300",
+												"Re-Release": "bg-purple-500 hover:scale-105 duration-300",
 												"Out Of Stock":
 													"bg-[#f3f5f9] cursor-auto hover:scale-100 duration-0",
 											}[fig?.label] || ""
@@ -142,7 +141,7 @@ const FiguresD = () => {
 												</div>
 											</Link>
 										) : (
-											<div className="font-serif text-base font-bold text-ash/60">
+											<div className="font-serif text-base font-bold cursor-auto text-ash/60">
 												<p>Out Of Stock</p>
 												<p className="text-xs font-medium text-ash/50">
 													This item has been sold out

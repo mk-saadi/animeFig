@@ -22,6 +22,7 @@ import { CartProvider } from "./component/provider/CartProvider";
 // import { ToastProvider } from "./component/hooks/ToastProvider";
 import { ToastProvider } from "react-toast-master";
 import AuthContainer from "./component/auth/AuthContainer";
+import Collections from "./component/collections/Collections";
 // import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
@@ -35,13 +36,20 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/:link",
+				path: "/collections",
+				element: <Collections />,
+			},
+			{
+				path: "/collections/figures/:category",
+				element: <Categories />,
+			},
+			{
+				path: "/collections/:link",
 				element: (
 					<PrivateRoute>
 						<FiguresD />
 					</PrivateRoute>
 				),
-				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/figures/${params.id}`),
 			},
 			{
 				path: "/allToys",
@@ -81,10 +89,6 @@ const router = createBrowserRouter([
 					</PrivateRoute>
 				),
 				// loader: ({ params }) => fetch(`${import.meta.env.VITE_URL}/addedFigure/${params.id}`),
-			},
-			{
-				path: "/collections/:category",
-				element: <Categories />,
 			},
 			{
 				path: "/exp",

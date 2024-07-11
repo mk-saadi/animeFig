@@ -17,6 +17,8 @@ import { useFigures } from "../hooks/APIS";
 const AddToys = () => {
 	const { user } = useContext(AuthContext);
 	const { toastMaster } = useToast();
+	const [loading, setLoading] = useState(false);
+
 	const {
 		figure: formValues,
 		isLoading: isLoadingFormValues,
@@ -102,6 +104,8 @@ const AddToys = () => {
 			footer: <p className="text-ash">Uploading may take some time. Have patience.</p>,
 		});
 
+		setLoading(true);
+
 		try {
 			if (images.length > 0) {
 				const storage = getStorage();
@@ -125,10 +129,12 @@ const AddToys = () => {
 					transition: "down",
 				});
 				form.reset();
+				setLoading(false);
 			}
 
 			// Handle success or error messages here
 		} catch (error) {
+			setLoading(false);
 			console.error("Error uploading images or sending data:", error);
 			// Handle errors appropriately, e.g., display an error message to the user
 		}
@@ -225,14 +231,6 @@ const AddToys = () => {
 								name="quantity"
 							/>
 						</div>
-						{/* <div className="form-control">
-							<InputField
-								label="figure category *"
-								type="text"
-								id="category"
-								name="category"
-							/>
-						</div> */}
 						<div className="form-control">
 							<InputField
 								label="figure series *"
@@ -347,7 +345,8 @@ const AddToys = () => {
 					</div>
 					<input
 						type="submit"
-						className="absolute text-white rounded-sm bottom-4 md:right-24 btn btn-info"
+						className={`absolute text-white rounded-sm bottom-4 md:right-24 btn btn-info`}
+						disabled={loading}
 						value="Submit"
 					/>
 				</div>

@@ -126,3 +126,38 @@ export const useFigures = (endpoint = "/figures") => {
 
 	return { figure, isLoading, error };
 };
+
+const useFiguresParams = (params, currentPage) => {
+	const [figures, setFigures] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
+	const [totalPages, setTotalPages] = useState(0);
+
+	useEffect(() => {
+		const fetchFigures = async () => {
+			setIsLoading(true);
+			setError(null);
+
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_URL}/figures/search`, {
+					params: {
+						params, // This is the single params query parameter
+						page: currentPage,
+						limit: 6,
+					},
+				});
+				setFigures(res.data.figures);
+				setTotalPages(Math.ceil(res.data.totalMatchingFigures / 6));
+			} catch (err) {
+				console.error(`Failed to fetch figures:`, err);
+				setError(err);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchFigures();
+	}, [params, currentPage]);
+
+	return { figures, isLoading, error, totalPages };
+};
