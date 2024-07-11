@@ -45,17 +45,19 @@ const Categories = () => {
 		fetchData();
 	}, [category, currentPage]);
 
-	const addFigToCart = (id, name, img, price) => {
+	const addFigToCart = (id, name, img, price, link) => {
 		const figName = name;
 		const figImg = img;
 		const figId = id;
 		const figPrice = price;
+		const figLink = link;
 
 		const selectedFig = {
 			figName,
 			figImg,
 			figId,
 			figPrice,
+			figLink,
 		};
 
 		addToCart(selectedFig);
@@ -88,7 +90,7 @@ const Categories = () => {
 									Limited: "bg-red-500",
 									"Coming Soon": "bg-blue-500",
 									"Pre Owned": "bg-yellow-500",
-									"In Stock": "bg-green-500",
+									"Brand New": "bg-green-500",
 									"Re-Release": "bg-purple-500",
 									"Out Of Stock": "bg-ash",
 								}[figure?.label] || ""

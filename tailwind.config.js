@@ -8,6 +8,7 @@ module.exports = {
 				ash: "#374151",
 				holud: "#f4ae18",
 				dhusor: "#d1d5db",
+				kala: "#111827",
 			},
 			fontFamily: {
 				sans: ["Poppins", "sans-serif"],

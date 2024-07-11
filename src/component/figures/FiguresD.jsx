@@ -6,7 +6,7 @@ import { useCart } from "../provider/CartProvider";
 import { useFigures } from "../hooks/APIS";
 import ImageZoom from "../hooks/ImageZoom";
 import Breadcrumbs from "../hooks/BreadCrumbs";
-import { Facebook, Frown, Gem, Mail, MessageCircle, Twitter } from "lucide-react";
+import { Facebook, Frown, Gem, InfoIcon, Mail, MessageCircle, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const FiguresD = () => {
@@ -86,7 +86,18 @@ const FiguresD = () => {
 						<Breadcrumbs />
 					</>
 					<div className="flex flex-col items-start justify-start mt-2">
-						<p className="mb-4 text-lg font-normal sm:text-2xl text-ash">{fig?.name}</p>
+						<p
+							className="mb-4 text-kala"
+							style={{
+								fontSize: "24px",
+								fontWeight: "400",
+								lineHeight: "29px",
+								letterSpacing: "0px",
+							}}
+						>
+							{fig?.name}
+						</p>
+						{/* figure buy/add to cart button/link */}
 						<div className="flex flex-row items-center justify-center w-full gap-4">
 							<div
 								className={`${
@@ -102,7 +113,7 @@ const FiguresD = () => {
 												Limited: "bg-red-500",
 												"Coming Soon": "bg-blue-500",
 												"Pre Owned": "bg-yellow-500",
-												"In Stock": "bg-green-500",
+												"Brand New": "bg-green-500",
 												"Re-Release": "bg-purple-500",
 												"Out Of Stock":
 													"bg-[#f3f5f9] cursor-auto hover:scale-100 duration-0",
@@ -110,7 +121,7 @@ const FiguresD = () => {
 										}`}
 									>
 										{fig.label === "Limited" ||
-										fig.label === "In Stock" ||
+										fig.label === "Brand New" ||
 										fig.label === "Re-Release" ? (
 											<button>Buy Now</button>
 										) : fig.label === "Coming Soon" ? (
@@ -168,14 +179,14 @@ const FiguresD = () => {
 												Limited: "bg-red-500",
 												"Coming Soon": "bg-holud",
 												"Pre Owned": "bg-yellow-500",
-												"In Stock": "bg-green-500",
+												"Brand New": "bg-green-500",
 												"Re-Release": "bg-purple-500",
 												"Out Of Stock": "bg-[#f3f5f9]",
 											}[fig?.label] || ""
 										}`}
 									>
 										{fig.label === "Limited" ||
-										fig.label === "In Stock" ||
+										fig.label === "Brand New" ||
 										fig.label === "Re-Release" ? (
 											<button>Buy Now</button>
 										) : fig.label === "Coming Soon" ? (
@@ -209,10 +220,23 @@ const FiguresD = () => {
 								)}
 							</div>
 						</div>
+						{fig?.label === "Coming Soon" && (
+							<div className="w-full p-2 mt-4 text-[#1071a6] rounded-md bg-[#e0f2fe]">
+								<div className="flex items-center justify-center gap-x-3">
+									<InfoIcon size={30} />
+									<p className="text-xs font-normal">
+										The shipping weight/price and release date are based on manufacturer
+										estimates and can change.{" "}
+										<span className="font-semibold">Pre-order bonuses</span> are{" "}
+										<span className="font-semibold">not guaranteed</span> to be included.
+									</p>
+								</div>
+							</div>
+						)}
 					</div>
 					{/* share figure */}
 					<div className="w-full flex p-[1px] justify-center items-center border mt-4 rounded-md  bg-gradient-to-r from-[#e7230d] to-[#f4ae18]">
-						<div className="p-[11px] bg-white rounded-[0.29rem] w-full text-ash">
+						<div className="p-[12px] bg-white rounded-[0.29rem] w-full text-ash">
 							<div className="flex items-center justify-between">
 								<div className="flex items-center justify-start gap-x-2">
 									<Gem
@@ -220,7 +244,7 @@ const FiguresD = () => {
 										size={24}
 									/>
 									<div className="flex flex-col items-start justify-start">
-										<p className="text-[14px] text-ash">Share This Figure With Friends</p>
+										<p className="text-[14px] text-kala">Refer a friend</p>
 										<p className="text-[12px] -mt-[3px] text-ash">
 											Get 500 points when they make their first purchase!
 										</p>

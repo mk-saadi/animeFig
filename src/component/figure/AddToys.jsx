@@ -99,7 +99,7 @@ const AddToys = () => {
 			message: "Please wait...",
 			transition: "down",
 			bg: "glass",
-			loadFooter: <p className="text-ash">This seems to be a long process, please wait</p>,
+			footer: <p className="text-ash">Uploading may take some time. Have patience.</p>,
 		});
 
 		try {

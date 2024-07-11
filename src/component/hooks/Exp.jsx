@@ -67,7 +67,7 @@ const Exp = () => {
 											Limited: "bg-red-500",
 											"Coming Soon": "bg-blue-500",
 											"Pre Owned": "bg-yellow-500",
-											"In Stock": "bg-green-500",
+											"Brand New": "bg-green-500",
 											"Re-Release": "bg-purple-500",
 											"Out Of Stock": "bg-ash",
 										}[figure?.label] || ""

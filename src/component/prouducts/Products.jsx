@@ -39,7 +39,7 @@ const Products = ({ figure }) => {
 						Limited: "bg-red-500",
 						"Coming Soon": "bg-blue-500",
 						"Pre Owned": "bg-yellow-500",
-						"In Stock": "bg-green-500",
+						"Brand New": "bg-green-500",
 						"Re-Release": "bg-purple-500",
 						"Out Of Stock": "bg-ash",
 					}[figure?.label] || ""
@@ -64,7 +64,7 @@ const Products = ({ figure }) => {
 							className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
 						/>
 					</div>
-					<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-ash">
+					<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-kala">
 						{figure?.name}
 					</h2>
 					<p className="text-sm text-ash/70">{figure?.series}</p>
