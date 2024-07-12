@@ -143,7 +143,7 @@ const FiguresD = () => {
 										) : (
 											<div className="font-serif text-base font-bold cursor-auto text-ash/60">
 												<p>Out Of Stock</p>
-												<p className="text-xs font-medium text-ash/50">
+												<p className="text-xs font-medium cursor-auto text-ash/50">
 													This item has been sold out
 												</p>
 											</div>
@@ -159,6 +159,7 @@ const FiguresD = () => {
 								{fig.label === "Out Of Stock" && (
 									<Frown
 										size={75}
+										strokeWidth={1.2}
 										className="absolute text-[#dadee6] z-10 top-0 right-0"
 									/>
 								)}
@@ -214,6 +215,7 @@ const FiguresD = () => {
 								{fig.label === "Out Of Stock" && (
 									<Frown
 										size={75}
+										strokeWidth={1.2}
 										className="absolute text-[#dadee6] top-0 right-0"
 									/>
 								)}

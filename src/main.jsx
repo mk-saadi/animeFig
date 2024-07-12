@@ -23,6 +23,7 @@ import { CartProvider } from "./component/provider/CartProvider";
 import { ToastProvider } from "react-toast-master";
 import AuthContainer from "./component/auth/AuthContainer";
 import Collections from "./component/collections/Collections";
+import FigureList from "./component/hooks/SearchBox";
 // import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
@@ -93,6 +94,11 @@ const router = createBrowserRouter([
 			{
 				path: "/exp",
 				element: <Exp />,
+				// loader: () => fetch("http://localhost:3000/totalAddedFigure"),
+			},
+			{
+				path: "/search",
+				element: <FigureList />,
 				// loader: () => fetch("http://localhost:3000/totalAddedFigure"),
 			},
 		],

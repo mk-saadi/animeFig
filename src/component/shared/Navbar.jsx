@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-hot-toast";
 import { useCart } from "../provider/CartProvider";
@@ -32,7 +32,8 @@ import {
 	Trophy,
 } from "lucide-react";
 import useScroll from "../hooks/Scroll";
-import { useCategoriesState } from "../hooks/APIS";
+import { searchFigures, useCategoriesState } from "../hooks/APIS";
+import axios from "axios";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
@@ -42,6 +43,37 @@ const Navbar = () => {
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
 	const [isOpenMenu, setIsOpenMenu] = useState(false);
 	const [categories] = useCategoriesState();
+
+	const [searchQuery, setSearchQuery] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const searchResultsRef = useRef(null);
+
+	const handleSearchChange = async (event) => {
+		const query = event.target.value;
+		setSearchQuery(query);
+
+		if (query.trim() !== "") {
+			const results = await searchFigures(query);
+			setSearchResults(results);
+		} else {
+			setSearchResults([]);
+		}
+	};
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
+				setSearchQuery("");
+				setSearchResults([]);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [searchResultsRef]);
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
@@ -375,8 +407,8 @@ const Navbar = () => {
 									<div className="flex items-center gap-x-4">
 										{/* search bar */}
 										<div className="hidden md:block w-[24rem] ml-1">
-											<Link
-												to="/auth/login"
+											{/* <Link
+												to="/collections"
 												className="relative w-full"
 											>
 												<div className="mt-1">
@@ -391,7 +423,45 @@ const Navbar = () => {
 												<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
 													<Search size={20} />
 												</button>
-											</Link>
+											</Link> */}
+											<div className="relative">
+												{/* <input
+													type="text"
+													placeholder="Search by name, category, or series..."
+													value={searchQuery}
+													onChange={(e) => setSearchQuery(e.target.value)}
+													className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+												/> */}
+												<input
+													type="text"
+													placeholder="Search figure"
+													value={searchQuery}
+													onChange={handleSearchChange}
+													className="w-full pl-3 font-[200] text-white font-sans bg-transparent border-b border-white placeholder:text-white focus:outline-none text-base"
+												/>
+												<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
+													<Search size={20} />
+												</button>
+												{searchResults?.length > 0 && (
+													<div
+														className="absolute border z-[9999] top-9 shadow-ash/30 max-h-64 overflow-y-auto w-full mt-1 bg-white rounded-md shadow-lg"
+														ref={searchResultsRef}
+													>
+														{searchResults?.map((item) => (
+															<Link
+																key={item._id}
+																to={`/collections/${item.link}`}
+																onClick={() => searchQuery(null)}
+																className="flex flex-col px-4 py-2 text-sm duration-300 cursor-pointer line-clamp-2 text-ash gap-y-3 hover:text-laal"
+															>
+																<span className="line-clamp-2">
+																	{item.name}
+																</span>
+															</Link>
+														))}
+													</div>
+												)}
+											</div>
 										</div>
 										{/* Profile dropdown large device */}
 										{isScrolled && (
