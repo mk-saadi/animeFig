@@ -1,95 +1,25 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-hot-toast";
-import { useCart } from "../provider/CartProvider";
 import Cart from "./Cart";
 import { Disclosure } from "@headlessui/react";
-import {
-	X,
-	Menu as MenuIcon,
-	UserCircle,
-	Search,
-	Plus,
-	User2,
-	PartyPopper,
-	DollarSign,
-	Twitter,
-	Facebook,
-	Youtube,
-	Linkedin,
-	User,
-	ChevronDownIcon,
-	PlayCircleIcon,
-	PhoneIcon,
-	UserCircleIcon,
-	LogOut,
-	Settings,
-	LogIn,
-	ShoppingCart,
-	ArrowRightFromLine,
-	Globe,
-	Trophy,
-} from "lucide-react";
+import { X, Menu as MenuIcon } from "lucide-react";
 import useScroll from "../hooks/Scroll";
-import { searchFigures, useCategoriesState } from "../hooks/APIS";
-import axios from "axios";
+import Popovers from "./nav-components/Popovers";
+import ProfileDropdown from "./nav-components/ProfileDropdown";
+import TopNav from "./nav-components/TopNav";
+import SearchBox from "./nav-components/SearchBox";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
-	const { cartItems } = useCart();
 	const isScrolled = useScroll("top-navbar");
-	const [isOpen, setIsOpen] = useState(false);
-	const [isOpenSeries, setIsOpenSeries] = useState(false);
-	const [isOpenMenu, setIsOpenMenu] = useState(false);
-	const [categories] = useCategoriesState();
-
-	const [searchQuery, setSearchQuery] = useState("");
-	const [searchResults, setSearchResults] = useState([]);
-	const searchResultsRef = useRef(null);
-
-	const handleSearchChange = async (event) => {
-		const query = event.target.value;
-		setSearchQuery(query);
-
-		if (query.trim() !== "") {
-			const results = await searchFigures(query);
-			setSearchResults(results);
-		} else {
-			setSearchResults([]);
-		}
-	};
-
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
-				setSearchQuery("");
-				setSearchResults([]);
-			}
-		};
-
-		document.addEventListener("mousedown", handleClickOutside);
-
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, [searchResultsRef]);
-
-	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
 	const handleLogOut = () => {
 		logOut()
 			.then(() => {})
 			.catch((error) => {
-				toast.error(error.message, {
-					position: "top-center",
-					autoClose: 4000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-				});
+				console.log(error.message);
 			});
 	};
 
@@ -132,118 +62,13 @@ const Navbar = () => {
 	// const handleMouseLeave = () => {
 	// 	setHoveredCategory(null);
 	// };
-	const [hoveredCategory, setHoveredCategory] = useState(null);
-	const [initialImage, setInitialImage] = useState(null);
-
-	useEffect(() => {
-		// Find the category with the name "Figma" and set it as the initial image
-		const figmaCategory = categories.find((category) => category.name === "Figma");
-		if (figmaCategory) {
-			setInitialImage(figmaCategory.img);
-		}
-	}, [categories]);
-
-	const handleMouseEnter = (categoryId) => {
-		setHoveredCategory(categoryId);
-	};
-
-	const handleMouseLeave = () => {
-		setHoveredCategory(null);
-	};
 
 	return (
 		<div className="w-full shadow-lg h-fit ">
-			<div
-				id="top-navbar"
-				className={`bg-white overflow-hidden fixed w-full lg:w-full top-0 z-[30] h-[45px] transition-transform${
-					isScrolled ? "-translate-y-full" : "translate-y-0"
-				}`}
-			>
-				<div className="flex items-center justify-between h-full mx-8">
-					{/* first div start */}
-					<div className="flex items-center justify-center gap-x-1.5">
-						<div className="hidden lg:block">
-							<Link
-								to="/"
-								className="flex items-center gap-x-1.5 justify-center"
-							>
-								<h1 className="text-base text-laal uppercase font-[900] font-serif">
-									anime-Fig
-								</h1>
-							</Link>
-						</div>
-						<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor  lg:block hidden" />
-						<div className="flex items-end justify-start gap-x-2.5 text-ash">
-							<Twitter
-								className="cursor-pointer hover:text-laal"
-								size={20}
-							/>
-							<Facebook
-								className="cursor-pointer hover:text-laal"
-								size={20}
-							/>
-							<Youtube
-								className="cursor-pointer hover:text-laal"
-								size={20}
-							/>
-							<Linkedin
-								className="cursor-pointer hover:text-laal"
-								size={20}
-							/>
-						</div>
-					</div>
-					{/* second div end */}
-					<div className="flex items-center justify-center gap-x-1.5 h-full">
-						<div className="hidden text-sm lg:block text-ash">
-							<p className="flex gap-x-1.5 font-normal items-center justify-center">
-								Shipping Japan&apos;s finest OTAKU goods to the world!
-								<Globe
-									size={18}
-									className="text-ash"
-								/>
-							</p>
-						</div>
-						<span className="mx-2.5 w-px lg:block hidden h-[20px] py-px bg-dhusor " />
-						{user ? (
-							<>
-								<div className="flex items-center justify-center gap-x-1.5">
-									<img
-										src={user?.photoURL}
-										alt=""
-										className="w-8 h-8 rounded-full"
-									/>
-									<p className="text-sm text-ash">{user?.displayName}</p>
-								</div>
-							</>
-						) : (
-							<div className="flex items-center text-ash duration-300 justify-center gap-x-1.5 text-sm">
-								<Link
-									className="font-normal flex hover:text-laal items-center justify-center gap-x-1.5"
-									to="/auth/login"
-								>
-									<LogIn size={20} /> Login
-								</Link>
-								<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
-								<Link
-									className="font-normal flex hover:text-laal items-center justify-center gap-x-1.5"
-									to="/auth/register"
-								>
-									<Plus size={20} /> Create Account
-								</Link>
-							</div>
-						)}
-						<span className="mx-2.5 w-px h-[20px] py-px bg-dhusor " />
-						{/* cart item below */}
-						<div className=" flex justify-center items-center gap-x-1.5 text-ash">
-							{/* <Cart /> */}
-							<ShoppingCart size={22} />
-							<span className="flex items-center justify-center text-sm font-normal">
-								${totalPrice.toFixed(2)}
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			<TopNav
+				user={user}
+				isScrolled={isScrolled}
+			/>
 			{/* second/bottom navbar */}
 			<Disclosure
 				as="nav"
@@ -270,292 +95,22 @@ const Navbar = () => {
 											isScrolled ? "bg-opacity-100" : "bg-opacity-0 -mr-2"
 										}`}
 									/>
-									<div className="hidden md:block">
-										<div className="flex items-center justify-center gap-x-2.5">
-											{/* TODO: dropdown will go here */}
-											<div className="relative w-full">
-												<button
-													className="flex items-center justify-center p-0 text-white duration-300 gap-x-[2px] focus:outline-none"
-													onMouseEnter={() => setIsOpen(true)}
-													onMouseLeave={() => setIsOpen(false)}
-												>
-													Figures
-													<ChevronDownIcon
-														className={`w-5 h-5 duration-300 ${
-															isOpen ? "mt-1" : ""
-														}`}
-													/>
-												</button>
-												<div
-													className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
-														isOpen
-															? "opacity-100 transform translate-y-0"
-															: "opacity-0 transform -translate-y-2 pointer-events-none"
-													}`}
-													onMouseEnter={() => setIsOpen(true)}
-													onMouseLeave={() => setIsOpen(false)}
-												>
-													<div className="grid justify-between items-start grid-cols-5 mt-4 bg-white border px-6 h-[22rem] border-gray-200 rounded-md shadow-lg w-[55rem]">
-														{/* category list component */}
-														<div className="col-span-2">
-															{categories.map((category) => (
-																<div
-																	key={category._id}
-																	onMouseEnter={() =>
-																		handleMouseEnter(category._id)
-																	}
-																	onMouseLeave={handleMouseLeave}
-																	className="flex flex-col h-full text-sm"
-																>
-																	<Link
-																		to={`/collections/figures/${category.name}`}
-																		className="block px-4 py-2 duration-300 text-ash hover:text-laal"
-																		onClick={() => setIsOpen(false)}
-																	>
-																		{category.name}
-																	</Link>
-																</div>
-															))}
-														</div>
-														{/* image component */}
-														<div className="flex items-center justify-start col-span-3 border w-60 h-80 border-laal">
-															{hoveredCategory
-																? categories.map(
-																		(category) =>
-																			category._id ===
-																				hoveredCategory && (
-																				<img
-																					key={category._id}
-																					src={category.img}
-																					alt={category.name}
-																					className="object-cover w-full h-full"
-																				/>
-																			)
-																  )
-																: initialImage && (
-																		<img
-																			src={initialImage}
-																			alt="Figma"
-																			className="object-cover w-full h-full"
-																		/>
-																  )}
-														</div>
-													</div>
-												</div>
-											</div>
-											{/* series */}
-											<div className="relative w-full">
-												<button
-													className="flex items-center justify-center p-0 text-white duration-300 gap-x-[2px] focus:outline-none"
-													onMouseEnter={() => setIsOpenSeries(true)}
-													onMouseLeave={() => setIsOpenSeries(false)}
-												>
-													Series
-													<ChevronDownIcon
-														className={`w-5 h-5 duration-300 ${
-															isOpenSeries ? "mt-1" : ""
-														}`}
-													/>
-												</button>
-												<div
-													className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
-														isOpenSeries
-															? "opacity-100 transform translate-y-0"
-															: "opacity-0 transform -translate-y-2 pointer-events-none"
-													}`}
-													onMouseEnter={() => setIsOpenSeries(true)}
-													onMouseLeave={() => setIsOpenSeries(false)}
-												>
-													<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 1
-														</a>
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 2
-														</a>
-														<a
-															href="#"
-															className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-														>
-															Option 3
-														</a>
-													</div>
-												</div>
-											</div>
-											{/* trending */}
-											<div className="relative w-full">
-												<div className="text-white duration-300 cursor-pointer hover:underline">
-													<p>Trending</p>
-												</div>
-											</div>
-											{/* contacts */}
-											<div className="relative w-full">
-												<div className="text-white duration-300 cursor-pointer hover:underline">
-													<p>Contacts</p>
-												</div>
-											</div>
-										</div>
-									</div>
+									<>
+										<Popovers />
+									</>
 								</div>
 								<div className="hidden md:block">
 									<div className="flex items-center gap-x-4">
 										{/* search bar */}
-										<div className="hidden md:block w-[24rem] ml-1">
-											{/* <Link
-												to="/collections"
-												className="relative w-full"
-											>
-												<div className="mt-1">
-													<input
-														type="search"
-														name=""
-														className="w-full pl-3 font-[200] font-sans bg-transparent border-b border-white placeholder:text-white focus:outline-none text-base"
-														placeholder="Search a product"
-														id=""
-													/>
-												</div>
-												<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
-													<Search size={20} />
-												</button>
-											</Link> */}
-											<div className="relative">
-												{/* <input
-													type="text"
-													placeholder="Search by name, category, or series..."
-													value={searchQuery}
-													onChange={(e) => setSearchQuery(e.target.value)}
-													className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-												/> */}
-												<input
-													type="text"
-													placeholder="Search figure"
-													value={searchQuery}
-													onChange={handleSearchChange}
-													className="w-full pl-3 font-[200] text-white font-sans bg-transparent border-b border-white placeholder:text-white focus:outline-none text-base"
-												/>
-												<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
-													<Search size={20} />
-												</button>
-												{searchResults?.length > 0 && (
-													<div
-														className="absolute border z-[9999] top-9 shadow-ash/30 max-h-64 overflow-y-auto w-full mt-1 bg-white rounded-md shadow-lg"
-														ref={searchResultsRef}
-													>
-														{searchResults?.map((item) => (
-															<Link
-																key={item._id}
-																to={`/collections/${item.link}`}
-																onClick={() => searchQuery(null)}
-																className="flex flex-col px-4 py-2 text-sm duration-300 cursor-pointer line-clamp-2 text-ash gap-y-3 hover:text-laal"
-															>
-																<span className="line-clamp-2">
-																	{item.name}
-																</span>
-															</Link>
-														))}
-													</div>
-												)}
-											</div>
-										</div>
+										<SearchBox />
 										{/* Profile dropdown large device */}
-										{isScrolled && (
-											<div className="relative w-fit">
-												{/* Profile dropdown large device */}
-												{user ? (
-													<img
-														className="w-8 h-8 rounded-full cursor-pointer ring-2 ring-white"
-														src={user?.photoURL}
-														alt=""
-														onMouseEnter={() => setIsOpenMenu(true)}
-														onMouseLeave={() => setIsOpenMenu(false)}
-													/>
-												) : (
-													<p
-														onMouseEnter={() => setIsOpenMenu(true)}
-														onMouseLeave={() => setIsOpenMenu(false)}
-													>
-														<UserCircleIcon className="text-white rounded-full cursor-pointer w-7 h-7" />
-													</p>
-												)}
-												<div
-													className={`absolute w-fit min-w-56 -right-1.5 origin-top-right transition-all duration-300 ease-in-out ${
-														isOpenMenu
-															? "opacity-100 transform translate-y-0"
-															: "opacity-0 transform -translate-y-2 pointer-events-none"
-													}`}
-													onMouseEnter={() => setIsOpenMenu(true)}
-													onMouseLeave={() => setIsOpenMenu(false)}
-												>
-													<div className="w-full mt-3 bg-white border border-gray-300 divide-y divide-gray-100 rounded-md shadow-lg h-fit">
-														{user && (
-															<div className="overflow-hidden ">
-																<p className="block px-4 py-2 text-sm text-gray-700">
-																	{user?.displayName}
-																</p>
-																<p className="block px-4 pb-2 text-sm text-gray-700">
-																	{user?.email}
-																</p>
-															</div>
-														)}
-														{user && (
-															<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-																<User size={20} />
-																Profile
-															</Link>
-														)}
-														{!user && (
-															<Link
-																className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
-																to="/auth/login"
-															>
-																<LogIn size={20} />
-																Login
-															</Link>
-														)}
-														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-															<ShoppingCart size={20} />
-															View Cart
-														</Link>
-														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-															<ArrowRightFromLine size={20} />
-															Checkout
-														</Link>
-														<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-															<Settings size={20} /> Settings
-														</Link>
-														{user && (
-															<p
-																onClick={handleLogOut}
-																className="flex items-center justify-start px-4 py-2 text-sm duration-300 cursor-pointer gap-x-4 text-ash hover:text-laal"
-															>
-																<LogOut size={20} />
-																Logout
-															</p>
-														)}
-													</div>
-												</div>
-											</div>
-										)}
-										{isScrolled && (
-											// <button
-											// 	type="button"
-											// 	className="relative bg-transparent "
-											// >
-											// 	<span className="absolute -inset-1.5" />
-											// 	<span className="sr-only">View cart items</span>
-											// 	<Cart aria-hidden="true" />
-											// </button>
-											<Cart
-												isOpen={isOpenCart}
-												onCloseCart={toggleDrawer}
-											/>
-										)}
+										<ProfileDropdown
+											user={user}
+											handleLogOut={handleLogOut}
+											isScrolled={isScrolled}
+											toggleDrawer={toggleDrawer}
+											isOpenCart={isOpenCart}
+										/>
 									</div>
 								</div>
 								<div className="flex -mr-2 md:hidden">

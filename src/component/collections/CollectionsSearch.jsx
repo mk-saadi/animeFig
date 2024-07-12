@@ -10,8 +10,8 @@ import Products from "../prouducts/Products";
 
 // http://localhost:3000/figures/search?category=Scale%20Figures&series=Fate%20Series&page=1&limit=2
 
-const Categories = () => {
-	const { category } = useParams();
+const CollectionsSearch = () => {
+	const { series } = useParams();
 	const { addToCart, isItemInCart } = useCart();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
@@ -20,9 +20,7 @@ const Categories = () => {
 	const [error, setError] = useState(null);
 
 	useScrollToTop();
-	useTitle("Category: " + category);
-
-	const pageLimit = 8;
+	useTitle("Series: " + series);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -30,13 +28,13 @@ const Categories = () => {
 			try {
 				const response = await axios.get(`${import.meta.env.VITE_URL}/figures/search_api`, {
 					params: {
-						category,
+						series,
 						page: currentPage,
-						limit: pageLimit,
+						limit: 12,
 					},
 				});
 				setFigures(response.data.figures);
-				setTotalPages(Math.ceil(response.data.totalMatchingFigures / pageLimit));
+				setTotalPages(Math.ceil(response.data.totalMatchingFigures / 12));
 				setIsLoading(false);
 			} catch (error) {
 				console.error("Error fetching figures:", error);
@@ -46,7 +44,7 @@ const Categories = () => {
 		};
 
 		fetchData();
-	}, [category, currentPage]);
+	}, [series, currentPage]);
 
 	const addFigToCart = (id, name, img, price, link) => {
 		const figName = name;
@@ -68,16 +66,16 @@ const Categories = () => {
 
 	const handlePageChange = (pageNumber) => {
 		setCurrentPage(pageNumber);
-		window.scrollTo({ top: 0, behavior: "smooth" });
+		window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top
 	};
 
 	useEffect(() => {
 		handlePageChange(1);
-	}, [category]);
+	}, [series]);
 
 	return (
 		<div className="min-h-screen bg-white">
-			<h1>Category: {category}</h1>
+			<h1>Series: {series}</h1>
 			{/* {isLoading && <p>Loading figures...</p>} */}
 			{error && <p>Error fetching figures: {error.message}</p>}
 
@@ -142,4 +140,4 @@ const Categories = () => {
 	);
 };
 
-export default Categories;
+export default CollectionsSearch;

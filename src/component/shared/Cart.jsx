@@ -83,7 +83,7 @@ function Cart() {
 
 			{/* Drawer */}
 			<div
-				className={`fixed top-0 right-0 w-56 md:w-80 lg:w-96 xl:w-[28rem] h-full bg-white shadow-2xl transform transition-transform duration-300 ${
+				className={`fixed top-0 right-0 w-56 md:w-80 lg:w-96 xl:w-[30rem] h-full bg-white shadow-2xl transform transition-transform duration-300 ${
 					isOpen ? "translate-x-0" : "translate-x-full"
 				}`}
 			>
