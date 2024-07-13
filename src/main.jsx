@@ -24,6 +24,7 @@ import { ToastProvider } from "react-toast-master";
 import AuthContainer from "./component/auth/AuthContainer";
 import Collections from "./component/collections/Collections";
 import CollectionsSearch from "./component/collections/CollectionsSearch";
+import All from "./component/collections/All";
 // import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
+				path: "/collections/:link",
+				element: <FiguresD />,
+			},
+			{
 				path: "/collections",
 				element: <Collections />,
 			},
@@ -45,12 +50,12 @@ const router = createBrowserRouter([
 				element: <Categories />,
 			},
 			{
-				path: "/collections/:link",
-				element: <FiguresD />,
-			},
-			{
 				path: "/collections/search/:series",
 				element: <CollectionsSearch />,
+			},
+			{
+				path: "/all",
+				element: <All />,
 			},
 			{
 				path: "/allToys",

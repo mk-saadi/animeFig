@@ -18,7 +18,7 @@ const Home = () => {
 		figure: figures,
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
-	} = useFigures(`/figures`);
+	} = useFigures(`/figures/card`);
 
 	useTitle("Home");
 	useScrollToTop();
