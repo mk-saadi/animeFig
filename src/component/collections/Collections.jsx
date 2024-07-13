@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
+import Products from "../prouducts/Products";
+import Pagination from "../hooks/Pagination";
 
 const Collections = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
+	const [allFigures, setAllFigures] = useState([]); // State for all figures
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [filters, setFilters] = useState({
@@ -24,16 +27,21 @@ const Collections = () => {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`, { params });
 			setFigures(response.data.figures);
 			setTotalPages(response.data.totalPages);
-			extractFilters(response.data.figures);
+
+			// Only set all figures when fetching the first page
+			if (currentPage === 1) {
+				setAllFigures(response.data.figures);
+				extractFilters(response.data.figures);
+			}
 		} catch (error) {
 			console.error("Error fetching figures:", error);
 		}
 	};
 
-	const extractFilters = (figures) => {
-		const categories = [...new Set(figures.map((fig) => fig.category))];
-		const series = [...new Set(figures.map((fig) => fig.series))];
-		const characters = [...new Set(figures.map((fig) => fig.character))];
+	const extractFilters = () => {
+		const categories = [...new Set(allFigures.map((fig) => fig.category))];
+		const series = [...new Set(allFigures.map((fig) => fig.series))];
+		const characters = [...new Set(allFigures.map((fig) => fig.character))];
 		setCategories(categories);
 		setSeries(series);
 		setCharacters(characters);
@@ -50,15 +58,16 @@ const Collections = () => {
 	};
 
 	const handleFilterChange = (name, value) => {
-		const updatedParams = { ...filters, [name]: value };
+		const updatedParams = { ...filters, [name]: value, page: 1 }; // Reset to page 1 on filter change
 		setFilters(updatedParams);
 		setSearchParams(updatedParams);
 	};
 
 	const handleSortChange = (sort) => {
 		const newOrder = filters.order === "asc" ? "desc" : "asc";
-		setFilters({ ...filters, sort, order: newOrder });
-		setSearchParams({ ...filters, sort, order: newOrder });
+		const updatedParams = { ...filters, sort, order: newOrder, page: 1 }; // Reset to page 1 on sort change
+		setFilters(updatedParams);
+		setSearchParams(updatedParams);
 	};
 
 	return (
@@ -76,7 +85,7 @@ const Collections = () => {
 					{categories.map((category) => (
 						<button
 							key={category}
-							className={filters.category === category ? "active" : ""}
+							className={` px-3 ${filters.category === category ? "active" : ""}`}
 							onClick={() => handleFilterChange("category", category)}
 						>
 							{category}
@@ -108,39 +117,19 @@ const Collections = () => {
 					</button>
 				</div>
 			</div>
-			<div className="figures">
-				{figures.map((figure) => (
-					<div key={figure._id}>
-						<Link to={`/collections/${figure.link}`}>
-							<p>{figure.name}</p>
-							{/* Render other figure details */}
-						</Link>
-					</div>
+			<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+				{figures.map((fig) => (
+					<Products
+						key={fig._id}
+						fig={fig}
+					/>
 				))}
 			</div>
-			<div className="pagination">
-				<button
-					onClick={() => handlePageChange(currentPage - 1)}
-					disabled={currentPage === 1}
-				>
-					Previous
-				</button>
-				{Array.from({ length: totalPages }, (_, i) => (
-					<button
-						key={i + 1}
-						onClick={() => handlePageChange(i + 1)}
-						className={currentPage === i + 1 ? "active" : ""}
-					>
-						{i + 1}
-					</button>
-				))}
-				<button
-					onClick={() => handlePageChange(currentPage + 1)}
-					disabled={currentPage === totalPages}
-				>
-					Next
-				</button>
-			</div>
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				handlePageChange={handlePageChange}
+			/>
 		</div>
 	);
 };
