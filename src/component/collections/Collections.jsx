@@ -7,7 +7,7 @@ import Pagination from "../hooks/Pagination";
 const Collections = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
-	const [allFigures, setAllFigures] = useState([]); // State for all figures
+	const [allFigures, setAllFigures] = useState([]);
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [filters, setFilters] = useState({
@@ -22,30 +22,38 @@ const Collections = () => {
 	const [series, setSeries] = useState([]);
 	const [characters, setCharacters] = useState([]);
 
+	const fetchAllFigures = async () => {
+		try {
+			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`);
+			setAllFigures(response.data.figures);
+			extractFilters(response.data.figures);
+		} catch (error) {
+			console.error("Error fetching all figures:", error);
+		}
+	};
+
 	const fetchFigures = async (params) => {
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`, { params });
 			setFigures(response.data.figures);
 			setTotalPages(response.data.totalPages);
-
-			// Only set all figures when fetching the first page
-			if (currentPage === 1) {
-				setAllFigures(response.data.figures);
-				extractFilters(response.data.figures);
-			}
 		} catch (error) {
 			console.error("Error fetching figures:", error);
 		}
 	};
 
-	const extractFilters = () => {
-		const categories = [...new Set(allFigures.map((fig) => fig.category))];
-		const series = [...new Set(allFigures.map((fig) => fig.series))];
-		const characters = [...new Set(allFigures.map((fig) => fig.character))];
+	const extractFilters = (figures) => {
+		const categories = [...new Set(figures.map((fig) => fig.category))];
+		const series = [...new Set(figures.map((fig) => fig.series))];
+		const characters = [...new Set(figures.map((fig) => fig.character))];
 		setCategories(categories);
 		setSeries(series);
 		setCharacters(characters);
 	};
+
+	useEffect(() => {
+		fetchAllFigures();
+	}, []);
 
 	useEffect(() => {
 		const params = Object.fromEntries([...searchParams]);
@@ -82,37 +90,58 @@ const Collections = () => {
 				/>
 				<div className="filter-options">
 					<h4>Categories:</h4>
-					{categories.map((category) => (
-						<button
-							key={category}
-							className={` px-3 ${filters.category === category ? "active" : ""}`}
-							onClick={() => handleFilterChange("category", category)}
-						>
-							{category}
-						</button>
-					))}
+					<div className="flex flex-wrap">
+						{categories.map((category) => (
+							<button
+								key={category}
+								className={`m-2 px-4 py-2 border ${
+									filters.category === category
+										? "bg-blue-500 text-white"
+										: "bg-white text-black"
+								}`}
+								onClick={() => handleFilterChange("category", category)}
+							>
+								{category}
+							</button>
+						))}
+					</div>
 					<h4>Series:</h4>
-					{series.map((serie) => (
-						<button
-							key={serie}
-							className={filters.series === serie ? "active" : ""}
-							onClick={() => handleFilterChange("series", serie)}
-						>
-							{serie}
-						</button>
-					))}
+					<div className="flex flex-wrap">
+						{series.map((serie) => (
+							<button
+								key={serie}
+								className={`m-2 px-4 py-2 border ${
+									filters.series === serie
+										? "bg-blue-500 text-white"
+										: "bg-white text-black"
+								}`}
+								onClick={() => handleFilterChange("series", serie)}
+							>
+								{serie}
+							</button>
+						))}
+					</div>
 					<h4>Characters:</h4>
-					{characters.map((character) => (
-						<button
-							key={character}
-							className={filters.character === character ? "active" : ""}
-							onClick={() => handleFilterChange("character", character)}
-						>
-							{character}
-						</button>
-					))}
+					<div className="flex flex-wrap">
+						{characters.map((character) => (
+							<button
+								key={character}
+								className={`m-2 px-4 py-2 border ${
+									filters.character === character
+										? "bg-blue-500 text-white"
+										: "bg-white text-black"
+								}`}
+								onClick={() => handleFilterChange("character", character)}
+							>
+								{character}
+							</button>
+						))}
+					</div>
 					<h4>Sort by price:</h4>
-					<button onClick={() => handleSortChange("price")}>
+					<button
+						className="px-4 py-2 m-2 text-black bg-white border"
+						onClick={() => handleSortChange("price")}
+					>
 						Price {filters.order === "asc" ? "High to Low" : "Low to High"}
 					</button>
 				</div>

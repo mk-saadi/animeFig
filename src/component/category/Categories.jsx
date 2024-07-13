@@ -97,6 +97,7 @@ const Categories = () => {
 										<Products
 											key={fig._id}
 											fig={fig}
+											isLoading={isLoading}
 										></Products>
 									)
 								)
