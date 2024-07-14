@@ -30,12 +30,12 @@ const Products = ({ fig, isLoading }) => {
 
 			<div
 				key={fig?._id}
-				className="relative duration-300 rounded-md shadow-lg shadow-ash/15 hover:shadow-ash/30 group"
+				className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/25 group"
 			>
 				<div className="p-4 h-[28.8rem]">
 					<Link to={`/collections/${fig?.link}`}>
 						<div
-							className={`relative overflow-hidden rounded-md h-fit ${
+							className={`relative overflow-hidden mb-1.5 rounded-md h-fit ${
 								fig?.label === "Out Of Stock" ? "grayscale relative" : "grayscale-0"
 							}`}
 						>
@@ -46,11 +46,13 @@ const Products = ({ fig, isLoading }) => {
 								className="object-cover w-full h-56 duration-300 group-hover:scale-105"
 							/>
 							{/* Second image (hidden by default) */}
-							<img
-								src={fig?.images[1]}
-								alt={fig?.name}
-								className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-							/>
+							{fig?.images[1] && (
+								<img
+									src={fig?.images[1]}
+									alt={fig?.name}
+									className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+								/>
+							)}
 							{/* "Out Of Stock" label */}
 							{fig?.label === "Out Of Stock" && (
 								<p className="absolute -left-2.5 flex justify-center w-[110%] p-2 text-xl font-semibold text-white uppercase -translate-y-1/2 bg-ash/50 -rotate-12 top-1/2">
@@ -69,7 +71,7 @@ const Products = ({ fig, isLoading }) => {
 					<div className="flex flex-col justify-between p-3 gap-y-2">
 						<Link
 							to={`/collections/${fig?.link}`}
-							className={`relative flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-xl ${
+							className={`relative flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-md ${
 								{
 									Limited: "bg-blue-500",
 									"Coming Soon": "bg-blue-500",

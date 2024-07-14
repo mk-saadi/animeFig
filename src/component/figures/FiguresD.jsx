@@ -67,10 +67,12 @@ const FiguresD = () => {
 							<div className="w-[480px] h-fit">
 								<ImageZoom src={fig?.images[0]} />
 							</div>
-							<div className="flex flex-row items-start justify-center w-full gap-x-2 h-fit">
-								<ImageZoom src={fig?.images[1]} />
-								<ImageZoom src={fig?.images[2]} />
-							</div>
+							{fig?.images[1] && (
+								<div className="flex flex-row items-start justify-center w-full gap-x-2 h-fit">
+									<ImageZoom src={fig?.images[1]} />
+									{fig?.images[2] && <ImageZoom src={fig?.images[2]} />}
+								</div>
+							)}
 						</div>
 					</>
 				)}

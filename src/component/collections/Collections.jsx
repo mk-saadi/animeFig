@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+// ! DO NOT TOUCH THIS COMPONENT !!!
+
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Products from "../prouducts/Products";
 import Pagination from "../hooks/Pagination";
@@ -28,7 +30,6 @@ const Collections = () => {
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`);
 			setAllFigures(response.data.figures);
-			// console.log("response : ", response.data.figures);
 			extractFilters(response.data.figures);
 		} catch (error) {
 			console.error("Error fetching all figures:", error);
@@ -45,10 +46,32 @@ const Collections = () => {
 		}
 	};
 
+	const [categoryCounts, setCategoryCounts] = useState({});
+	const [seriesCounts, setSeriesCounts] = useState({});
+	const [chaCounts, setChaCounts] = useState({});
+
 	const fetchAllFilters = async () => {
 		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
-		console.log("response: ", response);
 		const data = await response.json();
+
+		const categoryCounts = data.figures.reduce((acc, fig) => {
+			acc[fig.category] = (acc[fig.category] || 0) + 1;
+			return acc;
+		}, {});
+		setCategoryCounts(categoryCounts);
+
+		const seriesCounts = data.figures.reduce((acc, fig) => {
+			acc[fig.series] = (acc[fig.series] || 0) + 1;
+			return acc;
+		}, {});
+		setSeriesCounts(seriesCounts);
+
+		const chaCounts = data.figures.reduce((acc, fig) => {
+			acc[fig.character] = (acc[fig.character] || 0) + 1;
+			return acc;
+		}, {});
+		setChaCounts(chaCounts);
+
 		return data.figures;
 	};
 
@@ -63,17 +86,12 @@ const Collections = () => {
 	}, []);
 
 	const extractFilters = (figures) => {
-		console.log("figures: ", figures);
 		const categories = [...new Set(figures.map((fig) => fig.category))];
 		const series = [...new Set(figures.map((fig) => fig.series))];
 		const characters = [...new Set(figures.map((fig) => fig.character))];
 		const label = [...new Set(figures.map((fig) => fig.label))];
-		console.log("categories: ", categories);
-		console.log("series: ", series);
-		console.log("characters: ", characters);
-		console.log("label: ", label);
 		setCategories(categories);
-		setSeries(series); // only the latest added 5 series are showing. the rest aren't
+		setSeries(series);
 		setCharacters(characters);
 		setLabel(label);
 	};
@@ -93,46 +111,9 @@ const Collections = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
-	// const handleFilterChange = (name, value) => {
-	// 	const updatedParams = { ...filters, [name]: value, page: 1 }; // Reset page to 1
-	// 	setFilters(updatedParams);
-	// 	setSearchParams(updatedParams);
-	// };
-	// useEffect(() => {
-	// 	const params = Object.fromEntries([...searchParams]);
-	// 	fetchFigures(params);
-
-	// 	const initialCategory = searchParams.get("category");
-	// 	if (initialCategory) {
-	// 		setFilters({ ...filters, category: initialCategory });
-	// 	}
-	// }, [searchParams]);
-	// ! good code
-	// const handleFilterChange = (name, value) => {
-	// 	const updatedParams = { ...filters, [name]: value, page: 1 }; // Reset page to 1
-	// 	setFilters(updatedParams);
-	// 	setSearchParams(updatedParams);
-	// };
-
-	// useEffect(() => {
-	// 	const params = Object.fromEntries([...searchParams]);
-	// 	fetchFigures(params);
-
-	// 	const initialCategory = searchParams.get("category");
-	// 	const initialSeries = searchParams.get("series");
-	// 	const initialCharacter = searchParams.get("character");
-
-	// 	const newFilters = { ...filters };
-	// 	if (initialCategory) newFilters.category = initialCategory;
-	// 	if (initialSeries) newFilters.series = initialSeries;
-	// 	if (initialCharacter) newFilters.character = initialCharacter;
-
-	// 	setFilters(newFilters);
-	// }, [searchParams]);
 	const handleFilterChange = (name, value) => {
-		const updatedParams = { ...filters, [name]: value, page: 1 }; // Reset page to 1
+		const updatedParams = { ...filters, [name]: value, page: 1 };
 
-		// Remove the parameter if the value is empty
 		if (value === "") {
 			delete updatedParams[name];
 		}
@@ -161,7 +142,7 @@ const Collections = () => {
 
 	const handleSortChange = (sort) => {
 		const newOrder = filters.order === "asc" ? "desc" : "asc";
-		const updatedParams = { ...filters, sort, order: newOrder, page: 1 }; // Reset to page 1 on sort change
+		const updatedParams = { ...filters, sort, order: newOrder, page: 1 };
 		setFilters(updatedParams);
 		setSearchParams(updatedParams);
 	};
@@ -179,54 +160,6 @@ const Collections = () => {
 							onChange={(e) => handleFilterChange("name", e.target.value)}
 						/>
 						<div className="filter-options">
-							{/* <h4>Categories:</h4>
-							<div className="flex flex-wrap">
-								{categories.map((category) => (
-									<button
-										key={category}
-										className={`m-2 px-4 py-2 border ${
-											filters.category === category
-												? "bg-blue-500 text-white"
-												: "bg-white text-black"
-										}`}
-										onClick={() => handleFilterChange("category", category)}
-									>
-										{category}
-									</button>
-								))}
-							</div>
-							<h4>Series:</h4>
-							<div className="flex flex-wrap">
-								{series.map((serie) => (
-									<button
-										key={serie}
-										className={`m-2 px-4 py-2 border ${
-											filters.series === serie
-												? "bg-blue-500 text-white"
-												: "bg-white text-black"
-										}`}
-										onClick={() => handleFilterChange("series", serie)}
-									>
-										{serie}
-									</button>
-								))}
-							</div>
-							<h4>Characters:</h4>
-							<div className="flex flex-wrap">
-								{characters.map((character) => (
-									<button
-										key={character}
-										className={`m-2 px-4 py-2 border ${
-											filters.character === character
-												? "bg-blue-500 text-white"
-												: "bg-white text-black"
-										}`}
-										onClick={() => handleFilterChange("character", character)}
-									>
-										{character}
-									</button>
-								))}
-							</div> */}
 							<div>
 								<h4>Categories:</h4>
 								<div className="flex flex-wrap items-center">
