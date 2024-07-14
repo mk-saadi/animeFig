@@ -59,7 +59,9 @@ const Popovers = () => {
 										className="flex flex-col h-full text-sm"
 									>
 										<Link
-											to={`/collections/figures/${category.name}`}
+											// to={`/collections/figures/${category.name}`}
+											// /collections?name=&category=${category.name}&series=&character=&sort=&order=asc&page=1
+											to={`/collections?name=&category=${category.name}&series=&character=&sort=&order=asc&page=1`}
 											className="block px-4 py-2 duration-300 text-ash hover:text-laal"
 											onClick={() => setIsOpen(false)}
 										>

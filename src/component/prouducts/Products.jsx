@@ -4,6 +4,7 @@ import { useCart } from "../provider/CartProvider";
 import { ShoppingCart, X, Calendar } from "lucide-react";
 
 const Products = ({ fig, isLoading }) => {
+	console.log("fig: ", fig);
 	const { addToCart, isItemInCart } = useCart();
 
 	const addFigToCart = (id, name, img, price, link) => {
@@ -88,7 +89,7 @@ const Products = ({ fig, isLoading }) => {
 							) : (
 								<span className="text-xs">{fig.label}</span>
 							)}
-							<span className="text-base font-semibold">$ {fig?.price}</span>
+							<span className="text-base font-semibold">$ {fig.price}</span>
 							{fig?.offer && (
 								<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-lg shadow-ash/50 rounded-md p-1 -top-4 -right-2.5">
 									sale {fig?.offer}% off
