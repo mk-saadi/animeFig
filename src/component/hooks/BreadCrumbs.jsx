@@ -15,10 +15,10 @@ const Breadcrumbs = () => {
 			>
 				Home
 			</Link>
-			<ChevronRight
+			{/* <ChevronRight
 				className="inline-block mx-1"
 				size={14}
-			/>
+			/> */}
 			{pathnames.map((link, index) => {
 				breadcrumbPath += `/${decodeURIComponent(link)}`;
 				const isLast = index === pathnames.length - 1;

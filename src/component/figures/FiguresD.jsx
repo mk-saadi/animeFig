@@ -52,34 +52,29 @@ const FiguresD = () => {
 		}
 	}, [fig]);
 
-	const today = new Date(); // Get today's date
-	const releaseDate = new Date(fig?.release); // Parse release date from fig object
-
-	const diffInMs = releaseDate - today; // Calculate difference in milliseconds
-
-	// Ensure positive value for days (handle past dates gracefully)
+	const today = new Date();
+	const releaseDate = new Date(fig?.release);
+	const diffInMs = releaseDate - today;
 	const finalDays = Math.max(0, Math.floor(diffInMs / (1000 * 60 * 60 * 24)));
-
-	// ... (rest of your component code using finalDays)
 
 	return (
 		<div className="min-h-screen">
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-6">
+				{/* figure image */}
 				{fig?.images && (
 					<>
 						<div className="flex flex-col items-center justify-start gap-y-2">
 							<div className="w-[480px] h-fit">
 								<ImageZoom src={fig?.images[0]} />
 							</div>
-							<div className="flex items-start justify-center w-full gap-x-2 h-fit">
+							<div className="flex flex-row items-start justify-center w-full gap-x-2 h-fit">
 								<ImageZoom src={fig?.images[1]} />
 								<ImageZoom src={fig?.images[2]} />
 							</div>
 						</div>
 					</>
 				)}
-
-				{/* <p className="text-xs italic text-center">{fig?.name}</p> */}
+				{/* info div */}
 				<div className="">
 					<>
 						<Breadcrumbs />

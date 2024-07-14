@@ -126,7 +126,7 @@ function Cart() {
 									>
 										<div className="flex h-full items-start gap-x-1.5 justify-start">
 											<Link
-												to={`/${item.figLink}`}
+												to={`/collections/${item.figLink}`}
 												onClick={() => setIsOpen(false)}
 												className="flex-shrink-0 w-24 overflow-hidden rounded-md h-28"
 											>
@@ -138,7 +138,7 @@ function Cart() {
 											<div className="flex flex-col h-full py-1.5">
 												<div className="flex flex-col flex-1 gap-y-1">
 													<Link
-														to={`/${item.figLink}`}
+														to={`/collections/${item.figLink}`}
 														className="text-base hover:underline line-clamp-1 text-ash"
 														onClick={() => setIsOpen(false)}
 													>

@@ -16,11 +16,13 @@ const Collections = () => {
 		series: "",
 		character: "",
 		sort: "",
+		label: "",
 		order: "asc",
 	});
 	const [categories, setCategories] = useState([]);
 	const [series, setSeries] = useState([]);
 	const [characters, setCharacters] = useState([]);
+	const [label, setLabel] = useState([]);
 
 	const fetchAllFigures = async () => {
 		try {
@@ -43,13 +45,37 @@ const Collections = () => {
 		}
 	};
 
+	const fetchAllFilters = async () => {
+		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
+		console.log("response: ", response);
+		const data = await response.json();
+		return data.figures;
+	};
+
+	useEffect(() => {
+		fetchAllFilters().then((fetchedFigures) => {
+			extractFilters(fetchedFigures);
+		});
+
+		fetchFigures({ page: 1, limit: 12 }).then((fetchedFigures) => {
+			setFigures(fetchedFigures);
+		});
+	}, []);
+
 	const extractFilters = (figures) => {
+		console.log("figures: ", figures);
 		const categories = [...new Set(figures.map((fig) => fig.category))];
 		const series = [...new Set(figures.map((fig) => fig.series))];
 		const characters = [...new Set(figures.map((fig) => fig.character))];
+		const label = [...new Set(figures.map((fig) => fig.label))];
+		console.log("categories: ", categories);
+		console.log("series: ", series);
+		console.log("characters: ", characters);
+		console.log("label: ", label);
 		setCategories(categories);
-		setSeries(series);
+		setSeries(series); // only the latest added 5 series are showing. the rest aren't
 		setCharacters(characters);
+		setLabel(label);
 	};
 
 	useEffect(() => {
@@ -64,6 +90,7 @@ const Collections = () => {
 	const handlePageChange = (page) => {
 		setSearchParams({ ...Object.fromEntries([...searchParams]), page });
 		setCurrentPage(page);
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
 	// const handleFilterChange = (name, value) => {
@@ -121,11 +148,13 @@ const Collections = () => {
 		const initialCategory = searchParams.get("category");
 		const initialSeries = searchParams.get("series");
 		const initialCharacter = searchParams.get("character");
+		const initialLabel = searchParams.get("label");
 
 		const newFilters = { ...filters };
 		if (initialCategory) newFilters.category = initialCategory;
 		if (initialSeries) newFilters.series = initialSeries;
 		if (initialCharacter) newFilters.character = initialCharacter;
+		if (initialLabel) newFilters.label = initialLabel;
 
 		setFilters(newFilters);
 	}, [searchParams]);
@@ -211,7 +240,8 @@ const Collections = () => {
 											}`}
 											onClick={() => handleFilterChange("category", category)}
 										>
-											{category}
+											{category} {category.length}
+											{/* {filters.category === category ? "✓" : ""} */}
 										</button>
 									))}
 									{filters.category && (
@@ -223,9 +253,34 @@ const Collections = () => {
 										</button>
 									)}
 								</div>
+								<h4>Label:</h4>
+								<div className="flex flex-wrap items-center">
+									{label.map((label) => (
+										<button
+											key={label}
+											className={`m-2 px-4 py-2 border ${
+												filters.label === label
+													? "bg-blue-500 text-white"
+													: "bg-white text-black"
+											}`}
+											onClick={() => handleFilterChange("label", label)}
+										>
+											{label} {label.length}
+											{/* {filters.label === label ? "✓" : ""} */}
+										</button>
+									))}
+									{filters.label && (
+										<button
+											className="px-4 py-2 m-2 text-white bg-red-500 border"
+											onClick={() => handleFilterChange("label", "")}
+										>
+											Cancel
+										</button>
+									)}
+								</div>
 
 								<h4>Series:</h4>
-								<div className="flex flex-wrap items-center">
+								<div className="flex flex-wrap items-center h-[18rem] overflow-y-auto">
 									{series.map((seriesItem) => (
 										<button
 											key={seriesItem}
@@ -286,12 +341,12 @@ const Collections = () => {
 				</div>
 				{/* render figures */}
 				<div className="col-span-3">
-					{figures.length === 0 && (
+					{figures?.length === 0 && (
 						<div className="flex items-center justify-center h-[100vh] text-center">
 							Nothing found
 						</div>
 					)}
-					{figures.length > 0 && (
+					{figures?.length > 0 && (
 						<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 							{figures.map((fig) => (
 								<Products

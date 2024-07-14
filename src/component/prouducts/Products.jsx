@@ -4,7 +4,6 @@ import { useCart } from "../provider/CartProvider";
 import { ShoppingCart, X, Calendar } from "lucide-react";
 
 const Products = ({ fig, isLoading }) => {
-	console.log("fig: ", fig);
 	const { addToCart, isItemInCart } = useCart();
 
 	const addFigToCart = (id, name, img, price, link) => {
@@ -63,7 +62,6 @@ const Products = ({ fig, isLoading }) => {
 							{fig?.name}
 						</h2>
 						<p className="text-sm text-ash/70">{fig?.series}</p>
-						<p className="mt-1 text-sm">{fig?.category}</p>
 					</Link>
 				</div>
 				{/* button component */}
@@ -78,7 +76,7 @@ const Products = ({ fig, isLoading }) => {
 									"Pre Owned": "bg-blue-500",
 									"Brand New": "bg-blue-500",
 									"Re-Release": "bg-blue-500",
-									"Out Of Stock": "bg-ash",
+									"Out Of Stock": "bg-ash/60",
 								}[fig?.label] || ""
 							}`}
 						>
