@@ -18,7 +18,7 @@ const FiguresD = () => {
 	const { addToCart, isItemInCart } = useCart();
 
 	useScrollToTop();
-	useTitle("figure: " + fig?.name);
+	useTitle("Collections | " + fig?.name);
 
 	const addFigToCart = (id, name, img, price, link) => {
 		const figName = name;
@@ -61,21 +61,23 @@ const FiguresD = () => {
 		<div className="min-h-screen">
 			<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-x-6">
 				{/* figure image */}
-				{fig?.images && (
-					<>
-						<div className="flex flex-col items-center justify-start gap-y-2">
-							<div className="w-[480px] h-fit">
-								<ImageZoom src={fig?.images[0]} />
-							</div>
-							{fig?.images[1] && (
-								<div className="flex flex-row items-start justify-center w-full gap-x-2 h-fit">
-									<ImageZoom src={fig?.images[1]} />
-									{fig?.images[2] && <ImageZoom src={fig?.images[2]} />}
+				<div>
+					{fig?.images && (
+						<>
+							<div className="flex flex-col items-center justify-start gap-y-2">
+								<div className="w-[480px] h-fit">
+									<ImageZoom src={fig?.images[0]} />
 								</div>
-							)}
-						</div>
-					</>
-				)}
+								{fig?.images[1] && (
+									<div className="flex flex-col items-start justify-center w-full gap-x-2 h-fit">
+										<ImageZoom src={fig?.images[1]} />
+										{fig?.images[2] && <ImageZoom src={fig?.images[2]} />}
+									</div>
+								)}
+							</div>
+						</>
+					)}
+				</div>
 				{/* info div */}
 				<div className="">
 					<>
@@ -145,9 +147,9 @@ const FiguresD = () => {
 												</p>
 											</div>
 										)}
-
+										{/* sale absolute div */}
 										{fig.label === "Coming Soon" && fig?.offer && (
-											<div className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-lg shadow-ash/50 rounded-md p-1 -top-4 -right-2.5">
+											<div className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/40 rounded-md p-1 -top-4 -right-2.5">
 												Sale {fig?.offer}% off
 											</div>
 										)}

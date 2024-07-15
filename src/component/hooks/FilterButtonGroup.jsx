@@ -13,11 +13,11 @@ const FilterButtonGroup = ({
 	return (
 		<div className="relative flex flex-col pb-3 border-b border-ash/30">
 			<h4 className="mb-1 text-lg font-medium text-kala">{title}:</h4>
-			<div className="max-h-[20rem] ml-4 justify-start text-sm items-start overflow-y-auto flex flex-col gap-y-3">
+			<div className="max-h-[20rem] ml-4 justify-start focus:outline-none text-sm items-start overflow-y-auto flex flex-col gap-y-3">
 				{filterValues.map((value) => (
 					<button
 						key={value}
-						className={`hover:text-laal duration-300 text-start ${
+						className={`hover:text-laal focus:outline-0 duration-300 text-start ${
 							selectedFilter === value ? " text-laal" : " text-kala"
 						}`}
 						onClick={() => handleFilterChange(filterType, value)}

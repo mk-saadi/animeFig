@@ -41,7 +41,7 @@ const Products = ({ fig, isLoading }) => {
 							}`}
 						>
 							{isLoading ? (
-								<div className="h-[224px] animate-pulse rounded-md dark:bg-gray-300" />
+								<div className="absolute inset-0 bg-gray-300 rounded-md animate-pulse dark:bg-gray-700" />
 							) : (
 								<img
 									src={fig?.images}

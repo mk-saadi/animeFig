@@ -134,7 +134,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
 	);
 
 	return (
-		<div className="flex items-center justify-center w-full mt-4 overflow-hidden">
+		<div className="flex items-center justify-center w-full mt-12 overflow-hidden">
 			<div className="flex items-center justify-center p-2 w-fit gap-x-3">
 				<button
 					onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}

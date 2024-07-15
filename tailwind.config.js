@@ -14,6 +14,9 @@ module.exports = {
 				sans: ["Poppins", "sans-serif"],
 				serif: ["Montserrat", "sans-serif"],
 			},
+			boxShadow: {
+				equal: "0 0 10px 0",
+			},
 			// opacity: {
 			// 	2: "0.2",
 			// },
