@@ -37,10 +37,10 @@ const router = createBrowserRouter([
 				path: "/",
 				element: <Home />,
 			},
-			{
-				path: "/collections/:link",
-				element: <FiguresD />,
-			},
+			// {
+			// 	path: "/collections/:link",
+			// 	element: <FiguresD />,
+			// },
 			{
 				path: "/collections",
 				element: <Collections />,
@@ -116,6 +116,10 @@ const router = createBrowserRouter([
 				element: <Register />,
 			},
 		],
+	},
+	{
+		path: "/collections/:link",
+		element: <FiguresD />,
 	},
 ]);
 
