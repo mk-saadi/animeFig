@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../provider/CartProvider";
 import { ShoppingCart, X, Calendar } from "lucide-react";
+import Loader from "../hooks/Loader";
 
 const Products = ({ fig, isLoading }) => {
 	const { addToCart, isItemInCart } = useCart();
@@ -26,7 +27,7 @@ const Products = ({ fig, isLoading }) => {
 
 	return (
 		<>
-			{isLoading && <p>Loading...</p>}
+			{/* {isLoading && <Loader />} */}
 
 			<div
 				key={fig?._id}
@@ -39,21 +40,15 @@ const Products = ({ fig, isLoading }) => {
 								fig?.label === "Out Of Stock" ? "grayscale relative" : "grayscale-0"
 							}`}
 						>
-							{/* First image */}
-							<img
-								src={fig?.images[0]}
-								alt={fig?.name}
-								className="object-cover w-full h-56 duration-300 group-hover:scale-105"
-							/>
-							{/* Second image (hidden by default) */}
-							{fig?.images[1] && (
+							{isLoading ? (
+								<div className="h-[224px] animate-pulse rounded-md dark:bg-gray-300" />
+							) : (
 								<img
-									src={fig?.images[1]}
+									src={fig?.images}
 									alt={fig?.name}
-									className="absolute top-0 left-0 object-cover w-full h-56 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+									className="object-cover w-full h-56 duration-300 group-hover:scale-110"
 								/>
 							)}
-							{/* "Out Of Stock" label */}
 							{fig?.label === "Out Of Stock" && (
 								<p className="absolute -left-2.5 flex justify-center w-[110%] p-2 text-xl font-semibold text-white uppercase -translate-y-1/2 bg-ash/50 -rotate-12 top-1/2">
 									Out Of Stock
@@ -78,7 +73,7 @@ const Products = ({ fig, isLoading }) => {
 									"Pre Owned": "bg-blue-500",
 									"Brand New": "bg-blue-500",
 									"Re-Release": "bg-blue-500",
-									"Out Of Stock": "bg-ash/60",
+									"Out Of Stock": "bg-ash/60 line-through",
 								}[fig?.label] || ""
 							}`}
 						>
@@ -102,9 +97,6 @@ const Products = ({ fig, isLoading }) => {
 									? "bg-holud/70 cursor-not-allowed text-ash"
 									: "bg-holud cursor-pointer text-white"
 							}`}
-							onClick={() =>
-								addFigToCart(fig?._id, fig?.name, fig?.images[0], fig?.price, fig?.link)
-							}
 							disabled={isItemInCart(fig?._id)}
 						>
 							{fig?.label === "Coming Soon" ? (
@@ -116,14 +108,25 @@ const Products = ({ fig, isLoading }) => {
 									</span>
 								</p>
 							) : fig?.label === "Out Of Stock" ? (
-								<span className="flex flex-row items-center justify-center text-sm font-semibold text-laal gap-x-1">
+								<span className="flex flex-row items-center justify-center text-sm font-semibold cursor-auto text-laal gap-x-1">
 									<X size={18} />
 									Sold Out
 								</span>
 							) : (
 								<>
 									<ShoppingCart size={18} />
-									<span className="text-sm">
+									<span
+										className="text-sm"
+										onClick={() =>
+											addFigToCart(
+												fig?._id,
+												fig?.name,
+												fig?.images[0],
+												fig?.price,
+												fig?.link
+											)
+										}
+									>
 										{isItemInCart(fig?._id) ? "Added" : "Add to cart"}
 									</span>
 								</>

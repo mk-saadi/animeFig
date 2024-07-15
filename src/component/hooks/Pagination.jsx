@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
 								onClick={() => handlePageChange(i + 1)}
 								className={`px-2.5 focus:outline-none mx-1.5 rounded-md duration-300 ${
 									currentPage === i + 1
-										? "bg-holud shadow-md shadow-laal/40 text-laal"
+										? "bg-holud shadow-md shadow-ash/30 text-ash"
 										: "hover:bg-white/50"
 								}`}
 							>

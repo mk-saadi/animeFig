@@ -5,13 +5,21 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Products from "../prouducts/Products";
 import Pagination from "../hooks/Pagination";
+import FilterButtonGroup from "../hooks/FilterButtonGroup";
+import useScrollToTop from "../hooks/useScrollToTop";
+import useTitle from "../hooks/useWebTitle";
+import { ArrowDownUp } from "lucide-react";
+import Loader from "../hooks/Loader";
 
 const Collections = () => {
+	useScrollToTop();
+	useTitle("Collections");
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
 	const [allFigures, setAllFigures] = useState([]);
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
+	const [isLoading, setIsLoading] = useState(false);
 	const [filters, setFilters] = useState({
 		name: "",
 		category: "",
@@ -27,21 +35,27 @@ const Collections = () => {
 	const [label, setLabel] = useState([]);
 
 	const fetchAllFigures = async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`);
 			setAllFigures(response.data.figures);
 			extractFilters(response.data.figures);
+			setIsLoading(false);
 		} catch (error) {
 			console.error("Error fetching all figures:", error);
+			setIsLoading(false);
 		}
 	};
 
 	const fetchFigures = async (params) => {
+		setIsLoading(true);
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`, { params });
 			setFigures(response.data.figures);
+			setIsLoading(false);
 			setTotalPages(response.data.totalPages);
 		} catch (error) {
+			setIsLoading(false);
 			console.error("Error fetching figures:", error);
 		}
 	};
@@ -50,30 +64,46 @@ const Collections = () => {
 	const [seriesCounts, setSeriesCounts] = useState({});
 	const [chaCounts, setChaCounts] = useState({});
 
+	// const fetchAllFilters = async () => {
+	// 	const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
+	// 	const data = await response.json();
+
+	// 	return data.figures;
+	// };
+
 	const fetchAllFilters = async () => {
 		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
 		const data = await response.json();
 
-		const categoryCounts = data.figures.reduce((acc, fig) => {
-			acc[fig.category] = (acc[fig.category] || 0) + 1;
-			return acc;
-		}, {});
+		const categoryCounts = {};
+		const seriesCounts = {};
+		const chaCounts = {};
+		const uniqueCategories = new Set();
+		const uniqueSeries = new Set();
+		const uniqueCharacters = new Set();
+
+		data.figures.forEach((fig) => {
+			categoryCounts[fig.category] = (categoryCounts[fig.category] || 0) + 1;
+			uniqueCategories.add(fig.category);
+			seriesCounts[fig.series] = (seriesCounts[fig.series] || 0) + 1;
+			uniqueSeries.add(fig.series);
+			chaCounts[fig.character] = (chaCounts[fig.character] || 0) + 1;
+			uniqueCharacters.add(fig.character);
+		});
+
 		setCategoryCounts(categoryCounts);
-
-		const seriesCounts = data.figures.reduce((acc, fig) => {
-			acc[fig.series] = (acc[fig.series] || 0) + 1;
-			return acc;
-		}, {});
 		setSeriesCounts(seriesCounts);
-
-		const chaCounts = data.figures.reduce((acc, fig) => {
-			acc[fig.character] = (acc[fig.character] || 0) + 1;
-			return acc;
-		}, {});
 		setChaCounts(chaCounts);
+		setCategories([...uniqueCategories]);
+		setSeries([...uniqueSeries]);
+		setCharacters([...uniqueCharacters]);
 
 		return data.figures;
 	};
+
+	useEffect(() => {
+		fetchAllFilters();
+	}, []);
 
 	useEffect(() => {
 		fetchAllFilters().then((fetchedFigures) => {
@@ -148,147 +178,96 @@ const Collections = () => {
 	};
 
 	return (
-		<section>
-			<div className="relative grid min-h-screen grid-cols-4 bg-white">
-				<div className="col-span-1 ">
+		<section className="">
+			<div className="relative grid min-h-screen grid-cols-4 bg-white gap-x-4">
+				<div className="col-span-1 overflow-y-auto ">
 					<div className="filter-controls">
-						<input
-							type="text"
-							name="name"
-							placeholder="Search by name"
-							value={filters.name}
-							onChange={(e) => handleFilterChange("name", e.target.value)}
-						/>
-						<div className="filter-options">
-							<div>
-								<h4>Categories:</h4>
-								<div className="flex flex-wrap items-center">
-									{categories.map((category) => (
-										<button
-											key={category}
-											className={`m-2 px-4 py-2 border ${
-												filters.category === category
-													? "bg-blue-500 text-white"
-													: "bg-white text-black"
-											}`}
-											onClick={() => handleFilterChange("category", category)}
-										>
-											{category} {category.length}
-											{/* {filters.category === category ? "✓" : ""} */}
-										</button>
-									))}
-									{filters.category && (
-										<button
-											className="px-4 py-2 m-2 text-white bg-red-500 border"
-											onClick={() => handleFilterChange("category", "")}
-										>
-											Cancel
-										</button>
-									)}
-								</div>
-								<h4>Label:</h4>
-								<div className="flex flex-wrap items-center">
-									{label.map((label) => (
-										<button
-											key={label}
-											className={`m-2 px-4 py-2 border ${
-												filters.label === label
-													? "bg-blue-500 text-white"
-													: "bg-white text-black"
-											}`}
-											onClick={() => handleFilterChange("label", label)}
-										>
-											{label} {label.length}
-											{/* {filters.label === label ? "✓" : ""} */}
-										</button>
-									))}
-									{filters.label && (
-										<button
-											className="px-4 py-2 m-2 text-white bg-red-500 border"
-											onClick={() => handleFilterChange("label", "")}
-										>
-											Cancel
-										</button>
-									)}
-								</div>
-
-								<h4>Series:</h4>
-								<div className="flex flex-wrap items-center h-[18rem] overflow-y-auto">
-									{series.map((seriesItem) => (
-										<button
-											key={seriesItem}
-											className={`m-2 px-4 py-2 border ${
-												filters.series === seriesItem
-													? "bg-blue-500 text-white"
-													: "bg-white text-black"
-											}`}
-											onClick={() => handleFilterChange("series", seriesItem)}
-										>
-											{seriesItem}
-										</button>
-									))}
-									{filters.series && (
-										<button
-											className="px-4 py-2 m-2 text-white bg-red-500 border"
-											onClick={() => handleFilterChange("series", "")}
-										>
-											Cancel
-										</button>
-									)}
-								</div>
-
-								<h4>Characters:</h4>
-								<div className="flex flex-wrap items-center">
-									{characters.map((character) => (
-										<button
-											key={character}
-											className={`m-2 px-4 py-2 border ${
-												filters.character === character
-													? "bg-blue-500 text-white"
-													: "bg-white text-black"
-											}`}
-											onClick={() => handleFilterChange("character", character)}
-										>
-											{character}
-										</button>
-									))}
-									{filters.character && (
-										<button
-											className="px-4 py-2 m-2 text-white bg-red-500 border"
-											onClick={() => handleFilterChange("character", "")}
-										>
-											Cancel
-										</button>
-									)}
-								</div>
-							</div>
-							<h4>Sort by price:</h4>
-							<button
-								className="px-4 py-2 m-2 text-black bg-white border"
-								onClick={() => handleSortChange("price")}
+						<div className="flex flex-col w-full my-2 gap-y-1.5">
+							<label
+								htmlFor="searchName"
+								className="text-sm font-medium text-gray-500"
 							>
-								Price {filters.order === "asc" ? "High to Low" : "Low to High"}
-							</button>
+								Search by name
+							</label>
+							<input
+								id="searchName"
+								type="text"
+								name="name"
+								className="w-full px-3 py-2 bg-transparent border rounded-md border-dhusor text-ash focus:outline-none"
+								value={filters.name}
+								onChange={(e) => handleFilterChange("name", e.target.value)}
+							/>
+						</div>
+						<div className="filter-options">
+							<div className="flex flex-col gap-y-6">
+								<div>
+									<h4 className="mb-1 text-lg font-medium text-kala">Sort by price:</h4>
+									<button
+										className="flex hover:text-laal duration-300 flex-row gap-x-1.5 items-center justify-start ml-4 text-sm text-start text-kala"
+										onClick={() => handleSortChange("price")}
+									>
+										Price {filters.order === "asc" ? "High to Low" : "Low to High"}{" "}
+										<ArrowDownUp size={20} />
+									</button>
+								</div>
+								<FilterButtonGroup
+									title="Categories"
+									filterType="category"
+									filterValues={categories}
+									selectedFilter={filters.category}
+									filterCounts={categoryCounts}
+									handleFilterChange={handleFilterChange}
+								/>
+								<FilterButtonGroup
+									title="Series"
+									filterType="series"
+									filterValues={series}
+									selectedFilter={filters.series}
+									filterCounts={seriesCounts}
+									handleFilterChange={handleFilterChange}
+								/>
+								<FilterButtonGroup
+									title="Characters"
+									filterType="character"
+									filterValues={characters}
+									selectedFilter={filters.character}
+									filterCounts={chaCounts}
+									handleFilterChange={handleFilterChange}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
 				{/* render figures */}
 				<div className="col-span-3">
-					{figures?.length === 0 && (
-						<div className="flex items-center justify-center h-[100vh] text-center">
-							Nothing found
-						</div>
-					)}
-					{figures?.length > 0 && (
-						<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-							{figures.map((fig) => (
-								<Products
-									key={fig._id}
-									fig={fig}
-								/>
-							))}
-						</div>
-					)}
+					<div className="flex flex-col min-h-screen">
+						{isLoading && (
+							<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+								<Loader />
+								<Loader />
+								<Loader />
+								<Loader />
+								<Loader />
+								<Loader />
+							</div>
+						)}
+						{figures?.length === 0 && (
+							<div className="flex items-center justify-center h-[100vh] text-center">
+								Nothing found
+							</div>
+						)}
+						{figures?.length > 0 && (
+							<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+								{figures.map((fig) => (
+									<Products
+										key={fig._id}
+										fig={fig}
+										isLoading={isLoading}
+									/>
+								))}
+							</div>
+						)}
+					</div>
 					<Pagination
 						currentPage={currentPage}
 						totalPages={totalPages}
