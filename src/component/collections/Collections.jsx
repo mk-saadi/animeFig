@@ -32,7 +32,6 @@ const Collections = () => {
 	const [categories, setCategories] = useState([]);
 	const [series, setSeries] = useState([]);
 	const [characters, setCharacters] = useState([]);
-	const [label, setLabel] = useState([]);
 
 	const fetchAllFigures = async () => {
 		setIsLoading(true);
@@ -63,13 +62,6 @@ const Collections = () => {
 	const [categoryCounts, setCategoryCounts] = useState({});
 	const [seriesCounts, setSeriesCounts] = useState({});
 	const [chaCounts, setChaCounts] = useState({});
-
-	// const fetchAllFilters = async () => {
-	// 	const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
-	// 	const data = await response.json();
-
-	// 	return data.figures;
-	// };
 
 	const fetchAllFilters = async () => {
 		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
@@ -119,11 +111,9 @@ const Collections = () => {
 		const categories = [...new Set(figures.map((fig) => fig.category))];
 		const series = [...new Set(figures.map((fig) => fig.series))];
 		const characters = [...new Set(figures.map((fig) => fig.character))];
-		const label = [...new Set(figures.map((fig) => fig.label))];
 		setCategories(categories);
 		setSeries(series);
 		setCharacters(characters);
-		setLabel(label);
 	};
 
 	useEffect(() => {
@@ -178,102 +168,107 @@ const Collections = () => {
 	};
 
 	return (
-		<section className="">
-			<div className="relative grid min-h-screen grid-cols-4 bg-white gap-x-4">
-				<div className="col-span-1 overflow-y-auto ">
-					<div className="filter-controls">
-						<div className="flex flex-col w-full my-2 gap-y-1.5">
-							<label
-								htmlFor="searchName"
-								className="text-sm font-medium text-gray-500"
-							>
-								Search by name
-							</label>
-							<input
-								id="searchName"
-								type="text"
-								name="name"
-								className="w-full px-3 py-2 bg-transparent border rounded-md border-dhusor text-ash focus:outline-none"
-								value={filters.name}
-								onChange={(e) => handleFilterChange("name", e.target.value)}
+		<section className="relative grid min-h-screen grid-cols-4 bg-white gap-x-4">
+			{/* Filter/sort column */}
+			<div className="col-span-1 overflow-y-auto ">
+				<div className="filter-controls">
+					<div className="flex flex-col w-full gap-y-1.5 mb-6">
+						<label
+							htmlFor="searchName"
+							className="mb-1 text-lg font-medium text-kala"
+						>
+							Search figure
+						</label>
+						<input
+							id="searchName"
+							type="text"
+							name="name"
+							className="w-full px-3 py-2 bg-transparent border rounded-md border-dhusor text-ash focus:outline-none"
+							value={filters.name}
+							onChange={(e) => handleFilterChange("name", e.target.value)}
+						/>
+					</div>
+					<div className="filter-options">
+						<div className="flex flex-col gap-y-6">
+							<div>
+								<h4 className="mb-1 text-lg font-medium text-kala">Sort by price:</h4>
+								<button
+									className="flex hover:text-laal duration-300 flex-row gap-x-1.5 items-center justify-start ml-4 text-sm text-start text-kala"
+									onClick={() => handleSortChange("price")}
+								>
+									Price {filters.order === "asc" ? "High to Low" : "Low to High"}{" "}
+									<ArrowDownUp size={20} />
+								</button>
+							</div>
+							<FilterButtonGroup
+								title="Categories"
+								filterType="category"
+								filterValues={categories}
+								selectedFilter={filters.category}
+								filterCounts={categoryCounts}
+								handleFilterChange={handleFilterChange}
+							/>
+							<FilterButtonGroup
+								title="Series"
+								filterType="series"
+								filterValues={series}
+								selectedFilter={filters.series}
+								filterCounts={seriesCounts}
+								handleFilterChange={handleFilterChange}
+							/>
+							<FilterButtonGroup
+								title="Characters"
+								filterType="character"
+								filterValues={characters}
+								selectedFilter={filters.character}
+								filterCounts={chaCounts}
+								handleFilterChange={handleFilterChange}
 							/>
 						</div>
-						<div className="filter-options">
-							<div className="flex flex-col gap-y-6">
-								<div>
-									<h4 className="mb-1 text-lg font-medium text-kala">Sort by price:</h4>
-									<button
-										className="flex hover:text-laal duration-300 flex-row gap-x-1.5 items-center justify-start ml-4 text-sm text-start text-kala"
-										onClick={() => handleSortChange("price")}
-									>
-										Price {filters.order === "asc" ? "High to Low" : "Low to High"}{" "}
-										<ArrowDownUp size={20} />
-									</button>
-								</div>
-								<FilterButtonGroup
-									title="Categories"
-									filterType="category"
-									filterValues={categories}
-									selectedFilter={filters.category}
-									filterCounts={categoryCounts}
-									handleFilterChange={handleFilterChange}
-								/>
-								<FilterButtonGroup
-									title="Series"
-									filterType="series"
-									filterValues={series}
-									selectedFilter={filters.series}
-									filterCounts={seriesCounts}
-									handleFilterChange={handleFilterChange}
-								/>
-								<FilterButtonGroup
-									title="Characters"
-									filterType="character"
-									filterValues={characters}
-									selectedFilter={filters.character}
-									filterCounts={chaCounts}
-									handleFilterChange={handleFilterChange}
-								/>
-							</div>
+					</div>
+				</div>
+			</div>
+			{/* render figures column */}
+			<div className="col-span-3">
+				<div className="flex flex-col min-h-screen">
+					{/* skeleton loader */}
+					{isLoading && (
+						<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+							<Loader />
+							<Loader />
+							<Loader />
+							<Loader />
+							<Loader />
+							<Loader />
+							<Loader />
+							<Loader />
 						</div>
-					</div>
+					)}
+					{/* if no figures found */}
+					{figures?.length === 0 && (
+						<div className="flex items-center justify-center h-[100vh] text-center">
+							Nothing found
+						</div>
+					)}
+					{/* render figures */}
+					{figures?.length > 0 && (
+						<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+							{figures.map((fig) => (
+								<Products
+									key={fig._id}
+									fig={fig}
+									isLoading={isLoading}
+								/>
+							))}
+						</div>
+					)}
 				</div>
-				{/* render figures */}
-				<div className="col-span-3">
-					<div className="flex flex-col min-h-screen">
-						{isLoading && (
-							<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-								<Loader />
-								<Loader />
-								<Loader />
-								<Loader />
-								<Loader />
-								<Loader />
-							</div>
-						)}
-						{figures?.length === 0 && (
-							<div className="flex items-center justify-center h-[100vh] text-center">
-								Nothing found
-							</div>
-						)}
-						{figures?.length > 0 && (
-							<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-								{figures.map((fig) => (
-									<Products
-										key={fig._id}
-										fig={fig}
-										isLoading={isLoading}
-									/>
-								))}
-							</div>
-						)}
-					</div>
-					<Pagination
-						currentPage={currentPage}
-						totalPages={totalPages}
-						handlePageChange={handlePageChange}
-					/>
-				</div>
+				{/* pagination component */}
+				<Pagination
+					currentPage={currentPage}
+					totalPages={totalPages}
+					handlePageChange={handlePageChange}
+				/>
 			</div>
 		</section>
 	);
