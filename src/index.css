@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* index.css */
+/* @import "swiper/swiper-bundle.min.css";
+@import "swiper/swiper.min.css";
+@import "swiper/modules/navigation/navigation.min.css";
+@import "swiper/modules/pagination/pagination.min.css"; */
 
 html {
 	scroll-behavior: smooth;
@@ -8,6 +13,20 @@ html {
 
 body {
 	overflow-y: auto;
+}
+/* Add this to your CSS file */
+.product-slider-container {
+	position: relative;
+}
+
+.product-slider .swiper-scrollbar {
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	background-color: #fff;
+}
+
+.product-slider-container:hover .swiper-scrollbar {
+	opacity: 1;
 }
 
 .text-gradient {

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Plane, Rocket, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const InfoComponent = ({ fig }) => {
@@ -70,10 +71,58 @@ const InfoComponent = ({ fig }) => {
 			<div>
 				<p
 					style={{ whiteSpace: "pre-line" }}
-					className="mt-8 text-sm text-ash"
+					className="my-8 text-sm text-ash"
 				>
 					{description}
 				</p>
+			</div>
+			{/* shipping */}
+			<div className="flex flex-col items-start justify-start px-8 py-4 border rounded-md gap-y-5 border-ash/20 text-ash">
+				<div>
+					<h3 className="text-lg font-medium text-kala">Worldwide Shipping</h3>
+				</div>
+				<div className="flex items-center justify-between w-full">
+					<div className="flex items-center justify-start gap-x-4">
+						<Truck
+							size={20}
+							strokeWidth={1.3}
+							className="text-laal"
+						/>
+						<div className="">
+							<p className="font-normal text-kala">Saver</p>
+							<p className="text-sm font-light">(2-4 months)</p>
+						</div>
+					</div>
+					<p>$16.73</p>
+				</div>
+				<div className="flex items-center justify-between w-full">
+					<div className="flex items-center justify-start gap-x-4">
+						<Plane
+							size={20}
+							strokeWidth={1.3}
+							className="text-laal"
+						/>
+						<div className="">
+							<p className="font-normal text-kala">Regular</p>
+							<p className="text-sm font-light">(5-10 days)</p>
+						</div>
+					</div>
+					<p> $13.12</p>
+				</div>
+				<div className="flex items-center justify-between w-full">
+					<div className="flex items-center justify-start gap-x-4">
+						<Rocket
+							size={20}
+							strokeWidth={1.3}
+							className="text-laal"
+						/>
+						<div className="">
+							<p className="font-normal text-kala">Express</p>
+							<p className="text-sm font-light">(3-7 days)</p>
+						</div>
+					</div>
+					<p>$22.52</p>
+				</div>
 			</div>
 		</div>
 	);

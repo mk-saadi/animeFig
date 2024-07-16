@@ -3,7 +3,7 @@ import ImageZoom from "../../hooks/ImageZoom";
 const ImageComponent = ({ fig }) => {
 	return (
 		<>
-			<div className="flex flex-col w-full h-full min-h-screen pl-8 pr-4">
+			<div className="flex flex-col w-full h-full min-h-screen pr-4">
 				{/* figure image */}
 				<div className="">
 					{fig?.images && (

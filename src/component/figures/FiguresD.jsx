@@ -12,6 +12,7 @@ import ButtonComponent from "./figure_component/ButtonComponent";
 import ShareComponent from "./figure_component/ShareComponent";
 import InfoComponent from "./figure_component/InfoComponent";
 import { Fade, Slide } from "react-awesome-reveal";
+import ProductSlider from "./figure_component/SlideCard";
 
 const FiguresD = () => {
 	const { link } = useParams();
@@ -41,13 +42,13 @@ const FiguresD = () => {
 	};
 
 	return (
-		<div>
+		<>
 			<>
 				<Navbar />
 			</>
 			<Fade triggerOnce>
 				<div
-					className={`flex flex-col overflow-visible items-center justify-center bg-white 
+					className={`flex px-12 flex-col overflow-visible items-center justify-center bg-white 
 				${isScrolled ? "pt-40" : "pt-40"}
 				`}
 				>
@@ -58,7 +59,7 @@ const FiguresD = () => {
 						</>
 						{/* info component */}
 						<div
-							className={`top-[5%] pr-8 pl-4 h-full w-full min-h-screen overflow-visible duration-500
+							className={`top-[5%] pl-4 h-full w-full min-h-screen overflow-visible duration-500
 						${isScrolled ? "pt-10" : "pt-0"}
 						`}
 							id="position_sticky"
@@ -108,8 +109,13 @@ const FiguresD = () => {
 							</div>
 						</div>
 					</div>
-					<div className="h-screen">
-						<p>hello</p>
+					<div className="w-full min-h-screen overflow-x-hidden">
+						<div className="w-full py-5">
+							<ProductSlider
+								figures={simSeries}
+								isLoading={isLoading}
+							/>
+						</div>
 					</div>
 				</div>
 			</Fade>
@@ -117,7 +123,7 @@ const FiguresD = () => {
 			<>
 				<Footer />
 			</>
-		</div>
+		</>
 	);
 };
 
