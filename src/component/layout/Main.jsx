@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import { Toaster } from "react-hot-toast";
@@ -30,6 +30,7 @@ const Main = () => {
 					},
 				}}
 			/>
+			<ScrollRestoration />
 		</div>
 	);
 };

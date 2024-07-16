@@ -17,6 +17,10 @@ module.exports = {
 			boxShadow: {
 				equal: "0 0 10px 0",
 			},
+			transitionProperty: {
+				height: "height",
+				spacing: "margin, padding",
+			},
 			// opacity: {
 			// 	2: "0.2",
 			// },

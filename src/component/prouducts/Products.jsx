@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../provider/CartProvider";
 import { ShoppingCart, X, Calendar } from "lucide-react";
 import Loader from "../hooks/Loader";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const Products = ({ fig, isLoading }) => {
 	const { addToCart, isItemInCart } = useCart();
@@ -26,29 +27,29 @@ const Products = ({ fig, isLoading }) => {
 	};
 
 	return (
-		<>
+		<Fade
+			cascade
+			triggerOnce
+		>
 			{/* {isLoading && <Loader />} */}
 
 			<div
 				key={fig?._id}
 				className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/25 group"
 			>
-				<div className="p-4 h-[28.8rem]">
+				<div className="p-4 h-[29.6rem]">
 					<Link to={`/collections/${fig?.link}`}>
 						<div
 							className={`relative overflow-hidden mb-1.5 rounded-md h-fit ${
 								fig?.label === "Out Of Stock" ? "grayscale relative" : "grayscale-0"
 							}`}
 						>
-							{isLoading ? (
-								<div className="absolute inset-0 bg-gray-300 rounded-md animate-pulse dark:bg-gray-700" />
-							) : (
-								<img
-									src={fig?.images}
-									alt={fig?.name}
-									className="object-cover w-full h-56 duration-300 group-hover:scale-110"
-								/>
-							)}
+							<img
+								src={fig?.images}
+								alt={fig?.name}
+								className="object-cover w-full h-56 duration-300 group-hover:scale-110"
+							/>
+
 							{fig?.label === "Out Of Stock" && (
 								<p className="absolute -left-2.5 flex justify-center w-[110%] p-2 text-xl font-semibold text-white uppercase -translate-y-1/2 bg-ash/50 -rotate-12 top-1/2">
 									Out Of Stock
@@ -58,7 +59,7 @@ const Products = ({ fig, isLoading }) => {
 						<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-kala">
 							{fig?.name}
 						</h2>
-						<p className="text-sm text-ash/70">{fig?.series}</p>
+						<p className="text-sm line-clamp-2 text-ash/70">{fig?.series}</p>
 					</Link>
 				</div>
 				{/* button component */}
@@ -86,7 +87,7 @@ const Products = ({ fig, isLoading }) => {
 							)}
 							<span className="text-base font-semibold">$ {fig.price}</span>
 							{fig?.offer && (
-								<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-lg shadow-ash/50 rounded-md p-1 -top-4 -right-2.5">
+								<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/35 rounded-md p-1 -top-4 -right-2.5">
 									sale {fig?.offer}% off
 								</span>
 							)}
@@ -135,7 +136,7 @@ const Products = ({ fig, isLoading }) => {
 					</div>
 				</div>
 			</div>
-		</>
+		</Fade>
 	);
 };
 
