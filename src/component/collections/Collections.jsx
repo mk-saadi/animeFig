@@ -188,7 +188,7 @@ const Collections = () => {
 							onChange={(e) => handleFilterChange("name", e.target.value)}
 						/>
 					</div>
-					<div className="filter-options">
+					<div className="">
 						<div className="flex flex-col gap-y-6">
 							<div>
 								<h4 className="mb-1 text-lg font-medium text-kala">Sort by price:</h4>
@@ -252,7 +252,7 @@ const Collections = () => {
 					)}
 					{/* render figures */}
 					{figures?.length > 0 && (
-						<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+						<div className="grid grid-cols-1 transition duration-500 transform gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 							{figures.map((fig) => (
 								<Products
 									key={fig._id}

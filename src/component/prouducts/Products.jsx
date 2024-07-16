@@ -121,7 +121,7 @@ const Products = ({ fig, isLoading }) => {
 											addFigToCart(
 												fig?._id,
 												fig?.name,
-												fig?.images[0],
+												fig?.images,
 												fig?.price,
 												fig?.link
 											)

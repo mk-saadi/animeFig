@@ -144,3 +144,34 @@ const searchFigures = async (searchQuery) => {
 };
 
 export { searchFigures };
+
+export const useFetchSimilarItems = (endpoint, link) => {
+	const [items, setItems] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setIsLoading(true);
+			setError(null);
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_URL}/figures${endpoint}`, {
+					params: { link },
+				});
+				if (res.status === 200) {
+					setItems(res.data);
+				}
+			} catch (err) {
+				setError(err);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		if (link) {
+			fetchData();
+		}
+	}, [endpoint, link]);
+
+	return { items, isLoading, error };
+};
