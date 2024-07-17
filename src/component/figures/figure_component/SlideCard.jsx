@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, Scrollbar } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Link } from "react-router-dom";
@@ -10,10 +10,13 @@ const ProductSlider = ({ figures, isLoading }) => {
 	return (
 		<div className="product-slider-container">
 			<Swiper
-				modules={[Pagination, Scrollbar]}
+				modules={[Pagination]}
 				spaceBetween={50}
+				pagination={{
+					dynamicBullets: true,
+				}}
 				scrollbar={{ draggable: true }}
-				className="product-slider"
+				className="select-none product-slider"
 				breakpoints={{
 					320: {
 						slidesPerView: 1,
@@ -56,7 +59,7 @@ const ProductSlider = ({ figures, isLoading }) => {
 
 const Products = ({ fig, isLoading }) => {
 	return (
-		<div className="pb-3 product-card">
+		<div className="pb-8 product-card">
 			<Link
 				to={`/collections/${fig?.link}`}
 				className="group"
@@ -73,7 +76,7 @@ const Products = ({ fig, isLoading }) => {
 				<div className="product-info">
 					<h3 className="text-base text-kala line-clamp-2 group-hover:underline">{fig.name}</h3>
 				</div>
-				<div className="mt-2">
+				<div className="mt-[1.2rem]">
 					<Link
 						to={`/collections/${fig?.link}`}
 						className={`relative flex flex-col items-center justify-center w-full py-1.5 text-white rounded-md shadow-md ${

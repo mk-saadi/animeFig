@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
@@ -8,17 +7,13 @@ const Breadcrumbs = () => {
 	let breadcrumbPath = "";
 
 	return (
-		<div className="p-0 m-0 text-sm text-ash/70">
+		<div className="p-0 m-0 text-sm text-ash">
 			<Link
 				to="/"
 				className="hover:underline"
 			>
 				Home
 			</Link>
-			{/* <ChevronRight
-				className="inline-block mx-1"
-				size={14}
-			/> */}
 			{pathnames.map((link, index) => {
 				breadcrumbPath += `/${decodeURIComponent(link)}`;
 				const isLast = index === pathnames.length - 1;

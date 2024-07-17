@@ -98,6 +98,7 @@ const Navbar = () => {
 									<>
 										<Popovers />
 									</>
+									<Link to={"/addAToys"}>Add</Link>
 								</div>
 								<div className="hidden md:block">
 									<div className="flex items-center gap-x-4">

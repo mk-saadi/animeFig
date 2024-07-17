@@ -35,7 +35,7 @@ const Products = ({ fig, isLoading }) => {
 
 		<div
 			// key={fig?._id}
-			className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/25 group"
+			className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group"
 		>
 			<div className="p-4 h-[29.6rem]">
 				<Link to={`/collections/${fig?.link}`}>

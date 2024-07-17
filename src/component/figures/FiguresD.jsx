@@ -109,13 +109,29 @@ const FiguresD = () => {
 							</div>
 						</div>
 					</div>
-					<div className="w-full min-h-screen overflow-x-hidden">
-						<div className="w-full py-5">
-							<ProductSlider
-								figures={simSeries}
-								isLoading={isLoading}
-							/>
-						</div>
+					<div className="flex flex-col w-full min-h-screen my-20 overflow-x-hidden gap-y-10">
+						{simCharacters.length > 0 && (
+							<div className="w-full">
+								<h2 className="mb-4 text-2xl font-medium text-center text-kala">
+									More from {fig.character}
+								</h2>
+								<ProductSlider
+									figures={simCharacters}
+									isLoading={simCharIsLoading}
+								/>
+							</div>
+						)}
+						{simSeries.length > 0 && (
+							<div className="w-full">
+								<h2 className="mb-4 text-2xl font-medium text-center text-kala">
+									More from {fig.series}
+								</h2>
+								<ProductSlider
+									figures={simSeries}
+									isLoading={simSerIsLoading}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</Fade>

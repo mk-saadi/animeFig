@@ -259,7 +259,7 @@ const Collections = () => {
 								</div>
 							)}
 							{/* render figures */}
-							<div className="overflow-hidden">
+							<div className="py-4 overflow-hidden">
 								{figures?.length > 0 && (
 									<div className="grid grid-cols-1 transition duration-500 transform gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 										{figures.map((fig) => (
