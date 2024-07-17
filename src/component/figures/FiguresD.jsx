@@ -13,6 +13,7 @@ import ShareComponent from "./figure_component/ShareComponent";
 import InfoComponent from "./figure_component/InfoComponent";
 import { Fade, Slide } from "react-awesome-reveal";
 import ProductSlider from "./figure_component/SlideCard";
+import Comment from "./figure_component/CommentComponent";
 
 const FiguresD = () => {
 	const { link } = useParams();
@@ -108,6 +109,10 @@ const FiguresD = () => {
 								</div>
 							</div>
 						</div>
+					</div>
+					{/* comment section */}
+					<div className="flex flex-col w-full min-h-screen my-20">
+						<Comment fig={fig} />
 					</div>
 					<div className="flex flex-col w-full min-h-screen my-20 overflow-x-hidden gap-y-10">
 						{simCharacters.length > 0 && (

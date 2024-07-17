@@ -72,7 +72,7 @@ const InfoComponent = ({ fig }) => {
 				<p className="font-medium text-kala">Description:</p>
 				<p
 					style={{ whiteSpace: "pre-line" }}
-					className="text-sm text-ash"
+					className="text-sm font-light text-ash"
 				>
 					{description}
 				</p>
