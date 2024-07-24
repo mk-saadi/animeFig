@@ -23,45 +23,9 @@ const Navbar = () => {
 			});
 	};
 
-	// const navMenu = (
-	// 	<>
-	// 		<Link to="/">
-	// 			<button className="bg-transparent border-0 btn btn-sm hover:bg-transparent focus:bg-transparent">
-	// 				Home
-	// 			</button>{" "}
-	// 		</Link>
-	// 		<Link to="/allToys">
-	// 			<button className="bg-transparent border-0 btn btn-sm hover:bg-transparent focus:bg-transparent">
-	// 				All Figures
-	// 			</button>
-	// 		</Link>
-	// 		{user && (
-	// 			<>
-	// 				<Link to="/myToys">
-	// 					<button className="bg-transparent border-0 btn btn-sm hover:bg-transparent focus:bg-transparent text-accent">
-	// 						My Figures
-	// 					</button>
-	// 				</Link>
-	// 				<Link to="/addAToys">
-	// 					<button className="bg-transparent border-0 btn btn-sm hover:bg-transparent focus:bg-transparent text-accent">
-	// 						Add New Figures
-	// 					</button>
-	// 				</Link>
-	// 			</>
-	// 		)}
-	// 	</>
-	// );
 	const [isOpenCart, setIsOpenCart] = useState(false);
 
 	const toggleDrawer = () => setIsOpenCart(!isOpenCart);
-
-	// const [hoveredCategory, setHoveredCategory] = useState(null);
-	// const handleMouseEnter = (categoryId) => {
-	// 	setHoveredCategory(categoryId);
-	// };
-	// const handleMouseLeave = () => {
-	// 	setHoveredCategory(null);
-	// };
 
 	return (
 		<div className="w-full shadow-lg h-fit ">

@@ -44,8 +44,6 @@ const Login = () => {
 			});
 		}
 
-		form.reset();
-
 		toastMaster({
 			transition: "down",
 			type: "loading",
@@ -72,6 +70,7 @@ const Login = () => {
 				message: "Login Failed",
 				bg: "white",
 			});
+			form.reset();
 		}
 	};
 

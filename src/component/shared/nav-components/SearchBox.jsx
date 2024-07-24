@@ -34,6 +34,7 @@ const SearchBox = () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [searchResultsRef]);
+
 	return (
 		<>
 			<div className="hidden md:block w-[24rem]">

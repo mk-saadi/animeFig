@@ -42,7 +42,7 @@ const ProductSlider = ({ figures, isLoading }) => {
 			>
 				{figures.length > 0 ? (
 					figures.map((fig) => (
-						<SwiperSlide key={fig._id}>
+						<SwiperSlide key={fig?._id}>
 							<Products
 								fig={fig}
 								isLoading={isLoading}
@@ -67,14 +67,14 @@ const Products = ({ fig, isLoading }) => {
 				<div className="flex items-center justify-center w-full mb-1 rounded-md">
 					<div className="w-48 overflow-hidden rounded-md h-72">
 						<img
-							src={fig.images}
-							alt={fig.name}
+							src={fig?.images}
+							alt={fig?.name}
 							className="object-cover w-full h-full duration-300 rounded-md shadow-md group-hover:scale-110"
 						/>
 					</div>
 				</div>
 				<div className="product-info">
-					<h3 className="text-base text-kala line-clamp-2 group-hover:underline">{fig.name}</h3>
+					<h3 className="text-base text-kala line-clamp-2 group-hover:underline">{fig?.name}</h3>
 				</div>
 				<div className="mt-[1.2rem]">
 					<Link
@@ -90,14 +90,14 @@ const Products = ({ fig, isLoading }) => {
 							}[fig?.label] || ""
 						}`}
 					>
-						{fig.label === "Coming Soon" ? (
+						{fig?.label === "Coming Soon" ? (
 							<span className="text-xs">Pre Order Now</span>
-						) : fig.label === "Out Of Stock" ? (
+						) : fig?.label === "Out Of Stock" ? (
 							<span className="text-xs">Out Of Stock</span>
 						) : (
-							<span className="text-xs">{fig.label}</span>
+							<span className="text-xs">{fig?.label}</span>
 						)}
-						<span className="text-base font-semibold">$ {fig.price}</span>
+						<span className="text-base font-semibold">$ {fig?.price}</span>
 						{fig?.offer && (
 							<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/35 rounded-md p-1 -top-4 -right-2.5">
 								sale {fig?.offer}% off

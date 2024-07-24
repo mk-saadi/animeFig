@@ -65,7 +65,7 @@ const ButtonComponent = ({ fig }) => {
 							label === "Re-Release" ? (
 								<Link className="flex justify-between w-full font-serif text-base font-bold text-white">
 									<div className="flex flex-col justify-center">
-										<p>Buy {label} Figure</p>
+										<p>{label} Figure</p>
 										<p className="text-xs font-normal text-white">
 											Usually ships in 72hrs
 										</p>

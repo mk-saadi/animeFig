@@ -11,7 +11,7 @@ import ImageComponent from "./figure_component/ImageComponent";
 import ButtonComponent from "./figure_component/ButtonComponent";
 import ShareComponent from "./figure_component/ShareComponent";
 import InfoComponent from "./figure_component/InfoComponent";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 import ProductSlider from "./figure_component/SlideCard";
 import Comment from "./figure_component/CommentComponent";
 
@@ -22,6 +22,7 @@ const FiguresD = () => {
 
 	// fetch current figure
 	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
+	console.log("fig: ", fig);
 	// fetch similar figures
 	const {
 		items: simCharacters,

@@ -1,4 +1,4 @@
-// ! DO NOT TOUCH THIS COMPONENT !!!
+// >> DO NOT TOUCH THIS COMPONENT !!!
 
 import { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import useTitle from "../hooks/useWebTitle";
 import { ArrowDownUp } from "lucide-react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
+import Loader from "../hooks/Loader";
 
 const Collections = () => {
 	// useScrollToTop();
@@ -19,6 +20,7 @@ const Collections = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
 	const [allFigures, setAllFigures] = useState([]);
+	console.log("allFigures: ", allFigures);
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +40,7 @@ const Collections = () => {
 	const fetchAllFigures = async () => {
 		setIsLoading(true);
 		try {
-			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`);
+			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`);
 			setAllFigures(response.data.figures);
 			extractFilters(response.data.figures);
 			setIsLoading(false);
@@ -51,7 +53,7 @@ const Collections = () => {
 	const fetchFigures = async (params) => {
 		// setIsLoading(true);
 		try {
-			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/all`, { params });
+			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`, { params });
 			setFigures(response.data.figures);
 			// setIsLoading(false);
 			setTotalPages(response.data.totalPages);
@@ -240,7 +242,7 @@ const Collections = () => {
 					<div className="col-span-3">
 						<div className="flex flex-col min-h-screen">
 							{/* skeleton loader */}
-							{/* {isLoading && (
+							{isLoading && (
 								<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 									<Loader />
 									<Loader />
@@ -251,7 +253,7 @@ const Collections = () => {
 									<Loader />
 									<Loader />
 								</div>
-							)} */}
+							)}
 							{/* if no figures found */}
 							{figures?.length === 0 && isLoading === false && (
 								<div className="flex items-center justify-center h-[100vh] text-center">

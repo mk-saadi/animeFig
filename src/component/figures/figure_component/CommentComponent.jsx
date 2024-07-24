@@ -1,34 +1,27 @@
-/* eslint-disable react/prop-types */
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
 
 const Comment = ({ fig }) => {
-	const initialComments = fig?.comments || [];
-	const id = fig?._id;
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const { toastMaster } = useToast();
 	const [loading, setLoading] = useState(false);
-	const [comments, setComments] = useState(initialComments);
+	const [comments, setComments] = useState(fig?.comments || []);
+	const id = fig._id;
+
 	useEffect(() => {
-		console.log("fig.comments:", fig.comments);
 		setComments(fig?.comments || []);
 	}, [fig]);
-
-	console.log("comments: ", comments);
 
 	const handleComment = async (event) => {
 		event.preventDefault();
 
-		if (!user) {
-			navigate("/auth/login");
-		}
-
 		const form = event.target;
 		const name = user?.displayName;
+		const image = user.photoURL;
 		const commentBody = form.body.value;
 		const rating = parseFloat(form.rating.value);
 
@@ -36,43 +29,102 @@ const Comment = ({ fig }) => {
 			name,
 			commentBody,
 			rating,
+			image,
+			createdAt: new Date().toISOString(),
 		};
 
+		if (user === null || !user) {
+			toastMaster({
+				type: "errorDark",
+				message: "Please login to comment",
+				footer: (
+					<p>
+						If you already have an account, please <Link to="/auth/login">login</Link>
+						<br />
+						If you do not have an account, please <Link to="/auth/register">register</Link>
+					</p>
+				),
+			});
+			return;
+		}
+
 		toastMaster({
-			type: "loading",
+			type: "loadingDark",
 			message: "Posting comment...",
-			transition: "up",
-			bg: "white",
 			position: "bottomLeft",
+			transition: "up",
 		});
 		setLoading(true);
 
 		try {
-			const res = await axios.post(`${import.meta.env.VITE_URL}/figures/${id}/comments`, commentDoc);
+			const res = await axios.post(
+				`${import.meta.env.VITE_URL}/figures/${fig._id}/comments`,
+				commentDoc
+			);
 			if (res.status === 200) {
-				console.log(res.data);
 				toastMaster({
-					type: "success",
-					message: res.data.message,
-					transition: "up",
-					bg: "white",
+					type: "successDark",
+					message: "Comment posted",
 					position: "bottomLeft",
+					transition: "up",
 				});
+
+				setComments((prevComments) => [...prevComments, { ...commentDoc, _id: res.data.insertedId }]);
 
 				form.reset();
 				setLoading(false);
-				setComments((prevComments) => [...prevComments, commentDoc]);
 			}
 		} catch (error) {
 			toastMaster({
-				type: "error",
+				type: "errorDark",
 				message: error.message,
-				transition: "up",
-				bg: "white",
 				position: "bottomLeft",
+				transition: "up",
 			});
 			setLoading(false);
 		}
+	};
+
+	const handleDeleteComment = async (commentId) => {
+		toastMaster({
+			type: "loadingDark",
+			message: "Deleting comment...",
+			position: "bottomLeft",
+			transition: "up",
+		});
+
+		try {
+			const res = await axios.delete(
+				`${import.meta.env.VITE_URL}/figures/${fig._id}/comments/${commentId}`
+			);
+			if (res.status === 200) {
+				toastMaster({
+					type: "successDark",
+					message: "Comment deleted",
+					position: "bottomLeft",
+					transition: "up",
+				});
+
+				setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));
+			}
+		} catch (error) {
+			toastMaster({
+				type: "errorDark",
+				message: error.message,
+				position: "bottomLeft",
+				transition: "up",
+			});
+		}
+	};
+
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		if (isNaN(date)) {
+			return "Invalid date";
+		}
+
+		const options = { day: "2-digit", month: "short", year: "numeric" };
+		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
 	};
 
 	return (
@@ -87,18 +139,17 @@ const Comment = ({ fig }) => {
 						name="rating"
 						placeholder="rate"
 						className=""
+						required
 					/>
 					<textarea
 						name="body"
 						required
-						className="block w-full rounded-md border-0 px-3.5 py-2 bg-white text-gray-900/70  ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  focus:ring-[#fab07a] focus:outline-none text-sm md:text-base font-semibold sm:leading-6 "
 					></textarea>
 
 					<div className="flex justify-end w-full">
 						<input
 							type="submit"
 							value="Submit"
-							className="inline-flex justify-center px-4 py-1 text-base font-semibold text-orange-600 duration-200 bg-orange-300 border-none rounded-lg shadow-lg outline-none cursor-pointer md:py-2 md:px-7 w-fit active:scale-95 hover:bg-orange-300 shadow-gray-700/30"
 							disabled={loading === true}
 						/>
 					</div>
@@ -109,13 +160,20 @@ const Comment = ({ fig }) => {
 				{comments.length === 0 ? (
 					<div>no comments yet</div>
 				) : (
-					comments.map((ca, index) => (
+					comments.map((ca) => (
 						<div
-							key={index}
+							key={ca._id}
 							className="my-2.5"
 						>
 							<p>{ca.name}</p>
 							<p>{ca.commentBody}</p>
+							<p>{formatDate(ca.createdAt)}</p>
+							<button
+								onClick={() => handleDeleteComment(ca._id)}
+								className="text-red-500"
+							>
+								Delete
+							</button>
 						</div>
 					))
 				)}

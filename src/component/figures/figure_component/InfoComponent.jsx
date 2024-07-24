@@ -17,6 +17,16 @@ const InfoComponent = ({ fig }) => {
 		category,
 	} = fig;
 
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		if (isNaN(date)) {
+			return "Invalid date";
+		}
+
+		const options = { day: "2-digit", month: "short", year: "numeric" };
+		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
+	};
+
 	return (
 		<div>
 			<div
@@ -38,7 +48,8 @@ const InfoComponent = ({ fig }) => {
 				</div>
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Release Date:</p>
-					<p className="text-sm font-normal">{release}</p>
+					<p className="text-sm font-normal">{formatDate(release)}</p>
+					{/* <p className="text-sm font-normal">{release}</p> */}
 				</div>
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Character:</p>
