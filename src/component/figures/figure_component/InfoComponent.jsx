@@ -49,13 +49,12 @@ const InfoComponent = ({ fig }) => {
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Release Date:</p>
 					<p className="text-sm font-normal">{formatDate(release)}</p>
-					{/* <p className="text-sm font-normal">{release}</p> */}
 				</div>
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Character:</p>
 					<Link
 						className="text-sm font-normal underline duration-300 cursor-pointer hover:text-laal"
-						to={`/collections?name=&category=&series=&character=${character}&sort=&order=asc&page=1`}
+						to={`/collections?name=&category=&series=${series}&character=${character}&sort=&order=asc&page=1`}
 					>
 						{character}
 					</Link>

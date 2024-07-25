@@ -1,4 +1,6 @@
-// >> DO NOT TOUCH THIS COMPONENT !!!
+/* -------------------------------------------------------------------------- */
+/*                     !!! DO NOT TOUCH THIS COMPONENT !!!                    */
+/* -------------------------------------------------------------------------- */
 
 import { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -11,6 +13,7 @@ import useTitle from "../hooks/useWebTitle";
 import { ArrowDownUp } from "lucide-react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Loader from "../hooks/Loader";
+import { useFigures } from "../hooks/APIS";
 
 const Collections = () => {
 	// useScrollToTop();
@@ -19,8 +22,7 @@ const Collections = () => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
-	const [allFigures, setAllFigures] = useState([]);
-	console.log("allFigures: ", allFigures);
+	// const [allFigures, setAllFigures] = useState([]);
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
@@ -37,11 +39,15 @@ const Collections = () => {
 	const [series, setSeries] = useState([]);
 	const [characters, setCharacters] = useState([]);
 
+	const { figure: url } = useFigures(`${import.meta.env.VITE_URL}/figures/collections`);
+	const { figure: filter } = useFigures(`${import.meta.env.VITE_URL}/figures/all-filters`);
+
 	const fetchAllFigures = async () => {
 		setIsLoading(true);
 		try {
-			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`);
-			setAllFigures(response.data.figures);
+			// const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`);
+			const response = url;
+			// setAllFigures(response.data.figures);
 			extractFilters(response.data.figures);
 			setIsLoading(false);
 		} catch (error) {
@@ -68,7 +74,8 @@ const Collections = () => {
 	const [chaCounts, setChaCounts] = useState({});
 
 	const fetchAllFilters = async () => {
-		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
+		// const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
+		const response = filter;
 		const data = await response.json();
 
 		const categoryCounts = {};
@@ -176,7 +183,7 @@ const Collections = () => {
 			<CSSTransition
 				key={location.key}
 				classNames="fade"
-				timeout={300} // Duration should match the transition duration in CSS
+				timeout={300}
 			>
 				<section className="relative grid min-h-screen grid-cols-4 bg-white gap-x-4">
 					{/* Filter/sort column */}

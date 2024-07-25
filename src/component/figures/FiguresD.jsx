@@ -20,16 +20,17 @@ const FiguresD = () => {
 	const isScrolled = useScroll("top-navbar");
 	const navigate = useNavigate();
 
-	// fetch current figure
+	/* -------------------------- fetch current figure -------------------------- */
 	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
-	console.log("fig: ", fig);
-	// fetch similar figures
+
+	/* -------------------------- fetch similar figures ------------------------- */
 	const {
 		items: simCharacters,
 		isLoading: simCharIsLoading,
 		error: simCharError,
 	} = useFetchSimilarItems("/similar_characters", link);
-	// fetch similar series
+
+	/* -------------------------- fetch similar series -------------------------- */
 	const {
 		items: simSeries,
 		isLoading: simSerIsLoading,
@@ -39,9 +40,9 @@ const FiguresD = () => {
 	useScrollToTop();
 	useTitle("Collections | " + fig?.name);
 
-	const handleGoBack = () => {
-		navigate(-1);
-	};
+	// const handleGoBack = () => {
+	// 	navigate(-1);
+	// };
 
 	return (
 		<>
@@ -49,7 +50,7 @@ const FiguresD = () => {
 				<Navbar />
 			</>
 			<Fade triggerOnce>
-				<div
+				<section
 					className={`flex px-12 flex-col overflow-visible items-center justify-center bg-white 
 				${isScrolled ? "pt-40" : "pt-40"}
 				`}
@@ -82,7 +83,7 @@ const FiguresD = () => {
 									>
 										{fig?.name}
 									</h1>
-									{/* figure buy/add to cart button/link */}
+									{/* figure buy/add to cart buttons/links */}
 									<>
 										<ButtonComponent fig={fig} />
 									</>
@@ -139,9 +140,9 @@ const FiguresD = () => {
 							</div>
 						)}
 					</div>
-				</div>
+				</section>
 			</Fade>
-
+			{/* footer section */}
 			<>
 				<Footer />
 			</>

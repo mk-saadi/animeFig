@@ -49,6 +49,7 @@ const AddToys = () => {
 
 	const handlePost = async (event) => {
 		event.preventDefault();
+		setLoading(true);
 
 		const form = event.target;
 
@@ -74,7 +75,6 @@ const AddToys = () => {
 				.replace(/\s+/g, "-")
 				.replace(/-+/g, "-");
 		};
-
 		const link = processFigureName(name);
 
 		const figure = {
@@ -88,7 +88,6 @@ const AddToys = () => {
 			series,
 			character,
 			category,
-			rating: 0,
 			label,
 			offer,
 			dimension,
@@ -103,8 +102,6 @@ const AddToys = () => {
 			bg: "glass",
 			footer: <p className="text-ash">Uploading may take some time. Have patience.</p>,
 		});
-
-		setLoading(true);
 
 		try {
 			if (images.length > 0) {
