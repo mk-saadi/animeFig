@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Plane, Rocket, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -28,10 +27,10 @@ const InfoComponent = ({ fig }) => {
 	};
 
 	return (
-		<div>
+		<>
 			<div
 				// className="flex flex-wrap gap-y-4 gap-x-14 text-ash"
-				className="grid grid-cols-4 text-ash gap-y-4 gap-x-4"
+				className="grid grid-cols-4 gap-4 text-ash"
 			>
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Series:</p>
@@ -81,8 +80,8 @@ const InfoComponent = ({ fig }) => {
 			<div className="my-8 ">
 				<p className="font-medium text-kala">Description:</p>
 				<p
-					style={{ whiteSpace: "pre-line" }}
-					className="text-sm font-light text-ash"
+					// style={{ whiteSpace: "pre-line" }}
+					className="text-sm font-light whitespace-pre-line text-ash"
 				>
 					{description}
 				</p>
@@ -99,7 +98,7 @@ const InfoComponent = ({ fig }) => {
 							strokeWidth={1.3}
 							className="text-laal"
 						/>
-						<div className="">
+						<div>
 							<p className="font-normal text-kala">Saver</p>
 							<p className="text-sm font-light">(2-4 months)</p>
 						</div>
@@ -113,7 +112,7 @@ const InfoComponent = ({ fig }) => {
 							strokeWidth={1.3}
 							className="text-laal"
 						/>
-						<div className="">
+						<div>
 							<p className="font-normal text-kala">Regular</p>
 							<p className="text-sm font-light">(5-10 days)</p>
 						</div>
@@ -127,7 +126,7 @@ const InfoComponent = ({ fig }) => {
 							strokeWidth={1.3}
 							className="text-laal"
 						/>
-						<div className="">
+						<div>
 							<p className="font-normal text-kala">Express</p>
 							<p className="text-sm font-light">(3-7 days)</p>
 						</div>
@@ -135,7 +134,7 @@ const InfoComponent = ({ fig }) => {
 					<p>$22.52</p>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

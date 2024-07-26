@@ -46,7 +46,7 @@ const SearchBox = () => {
 						onChange={handleSearchChange}
 						className="w-full pl-3 font-[200] text-white font-sans bg-transparent border-b border-white placeholder:text-white focus:outline-none text-base"
 					/>
-					<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-pointer top-1/2">
+					<button className="absolute right-0 flex items-center pr-3 text-white transform -translate-y-1/2 cursor-default top-1/2">
 						<SearchIcon size={20} />
 					</button>
 					{searchResults?.length > 0 && (

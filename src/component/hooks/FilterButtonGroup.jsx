@@ -26,7 +26,8 @@ const FilterButtonGroup = ({
 				))}
 				{selectedFilter && (
 					<button
-						className="absolute top-0 right-0 p-1 duration-300 rounded text-ash bg-laal/5 hover:bg-laal/10 hover:text-laal"
+						className="absolute top-0 right-0 p-1 duration-300 rounded-md hover:text-laal text-ash bg-ash/5 hover:bg-ash/10"
+						// className="absolute top-0 right-0 p-1 duration-300 rounded text-ash bg-laal/5 hover:bg-laal/10 hover:text-laal"
 						onClick={() => handleFilterChange(filterType, "")}
 					>
 						<X size={20} />

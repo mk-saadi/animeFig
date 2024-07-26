@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { toast } from "react-hot-toast";
 import useTitle from "../hooks/useWebTitle";
 import { BsQuestionSquareFill } from "react-icons/bs";
 import axios from "axios";
-import imageCompression from "browser-image-compression";
-import { ref, uploadBytesResumable, getDownloadURL, getStorage, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, getStorage, uploadBytes } from "firebase/storage";
 import { ImagePlus } from "lucide-react";
 import { useToast } from "react-toast-master";
 import Button from "../hooks/Button";
@@ -280,12 +278,7 @@ const AddToys = () => {
 							className="bg-gray-600 rounded-sm select select-info"
 							name="category"
 						>
-							<option
-								disabled
-								selected
-							>
-								products category
-							</option>
+							<option disabled>products category</option>
 							<option className="text-xs">Nendoroid</option>
 							<option className="text-xs">Figma</option>
 							<option className="text-xs">Scale Figures</option>

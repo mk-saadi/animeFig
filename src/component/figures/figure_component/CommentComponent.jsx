@@ -1,12 +1,11 @@
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
 
 const Comment = ({ fig }) => {
 	const { user } = useContext(AuthContext);
-	const navigate = useNavigate();
 	const { toastMaster } = useToast();
 	const [loading, setLoading] = useState(false);
 	const [comments, setComments] = useState(fig?.comments || []);
@@ -49,24 +48,22 @@ const Comment = ({ fig }) => {
 		}
 
 		toastMaster({
-			type: "loadingDark",
+			type: "loading",
 			message: "Posting comment...",
 			position: "bottomLeft",
-			transition: "up",
+			transition: "top",
+			shadow: "warning",
 		});
 		setLoading(true);
 
 		try {
-			const res = await axios.post(
-				`${import.meta.env.VITE_URL}/figures/${fig._id}/comments`,
-				commentDoc
-			);
+			const res = await axios.post(`${import.meta.env.VITE_URL}/figures/${id}/comments`, commentDoc);
 			if (res.status === 200) {
 				toastMaster({
-					type: "successDark",
+					type: "success",
 					message: "Comment posted",
 					position: "bottomLeft",
-					transition: "up",
+					transition: "top",
 				});
 
 				setComments((prevComments) => [...prevComments, { ...commentDoc, _id: res.data.insertedId }]);
@@ -76,10 +73,12 @@ const Comment = ({ fig }) => {
 			}
 		} catch (error) {
 			toastMaster({
-				type: "errorDark",
+				type: "error",
 				message: error.message,
 				position: "bottomLeft",
-				transition: "up",
+				transition: "top",
+				bg: "white",
+				shadow: "error",
 			});
 			setLoading(false);
 		}
@@ -94,9 +93,7 @@ const Comment = ({ fig }) => {
 		});
 
 		try {
-			const res = await axios.delete(
-				`${import.meta.env.VITE_URL}/figures/${fig._id}/comments/${commentId}`
-			);
+			const res = await axios.delete(`${import.meta.env.VITE_URL}/figures/${id}/comments/${commentId}`);
 			if (res.status === 200) {
 				toastMaster({
 					type: "successDark",

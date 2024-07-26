@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------------------- */
-/*                     !!! DO NOT TOUCH THIS COMPONENT !!!                    */
+//                     !!! DO NOT TOUCH THIS COMPONENT !!!                    //
 /* -------------------------------------------------------------------------- */
 
 import { useState, useEffect } from "react";
@@ -39,14 +39,10 @@ const Collections = () => {
 	const [series, setSeries] = useState([]);
 	const [characters, setCharacters] = useState([]);
 
-	const { figure: url } = useFigures(`${import.meta.env.VITE_URL}/figures/collections`);
-	const { figure: filter } = useFigures(`${import.meta.env.VITE_URL}/figures/all-filters`);
-
 	const fetchAllFigures = async () => {
 		setIsLoading(true);
 		try {
-			// const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`);
-			const response = url;
+			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`);
 			// setAllFigures(response.data.figures);
 			extractFilters(response.data.figures);
 			setIsLoading(false);
@@ -74,8 +70,7 @@ const Collections = () => {
 	const [chaCounts, setChaCounts] = useState({});
 
 	const fetchAllFilters = async () => {
-		// const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
-		const response = filter;
+		const response = await fetch(`${import.meta.env.VITE_URL}/figures/all-filters`);
 		const data = await response.json();
 
 		const categoryCounts = {};

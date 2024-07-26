@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import {
-	ChevronRight,
-	MinusCircle,
-	PlusCircle,
-	ShoppingCart,
-	ShoppingCartIcon,
-	Trash2,
-	X,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronRight, ShoppingCart, ShoppingCartIcon, Trash2, X } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
-import Button from "../hooks/Button";
 
-function Cart() {
+const Cart = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { cartItems, removeFromCart } = useCart();
 
 	const totalPrice = cartItems.reduce((total, item) => total + item.figPrice, 0);
 
+	/* -------------------- close cart by clicking "Esc" key -------------------- */
 	useEffect(() => {
 		const handleKeyDown = (event) => {
 			if (event.key === "Escape") {
@@ -31,35 +23,25 @@ function Cart() {
 		};
 	}, []);
 
-	// const handleRemove = (productId) => {
-	// 	const storedCartItems = JSON.parse(localStorage.getItem("cartItems-animeFig")) || [];
-	// 	const itemIndexToRemove = storedCartItems.findIndex((item) => item.productId === productId);
-	// 	if (itemIndexToRemove !== -1) {
-	// 		storedCartItems.splice(itemIndexToRemove, 1);
-	// 		localStorage.setItem("cartItems-animeFig", JSON.stringify(storedCartItems));
-	// 		// Dispatch the REMOVE_FROM_CART action to update the state
-	// 		dispatch({ type: "REMOVE_FROM_CART", payload: productId });
-	// 	}
-	// };
+	/* ------------------------- remove figure from cart ------------------------ */
 	const handleRemove = (productId) => {
-		removeFromCart(productId); // Use the removeFromCart function provided by the context
+		removeFromCart(productId);
 	};
 
-	// Add or remove the class to disable/enable scrolling
-	useEffect(() => {
-		if (isOpen) {
-			document.body.classList.add("overflow-hidden");
-		} else {
-			document.body.classList.remove("overflow-hidden");
-		}
-	}, [isOpen]);
+	/* ---- Add or remove the class to dis/en-able scrolling inside cart div ---- */
+	// useEffect(() => {
+	// 	if (isOpen) {
+	// 		document.body.classList.add("overflow-hidden");
+	// 	} else {
+	// 		document.body.classList.remove("overflow-hidden");
+	// 	}
+	// }, [isOpen]);
 
 	return (
 		<div>
 			<button
-				className="relative flex items-center justify-start p-2 text-white duration-300 rounded-md bg-ash/15 hover:text-laal focus:outline-0"
+				className="relative p-2 text-white duration-300 rounded-md hover:text-laal bg-ash/10 hover:bg-ash/15 focus:outline-0"
 				onClick={() => setIsOpen(true)}
-				// onMouseEnter={() => setIsOpen(true)}
 			>
 				<ShoppingCartIcon
 					className="w-6 h-6"
@@ -71,14 +53,12 @@ function Cart() {
 					</span>
 				)}
 			</button>
-
 			{/* Drawer Overlay */}
 			<div
 				className={`fixed inset-0 bg-black bg-opacity-40 transition-opacity duration-300 backdrop-blur-[1.8px] ${
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 				onClick={() => setIsOpen(false)}
-				// onMouseEnter={() => setIsOpen(false)}
 			/>
 
 			{/* Drawer */}
@@ -96,11 +76,10 @@ function Cart() {
 							<h2 className="text-lg font-medium text-ash">Cart Items {cartItems.length}</h2>
 						)}
 						<button
-							className="p-2 duration-300 rounded text-ash bg-laal/5 hover:bg-laal/10 hover:text-laal"
+							className="p-2 duration-300 rounded-md hover:text-laal text-ash bg-ash/5 hover:bg-ash/10"
 							onClick={() => setIsOpen(false)}
 						>
 							<X
-								// className="w-5 h-5"
 								size={20}
 								aria-hidden="true"
 							/>
@@ -147,26 +126,13 @@ function Cart() {
 													<p className="text-sm text-ash/80">${item.figPrice}</p>
 												</div>
 												<p className="flex items-center justify-start text-ash gap-x-3">
-													{/* <span
-														className="p-1 duration-300 rounded-md cursor-pointer hover:text-green-500 bg-laal/10"
-														title="increase quantity"
-													>
-														<PlusCircle size={16} />
-													</span>{" "}
-													1{" "}
-													<span
-														className="p-1 duration-300 rounded-md cursor-pointer hover:text-laal bg-laal/10"
-														title="decrease quantity"
-													>
-														<MinusCircle size={16} />
-													</span> */}
 													Quantity 1
 												</p>
 											</div>
 										</div>
 										<div className="">
 											<button
-												className="p-2 duration-300 rounded-md hover:underline text-laal bg-laal/5 hover:bg-laal/10"
+												className="p-2 duration-300 rounded-md hover:text-laal text-ash bg-ash/5 hover:bg-ash/10"
 												onClick={() => handleRemove(item.figId)}
 												title="Remove from cart"
 											>
@@ -217,6 +183,6 @@ function Cart() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Cart;
