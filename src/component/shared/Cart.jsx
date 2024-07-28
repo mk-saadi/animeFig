@@ -159,12 +159,6 @@ const Cart = () => {
 								<button className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud">
 									Checkout
 								</button>
-								{/* <Button
-									classname={"w-full mt-0 text-base font-bold"}
-									type="button"
-									span1="Checkout?"
-									span2="Checkout"
-								/> */}
 							</div>
 						</div>
 						<div className="flex items-center justify-center">

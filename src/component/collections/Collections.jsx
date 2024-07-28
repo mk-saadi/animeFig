@@ -13,10 +13,9 @@ import useTitle from "../hooks/useWebTitle";
 import { ArrowDownUp } from "lucide-react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Loader from "../hooks/Loader";
-import { useFigures } from "../hooks/APIS";
 
 const Collections = () => {
-	// useScrollToTop();
+	useScrollToTop();
 	useTitle("Collections");
 	const location = useLocation();
 
