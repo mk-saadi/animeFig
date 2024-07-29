@@ -84,7 +84,7 @@ const Home = () => {
 					))}
 				</div>
 
-				{/* latest merch */}
+				{/* latest figures */}
 				<h3 className="pl-4 mt-20 mb-4 ml-4 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
 					Discover Latest Merch
 				</h3>
