@@ -126,32 +126,37 @@ const Comment = ({ fig }) => {
 
 	return (
 		<>
-			<div className="bg-white">
-				<form
-					onSubmit={handleComment}
-					className="flex flex-col space-y-2.5"
-				>
-					<input
-						type="number"
-						name="rating"
-						placeholder="rate"
-						className=""
-						required
-					/>
-					<textarea
-						name="body"
-						required
-					></textarea>
-
-					<div className="flex justify-end w-full">
+			<section className="grid grid-cols-5">
+				<div>
+					<p>rating</p>
+				</div>
+				<div className="col-span-4 bg-white">
+					<form
+						onSubmit={handleComment}
+						className="flex flex-col space-y-2.5"
+					>
 						<input
-							type="submit"
-							value="Submit"
-							disabled={loading === true}
+							type="number"
+							name="rating"
+							placeholder="rate"
+							className=""
+							required
 						/>
-					</div>
-				</form>
-			</div>
+						<textarea
+							name="body"
+							required
+						></textarea>
+
+						<div className="flex justify-end w-full">
+							<input
+								type="submit"
+								value="Submit"
+								disabled={loading === true}
+							/>
+						</div>
+					</form>
+				</div>
+			</section>
 
 			<div className="flex flex-col">
 				{comments.length === 0 ? (
