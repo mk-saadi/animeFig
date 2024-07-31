@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
+import InputField from "../../hooks/InputField";
+import { User2 } from "lucide-react";
 
 const Comment = ({ fig }) => {
 	const { user } = useContext(AuthContext);
@@ -22,12 +24,10 @@ const Comment = ({ fig }) => {
 		const name = user?.displayName;
 		const image = user.photoURL;
 		const commentBody = form.body.value;
-		const rating = parseFloat(form.rating.value);
 
 		const commentDoc = {
 			name,
 			commentBody,
-			rating,
 			image,
 			createdAt: new Date().toISOString(),
 		};
@@ -126,31 +126,43 @@ const Comment = ({ fig }) => {
 
 	return (
 		<>
-			<section className="grid grid-cols-5">
-				<div>
-					<p>rating</p>
-				</div>
-				<div className="col-span-4 bg-white">
+			<section className="max-w-5xl">
+				<h2 className="text-2xl text-kala">Excited about this item?</h2>
+				<p className="text-base text-ash">Comment here! Discuss your excitement with other users!</p>
+				<div className="w-full mt-8 bg-white">
 					<form
 						onSubmit={handleComment}
-						className="flex flex-col space-y-2.5"
+						className="flex flex-col space-y-2.5 w-full"
 					>
-						<input
-							type="number"
-							name="rating"
-							placeholder="rate"
-							className=""
-							required
-						/>
-						<textarea
-							name="body"
-							required
-						></textarea>
-
+						<div className="flex justify-start gap-x-2.5 w-full items-start">
+							{user && (
+								<div className="flex-shrink-0">
+									<img
+										className="w-12 h-12 rounded-full shadow-md"
+										src={user?.photoURL}
+										alt={user?.displayName}
+										loading="lazy"
+									/>
+								</div>
+							)}
+							{!user && (
+								<div className="flex-shrink-0">
+									<User2 className="w-12 h-12 rounded-full shadow-md bg-ash/20" />
+								</div>
+							)}
+							<div className="flex flex-col w-full gap-y-1.5">
+								<textarea
+									name="body"
+									placeholder="Add Comment..."
+									className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash"
+								></textarea>
+							</div>
+						</div>
 						<div className="flex justify-end w-full">
 							<input
 								type="submit"
 								value="Submit"
+								className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
 								disabled={loading === true}
 							/>
 						</div>

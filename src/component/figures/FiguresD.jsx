@@ -113,7 +113,7 @@ const FiguresD = () => {
 						</div>
 					</div>
 					{/* comment section */}
-					<div className="flex flex-col w-full min-h-screen my-20">
+					<div className="flex flex-col w-full my-20">
 						<Comment fig={fig} />
 					</div>
 					<div className="flex flex-col w-full min-h-screen my-20 overflow-x-hidden gap-y-10">
