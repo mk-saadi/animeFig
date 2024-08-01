@@ -62,7 +62,9 @@ const CommentActions = ({ comment = {}, commentId, productId, userId }) => {
 			{/* For like */}
 			<div className="flex items-center">
 				<ThumbsUp
-					className={`cursor-pointer ${isLiked ? "text-holud" : "text-ash/70"}`}
+					className={`hover:scale-[1.17] duration-300 cursor-pointer ${
+						isLiked ? "text-holud" : "text-ash/70"
+					}`}
 					size={18}
 					onClick={() => handleReaction("like")}
 					disable={isLiked}
@@ -71,7 +73,9 @@ const CommentActions = ({ comment = {}, commentId, productId, userId }) => {
 			{/* For dislike */}
 			<div className="flex items-center">
 				<ThumbsDown
-					className={`cursor-pointer ${isDisliked ? "text-laal" : "text-ash/70"}`}
+					className={`hover:scale-[1.17] duration-300 cursor-pointer ${
+						isDisliked ? "text-laal" : "text-ash/70"
+					}`}
 					size={18}
 					onClick={() => handleReaction("dislike")}
 					disable={isDisliked}

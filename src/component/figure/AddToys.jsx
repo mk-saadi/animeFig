@@ -6,10 +6,8 @@ import axios from "axios";
 import { ref, getDownloadURL, getStorage, uploadBytes } from "firebase/storage";
 import { ImagePlus } from "lucide-react";
 import { useToast } from "react-toast-master";
-import Button from "../hooks/Button";
 import InputField from "../hooks/InputField";
 import useScrollToTop from "../hooks/useScrollToTop";
-import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from "@headlessui/react";
 import { useFigures } from "../hooks/APIS";
 
 const AddToys = () => {
@@ -150,6 +148,7 @@ const AddToys = () => {
 								type="text"
 								id="name"
 								name="name"
+								required={true}
 							/>
 						</div>
 						{/* email */}
@@ -159,6 +158,7 @@ const AddToys = () => {
 								type="text"
 								id="price"
 								name="price"
+								required={true}
 							/>
 						</div>
 						<div className="form-control">
@@ -167,6 +167,7 @@ const AddToys = () => {
 								type="text"
 								id="brand"
 								name="brand"
+								required={true}
 							/>
 						</div>
 						{/* <div className="form-control">
@@ -223,6 +224,7 @@ const AddToys = () => {
 								label="quantity *"
 								type="text"
 								id="quantity"
+								required={true}
 								name="quantity"
 							/>
 						</div>
@@ -232,6 +234,7 @@ const AddToys = () => {
 								type="text"
 								id="series"
 								name="series"
+								required={true}
 							/>
 						</div>
 						<div className="form-control">
@@ -252,10 +255,11 @@ const AddToys = () => {
 						</div>
 						<div className="form-control">
 							<InputField
-								label="character"
+								label="character *"
 								type="text"
 								id="character"
 								name="character"
+								required={true}
 							/>
 						</div>
 						<div className="form-control">
@@ -272,6 +276,7 @@ const AddToys = () => {
 								type="text"
 								id="label"
 								name="label"
+								required={true}
 							/>
 						</div>
 						<select

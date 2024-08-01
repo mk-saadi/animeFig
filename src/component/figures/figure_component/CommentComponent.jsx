@@ -4,7 +4,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
 import InputField from "../../hooks/InputField";
-import { ThumbsDown, ThumbsUp, User2 } from "lucide-react";
+import { Megaphone, User2 } from "lucide-react";
 import CommentActions from "./CommentAction";
 
 const Comment = ({ fig }) => {
@@ -174,7 +174,21 @@ const Comment = ({ fig }) => {
 
 			<div className="flex flex-col max-w-5xl mt-8">
 				{comments.length === 0 ? (
-					<div>no comments yet</div>
+					<div className="flex flex-col items-center justify-center my-10">
+						<div className="flex items-center justify-center gap-x-3">
+							<Megaphone
+								className="w-10 h-10 text-kala"
+								strokeWidth={1.2}
+							/>
+							<div>
+								<p className="text-base text-kala">Be the first to write a comment</p>
+								<p className="text-sm text-ash">
+									Get <span className="text-laal">30 points</span> for your published
+									comment
+								</p>
+							</div>
+						</div>
+					</div>
 				) : (
 					comments.map((ca) => (
 						<div
@@ -207,12 +221,12 @@ const Comment = ({ fig }) => {
 									<p className="text-sm text-ash">{ca.commentBody}</p>
 								</div>
 							</div>
-							<button
+							{/* <button
 								onClick={() => handleDeleteComment(ca._id)}
 								className="text-red-500"
 							>
 								Delete
-							</button>
+							</button> */}
 						</div>
 					))
 				)}
