@@ -197,18 +197,6 @@ const Comment = ({ fig }) => {
 											<p className="text-ash">•</p>
 											<p className="text-sm text-ash">{formatDate(ca.createdAt)}</p>
 										</div>
-										{/* For like and dislike count */}
-										{/* <div className="flex flex-row items-center justify-start gap-x-4">
-											{ca.likes && <p>{ca?.likes}</p>}
-											<ThumbsUp
-												className="text-ash/70"
-												size={18}
-											/>
-											<ThumbsDown
-												className="text-ash/70"
-												size={18}
-											/>
-										</div> */}
 										<CommentActions
 											commentId={ca._id}
 											productId={id}
