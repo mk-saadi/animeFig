@@ -52,7 +52,6 @@ const CommentActions = ({ comment = {}, commentId, productId, userId }) => {
 					</span>
 				</div>
 			)}
-
 			{dislikes > 0 && (
 				<div>
 					<span className="flex text-sm text-ash flex-row justify-start items-center gap-x-1.5">
@@ -60,7 +59,6 @@ const CommentActions = ({ comment = {}, commentId, productId, userId }) => {
 					</span>
 				</div>
 			)}
-
 			{/* For like */}
 			<div className="flex items-center">
 				<ThumbsUp
@@ -70,7 +68,6 @@ const CommentActions = ({ comment = {}, commentId, productId, userId }) => {
 					disable={isLiked}
 				/>
 			</div>
-
 			{/* For dislike */}
 			<div className="flex items-center">
 				<ThumbsDown
