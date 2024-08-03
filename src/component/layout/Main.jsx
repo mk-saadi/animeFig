@@ -1,9 +1,18 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
 
 const Main = () => {
+	const location = useLocation();
+
+	useEffect(() => {
+		if (!location.pathname.startsWith("/auth/")) {
+			sessionStorage.setItem("previousLocation", JSON.stringify(location));
+		}
+	}, [location]);
+
 	return (
 		<div className="w-full bg-white">
 			<Navbar />

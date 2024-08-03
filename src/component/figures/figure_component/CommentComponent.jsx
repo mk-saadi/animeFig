@@ -11,7 +11,6 @@ const Comment = ({ fig }) => {
 	const { toastMaster } = useToast();
 	const [loading, setLoading] = useState(false);
 	const [comments, setComments] = useState(fig?.comments || []);
-	console.log("comments: ", comments);
 	const id = fig._id;
 
 	useEffect(() => {

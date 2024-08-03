@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import Breadcrumbs from "../hooks/BreadCrumbs";
@@ -14,11 +14,20 @@ import InfoComponent from "./figure_component/InfoComponent";
 import { Fade } from "react-awesome-reveal";
 import ProductSlider from "./figure_component/SlideCard";
 import Comment from "./figure_component/CommentComponent";
+import { useEffect } from "react";
 
 const FiguresD = () => {
 	const { link } = useParams();
 	const isScrolled = useScroll("top-navbar");
 	const navigate = useNavigate();
+
+	const location = useLocation();
+
+	useEffect(() => {
+		if (!location.pathname.startsWith("/auth/")) {
+			sessionStorage.setItem("previousLocation", JSON.stringify(location));
+		}
+	}, [location]);
 
 	/* -------------------------- fetch current figure -------------------------- */
 	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);

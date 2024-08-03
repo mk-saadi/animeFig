@@ -17,8 +17,9 @@ const Login = () => {
 	useTitle("login");
 	useScrollToTop();
 
-	const from = location.state?.from?.pathname || "/";
-	console.log("from: ", from);
+	// const from = location.state?.from?.pathname || "/";
+	// const from = location.pathname;
+	// console.log("from: ", from); // from: {pathname: '/auth/login', search: '', hash: '', state: null, key: '5vp56kro'}
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
@@ -55,7 +56,12 @@ const Login = () => {
 		try {
 			const res = await signIn(email, password);
 			const user = res.user;
-			navigate(from, { replace: true });
+			// navigate(from, { replace: true });
+			const savedLocation = JSON.parse(sessionStorage.getItem("previousLocation"));
+			const destination = savedLocation?.pathname || "/";
+			navigate(destination, { replace: true });
+			sessionStorage.removeItem("previousLocation");
+
 			if (user.uid) {
 				toastMaster({
 					transition: "down",
