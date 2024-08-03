@@ -25,6 +25,7 @@ const Collections = () => {
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
+	console.log("isLoading: ", isLoading);
 	const [filters, setFilters] = useState({
 		name: "",
 		category: "",
@@ -52,14 +53,14 @@ const Collections = () => {
 	};
 
 	const fetchFigures = async (params) => {
-		// setIsLoading(true);
+		setIsLoading(true);
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_URL}/figures/collections`, { params });
 			setFigures(response.data.figures);
-			// setIsLoading(false);
+			setIsLoading(false);
 			setTotalPages(response.data.totalPages);
 		} catch (error) {
-			// setIsLoading(false);
+			setIsLoading(false);
 			console.error("Error fetching figures:", error);
 		}
 	};
@@ -172,6 +173,22 @@ const Collections = () => {
 		setSearchParams(updatedParams);
 	};
 
+	const [showNothingFound, setShowNothingFound] = useState(false);
+
+	useEffect(() => {
+		if (!isLoading) {
+			const timer = setTimeout(() => {
+				setShowNothingFound(true);
+			}, 1000); // 1 second delay
+
+			// Clean up the timer when the component unmounts or isLoading changes
+			return () => clearTimeout(timer);
+		} else {
+			// Reset the state if loading starts again
+			setShowNothingFound(false);
+		}
+	}, [isLoading]);
+
 	return (
 		<SwitchTransition>
 			<CSSTransition
@@ -256,7 +273,7 @@ const Collections = () => {
 								</div>
 							)}
 							{/* if no figures found */}
-							{figures?.length === 0 && isLoading === false && (
+							{figures?.length === 0 && showNothingFound && (
 								<div className="flex items-center justify-center h-[100vh] text-center">
 									Nothing found
 								</div>

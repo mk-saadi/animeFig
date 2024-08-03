@@ -18,12 +18,9 @@ const Register = () => {
 	const { newUser, updateProfileInfo } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const { toastMaster } = useToast();
-	const location = useLocation();
 
-	useTitle("register");
+	useTitle("auth | register");
 	useScrollToTop();
-
-	const from = location.state?.from?.pathname || "/";
 
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [imagePreview, setImagePreview] = useState(null);
@@ -157,7 +154,6 @@ const Register = () => {
 								role: "general-user",
 							};
 							await updateProfileInfo(name, downloadURL);
-
 							// Register user in the database
 							axios
 								.post(`${import.meta.env.VITE_URL}/users`, userDocument)
@@ -169,9 +165,12 @@ const Register = () => {
 											bg: "white",
 										});
 
-										setTimeout(() => {
-											navigate(from, { replace: true });
-										}, 500);
+										const savedLocation = JSON.parse(
+											sessionStorage.getItem("previousLocation")
+										);
+										const destination = savedLocation?.pathname || "/";
+										navigate(destination, { replace: true });
+										sessionStorage.removeItem("previousLocation");
 									}
 								})
 								.catch((error) => {
