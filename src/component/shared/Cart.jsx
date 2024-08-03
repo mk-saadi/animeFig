@@ -155,9 +155,12 @@ const Cart = () => {
 							</div>
 							<p className="text-sm text-ash/70">Shipping and taxes calculated at checkout.</p>
 							<div className="flex items-center justify-center w-full mt-2">
-								<button className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud">
+								<Link
+									to="/checkout"
+									className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+								>
 									Checkout
-								</button>
+								</Link>
 							</div>
 						</div>
 						<div className="flex items-center justify-center">

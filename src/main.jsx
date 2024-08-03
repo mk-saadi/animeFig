@@ -18,6 +18,7 @@ import { CartProvider } from "./component/provider/CartProvider";
 import { ToastProvider } from "react-toast-master";
 import AuthContainer from "./component/auth/AuthContainer";
 import Collections from "./component/collections/Collections";
+import CheckOut from "./component/Checkout/CheckOut";
 // import { ToastProvider } from "../../../../npm package/react-toast-master-demo/src/ToastProvider";
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
 			{
 				path: "/collections",
 				element: <Collections />,
+			},
+			{
+				path: "/checkout",
+				element: <CheckOut />,
 			},
 			{
 				path: "/addAToys",

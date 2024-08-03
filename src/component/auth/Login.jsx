@@ -18,6 +18,7 @@ const Login = () => {
 	useScrollToTop();
 
 	const from = location.state?.from?.pathname || "/";
+	console.log("from: ", from);
 
 	const handleLogin = async (event) => {
 		event.preventDefault();

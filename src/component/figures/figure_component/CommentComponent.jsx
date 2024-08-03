@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
-import InputField from "../../hooks/InputField";
 import { Megaphone, User2 } from "lucide-react";
 import CommentActions from "./CommentAction";
 
@@ -33,21 +32,6 @@ const Comment = ({ fig }) => {
 			image,
 			createdAt: new Date().toISOString(),
 		};
-
-		if (user === null || !user) {
-			toastMaster({
-				type: "errorDark",
-				message: "Please login to comment",
-				footer: (
-					<p>
-						If you already have an account, please <Link to="/auth/login">login</Link>
-						<br />
-						If you do not have an account, please <Link to="/auth/register">register</Link>
-					</p>
-				),
-			});
-			return;
-		}
 
 		toastMaster({
 			type: "loading",
@@ -161,17 +145,26 @@ const Comment = ({ fig }) => {
 							</div>
 						</div>
 						<div className="flex justify-end w-full">
-							<input
-								type="submit"
-								value="Submit"
-								className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
-								disabled={loading === true}
-							/>
+							{user && (
+								<input
+									type="submit"
+									value="Submit"
+									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+									disabled={loading === true}
+								/>
+							)}
+							{!user && (
+								<Link
+									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+									to="/auth/login"
+								>
+									Login to comment
+								</Link>
+							)}
 						</div>
 					</form>
 				</div>
 			</section>
-
 			<div className="flex flex-col max-w-5xl mt-8">
 				{comments.length === 0 ? (
 					<div className="flex flex-col items-center justify-center my-10">
