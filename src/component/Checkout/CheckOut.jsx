@@ -81,7 +81,7 @@ const CheckOut = () => {
 					</div>
 				)}
 			</div>
-			<div>{totalPrice.toFixed(2)}</div>
+			<div>{totalFigPrice.toFixed(2)}</div>
 		</div>
 	);
 };
