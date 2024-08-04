@@ -66,6 +66,7 @@ const ButtonComponent = ({ fig }) => {
 								<Link
 									className="flex justify-between w-full font-serif text-base font-bold text-white"
 									to="/checkout"
+									onClick={() => addFigToCart(id, name, images[0], price, link)}
 								>
 									<div className="flex flex-col justify-center">
 										<p>{label} Figure</p>
@@ -81,7 +82,10 @@ const ButtonComponent = ({ fig }) => {
 									</div>
 								</Link>
 							) : label === "Coming Soon" ? (
-								<Link className="flex justify-between w-full font-serif text-base font-bold text-white">
+								<Link
+									className="flex justify-between w-full font-serif text-base font-bold text-white"
+									onClick={() => addFigToCart(id, name, images[0], price, link)}
+								>
 									<div className="flex flex-col justify-center">
 										<p>Pre-Order Now</p>
 										<p className="text-xs font-normal text-white">Will ship on release</p>

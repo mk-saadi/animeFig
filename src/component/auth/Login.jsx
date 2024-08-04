@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import useTitle from "../hooks/useWebTitle";
 import Button from "../hooks/Button";
@@ -18,40 +18,26 @@ const Login = () => {
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
+		const { email, password } = event.target.elements;
 
-		const form = event.target;
-		const email = form.email.value;
-		const password = form.password.value;
-
-		if (email === "") {
+		if (password.value.length < 6) {
 			toastMaster({
-				transition: "down",
-				type: "error",
-				message: "kindly enter your email!",
-				bg: "white",
-			});
-			return;
-		}
-		if (password.length < 6) {
-			return toastMaster({
 				transition: "down",
 				type: "error",
 				message: "password must be at least 6 characters long!",
 				bg: "white",
 			});
+			return;
 		}
 
-		toastMaster({
-			transition: "down",
-			type: "loading",
-			message: "Logging in...",
-			bg: "white",
-		});
-
 		try {
-			const res = await signIn(email, password);
-			const user = res.user;
-
+			toastMaster({
+				transition: "down",
+				type: "loading",
+				message: "Logging in...",
+				bg: "white",
+			});
+			const { user } = await signIn(email.value, password.value);
 			const savedLocation = JSON.parse(sessionStorage.getItem("previousLocation"));
 			const destination = savedLocation?.pathname || "/";
 			navigate(destination, { replace: true });
@@ -65,14 +51,14 @@ const Login = () => {
 					bg: "white",
 				});
 			}
-		} catch (error) {
+		} catch {
 			toastMaster({
 				transition: "down",
 				type: "error",
 				message: "Login Failed",
 				bg: "white",
 			});
-			form.reset();
+			event.target.reset();
 		}
 	};
 

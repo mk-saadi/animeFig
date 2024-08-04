@@ -1,0 +1,24 @@
+[
+	{
+		"figName": "Shinobu Oshino 1/8 Scale (Good Smile Company)",
+		"figImg": [
+			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FMonogatari%2F18bb0a0c59a4865acd7b6e789f6b8c09.webp?alt=media&token=22477dcf-5b4b-4225-bf23-6348884fc75d"
+		],
+		"figId": "66a48d76f330ef6fcf2d2bb0",
+		"figPrice": 80.45,
+		"figLink": "shinobu-oshino-18-scale-good-smile-company",
+		"quantity": 1,
+		"totalPrice": 80.45
+	},
+	{
+		"figName": "Blue Archive - Sorasaki Hina - 1/7 (B'full)",
+		"figImg": [
+			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FBlue%20Archive%2F2898232.jpeg?alt=media&token=94ca9fef-b1fe-4021-8b44-844e5f906734"
+		],
+		"figId": "66a3c1fb07f05bd4b5af6068",
+		"figPrice": 270.55,
+		"figLink": "blue-archive-sorasaki-hina-17-bfull",
+		"quantity": 1,
+		"totalPrice": 270.55
+	}
+]

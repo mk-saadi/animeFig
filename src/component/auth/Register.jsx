@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import { storage } from "../../firebase/firebase.config";
 import useTitle from "../hooks/useWebTitle";
