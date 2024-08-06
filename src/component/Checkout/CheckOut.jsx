@@ -3,7 +3,7 @@ import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
 
 const CheckOut = () => {
-	const { cartItems, increaseQuantity, decreaseQuantity, totalPrice, removeFromCart } = useCart();
+	const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
 
 	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
 
