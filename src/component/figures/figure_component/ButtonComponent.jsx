@@ -84,6 +84,7 @@ const ButtonComponent = ({ fig }) => {
 							) : label === "Coming Soon" ? (
 								<Link
 									className="flex justify-between w-full font-serif text-base font-bold text-white"
+									to="/checkout"
 									onClick={() => addFigToCart(id, name, images[0], price, link)}
 								>
 									<div className="flex flex-col justify-center">
@@ -149,7 +150,7 @@ const ButtonComponent = ({ fig }) => {
 										size={24}
 										strokeWidth={2.5}
 									/>
-									{isItemInCart(fig?._id) ? "Added" : "Add to cart"}
+									{isItemInCart(id) ? "Added" : "Add to cart"}
 								</button>
 							) : label === "Coming Soon" ? (
 								<div className="flex justify-between w-full font-serif text-base font-bold text-white">
