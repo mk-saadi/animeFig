@@ -174,10 +174,21 @@ const Comment = ({ fig }) => {
 							/>
 							<div>
 								<p className="text-base text-kala">Be the first to write a comment</p>
-								<p className="text-sm text-ash">
+								<p className="mt-2 text-sm text-ash">
 									Get <span className="text-laal">30 points</span> for your published
-									comment
+									comment.
 								</p>
+								{!user && (
+									<p className="text-sm text-ash">
+										Click here to{" "}
+										<Link
+											to="/auth/login"
+											className="text-laal hover:underline"
+										>
+											Login
+										</Link>
+									</p>
+								)}
 							</div>
 						</div>
 					</div>
