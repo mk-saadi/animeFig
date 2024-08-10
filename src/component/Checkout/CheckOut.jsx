@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const CheckOut = () => {
 	const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
 	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
+	console.log("cartItemsWithoutComingSoon: ", cartItemsWithoutComingSoon);
 
 	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
 
@@ -20,7 +21,7 @@ const CheckOut = () => {
 						<h2 className="text-2xl font-medium text-kala">Shopping Cart</h2>
 					</div>
 					<div className="flex flex-col items-center justify-center gap-y-3">
-						{cartItemsWithoutComingSoon && (
+						{cartItemsWithoutComingSoon.length > 0 && (
 							<div className="px-4 py-2 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
 								<Info size={17} />
 								<p className="text-sm">
@@ -42,13 +43,13 @@ const CheckOut = () => {
 						)}
 					</div>
 				</div>
-				<div className="flex flex-row mt-8">
-					<div>
-						{cartItems.length === 0 && (
+				<div className="grid justify-between grid-cols-4 mt-8">
+					{cartItems.length === 0 && (
+						<div className="flex flex-col col-span-3">
 							<h2 className="text-lg font-medium text-ash">Cart is empty.</h2>
-						)}
-					</div>
-					<div>
+						</div>
+					)}
+					<div className="flex flex-col col-span-3">
 						{cartItems.length > 0 && (
 							<div className="flex flex-1 px-4 my-4 bg-white">
 								<div className="flex flex-col gap-y-2.5">
@@ -60,7 +61,7 @@ const CheckOut = () => {
 											<div className="flex h-full items-start gap-x-1.5 justify-start">
 												<Link
 													to={`/collections/${item.figLink}`}
-													className="flex-shrink-0 w-24 overflow-hidden rounded-md h-28"
+													className="flex-shrink-0 h-32 overflow-hidden rounded-md w-28"
 												>
 													<img
 														src={item.figImg}
@@ -69,51 +70,59 @@ const CheckOut = () => {
 												</Link>
 												<div className="flex flex-col h-full py-1.5">
 													<div className="flex flex-col flex-1 gap-y-1">
+														<p className="px-2 py-[2px] text-xs text-white rounded-sm w-fit bg-blue-500">
+															{item?.figLabel}
+														</p>
 														<Link
 															to={`/collections/${item.figLink}`}
-															className="text-base hover:underline line-clamp-1 text-ash"
+															className="text-base border hover:underline text-kala"
 														>
 															{item.figName}
 														</Link>
-														<p className="text-sm text-ash/80">
-															${item.figPrice}
-														</p>
 													</div>
-													<div className="flex items-center gap-x-2">
-														<div className="flex items-center gap-x-2">
+													{/* quantity and delete section */}
+													<div className="flex items-center gap-x-2.5 justify-start">
+														<div className="flex items-center border rounded-md w-fit gap-x-2">
+															<div className="flex py-1.5 items-center divide-x-[1px] text-ash">
+																<button
+																	onClick={() =>
+																		decreaseQuantity(
+																			item.figId,
+																			item.figPrice
+																		)
+																	}
+																	className="px-3 duration-300 rounded-md focus:outline-0 hover:text-laal text-ash"
+																>
+																	-
+																</button>
+																<p className="px-4">{item.quantity}</p>
+																<button
+																	className="px-3 duration-300 rounded-md focus:outline-0 hover:text-laal text-ash"
+																	onClick={() =>
+																		increaseQuantity(
+																			item.figId,
+																			item.figPrice
+																		)
+																	}
+																>
+																	+
+																</button>
+															</div>
+														</div>
+														<div>
 															<button
-																onClick={() =>
-																	decreaseQuantity(
-																		item.figId,
-																		item.figPrice
-																	)
-																}
+																className="p-3 duration-300 rounded-md hover:text-laal text-ash"
+																onClick={() => handleRemove(item.figId)}
+																title="Remove from cart"
 															>
-																-
-															</button>
-															<p>{item.quantity}</p>
-															<button
-																onClick={() =>
-																	increaseQuantity(
-																		item.figId,
-																		item.figPrice
-																	)
-																}
-															>
-																+
+																<Trash2 size={20} />
 															</button>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div className="">
-												<button
-													className="p-2 duration-300 rounded-md hover:text-laal text-ash bg-ash/5 hover:bg-ash/10"
-													onClick={() => handleRemove(item.figId)}
-													title="Remove from cart"
-												>
-													<Trash2 size={24} />
-												</button>
+												<p className="text-sm text-ash/80">${item.figPrice}</p>
 											</div>
 										</div>
 									))}
@@ -121,7 +130,13 @@ const CheckOut = () => {
 							</div>
 						)}
 					</div>
-					<div>{totalFigPrice.toFixed(2)}</div>
+					{/* section 2 */}
+					<div className="w-full col-span-1 border">
+						<div className="flex items-center justify-between">
+							<p>Subtotal</p>
+							<p>{totalFigPrice.toFixed(2)}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</>
