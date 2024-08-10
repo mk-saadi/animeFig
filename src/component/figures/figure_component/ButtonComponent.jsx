@@ -20,12 +20,13 @@ const ButtonComponent = ({ fig }) => {
 		}
 	}, [offer, price, fig]);
 
-	const addFigToCart = (id, name, img, price, link) => {
+	const addFigToCart = (id, name, img, price, link, label) => {
 		const figName = name;
 		const figImg = img;
 		const figId = id;
 		const figPrice = price;
 		const figLink = link;
+		const figLabel = label;
 
 		const selectedFig = {
 			figName,
@@ -33,6 +34,7 @@ const ButtonComponent = ({ fig }) => {
 			figId,
 			figPrice,
 			figLink,
+			figLabel,
 		};
 
 		addToCart(selectedFig);
@@ -66,7 +68,7 @@ const ButtonComponent = ({ fig }) => {
 								<Link
 									className="flex justify-between w-full font-serif text-base font-bold text-white"
 									to="/checkout"
-									onClick={() => addFigToCart(id, name, images[0], price, link)}
+									onClick={() => addFigToCart(id, name, images[0], price, link, label)}
 								>
 									<div className="flex flex-col justify-center">
 										<p>{label} Figure</p>
@@ -85,7 +87,7 @@ const ButtonComponent = ({ fig }) => {
 								<Link
 									className="flex justify-between w-full font-serif text-base font-bold text-white"
 									to="/checkout"
-									onClick={() => addFigToCart(id, name, images[0], price, link)}
+									onClick={() => addFigToCart(id, name, images[0], price, link, label)}
 								>
 									<div className="flex flex-col justify-center">
 										<p>Pre-Order Now</p>
@@ -144,7 +146,7 @@ const ButtonComponent = ({ fig }) => {
 							label === "Re-Release" ? (
 								<button
 									className="flex focus:outline-0 justify-center gap-x-1.5 w-full font-serif text-lg h-full font-semibold items-center text-white"
-									onClick={() => addFigToCart(id, name, images[0], price, link)}
+									onClick={() => addFigToCart(id, name, images[0], price, link, label)}
 								>
 									<ShoppingCart
 										size={24}

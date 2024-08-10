@@ -8,12 +8,13 @@ import { Fade, Slide } from "react-awesome-reveal";
 const Products = ({ fig, isLoading }) => {
 	const { addToCart, isItemInCart } = useCart();
 
-	const addFigToCart = (id, name, img, price, link) => {
+	const addFigToCart = (id, name, img, price, link, label) => {
 		const figName = name;
 		const figImg = img;
 		const figId = id;
 		const figPrice = price;
 		const figLink = link;
+		const figLabel = label;
 
 		const selectedFig = {
 			figName,
@@ -21,6 +22,7 @@ const Products = ({ fig, isLoading }) => {
 			figId,
 			figPrice,
 			figLink,
+			figLabel,
 		};
 
 		addToCart(selectedFig);
@@ -119,7 +121,14 @@ const Products = ({ fig, isLoading }) => {
 								<span
 									className="text-sm"
 									onClick={() =>
-										addFigToCart(fig?._id, fig?.name, fig?.images, fig?.price, fig?.link)
+										addFigToCart(
+											fig?._id,
+											fig?.name,
+											fig?.images,
+											fig?.price,
+											fig?.link,
+											fig?.label
+										)
 									}
 								>
 									{isItemInCart(fig?._id) ? "Added" : "Add to cart"}
