@@ -75,7 +75,7 @@ const CheckOut = () => {
 														</p>
 														<Link
 															to={`/collections/${item.figLink}`}
-															className="text-base border hover:underline text-kala"
+															className="text-base hover:underline text-kala"
 														>
 															{item.figName}
 														</Link>
@@ -132,9 +132,22 @@ const CheckOut = () => {
 					</div>
 					{/* section 2 */}
 					<div className="w-full col-span-1 border">
-						<div className="flex items-center justify-between">
+						<div className="flex items-center justify-between text-2xl font-semibold text-kala">
 							<p>Subtotal</p>
-							<p>{totalFigPrice.toFixed(2)}</p>
+							<p>${totalFigPrice.toFixed(2)}</p>
+						</div>
+						<div className="">
+							<input
+								type="checkbox"
+								name=""
+								id="taxes"
+							/>
+							<label
+								htmlFor="taxes"
+								className="ml-2 text-sm"
+							>
+								I am aware of potential import taxes. Keep the invoice value at 100%
+							</label>
 						</div>
 					</div>
 				</div>
