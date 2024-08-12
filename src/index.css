@@ -66,3 +66,52 @@ body {
 	position: -webkit-sticky;
 	position: sticky;
 }
+
+/* Container for the checkbox and label */
+.checkbox-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+/* Hide the default checkbox */
+.checkbox-input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkbox-label {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	background-color: #fff;
+	border: 1px solid #3b82f6;
+	border-radius: 4px;
+	display: inline-block;
+	transition: background-color 0.2s ease-in-out;
+	margin-right: 10px;
+}
+
+/* Checkmark (the box is checked) */
+.checkbox-label::after {
+	content: "";
+	position: absolute;
+	display: none;
+	left: 6px;
+	top: 3px;
+	width: 5px;
+	height: 10px;
+	border: solid #3b82f6;
+	border-width: 0 3px 3px 0;
+	transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.checkbox-input:checked + .checkbox-label::after {
+	display: block;
+}
+/* Additional hover effect */
+.checkbox-wrapper:hover .checkbox-label {
+	background-color: #f1f1f1;
+}

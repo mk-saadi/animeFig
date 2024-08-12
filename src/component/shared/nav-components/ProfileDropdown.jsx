@@ -44,7 +44,7 @@ const ProfileDropdown = ({ user, handleLogOut, isScrolled, toggleDrawer, isOpenC
 						onMouseEnter={() => setIsOpenMenu(true)}
 						onMouseLeave={() => setIsOpenMenu(false)}
 					>
-						<div className="w-full mt-3 bg-white border border-gray-300 divide-y rounded-md shadow-lg divide-gray-200/70 h-fit">
+						<div className="w-full mt-3 bg-white border divide-y rounded-md shadow-lg border-dhusor divide-gray-200/70 h-fit">
 							{user && (
 								<div className="overflow-hidden ">
 									<p className="block px-4 py-2 text-sm text-gray-700">

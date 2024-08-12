@@ -89,7 +89,10 @@ const InfoComponent = ({ fig }) => {
 			{/* shipping */}
 			<div className="flex flex-col items-start justify-start px-8 py-4 border rounded-md gap-y-5 border-ash/20 text-ash">
 				<div>
-					<h3 className="text-lg font-medium text-kala">Worldwide Shipping</h3>
+					<h3 className="flex items-center justify-center text-lg font-medium gap-x-2 text-kala">
+						<div className="w-7 h-1 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+						Worldwide Shipping
+					</h3>
 				</div>
 				<div className="flex items-center justify-between w-full">
 					<div className="flex items-center justify-start gap-x-4">

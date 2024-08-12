@@ -128,7 +128,8 @@ const FiguresD = () => {
 					<div className="flex flex-col w-full min-h-screen my-20 overflow-x-hidden gap-y-10">
 						{simCharacters.length > 0 && (
 							<div className="w-full">
-								<h2 className="mb-6 text-2xl font-medium text-center text-kala">
+								<h2 className="mb-6 text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+									<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 									More from {fig.character}
 								</h2>
 								<ProductSlider
@@ -139,7 +140,8 @@ const FiguresD = () => {
 						)}
 						{simSeries.length > 0 && (
 							<div className="w-full">
-								<h2 className="mb-6 text-2xl font-medium text-center text-kala">
+								<h2 className="mb-6 text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+									<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 									More from {fig.series}
 								</h2>
 								<ProductSlider

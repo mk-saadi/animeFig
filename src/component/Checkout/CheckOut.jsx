@@ -1,4 +1,4 @@
-import { Info, Trash2 } from "lucide-react";
+import { Info, ShieldCheck, Trash2 } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
 
@@ -18,7 +18,10 @@ const CheckOut = () => {
 			<div>
 				<div className="flex flex-col items-center justify-center">
 					<div className="mb-[1rem]">
-						<h2 className="text-2xl font-medium text-kala">Shopping Cart</h2>
+						<h2 className="text-2xl flex justify-center items-center gap-x-2.5 font-medium text-kala">
+							<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+							Shopping Cart
+						</h2>
 					</div>
 					<div className="flex flex-col items-center justify-center gap-y-3">
 						{cartItemsWithoutComingSoon.length > 0 && (
@@ -52,11 +55,11 @@ const CheckOut = () => {
 					<div className="flex flex-col col-span-3">
 						{cartItems.length > 0 && (
 							<div className="flex flex-1 px-4 my-4 bg-white">
-								<div className="flex flex-col gap-y-2.5">
+								<div className="flex flex-col divide-y-[1px] divide-dhusor/70">
 									{cartItems.map((item) => (
 										<div
 											key={item.figId}
-											className="flex items-center justify-between gap-x-4"
+											className="flex items-center py-2.5 justify-between gap-x-4"
 										>
 											<div className="flex h-full items-start gap-x-1.5 justify-start">
 												<Link
@@ -121,8 +124,11 @@ const CheckOut = () => {
 													</div>
 												</div>
 											</div>
-											<div className="">
-												<p className="text-sm text-ash/80">${item.figPrice}</p>
+											<div className="mr-10">
+												<p className="text-base text-kala">
+													<span className="text-lg">$</span>
+													{item.figPrice}
+												</p>
 											</div>
 										</div>
 									))}
@@ -131,22 +137,72 @@ const CheckOut = () => {
 						)}
 					</div>
 					{/* section 2 */}
-					<div className="w-full col-span-1 border">
+					<div className="w-full col-span-1">
+						<div className="flex items-center justify-between">
+							<div className="flex items-center justify-start">
+								<div className="text-blue-500">
+									<ShieldCheck />
+								</div>
+								<div className="">
+									<p className="ml-2 text-xs text-kala">Shipping protection</p>
+									<p className="ml-2 text-[10px] text-ash">
+										from Damage, Loss & Theft for $80.30
+									</p>
+								</div>
+							</div>
+							<div className="checkbox-wrapper">
+								<input
+									type="checkbox"
+									id="styledCheckbox"
+									className="checkbox-input"
+								/>
+								<label
+									htmlFor="styledCheckbox"
+									className="checkbox-label"
+								></label>
+							</div>
+						</div>
 						<div className="flex items-center justify-between text-2xl font-semibold text-kala">
 							<p>Subtotal</p>
-							<p>${totalFigPrice.toFixed(2)}</p>
+							<p>
+								<span className="text-3xl">$</span>
+								{totalFigPrice.toFixed(2)}
+							</p>
 						</div>
 						<div className="">
 							<input
 								type="checkbox"
 								name=""
 								id="taxes"
+								className="checkbox-input"
 							/>
+							<label
+								htmlFor="styledCheckbox"
+								className="checkbox-label"
+							></label>
 							<label
 								htmlFor="taxes"
 								className="ml-2 text-sm"
 							>
 								I am aware of potential import taxes. Keep the invoice value at 100%
+							</label>
+						</div>
+						<div className="">
+							<input
+								type="checkbox"
+								name=""
+								id="gift"
+								className="checkbox-input"
+							/>
+							<label
+								htmlFor="styledCheckbox"
+								className="checkbox-label"
+							></label>
+							<label
+								htmlFor="gift"
+								className="ml-2 text-sm"
+							>
+								Mark as gift
 							</label>
 						</div>
 					</div>
