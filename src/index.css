@@ -67,6 +67,7 @@ body {
 	position: sticky;
 }
 
+/* Custom checkbox styles */
 /* Container for the checkbox and label */
 .checkbox-wrapper {
 	display: flex;

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const CheckOut = () => {
 	const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
 	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
-	console.log("cartItemsWithoutComingSoon: ", cartItemsWithoutComingSoon);
 
 	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
 
@@ -137,8 +136,8 @@ const CheckOut = () => {
 						)}
 					</div>
 					{/* section 2 */}
-					<div className="w-full col-span-1">
-						<div className="flex items-center justify-between">
+					<div className="w-full col-span-1 mt-2.5">
+						<div className="flex items-center justify-between mb-3">
 							<div className="flex items-center justify-start">
 								<div className="text-blue-500">
 									<ShieldCheck />
@@ -146,7 +145,8 @@ const CheckOut = () => {
 								<div className="">
 									<p className="ml-2 text-xs text-kala">Shipping protection</p>
 									<p className="ml-2 text-[10px] text-ash">
-										from Damage, Loss & Theft for $80.30
+										from Damage, Loss & Theft for{" "}
+										<span className="text-kala text-[10.5px] font-medium">$80.30</span>
 									</p>
 								</div>
 							</div>
@@ -170,7 +170,7 @@ const CheckOut = () => {
 							</p>
 						</div>
 						<div className="">
-							<input
+							{/* <input
 								type="checkbox"
 								name=""
 								id="taxes"
@@ -182,10 +182,25 @@ const CheckOut = () => {
 							></label>
 							<label
 								htmlFor="taxes"
-								className="ml-2 text-sm"
+								className="text-sm border"
 							>
 								I am aware of potential import taxes. Keep the invoice value at 100%
-							</label>
+							</label> */}
+							<div className="">
+								<input
+									type="checkbox"
+									className="p-0 m-0 rounded-md checkbox border-dhusor checkbox-sm"
+									id="taxes"
+								/>
+								<label
+									className="border cursor-pointer"
+									htmlFor="taxes"
+								>
+									<span className="label-text">
+										I am aware of potential import taxes. Keep the invoice value at 100%
+									</span>
+								</label>
+							</div>
 						</div>
 						<div className="">
 							<input
@@ -204,6 +219,14 @@ const CheckOut = () => {
 							>
 								Mark as gift
 							</label>
+						</div>
+						<div>
+							<Link
+								to="/payment"
+								className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+							>
+								Checkout
+							</Link>
 						</div>
 					</div>
 				</div>
