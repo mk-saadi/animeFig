@@ -1,8 +1,11 @@
 import { Info, ShieldCheck, Trash2 } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 const CheckOut = () => {
+	const { user } = useContext(AuthContext);
 	const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
 	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
 
@@ -221,12 +224,22 @@ const CheckOut = () => {
 							</label>
 						</div>
 						<div>
-							<Link
-								to="/payment"
-								className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
-							>
-								Checkout
-							</Link>
+							{user && (
+								<Link
+									to="/payment"
+									className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+								>
+									Checkout
+								</Link>
+							)}
+							{!user && (
+								<Link
+									to="/auth/login"
+									className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+								>
+									Checkout
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>
