@@ -192,11 +192,11 @@ const CheckOut = () => {
 							<div className="">
 								<input
 									type="checkbox"
-									className="p-0 m-0 rounded-md checkbox border-dhusor checkbox-sm"
+									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
 									id="taxes"
 								/>
 								<label
-									className="border cursor-pointer"
+									className="ml-2 cursor-pointer"
 									htmlFor="taxes"
 								>
 									<span className="label-text">
@@ -206,7 +206,7 @@ const CheckOut = () => {
 							</div>
 						</div>
 						<div className="">
-							<input
+							{/* <input
 								type="checkbox"
 								name=""
 								id="gift"
@@ -221,7 +221,20 @@ const CheckOut = () => {
 								className="ml-2 text-sm"
 							>
 								Mark as gift
-							</label>
+							</label> */}
+							<div className="">
+								<input
+									type="checkbox"
+									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
+									id="gift"
+								/>
+								<label
+									className="ml-2 cursor-pointer"
+									htmlFor="gift"
+								>
+									<span className="label-text">Mark as gift</span>
+								</label>
+							</div>
 						</div>
 						<div>
 							{user && (
@@ -229,7 +242,7 @@ const CheckOut = () => {
 									to="/payment"
 									className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
 								>
-									Checkout
+									Proceed to Checkout
 								</Link>
 							)}
 							{!user && (
@@ -237,7 +250,7 @@ const CheckOut = () => {
 									to="/auth/login"
 									className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
 								>
-									Checkout
+									Proceed to Checkout
 								</Link>
 							)}
 						</div>
