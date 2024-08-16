@@ -126,7 +126,7 @@ const Cart = () => {
 													<p className="text-sm text-ash/80">${item.figPrice}</p>
 												</div>
 												<p className="flex items-center justify-start text-ash gap-x-3">
-													Quantity 1
+													Quantity {item.quantity}
 												</p>
 											</div>
 										</div>

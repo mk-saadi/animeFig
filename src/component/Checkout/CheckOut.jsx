@@ -153,7 +153,7 @@ const CheckOut = () => {
 									</p>
 								</div>
 							</div>
-							<div className="checkbox-wrapper">
+							{/* <div className="checkbox-wrapper">
 								<input
 									type="checkbox"
 									id="styledCheckbox"
@@ -163,6 +163,13 @@ const CheckOut = () => {
 									htmlFor="styledCheckbox"
 									className="checkbox-label"
 								></label>
+							</div> */}
+							<div className="">
+								<input
+									type="checkbox"
+									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
+									id="protection"
+								/>
 							</div>
 						</div>
 						<div className="flex items-center justify-between text-2xl font-semibold text-kala">
