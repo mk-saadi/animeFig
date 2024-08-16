@@ -174,7 +174,7 @@ const Comment = ({ fig }) => {
 							/>
 							<div>
 								<p className="text-base text-kala">Be the first to write a comment</p>
-								<p className="mt-2 text-sm text-ash">
+								<p className={`text-sm text-ash ${user ? "mt-0" : "mt-2"}`}>
 									Get <span className="text-laal">30 points</span> for your published
 									comment.
 								</p>

@@ -1,4 +1,4 @@
-import { Info, ShieldCheck, Trash2 } from "lucide-react";
+import { Info, PlusIcon, ShieldCheck, Trash2 } from "lucide-react";
 import { useCart } from "../provider/CartProvider";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -146,24 +146,13 @@ const CheckOut = () => {
 									<ShieldCheck />
 								</div>
 								<div className="">
-									<p className="ml-2 text-xs text-kala">Shipping protection</p>
-									<p className="ml-2 text-[10px] text-ash">
+									<p className="ml-2 text-sm text-kala">Shipping protection</p>
+									<p className="ml-2 text-[12px] text-ash">
 										from Damage, Loss & Theft for{" "}
-										<span className="text-kala text-[10.5px] font-medium">$80.30</span>
+										<span className="text-xs font-medium text-kala">$80.30</span>
 									</p>
 								</div>
 							</div>
-							{/* <div className="checkbox-wrapper">
-								<input
-									type="checkbox"
-									id="styledCheckbox"
-									className="checkbox-input"
-								/>
-								<label
-									htmlFor="styledCheckbox"
-									className="checkbox-label"
-								></label>
-							</div> */}
 							<div className="">
 								<input
 									type="checkbox"
@@ -179,68 +168,40 @@ const CheckOut = () => {
 								{totalFigPrice.toFixed(2)}
 							</p>
 						</div>
-						<div className="">
-							{/* <input
-								type="checkbox"
-								name=""
-								id="taxes"
-								className="checkbox-input"
-							/>
-							<label
-								htmlFor="styledCheckbox"
-								className="checkbox-label"
-							></label>
-							<label
-								htmlFor="taxes"
-								className="text-sm border"
-							>
-								I am aware of potential import taxes. Keep the invoice value at 100%
-							</label> */}
+						{/* check-marks section */}
+						<div className="flex flex-col items-start my-3 gap-y-2">
 							<div className="">
-								<input
-									type="checkbox"
-									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
-									id="taxes"
-								/>
-								<label
-									className="ml-2 cursor-pointer"
-									htmlFor="taxes"
-								>
-									<span className="label-text">
-										I am aware of potential import taxes. Keep the invoice value at 100%
-									</span>
-								</label>
+								<div className="">
+									<input
+										type="checkbox"
+										className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
+										id="taxes"
+									/>
+									<label
+										className="ml-2 cursor-pointer"
+										htmlFor="taxes"
+									>
+										<span className="text-sm label-text text-ash">
+											I am aware of potential import taxes. Keep the invoice value at
+											100%
+										</span>
+									</label>
+								</div>
 							</div>
-						</div>
-						<div className="">
-							{/* <input
-								type="checkbox"
-								name=""
-								id="gift"
-								className="checkbox-input"
-							/>
-							<label
-								htmlFor="styledCheckbox"
-								className="checkbox-label"
-							></label>
-							<label
-								htmlFor="gift"
-								className="ml-2 text-sm"
-							>
-								Mark as gift
-							</label> */}
 							<div className="">
-								<input
-									type="checkbox"
-									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
-									id="gift"
-								/>
-								<label
-									className="ml-2 cursor-pointer"
-									htmlFor="gift"
-								>
-									<span className="label-text">Mark as gift</span>
-								</label>
+								<div className="">
+									<input
+										type="checkbox"
+										className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
+										id="gift"
+									/>
+									<label
+										className="ml-2 cursor-pointer"
+										htmlFor="gift"
+									>
+										<span className="text-sm text-ash label-text">Mark as gift</span>
+									</label>
+								</div>
 							</div>
 						</div>
 						<div>
@@ -261,6 +222,17 @@ const CheckOut = () => {
 								</Link>
 							)}
 						</div>
+						<div className="flex flex-col mt-4 gap-y-2 text-ash">
+							<p className="flex items-center justify-start text-sm duration-300 cursor-pointer gap-x-2 hover:text-laal">
+								<PlusIcon size={18} /> Leave a note about your order
+							</p>
+							<p className="mt-2 text-sm">
+								By placing an order, you agree to our{" "}
+								<span className="underline cursor-pointer hover:text-laal">
+									terms and conditions
+								</span>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -269,3 +241,22 @@ const CheckOut = () => {
 };
 
 export default CheckOut;
+
+{
+	/* <input
+	type="checkbox"
+	name=""
+	id="gift"
+	className="checkbox-input"
+/>
+<label
+	htmlFor="styledCheckbox"
+	className="checkbox-label"
+></label>
+<label
+	htmlFor="gift"
+	className="ml-2 text-sm"
+>
+	Mark as gift
+</label> */
+}
