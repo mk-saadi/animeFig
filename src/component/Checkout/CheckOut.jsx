@@ -7,9 +7,9 @@ import { AuthContext } from "../provider/AuthProvider";
 const CheckOut = () => {
 	const { user } = useContext(AuthContext);
 	const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
-	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
-
 	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
+
+	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
 
 	const handleRemove = (productId) => {
 		removeFromCart(productId);
