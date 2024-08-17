@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 
 const SecondSec = ({
 	user,
-	protectionCost,
+	// protectionCost,
 	totalFigPrice,
-	handleProtectionChange,
-	isProtectionChecked,
-	finalTotalPrice,
+	// handleProtectionChange,
+	// isProtectionChecked,
+	// finalTotalPrice,
+	toggleProtectionFee,
+	includeProtectionFee,
+	shippingCost,
+	grandTotal,
+	totalPrice,
 }) => {
 	return (
 		<>
@@ -27,25 +32,36 @@ const SecondSec = ({
 						</div>
 					</div>
 					<div className="">
-						<input
+						{/* <input
 							type="checkbox"
 							className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
 							id="protection"
 							onChange={handleProtectionChange}
 							checked={isProtectionChecked}
+						/> */}{" "}
+						<input
+							type="checkbox"
+							className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
+							id="protection"
+							checked={includeProtectionFee}
+							onChange={toggleProtectionFee}
 						/>
 					</div>
 				</div>
-				<div className="text-base text-kala">
-					<p>Subtotal: ${totalFigPrice.toFixed(2)}</p>
-					<p>Shipping cost: $17.30</p>
-					<p>Protection Cost: ${protectionCost.toFixed(2)}</p>
+				<div className="text-sm text-kala">
+					{/* <p>Subtotal: ${totalFigPrice.toFixed(2)}</p> */}
+					<p>Protection Cost: $80.30</p>
+
+					<p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
+
+					<p>sub Total: ${totalPrice.toFixed(2)}</p>
 				</div>
 				<div className="flex items-center justify-between text-2xl font-semibold text-kala">
 					<p>Grand Total</p>
 					<p>
 						<span className="text-3xl">$</span>
-						{finalTotalPrice.toFixed(2)}
+						{/* {finalTotalPrice.toFixed(2)} */}
+						{grandTotal.toFixed(2)}
 					</p>
 				</div>
 				{/* check-marks section */}
@@ -117,7 +133,7 @@ const SecondSec = ({
 
 					{/* <p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
 					<p>Protection Cost: ${protectionCost.toFixed(2)}</p> */}
-					<p>Grand Total: ${finalTotalPrice.toFixed(2)}</p>
+					{/* <p>Grand Total: ${finalTotalPrice.toFixed(2)}</p> */}
 				</div>
 			</div>
 		</>
