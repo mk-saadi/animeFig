@@ -303,13 +303,34 @@ const useCart = () => {
 		throw new Error("useCart must be used within a CartProvider");
 	}
 
-	const { cartItems, totalPrice, addToCart, increaseQuantity, decreaseQuantity } = context;
+	const {
+		cartItems,
+		totalPrice,
+		protectionCost,
+		shippingCost,
+		addToCart,
+		increaseQuantity,
+		decreaseQuantity,
+		removeFromCart,
+		toggleProtection,
+	} = context;
 
 	const isItemInCart = (figId) => {
 		return cartItems.some((item) => item.figId === figId);
 	};
 
-	return { ...context, isItemInCart, addToCart, increaseQuantity, decreaseQuantity, totalPrice };
+	return {
+		cartItems,
+		totalPrice,
+		protectionCost,
+		shippingCost,
+		addToCart,
+		increaseQuantity,
+		decreaseQuantity,
+		removeFromCart,
+		toggleProtection,
+		isItemInCart,
+	};
 };
 
 export { CartProvider, useCart };

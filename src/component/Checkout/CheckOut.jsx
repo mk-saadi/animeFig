@@ -57,6 +57,8 @@ const CheckOut = () => {
 							handleProtectionChange={handleProtectionChange}
 							isProtectionChecked={isProtectionChecked}
 							finalTotalPrice={finalTotalPrice}
+							totalFigPrice={totalFigPrice}
+							protectionCost={protectionCost}
 						/>
 					</>
 				</div>

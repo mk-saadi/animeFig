@@ -1,11 +1,19 @@
 import { PlusIcon, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const SecondSec = ({ user, handleProtectionChange, isProtectionChecked, finalTotalPrice }) => {
+const SecondSec = ({
+	user,
+	protectionCost,
+	totalFigPrice,
+	handleProtectionChange,
+	isProtectionChecked,
+	finalTotalPrice,
+}) => {
 	return (
 		<>
 			<div className="w-full col-span-1 mt-2.5">
-				<div className="flex items-center justify-between mb-3">
+				{/* shipping protection */}
+				<div className="flex items-center justify-between mb-2">
 					<div className="flex items-center justify-start">
 						<div className="text-blue-500">
 							<ShieldCheck />
@@ -28,8 +36,10 @@ const SecondSec = ({ user, handleProtectionChange, isProtectionChecked, finalTot
 						/>
 					</div>
 				</div>
-				<div className="text-sm text-ash">
+				<div className="text-base text-kala">
+					<p>Subtotal: ${totalFigPrice.toFixed(2)}</p>
 					<p>Shipping cost: $17.30</p>
+					<p>Protection Cost: ${protectionCost.toFixed(2)}</p>
 				</div>
 				<div className="flex items-center justify-between text-2xl font-semibold text-kala">
 					<p>Grand Total</p>
