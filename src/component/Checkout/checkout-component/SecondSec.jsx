@@ -18,7 +18,7 @@ const SecondSec = ({
 		<>
 			<div className="w-full col-span-1 mt-2.5">
 				{/* shipping protection */}
-				<div className="flex items-center justify-between mb-2">
+				<div className="flex items-center justify-between mb-1.5">
 					<div className="flex items-center justify-start">
 						<div className="text-blue-500">
 							<ShieldCheck />
@@ -31,14 +31,7 @@ const SecondSec = ({
 							</p>
 						</div>
 					</div>
-					<div className="">
-						{/* <input
-							type="checkbox"
-							className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
-							id="protection"
-							onChange={handleProtectionChange}
-							checked={isProtectionChecked}
-						/> */}{" "}
+					<>
 						<input
 							type="checkbox"
 							className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
@@ -46,17 +39,15 @@ const SecondSec = ({
 							checked={includeProtectionFee}
 							onChange={toggleProtectionFee}
 						/>
-					</div>
+					</>
 				</div>
 				<div className="text-sm text-kala">
-					{/* <p>Subtotal: ${totalFigPrice.toFixed(2)}</p> */}
-					<p>Protection Cost: $80.30</p>
-
-					<p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
-
-					<p>sub Total: ${totalPrice.toFixed(2)}</p>
+					<p>
+						Shipping Cost:{" "}
+						<span className="font-medium text-kala">${shippingCost.toFixed(2)}</span>
+					</p>
 				</div>
-				<div className="flex items-center justify-between text-2xl font-semibold text-kala">
+				<div className="flex items-center justify-between mt-2.5 text-2xl font-semibold text-kala">
 					<p>Grand Total</p>
 					<p>
 						<span className="text-3xl">$</span>
@@ -65,7 +56,7 @@ const SecondSec = ({
 					</p>
 				</div>
 				{/* check-marks section */}
-				<div className="flex flex-col items-start my-3 gap-y-2">
+				<div className="flex flex-col items-start my-3 gap-y-1.5">
 					<div className="">
 						<div className="">
 							<input
@@ -117,23 +108,14 @@ const SecondSec = ({
 						</Link>
 					)}
 				</div>
-				<div className="flex flex-col mt-4 gap-y-2 text-ash">
+				<div className="flex flex-col mt-4 gap-y-1.5 text-ash">
 					<p className="flex items-center justify-start text-sm duration-300 cursor-pointer gap-x-2 hover:text-laal">
 						<PlusIcon size={18} /> Leave a note about your order
 					</p>
-					<p className="mt-2 text-sm">
+					<p className="text-sm">
 						By placing an order, you agree to our{" "}
 						<span className="underline cursor-pointer hover:text-laal">terms and conditions</span>
 					</p>
-				</div>
-				<div>
-					{/* Cart items and other components */}
-
-					<label htmlFor="protection">Add Protection for $80.30</label>
-
-					{/* <p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
-					<p>Protection Cost: ${protectionCost.toFixed(2)}</p> */}
-					{/* <p>Grand Total: ${finalTotalPrice.toFixed(2)}</p> */}
 				</div>
 			</div>
 		</>

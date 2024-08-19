@@ -11,6 +11,7 @@ import AuthContainer from "../auth/AuthContainer";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import FiguresD from "../figures/FiguresD";
+import Payment from "../Checkout/checkout-component/Payment";
 
 const router = createBrowserRouter([
 	{
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
 	{
 		path: "/collections/:link",
 		element: <FiguresD />,
+	},
+	{
+		path: "/payment",
+		element: <Payment />,
 	},
 ]);
 
