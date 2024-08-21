@@ -1,24 +1,38 @@
+// animeFig
 [
 	{
-		"figName": "Shinobu Oshino 1/8 Scale (Good Smile Company)",
+		"figName": "Original - Ishimi Yokoyama - 1/7 - Black Bunny Ver. (Luminous Box)",
 		"figImg": [
-			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FMonogatari%2F18bb0a0c59a4865acd7b6e789f6b8c09.webp?alt=media&token=22477dcf-5b4b-4225-bf23-6348884fc75d"
+			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FOriginal%2Fdbd59cf6-9e54-11ee-ae96-5600040d5bd1.jpg?alt=media&token=b23520cb-476d-44de-aedb-aec8f8d943c9"
 		],
-		"figId": "66a48d76f330ef6fcf2d2bb0",
-		"figPrice": 80.45,
-		"figLink": "shinobu-oshino-18-scale-good-smile-company",
+		"figId": "66bfb2d96168468c954fcf87",
+		"figPrice": 156.92,
+		"figLink": "original-ishimi-yokoyama-17-black-bunny-ver-luminous-box",
+		"figLabel": "Brand New",
 		"quantity": 1,
-		"totalPrice": 80.45
+		"totalPrice": 156.92
 	},
 	{
-		"figName": "Blue Archive - Sorasaki Hina - 1/7 (B'full)",
+		"figName": "Chainsaw Man - Makima - B-style - 1/4 - Bunny Ver. (FREEing) [Shop Exclusive]",
 		"figImg": [
-			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FBlue%20Archive%2F2898232.jpeg?alt=media&token=94ca9fef-b1fe-4021-8b44-844e5f906734"
+			"https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FChainsaw%20Man%2F06f7c6e2-932b-11ed-95be-5600040d5bd1.webp?alt=media&token=7330b5d1-56fb-4455-8e85-e31fd2d294c6"
 		],
-		"figId": "66a3c1fb07f05bd4b5af6068",
-		"figPrice": 270.55,
-		"figLink": "blue-archive-sorasaki-hina-17-bfull",
+		"figId": "66bfddd86168468c954fcf89",
+		"figPrice": 288.78,
+		"figLink": "chainsaw-man-makima-b-style-14-bunny-ver-freeing-shop-exclusive",
+		"figLabel": "Brand New",
+		"quantity": 1,
+		"totalPrice": 288.78
+	},
+	{
+		"figName": "Original - Yokoyama Ishimi - 1/6 - Xia Ming Hui Xiang ver. (AniMester)",
+		"figImg": "https://firebasestorage.googleapis.com/v0/b/animefig-3626c.appspot.com/o/figures%2FOriginal%2F37f28266-3e9f-11ef-ae09-0242ac120005.webp?alt=media&token=533406dc-05c1-403f-ab1d-7878ffd4d519",
+		"figId": "66bfb3596168468c954fcf88",
+		"figPrice": 58.54,
+		"figLink": "original-yokoyama-ishimi-16-xia-ming-hui-xiang-ver-animester",
+		"figLabel": "Coming Soon",
 		"quantity": 2,
-		"totalPrice": 541.1
+		"totalPrice": 117.08
 	}
 ]
+// from assignment 12

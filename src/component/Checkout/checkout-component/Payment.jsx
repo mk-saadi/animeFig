@@ -36,16 +36,18 @@ const Payment = () => {
 
 			<div className="grid justify-between grid-cols-5 mx-12">
 				{/* section 1 */}
-				<Elements
-					stripe={stripePromise}
-					className="col-span-3"
-				>
-					<PaymentForm
-						grandTotal={grandTotal}
-						user={user}
-						cartItems={cartItems}
-					/>
-				</Elements>
+				<div className="col-span-3">
+					<Elements
+						stripe={stripePromise}
+						className="w-full"
+					>
+						<PaymentForm
+							grandTotal={grandTotal}
+							user={user}
+							cartItems={cartItems}
+						/>
+					</Elements>
+				</div>
 				{/* section 2 */}
 				<div className="col-span-2">
 					<div className="flex flex-col col-span-3">
