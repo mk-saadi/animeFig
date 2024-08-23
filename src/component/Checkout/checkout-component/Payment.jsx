@@ -1,7 +1,6 @@
 import { useCart } from "../../provider/CartProvider";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-// import CheckoutForm from "./PaymentForm";
 import PaymentForm from "./PaymentForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -21,17 +20,10 @@ const Payment = () => {
 		totalPrice,
 	} = useCart();
 
-	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-
 	return (
 		<div className="w-full overflow-x-hidden bg-white">
-			<div className="flex w-full border border-dhusor">
-				<h1
-					className={`flex-shrink-0 pb-2 text-gradient select-none flex font-sans flex-col leading-3 items-end`}
-				>
-					<h2 className="text-2xl font-extrabold">ANIME</h2>
-					<h3 className="text-lg font-extrabold leading-[8px]">FIG</h3>
-				</h1>
+			<div className="flex w-full px-8 py-3 border-b border-dhusor">
+				<h1 className="text-lg text-laal uppercase font-[900] font-serif">anime-Fig</h1>
 			</div>
 
 			<div className="grid justify-between min-h-screen grid-cols-5 mx-28">
@@ -51,6 +43,12 @@ const Payment = () => {
 							cartItems={cartItems}
 						/>
 					</Elements>
+					{/* footer section */}
+					<div className="flex border-t border-dhusor pt-2.5 mt-8 items-center text-sm font-normal justify-start gap-x-2.5">
+						<p className="underline cursor-pointer text-ash hover:text-laal">Refund policy</p>
+						<p className="underline cursor-pointer text-ash hover:text-laal">Privacy policy</p>
+						<p className="underline cursor-pointer text-ash hover:text-laal">Terms of service</p>
+					</div>
 				</div>
 				{/* section 2 */}
 				<div className="col-span-2 pt-12 pl-8">
@@ -101,9 +99,19 @@ const Payment = () => {
 								</div>
 							</div>
 						)}
-						<div>
-							<p>Shipping Protection: $80.30</p>
-							<p>Shipping Cost: $17.30</p>
+						<div className="flex border-t border-dhusor pt-2.5 flex-col gap-y-1.5 text-ash">
+							<div className="flex items-center justify-between">
+								<p>Shipping Protection:</p>
+								<p>$80.30</p>
+							</div>
+							<div className="flex items-center justify-between">
+								<p>Shipping Cost: </p>
+								<p>$17.30</p>
+							</div>
+							<div className="flex items-center justify-between text-lg font-medium text-kala">
+								<p>Grand Total:</p>
+								<p>${grandTotal.toFixed(2)}</p>
+							</div>
 						</div>
 					</div>
 				</div>

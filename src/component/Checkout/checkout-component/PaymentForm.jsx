@@ -3,6 +3,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
 import InputField from "../../hooks/InputField";
+import { CreditCard } from "lucide-react";
+import { Navigate } from "react-router-dom";
+
+const cardElementOptions = {
+	style: {
+		base: {
+			color: "#374151 ",
+			fontSize: "20px",
+			"::placeholder": {
+				color: "#9CA3AF",
+			},
+			backgroundColor: "transparent",
+			fontFamily: "Poppins",
+			fontWeight: "500",
+		},
+		invalid: {
+			color: "#e7230d",
+		},
+	},
+};
 
 const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 	const stripe = useStripe();
@@ -12,11 +32,6 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 	const [processing, setProcessing] = useState(false);
 	const [transaction, setTransaction] = useState("");
 	const { toastMaster } = useToast();
-
-	console.log(
-		"cartItems:",
-		cartItems.map((items) => items.figName)
-	);
 
 	useEffect(() => {
 		if (grandTotal > 0) {
@@ -31,6 +46,17 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const form = event.target;
+		const address = form.address.value;
+		const city = form.city.value;
+		const state = form.state.value;
+		const country = form.country.value;
+		const zip = form.zip.value;
+		const phone = form.phone.value;
+		const deliverName = form.name.value;
+		const deliverEmail = form.email.value;
+		const apartment = form.apartment.value;
 
 		if (!stripe || !elements) {
 			return;
@@ -82,6 +108,15 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				quantity: cartItems.length,
 				orderStatus: "Figures Ordered",
 				cartItems,
+				address,
+				city,
+				state,
+				country,
+				zip,
+				phone,
+				deliverName,
+				deliverEmail,
+				apartment,
 			};
 
 			axios.post(`${import.meta.env.VITE_URL}/payments/payments_history`, payment).then((res) => {
@@ -92,6 +127,7 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						bg: "white",
 						message: "You clicked the button!",
 					});
+					Navigate("/order_progress");
 				}
 			});
 		}
@@ -119,11 +155,11 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 								<input
 									type="checkbox"
 									className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
-									id="taxes"
+									id="news"
 								/>
 								<label
 									className="ml-2 cursor-pointer"
-									htmlFor="taxes"
+									htmlFor="news"
 								>
 									<span className="text-sm label-text text-ash">
 										Email me with news and offers
@@ -136,7 +172,11 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						<h3 className="mb-2 text-lg text-ash">Delivery</h3>
 						<div className="flex flex-col gap-y-5">
 							<>
-								<select className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-700/10 text-ash/70 focus:outline-none focus:ring-2 focus:ring-ash select">
+								<select
+									className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-700/10 text-ash/70 focus:outline-none focus:ring-2 focus:ring-ash select"
+									name="country"
+									required
+								>
 									<option
 										disabled
 										selected
@@ -155,8 +195,9 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 									type="name"
 									id="name"
 									name="name"
-									defaultValue={user?.DisplayName}
+									defaultValue={user?.displayName}
 									placeholder={"Your Name"}
+									required={true}
 								/>
 							</>
 							<>
@@ -165,13 +206,14 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 									id="address"
 									name="address"
 									placeholder={"Address"}
+									required={true}
 								/>
 							</>
 							<>
 								<InputField
 									type="text"
-									id="address"
-									name="address"
+									id="apartment"
+									name="apartment"
 									placeholder={"Apartment, suite, etc. (optional)"}
 								/>
 							</>
@@ -181,18 +223,21 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 									id="city"
 									name="city"
 									placeholder={"City"}
+									required={true}
 								/>
 								<InputField
 									type="text"
 									id="state"
 									name="state"
 									placeholder={"State"}
+									required={true}
 								/>
 								<InputField
 									type="text"
 									id="zip"
 									name="zip"
 									placeholder={"Zip Code"}
+									required={true}
 								/>
 							</div>
 							<div className="flex flex-col gap-y-2.5">
@@ -206,11 +251,11 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 									<input
 										type="checkbox"
 										className="-mb-1 rounded-md checkbox border-dhusor checkbox-sm"
-										id="taxes"
+										id="save"
 									/>
 									<label
 										className="ml-2 cursor-pointer"
-										htmlFor="taxes"
+										htmlFor="save"
 									>
 										<span className="text-sm label-text text-ash">
 											Save this information for next time
@@ -221,7 +266,10 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						</div>
 					</div>
 					<div className="flex flex-col gap-y-2.5">
-						<CardElement className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash" />
+						<CardElement
+							options={cardElementOptions}
+							className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-900/10 focus:outline-none focus:ring-2 focus:ring-ash"
+						/>
 						<div className="flex">
 							<input
 								type="checkbox"
@@ -245,9 +293,9 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						id="button"
 						type="submit"
 						disabled={!stripe || !clientSecret || processing}
-						className="flex items-center justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+						className="flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white bg-holud"
 					>
-						Pay Now
+						Pay Now <CreditCard />
 					</button>
 				</div>
 			</form>

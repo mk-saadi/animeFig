@@ -12,6 +12,7 @@ import Login from "../auth/Login";
 import Register from "../auth/Register";
 import FiguresD from "../figures/FiguresD";
 import Payment from "../Checkout/checkout-component/Payment";
+import OrderProcessing from "../dashboard/OrderProcessing";
 
 const router = createBrowserRouter([
 	{
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
 	{
 		path: "/payment",
 		element: <Payment />,
+	},
+	{
+		path: "/order_progress",
+		element: <OrderProcessing />,
 	},
 ]);
 

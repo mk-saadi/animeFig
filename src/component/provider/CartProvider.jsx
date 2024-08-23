@@ -88,7 +88,7 @@ const cartReducer = (state, action) => {
 		}
 		// delete code below
 		case "TOGGLE_PROTECTION_FEE": {
-			const protectionFee = 80.3;
+			const protectionFee = 0;
 			return {
 				...state,
 				includeProtectionFee: !state.includeProtectionFee,
