@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useToast } from "react-toast-master";
 import InputField from "../../hooks/InputField";
 import { CreditCard } from "lucide-react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const cardElementOptions = {
 	style: {
@@ -32,20 +32,27 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 	const [processing, setProcessing] = useState(false);
 	const [transaction, setTransaction] = useState("");
 	const { toastMaster } = useToast();
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
 		if (grandTotal > 0) {
 			axios
 				.post(`${import.meta.env.VITE_URL}/payments/create-payment-intent`, { grandTotal })
 				.then((res) => {
-					console.log(res.data.clientSecret);
 					setClientSecret(res.data.clientSecret);
+					setLoading(false);
+				})
+				.catch((err) => {
+					setLoading(false);
 				});
 		}
 	}, []);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setLoading(true);
 
 		const form = event.target;
 		const address = form.address.value;
@@ -92,7 +99,6 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 		});
 
 		if (confirmError) {
-			console.log(confirmError);
 			setError(confirmError.message);
 		}
 
@@ -120,14 +126,17 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 			};
 
 			axios.post(`${import.meta.env.VITE_URL}/payments/payments_history`, payment).then((res) => {
-				console.log(res.data);
-				if (res.acknowledged === true) {
+				console.log("res", res);
+				if (res.data.acknowledged === true) {
+					setLoading(false);
 					toastMaster({
-						type: "successDark",
+						transition: "down",
+						type: "success",
+						message: "Order successful!",
 						bg: "white",
-						message: "You clicked the button!",
 					});
-					Navigate("/order_progress");
+					localStorage.removeItem("cartItems-animeFig");
+					navigate("/order_progress");
 				}
 			});
 		}
@@ -144,7 +153,6 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						<h3 className="mb-2 text-lg text-ash">Contact</h3>
 						<div className="flex flex-col gap-y-2.5">
 							<InputField
-								// label="Your Email"
 								type="email"
 								id="email"
 								name="email"
@@ -288,12 +296,14 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 					</div>
 				</div>
 				<div className="flex justify-end mt-10">
-					{/*  */}
 					<button
 						id="button"
 						type="submit"
-						disabled={!stripe || !clientSecret || processing}
-						className="flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white bg-holud"
+						disabled={!stripe || !clientSecret || processing || loading}
+						className={`flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold  duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 
+								${loading ? "bg-dhusor/70 text-kala" : "text-white bg-holud"}
+							`}
+						// className="flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white bg-holud"
 					>
 						Pay Now <CreditCard />
 					</button>

@@ -102,7 +102,7 @@ const Payment = () => {
 						<div className="flex border-t border-dhusor pt-2.5 flex-col gap-y-1.5 text-ash">
 							<div className="flex items-center justify-between">
 								<p>Shipping Protection:</p>
-								<p>$80.30</p>
+								{includeProtectionFee === true ? <p>$80.30</p> : <p>$00.00</p>}
 							</div>
 							<div className="flex items-center justify-between">
 								<p>Shipping Cost: </p>
