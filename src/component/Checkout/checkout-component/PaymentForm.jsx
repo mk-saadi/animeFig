@@ -65,6 +65,10 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 		const deliverEmail = form.email.value;
 		const apartment = form.apartment.value;
 
+		if (cartItems.length < 1) {
+			return;
+		}
+
 		if (!stripe || !elements) {
 			return;
 		}
@@ -299,11 +303,10 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 					<button
 						id="button"
 						type="submit"
-						disabled={!stripe || !clientSecret || processing || loading}
+						disabled={(!stripe || !clientSecret || processing) && loading}
 						className={`flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold  duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 
 								${loading ? "bg-dhusor/70 text-kala" : "text-white bg-holud"}
 							`}
-						// className="flex items-center gap-x-2.5 justify-center w-full py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white bg-holud"
 					>
 						Pay Now <CreditCard />
 					</button>
