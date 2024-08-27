@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from "../authProvider/AuthProvider";
+import { AuthContext } from "../provider/AuthProvider";
 
 const axiosSecure = axios.create({
 	baseURL: `${import.meta.env.VITE_URL}`,

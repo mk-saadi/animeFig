@@ -3,7 +3,6 @@ import { AuthContext } from "../provider/AuthProvider";
 
 const OrderProcessing = () => {
 	const [order, setOrder] = useState([]);
-	console.log("order: ", order);
 	const { user } = useContext(AuthContext);
 
 	useEffect(() => {
