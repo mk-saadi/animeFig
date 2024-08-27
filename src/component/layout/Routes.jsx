@@ -13,7 +13,8 @@ import Register from "../auth/Register";
 import FiguresD from "../figures/FiguresD";
 import Payment from "../Checkout/checkout-component/Payment";
 import OrderProcessing from "../dashboard/OrderProcessing";
-import UserRoutes from "../private/PrivateRoute";
+// import UserRoutes from "../private/PrivateRoute";
+import PrivateRoute from "../private/PrivateRoute";
 
 const router = createBrowserRouter([
 	{
@@ -69,17 +70,19 @@ const router = createBrowserRouter([
 	{
 		path: "/payment",
 		element: (
-			<UserRoutes>
+			// <UserRoutes>
+			<PrivateRoute>
 				<Payment />
-			</UserRoutes>
+			</PrivateRoute>
 		),
 	},
 	{
 		path: "/order_progress",
 		element: (
-			<UserRoutes>
+			// <UserRoutes>
+			<PrivateRoute>
 				<OrderProcessing />
-			</UserRoutes>
+			</PrivateRoute>
 		),
 	},
 ]);

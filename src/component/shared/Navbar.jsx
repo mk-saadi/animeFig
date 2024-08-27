@@ -10,13 +10,13 @@ import Popovers from "./nav-components/Popovers";
 import ProfileDropdown from "./nav-components/ProfileDropdown";
 import TopNav from "./nav-components/TopNav";
 import SearchBox from "./nav-components/SearchBox";
-import useUser from "../hooks/useUser";
+// import useUser from "../hooks/useUser";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
 	const isScrolled = useScroll("top-navbar");
-	const [isUser, isUserLoading] = useUser();
-	console.log('isUser: ', isUser);
+	// const [isUser, isUserLoading] = useUser();
+	// console.log('isUser: ', isUser);
 
 	const handleLogOut = () => {
 		logOut()
