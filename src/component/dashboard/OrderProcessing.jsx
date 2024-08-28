@@ -3,25 +3,10 @@ import { AuthContext } from "../provider/AuthProvider";
 import UseAxiosHook from "../hooks/useAxiosHook";
 
 const OrderProcessing = () => {
-	// const [order, setOrder] = useState([]);
 	const [orders, setOrders] = useState([]);
 	console.log("orders: ", orders);
 	const { user } = useContext(AuthContext);
 	const [axiosSecure] = UseAxiosHook();
-
-	// useEffect(() => {
-	// 	const fetchOrder = async () => {
-	// 		try {
-	// 			const res = await fetch(`${import.meta.env.VITE_URL}/payments/userPayments/${user?.email}`);
-	// 			const data = await res.json();
-	// 			setOrder(data);
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	};
-
-	// 	fetchOrder();
-	// }, []);
 
 	useEffect(() => {
 		const fetchOrders = async () => {

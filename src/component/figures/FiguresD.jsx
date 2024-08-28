@@ -14,7 +14,8 @@ import InfoComponent from "./figure_component/InfoComponent";
 import { Fade } from "react-awesome-reveal";
 import ProductSlider from "./figure_component/SlideCard";
 import Comment from "./figure_component/CommentComponent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import RecentlyViewed from "./figure_component/RecentlyViewed";
 
 const FiguresD = () => {
 	const { link } = useParams();
@@ -52,6 +53,30 @@ const FiguresD = () => {
 	// const handleGoBack = () => {
 	// 	navigate(-1);
 	// };
+
+	const [visitedFigures, setVisitedFigures] = useState(() => {
+		return JSON.parse(localStorage.getItem("visitedFigures")) || [];
+	});
+
+	useEffect(() => {
+		if (fig.images) {
+			const figureDetails = {
+				name: fig.name,
+				image: fig.images[0],
+				link: fig.link,
+			};
+
+			const isFigureVisited = visitedFigures.some((item) => item.link === figureDetails.link);
+
+			if (!isFigureVisited) {
+				const updatedVisitedFigures = [...visitedFigures, figureDetails];
+
+				setVisitedFigures(updatedVisitedFigures);
+
+				localStorage.setItem("visitedFigures", JSON.stringify(updatedVisitedFigures));
+			}
+		}
+	}, [fig, isLoading, error, visitedFigures]);
 
 	return (
 		<>
@@ -124,6 +149,12 @@ const FiguresD = () => {
 					{/* comment section */}
 					<div className="flex flex-col w-full my-20">
 						<Comment fig={fig} />
+					</div>
+					<div className="flex flex-col w-full my-4">
+						<RecentlyViewed
+							visitedFigures={visitedFigures}
+							setVisitedFigures={setVisitedFigures}
+						/>
 					</div>
 					<div className="flex flex-col w-full min-h-screen my-20 overflow-x-hidden gap-y-10">
 						{simCharacters.length > 0 && (
