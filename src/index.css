@@ -17,7 +17,7 @@ body {
 .product-slider .swiper-scrollbar {
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
-	background-color: #fff;
+	background-color: #ffffff3b;
 }
 
 .product-slider-container:hover .swiper-scrollbar {
