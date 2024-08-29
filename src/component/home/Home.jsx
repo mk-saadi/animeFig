@@ -10,6 +10,7 @@ const Home = () => {
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
 	} = useFigures(`/figures/card`);
+	console.log("figures: ", figures);
 
 	useTitle("Home");
 	useScrollToTop();
@@ -17,7 +18,7 @@ const Home = () => {
 	return (
 		<>
 			<div className="mb-10">
-				<FirstRow fig={figures} />
+				<FirstRow />
 			</div>
 
 			<main className="mt-20">
