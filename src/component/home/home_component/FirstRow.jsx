@@ -51,7 +51,7 @@ const FirstRow = () => {
 											className="relative z-10 object-cover w-full h-full duration-300 group-hover:scale-105"
 										/>
 									</div>
-									<p className="absolute bottom-0 left-0 right-0 z-30 flex justify-center py-2 text-sm font-medium text-center duration-300 bg-white opacity-0 bg-opacity-70 rounded-b-md group-hover:opacity-100 line-clamp-1 text-kala">
+									<p className="absolute bottom-0 left-0 right-0 z-30 flex justify-center py-2 text-sm font-medium text-center duration-300 bg-white opacity-0 backdrop-blur-sm bg-opacity-30 rounded-b-md group-hover:opacity-100 line-clamp-1 text-kala">
 										{f.series}
 									</p>
 								</Link>
