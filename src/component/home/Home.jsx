@@ -3,6 +3,10 @@ import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useFigures } from "../hooks/APIS";
 import FirstRow from "./home_component/FirstRow";
+import NewArrival from "./home_component/NewArrival";
+import ComingSoon from "./home_component/ComingSoon";
+import Offer from "./home_component/Offer";
+import PreOwned from "./home_component/PreOwned";
 
 const Home = () => {
 	const {
@@ -10,20 +14,19 @@ const Home = () => {
 		isLoading: isLoadingFormValues,
 		error: errorFormValues,
 	} = useFigures(`/figures/card`);
-	console.log("figures: ", figures);
 
 	useTitle("Home");
 	useScrollToTop();
 
 	return (
 		<>
-			<div className="mb-10">
+			<header className="mb-10">
 				<FirstRow />
-			</div>
+			</header>
 
 			<main className="mt-20">
 				{/* shop section */}
-				<h3 className="pl-4 ml-4 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
+				{/* <h3 className="pl-4 ml-4 text-xl font-bold border-l-2 md:text-2xl sm:ml-20 text-info border-sky-400">
 					Best Selling Merch
 				</h3>
 				<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -33,7 +36,22 @@ const Home = () => {
 							fig={fig}
 						></Products>
 					))}
-				</div>
+				</div> */}
+				<>
+					<NewArrival />
+				</>
+
+				<>
+					<ComingSoon />
+				</>
+
+				<>
+					<Offer />
+				</>
+
+				<>
+					<PreOwned />
+				</>
 			</main>
 		</>
 	);
