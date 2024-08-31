@@ -30,10 +30,10 @@ const FirstRow = () => {
 				<div className="z-20 justify-center items-center gap-x-2.5 flex">
 					{isLoading ? (
 						<>
+							{/* <span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
 							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
 							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
-							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
-							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
+							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span> */}
 						</>
 					) : (
 						fig.map((f) => (
@@ -42,7 +42,7 @@ const FirstRow = () => {
 									to={`/collections?name=&category=&series=${f.series}&character=&sort=&order=asc&page=1`}
 									className="relative overflow-hidden group"
 								>
-									<div className="relative overflow-hidden rounded-md shadow-xl shadow-kala/70 h-72 w-44">
+									<div className="relative overflow-hidden border-t border-b rounded-md shadow-xl border-t-gray-300 border-b-gray-800 shadow-kala/70 h-72 w-44">
 										<div className="absolute inset-0 z-0 w-full h-full bg-gray-300 rounded-md shadow-xl shadow-kala/70 animate-pulse" />
 										<img
 											src={f.image}
