@@ -11,6 +11,7 @@ import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import { useRef, useState } from "react";
+import Loader from "../../hooks/Loader";
 
 const NewArrival = () => {
 	const { figure, isLoading, error } = useFigures(`/figures/latest_figures`);
@@ -28,25 +29,31 @@ const NewArrival = () => {
 					className="gap-x-1.5 hover:gap-x-4 flex items-center justify-center text-base duration-300 hover:text-laal hover:underline text-ash"
 					to={`/collections?order=asc&page=1`}
 				>
-					View more
+					Browse Collections
 					<ArrowRight size={18} />
 				</Link>
 			</div>
-			<div className="overflow-hidden ">
+			<div className="overflow-hidden">
 				{figs.length > 0 && (
 					<div className="relative w-full">
-						<ProductSlider
-							figures={figs}
-							isLoading={isLoading}
-						/>
+						<ProductSlider figures={figs} />
 					</div>
 				)}
 			</div>
+			{isLoading && (
+				<div className="flex items-center justify-between">
+					<Loader />
+					<Loader />
+					<Loader />
+					<Loader />
+					<Loader />
+				</div>
+			)}
 		</div>
 	);
 };
 
-const ProductSlider = ({ figures, isLoading }) => {
+const ProductSlider = ({ figures }) => {
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
 	const [isStart, setIsStart] = useState(true);
@@ -91,10 +98,7 @@ const ProductSlider = ({ figures, isLoading }) => {
 							key={fig?._id}
 							className="mb-[1.75rem]"
 						>
-							<Products
-								fig={fig}
-								isLoading={isLoading}
-							/>
+							<Products fig={fig} />
 						</SwiperSlide>
 					))
 				) : (
@@ -102,28 +106,30 @@ const ProductSlider = ({ figures, isLoading }) => {
 				)}
 			</Swiper>
 			{/* navigation button */}
-			<button
-				ref={prevRef}
-				className={`backdrop-blur-sm absolute left-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-					isStart
-						? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-				}`}
-				disabled={isStart}
-			>
-				<ArrowLeft className="w-6 h-6" />
-			</button>
-			<button
-				ref={nextRef}
-				className={`backdrop-blur-sm absolute right-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-					isEnd
-						? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-				}`}
-				disabled={isEnd}
-			>
-				<ArrowRight className="w-6 h-6" />
-			</button>
+			<>
+				<button
+					ref={prevRef}
+					className={`backdrop-blur-sm absolute left-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+						isStart
+							? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
+							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+					}`}
+					disabled={isStart}
+				>
+					<ArrowLeft className="w-6 h-6" />
+				</button>
+				<button
+					ref={nextRef}
+					className={`backdrop-blur-sm absolute right-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+						isEnd
+							? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
+							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+					}`}
+					disabled={isEnd}
+				>
+					<ArrowRight className="w-6 h-6" />
+				</button>
+			</>
 		</div>
 	);
 };

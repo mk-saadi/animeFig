@@ -5,6 +5,7 @@ import NewArrival from "./home_component/NewArrival";
 import ComingSoon from "./home_component/ComingSoon";
 import Offer from "./home_component/Offer";
 import PreOwned from "./home_component/PreOwned";
+import Series from "./home_component/Series";
 
 const Home = () => {
 	useTitle("Home");
@@ -16,21 +17,21 @@ const Home = () => {
 				<FirstRow />
 			</header>
 
-			<main className="mt-20">
+			<main className="flex flex-col mt-20 bg-white gap-y-12">
 				<>
 					<NewArrival />
 				</>
-
 				<>
 					<ComingSoon />
 				</>
-
 				<>
 					<Offer />
 				</>
-
 				<>
 					<PreOwned />
+				</>
+				<>
+					<Series />
 				</>
 			</main>
 		</>
