@@ -80,10 +80,10 @@ const RecentlyViewed = ({ visitedFigures, setVisitedFigures }) => {
 
 const Items = ({ fig, removeItem }) => {
 	return (
-		<div className="pb-5 product-card">
-			<div className="flex items-center justify-center w-full mb-1 rounded-md">
+		<div className="pb-5 duration-300 product-card">
+			<div className="relative flex items-center justify-center w-full mb-1 rounded-md">
 				<Link
-					className="group w-[65px] overflow-hidden h-[80px] relative"
+					className="group w-[65px] rounded-md overflow-hidden h-[80px] "
 					to={`/collections/${fig?.link}`}
 					title={fig?.name}
 				>
@@ -93,13 +93,13 @@ const Items = ({ fig, removeItem }) => {
 						className="object-cover w-full h-full duration-300 group-hover:scale-105"
 					/>
 					{/* remove this item */}
-					<button
-						className="absolute top-0 right-0 duration-200 opacity-0 group-hover:opacity-100 bg-white/50 text-ash"
-						onClick={() => removeItem(fig.link)}
-					>
-						<X size={18} />
-					</button>
 				</Link>
+				<button
+					className="absolute top-0 z-20 duration-200 opacity-100 right-4 bg-white/70 text-ash"
+					onClick={() => removeItem(fig.link)}
+				>
+					<X size={18} />
+				</button>
 			</div>
 		</div>
 	);
