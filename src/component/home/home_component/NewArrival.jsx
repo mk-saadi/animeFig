@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const NewArrival = () => {
 	const { figure, isLoading, error } = useFigures(`/figures/latest_figures`);
@@ -49,12 +49,13 @@ const NewArrival = () => {
 const ProductSlider = ({ figures, isLoading }) => {
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
+	const [isStart, setIsStart] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
 
 	return (
 		<div className="relative product-slider-container hover:bg-white">
 			<Swiper
 				modules={[Pagination, Navigation]}
-				// navigation={true}
 				navigation={{
 					prevEl: prevRef.current,
 					nextEl: nextRef.current,
@@ -63,6 +64,10 @@ const ProductSlider = ({ figures, isLoading }) => {
 					swiper.params.navigation.prevEl = prevRef.current;
 					swiper.params.navigation.nextEl = nextRef.current;
 				}}
+				onSlideChange={(swiper) => {
+					setIsStart(swiper.isBeginning);
+					setIsEnd(swiper.isEnd);
+				}}
 				spaceBetween={50}
 				pagination={{
 					dynamicBullets: true,
@@ -70,19 +75,7 @@ const ProductSlider = ({ figures, isLoading }) => {
 				scrollbar={{ draggable: true }}
 				className="select-none product-slider"
 				breakpoints={{
-					320: {
-						slidesPerView: 1,
-						spaceBetween: 10,
-					},
-					640: {
-						slidesPerView: 2,
-						spaceBetween: 10,
-					},
-					768: {
-						slidesPerView: 3,
-						spaceBetween: 10,
-					},
-					1024: {
+					480: {
 						slidesPerView: 4,
 						spaceBetween: 20,
 					},
@@ -95,8 +88,8 @@ const ProductSlider = ({ figures, isLoading }) => {
 				{figures.length > 0 ? (
 					figures.map((fig) => (
 						<SwiperSlide
-							className="mb-[1.75rem]"
 							key={fig?._id}
+							className="mb-[1.75rem]"
 						>
 							<Products
 								fig={fig}
@@ -111,13 +104,23 @@ const ProductSlider = ({ figures, isLoading }) => {
 			{/* navigation button */}
 			<button
 				ref={prevRef}
-				className="absolute left-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md [.hover\:bg-white:hover_&]:px-3 [.hover\:bg-white:hover_&]:py-5 [.hover\:bg-white:hover_&]:text-white [.hover\:bg-white:hover_&]:bg-blue-400 top-1/2"
+				className={`backdrop-blur-sm absolute left-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isStart
+						? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isStart}
 			>
 				<ArrowLeft className="w-6 h-6" />
 			</button>
 			<button
 				ref={nextRef}
-				className="absolute right-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md [.hover\:bg-white:hover_&]:px-3 [.hover\:bg-white:hover_&]:py-5 [.hover\:bg-white:hover_&]:text-white [.hover\:bg-white:hover_&]:bg-blue-400 top-1/2"
+				className={`backdrop-blur-sm absolute right-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isEnd
+						? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isEnd}
 			>
 				<ArrowRight className="w-6 h-6" />
 			</button>
