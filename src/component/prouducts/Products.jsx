@@ -39,7 +39,7 @@ const Products = ({ fig, isLoading }) => {
 			// key={fig?._id}
 			className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group"
 		>
-			<div className="p-4 h-[29.6rem]">
+			<div className="p-4 h-[28.6rem]">
 				<Link to={`/collections/${fig?.link}`}>
 					<div
 						className={`relative overflow-hidden mb-1.5 rounded-md h-fit ${
@@ -61,7 +61,7 @@ const Products = ({ fig, isLoading }) => {
 					<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-kala">
 						{fig?.name}
 					</h2>
-					<p className="text-sm line-clamp-2 text-ash/70">{fig?.series}</p>
+					<p className="text-sm line-clamp-1 text-ash/70">{fig?.series}</p>
 				</Link>
 			</div>
 			{/* button component */}
