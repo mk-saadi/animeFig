@@ -10,59 +10,13 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 
-const ProductSlider = ({ figures, isLoading }) => {
+const ProductSlider = ({ figures }) => {
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
 	const [isStart, setIsStart] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
 
 	return (
-		// <div className="product-slider-container">
-		// 	<Swiper
-		// 		modules={[Pagination]}
-		// 		spaceBetween={50}
-		// 		pagination={{
-		// 			dynamicBullets: true,
-		// 		}}
-		// 		scrollbar={{ draggable: true }}
-		// 		className="select-none product-slider"
-		// 		breakpoints={{
-		// 			320: {
-		// 				slidesPerView: 1,
-		// 				spaceBetween: 10,
-		// 			},
-		// 			640: {
-		// 				slidesPerView: 2,
-		// 				spaceBetween: 10,
-		// 			},
-		// 			768: {
-		// 				slidesPerView: 3,
-		// 				spaceBetween: 10,
-		// 			},
-		// 			1024: {
-		// 				slidesPerView: 4,
-		// 				spaceBetween: 20,
-		// 			},
-		// 			1280: {
-		// 				slidesPerView: 4,
-		// 				spaceBetween: 20,
-		// 			},
-		// 		}}
-		// 	>
-		// 		{figures.length > 0 ? (
-		// 			figures.map((fig) => (
-		// 				<SwiperSlide key={fig?._id}>
-		// 					<Products
-		// 						fig={fig}
-		// 						isLoading={isLoading}
-		// 					/>
-		// 				</SwiperSlide>
-		// 			))
-		// 		) : (
-		// 			<p>No products available</p>
-		// 		)}
-		// 	</Swiper>
-		// </div>
 		<div className="relative product-slider-container hover:bg-white">
 			<Swiper
 				modules={[Pagination, Navigation]}

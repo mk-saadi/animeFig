@@ -1,95 +1,96 @@
-import { ChevronDownIcon } from "lucide-react";
+import { ArrowRight, ChevronDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useCategoriesState } from "../../hooks/APIS";
+import { useCategoriesState, useFigures } from "../../hooks/APIS";
 
 const Popovers = () => {
 	const [categories] = useCategoriesState();
-	const [hoveredCategory, setHoveredCategory] = useState(null);
+	const { figure, isLoading, error } = useFigures(`/figures/series`);
+	console.log(
+		"figure: ",
+		figure.map((fig) => fig?.series)
+	);
 	const [initialImage, setInitialImage] = useState(null);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenFigure, setIsOpenFigure] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
-
-	useEffect(() => {
-		// Find the category with the name "Figma" and set it as the initial image
-		const figmaCategory = categories.find((category) => category.name === "Figma");
-		if (figmaCategory) {
-			setInitialImage(figmaCategory.img);
-		}
-	}, [categories]);
-
-	const handleMouseEnter = (categoryId) => {
-		setHoveredCategory(categoryId);
-	};
-
-	const handleMouseLeave = () => {
-		setHoveredCategory(null);
-	};
 
 	return (
 		<div className="hidden md:block">
 			<div className="flex items-center justify-center gap-x-2.5">
 				{/* TODO: dropdown will go here */}
+				{/* figures */}
 				<div className="relative w-full">
 					<button
 						className="flex items-center justify-center p-0 text-white duration-300 gap-x-[2px] focus:outline-none"
-						onMouseEnter={() => setIsOpen(true)}
-						onMouseLeave={() => setIsOpen(false)}
+						onMouseEnter={() => setIsOpenFigure(true)}
+						onMouseLeave={() => setIsOpenFigure(false)}
 					>
-						Figures
-						<ChevronDownIcon className={`w-5 h-5 duration-300 ${isOpen ? "mt-1" : ""}`} />
+						Figure
+						<ChevronDownIcon className={`w-5 h-5 duration-300 ${isOpenFigure ? "mt-1" : ""}`} />
 					</button>
 					<div
 						className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
-							isOpen
+							isOpenFigure
 								? "opacity-100 transform translate-y-0"
 								: "opacity-0 transform -translate-y-2 pointer-events-none"
 						}`}
-						onMouseEnter={() => setIsOpen(true)}
-						onMouseLeave={() => setIsOpen(false)}
+						onMouseEnter={() => setIsOpenFigure(true)}
+						onMouseLeave={() => setIsOpenFigure(false)}
 					>
-						<div className="grid justify-between items-start grid-cols-5 mt-4 bg-white border px-6 h-[22rem] border-gray-200 rounded-md shadow-lg w-[55rem]">
-							{/* category list component */}
-							<div className="col-span-2">
-								{categories.map((category) => (
-									<div
-										key={category._id}
-										onMouseEnter={() => handleMouseEnter(category._id)}
-										onMouseLeave={handleMouseLeave}
-										className="flex flex-col h-full text-sm"
-									>
+						<div className="flex flex-row items-start justify-center px-6 py-5 mt-4 bg-white border border-gray-200 rounded-md shadow-lg gap-x-12 w-fit h-fit ">
+							{/* first row */}
+							<div className="flex flex-col">
+								<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+									Categories
+								</h2>
+								<div className="flex flex-col gap-y-2">
+									{categories?.map((category) => (
 										<Link
-											// /collections?name=&category=${category.name}&series=&character=&sort=&order=asc&page=1
-											to={`/collections?name=&category=${category.name}&series=&character=&sort=&order=asc&page=1`}
-											className="block px-4 py-2 duration-300 text-ash hover:text-laal"
-											onClick={() => setIsOpen(false)}
+											to={`/collections?category=${category.name}&sort=&page=1`}
+											key={category.id}
+											onClick={() => setIsOpenFigure(false)}
+											className="flex items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
 										>
 											{category.name}
-										</Link>
-									</div>
-								))}
-							</div>
-							{/* image component */}
-							<div className="col-span-3 border w-60 h-80 border-laal">
-								{hoveredCategory
-									? categories.map(
-											(category) =>
-												category._id === hoveredCategory && (
-													<img
-														key={category._id}
-														src={category.img}
-														alt={category.name}
-														className="object-cover w-full h-full"
-													/>
-												)
-									  )
-									: initialImage && (
-											<img
-												src={initialImage}
-												alt="Figma"
-												className="object-cover w-full h-full"
+											<ArrowRight
+												size={18}
+												className="duration-300 opacity-0 group-hover:opacity-100"
 											/>
-									  )}
+										</Link>
+									))}
+								</div>
+							</div>
+							{/* second row */}
+							<div className="flex flex-col">
+								<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+									Popular Series
+								</h2>
+
+								<div className="flex justify-start items-center gap-x-2.5">
+									{figure?.slice(0, 5)?.map((category) => (
+										<div
+											key={category?.id}
+											className="flex flex-col items-start justify-center"
+										>
+											<Link
+												to={`/collections?category=${category?.name}&sort=&page=1`}
+												onClick={() => setIsOpenFigure(false)}
+												className="w-32 overflow-hidden h-52"
+											>
+												<img
+													src={category?.images}
+													alt=""
+													className="object-cover w-full h-full duration-150 rounded-sm hover:opacity-70"
+												/>
+											</Link>
+											<p className="text-sm text-center line-clamp-1 text-ash group-hover:text-gray-500">
+												{category?.series}
+											</p>
+										</div>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -149,6 +150,9 @@ const Popovers = () => {
 				</div>
 			</div>
 		</div>
+		// <div>
+		// 	<p>Popovers</p>
+		// </div>
 	);
 };
 

@@ -4,7 +4,7 @@ import Products from "../../prouducts/Products";
 import { ArrowRight } from "lucide-react";
 
 const ComingSoon = () => {
-	const { figure: soon, isLoading: soon_loading, error: soon_error } = useFigures(`/figures/coming_soon`);
+	const { figure: soon, isLoading: soon_loading, error } = useFigures(`/figures/coming_soon`);
 
 	const figs = soon?.detailedFigures || [];
 	const add = soon?.additionalFigures || [];
@@ -15,7 +15,7 @@ const ComingSoon = () => {
 				<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 				Early Bird Specials
 			</h2>
-			<div className="py-4 overflow-hidden">
+			<div className="overflow-hidden">
 				{figs?.length > 0 && (
 					<div className="grid grid-cols-1 transition duration-500 transform gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
 						{figs.map((fig) => (

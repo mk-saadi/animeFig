@@ -20,7 +20,7 @@ const Series = () => {
 					<ArrowRight size={18} />
 				</Link>
 			</div>
-			<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{figure.map((fig) => (
 					<Link
 						key={fig._id}
@@ -31,7 +31,7 @@ const Series = () => {
 							<img
 								src={fig.images}
 								alt=""
-								className="object-cover w-full h-full duration-300 rounded-full hover:opacity-70"
+								className="object-cover w-full h-full duration-150 rounded-full hover:opacity-70"
 							/>
 						</div>
 						<p className="text-sm text-center text-ash group-hover:text-gray-500">{fig.series}</p>
