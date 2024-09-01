@@ -108,10 +108,10 @@ const ProductSlider = ({ figures, isLoading }) => {
 			{/* navigation button */}
 			<button
 				ref={prevRef}
-				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
 					isStart
-						? "cursor-not-allowed opacity-50"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
+						: "[.hover\\:bg-white:hover_&]:px-3  [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
 				}`}
 				disabled={isStart}
 			>
@@ -119,10 +119,10 @@ const ProductSlider = ({ figures, isLoading }) => {
 			</button>
 			<button
 				ref={nextRef}
-				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
 					isEnd
-						? "cursor-not-allowed opacity-50"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
+						: "[.hover\\:bg-white:hover_&]:px-3  [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
 				}`}
 				disabled={isEnd}
 			>
