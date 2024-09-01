@@ -11,6 +11,7 @@ const Popovers = () => {
 		isLoading: characterLoading,
 		error: characterError,
 	} = useFigures(`/figures/character`);
+	console.log("character: ", character);
 
 	const [initialImage, setInitialImage] = useState(null);
 	const [isOpenFigure, setIsOpenFigure] = useState(false);
@@ -148,7 +149,7 @@ const Popovers = () => {
 								</h2>
 
 								<div className="flex justify-start items-center gap-x-2.5">
-									{character?.slice(0, 5)?.map((c) => (
+									{character?.map((c) => (
 										<div
 											key={c?._id}
 											className="flex flex-col items-start justify-center"
