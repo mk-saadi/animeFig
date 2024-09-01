@@ -25,16 +25,16 @@ const Series = () => {
 					<Link
 						key={fig._id}
 						to={`/collections?series=${fig.series}&sort=&page=1`}
-						className="flex flex-col items-center justify-center"
+						className="flex flex-col items-center justify-center group"
 					>
 						<div className="w-44 h-44 overflow-none">
 							<img
 								src={fig.images}
 								alt=""
-								className="object-cover w-full h-full duration-300 rounded-full hover:opacity-80"
+								className="object-cover w-full h-full duration-300 rounded-full hover:opacity-70"
 							/>
 						</div>
-						<p className="text-sm text-center text-ash">{fig.series}</p>
+						<p className="text-sm text-center text-ash group-hover:text-gray-500">{fig.series}</p>
 					</Link>
 				))}
 			</div>

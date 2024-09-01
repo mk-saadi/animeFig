@@ -72,7 +72,7 @@ const ProductSlider = ({ figures }) => {
 					swiper.params.navigation.nextEl = nextRef.current;
 				}}
 				onSlideChange={(swiper) => {
-					setIsStart(swiper.isBeginning);
+					setIsStart(swiper.isStart);
 					setIsEnd(swiper.isEnd);
 				}}
 				spaceBetween={50}
@@ -96,7 +96,7 @@ const ProductSlider = ({ figures }) => {
 					figures.map((fig) => (
 						<SwiperSlide
 							key={fig?._id}
-							className="mb-[1.75rem]"
+							className="mb-7"
 						>
 							<Products fig={fig} />
 						</SwiperSlide>
@@ -106,30 +106,28 @@ const ProductSlider = ({ figures }) => {
 				)}
 			</Swiper>
 			{/* navigation button */}
-			<>
-				<button
-					ref={prevRef}
-					className={`backdrop-blur-sm absolute left-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-						isStart
-							? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
-							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-					}`}
-					disabled={isStart}
-				>
-					<ArrowLeft className="w-6 h-6" />
-				</button>
-				<button
-					ref={nextRef}
-					className={`backdrop-blur-sm absolute right-0 z-10 px-2 py-3 text-ash duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-						isEnd
-							? "cursor-not-allowed bg-white backdrop-blur-sm bg-opacity-70 text-laal"
-							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-					}`}
-					disabled={isEnd}
-				>
-					<ArrowRight className="w-6 h-6" />
-				</button>
-			</>
+			<button
+				ref={prevRef}
+				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isStart
+						? "cursor-not-allowed opacity-50"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isStart}
+			>
+				<ArrowLeft className="w-6 h-6" />
+			</button>
+			<button
+				ref={nextRef}
+				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isEnd
+						? "cursor-not-allowed opacity-50"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isEnd}
+			>
+				<ArrowRight className="w-6 h-6" />
+			</button>
 		</div>
 	);
 };
