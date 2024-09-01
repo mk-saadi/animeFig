@@ -6,10 +6,12 @@ import { useCategoriesState, useFigures } from "../../hooks/APIS";
 const Popovers = () => {
 	const [categories] = useCategoriesState();
 	const { figure, isLoading, error } = useFigures(`/figures/series`);
-	console.log(
-		"figure: ",
-		figure.map((fig) => fig?.series)
-	);
+	const {
+		figure: character,
+		isLoading: characterLoading,
+		error: characterError,
+	} = useFigures(`/figures/character`);
+
 	const [initialImage, setInitialImage] = useState(null);
 	const [isOpenFigure, setIsOpenFigure] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
@@ -48,7 +50,7 @@ const Popovers = () => {
 									{categories?.map((category) => (
 										<Link
 											to={`/collections?category=${category.name}&sort=&page=1`}
-											key={category.id}
+											key={category._id}
 											onClick={() => setIsOpenFigure(false)}
 											className="flex items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
 										>
@@ -71,13 +73,13 @@ const Popovers = () => {
 								<div className="flex justify-start items-center gap-x-2.5">
 									{figure?.slice(0, 5)?.map((category) => (
 										<div
-											key={category?.id}
+											key={category?._id}
 											className="flex flex-col items-start justify-center"
 										>
 											<Link
-												to={`/collections?category=${category?.name}&sort=&page=1`}
+												to={`/collections?series=${category?.series}&sort=&page=1`}
 												onClick={() => setIsOpenFigure(false)}
-												className="w-32 overflow-hidden h-52"
+												className="w-32 overflow-hidden rounded-md h-52"
 											>
 												<img
 													src={category?.images}
@@ -114,25 +116,61 @@ const Popovers = () => {
 						onMouseEnter={() => setIsOpenSeries(true)}
 						onMouseLeave={() => setIsOpenSeries(false)}
 					>
-						<div className="mt-4 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg w-96 h-fit ">
-							<a
-								href="#"
-								className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-							>
-								Option 1
-							</a>
-							<a
-								href="#"
-								className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-							>
-								Option 2
-							</a>
-							<a
-								href="#"
-								className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-							>
-								Option 3
-							</a>
+						<div className="flex flex-row items-start justify-center px-6 py-5 mt-4 bg-white border border-gray-200 rounded-md shadow-lg gap-x-12 w-fit h-fit ">
+							{/* first row */}
+							<div className="flex flex-col">
+								<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+									Series
+								</h2>
+								<div className="flex flex-col gap-y-2">
+									{figure?.slice(0, 8)?.map((category) => (
+										<Link
+											to={`/collections?series=${category?.series}&sort=&page=1`}
+											key={category._id}
+											onClick={() => setIsOpenSeries(false)}
+											className="flex items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
+										>
+											{category.series}
+											<ArrowRight
+												size={18}
+												className="duration-300 opacity-0 group-hover:opacity-100"
+											/>
+										</Link>
+									))}
+								</div>
+							</div>
+							{/* second row */}
+							<div className="flex flex-col">
+								<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+									Popular Character
+								</h2>
+
+								<div className="flex justify-start items-center gap-x-2.5">
+									{character?.slice(0, 5)?.map((c) => (
+										<div
+											key={c?._id}
+											className="flex flex-col items-start justify-center"
+										>
+											<Link
+												to={`/collections?character=${c?.character}&sort=&page=1`}
+												onClick={() => setIsOpenSeries(false)}
+												className="w-32 overflow-hidden rounded-md h-52"
+											>
+												<img
+													src={c?.images}
+													alt=""
+													className="object-cover w-full h-full duration-150 rounded-sm hover:opacity-70"
+												/>
+											</Link>
+											<p className="text-sm text-center line-clamp-1 text-ash group-hover:text-gray-500">
+												{c?.character}
+											</p>
+										</div>
+									))}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
