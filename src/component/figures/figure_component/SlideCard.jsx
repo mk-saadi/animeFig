@@ -5,12 +5,79 @@ import { Pagination } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Navigation } from "swiper/modules";
+import "swiper/css/navigation";
 
 const ProductSlider = ({ figures, isLoading }) => {
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+	const [isStart, setIsStart] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+
 	return (
-		<div className="product-slider-container">
+		// <div className="product-slider-container">
+		// 	<Swiper
+		// 		modules={[Pagination]}
+		// 		spaceBetween={50}
+		// 		pagination={{
+		// 			dynamicBullets: true,
+		// 		}}
+		// 		scrollbar={{ draggable: true }}
+		// 		className="select-none product-slider"
+		// 		breakpoints={{
+		// 			320: {
+		// 				slidesPerView: 1,
+		// 				spaceBetween: 10,
+		// 			},
+		// 			640: {
+		// 				slidesPerView: 2,
+		// 				spaceBetween: 10,
+		// 			},
+		// 			768: {
+		// 				slidesPerView: 3,
+		// 				spaceBetween: 10,
+		// 			},
+		// 			1024: {
+		// 				slidesPerView: 4,
+		// 				spaceBetween: 20,
+		// 			},
+		// 			1280: {
+		// 				slidesPerView: 4,
+		// 				spaceBetween: 20,
+		// 			},
+		// 		}}
+		// 	>
+		// 		{figures.length > 0 ? (
+		// 			figures.map((fig) => (
+		// 				<SwiperSlide key={fig?._id}>
+		// 					<Products
+		// 						fig={fig}
+		// 						isLoading={isLoading}
+		// 					/>
+		// 				</SwiperSlide>
+		// 			))
+		// 		) : (
+		// 			<p>No products available</p>
+		// 		)}
+		// 	</Swiper>
+		// </div>
+		<div className="relative product-slider-container hover:bg-white">
 			<Swiper
-				modules={[Pagination]}
+				modules={[Pagination, Navigation]}
+				navigation={{
+					prevEl: prevRef.current,
+					nextEl: nextRef.current,
+				}}
+				onBeforeInit={(swiper) => {
+					swiper.params.navigation.prevEl = prevRef.current;
+					swiper.params.navigation.nextEl = nextRef.current;
+				}}
+				onSlideChange={(swiper) => {
+					setIsStart(swiper.isStart);
+					setIsEnd(swiper.isEnd);
+				}}
 				spaceBetween={50}
 				pagination={{
 					dynamicBullets: true,
@@ -18,24 +85,12 @@ const ProductSlider = ({ figures, isLoading }) => {
 				scrollbar={{ draggable: true }}
 				className="select-none product-slider"
 				breakpoints={{
-					320: {
-						slidesPerView: 1,
-						spaceBetween: 10,
-					},
-					640: {
-						slidesPerView: 2,
-						spaceBetween: 10,
-					},
-					768: {
-						slidesPerView: 3,
-						spaceBetween: 10,
-					},
-					1024: {
+					480: {
 						slidesPerView: 4,
 						spaceBetween: 20,
 					},
 					1280: {
-						slidesPerView: 4,
+						slidesPerView: 5,
 						spaceBetween: 20,
 					},
 				}}
@@ -43,21 +98,41 @@ const ProductSlider = ({ figures, isLoading }) => {
 				{figures.length > 0 ? (
 					figures.map((fig) => (
 						<SwiperSlide key={fig?._id}>
-							<Products
-								fig={fig}
-								isLoading={isLoading}
-							/>
+							<Products fig={fig} />
 						</SwiperSlide>
 					))
 				) : (
 					<p>No products available</p>
 				)}
 			</Swiper>
+			{/* navigation button */}
+			<button
+				ref={prevRef}
+				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform -translate-y-1/2 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isStart
+						? "cursor-not-allowed opacity-50"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isStart}
+			>
+				<ArrowLeft className="w-6 h-6" />
+			</button>
+			<button
+				ref={nextRef}
+				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isEnd
+						? "cursor-not-allowed opacity-50"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isEnd}
+			>
+				<ArrowRight className="w-6 h-6" />
+			</button>
 		</div>
 	);
 };
 
-const Products = ({ fig, isLoading }) => {
+const Products = ({ fig }) => {
 	return (
 		<div className="pb-8 product-card">
 			<Link
