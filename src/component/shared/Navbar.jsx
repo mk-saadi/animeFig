@@ -128,16 +128,7 @@ const Navbar = () => {
 											{user?.email}
 										</div>
 									</div>
-
 									{/* cart drawer */}
-									{/* <button
-										type="button"
-										className="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-gray-800 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-									>
-										<span className="absolute -inset-1.5" />
-										<span className="sr-only">View cart items</span>
-										<Cart aria-hidden="true" />
-									</button> */}
 									<div className="relative flex justify-end w-full">
 										<Cart
 											isOpen={isOpenCart}
