@@ -1,19 +1,18 @@
 import { ArrowRight, ChevronDownIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCategoriesState, useFigures } from "../../hooks/APIS";
 
 const Popovers = () => {
 	const [categories] = useCategoriesState();
 	const { figure, isLoading, error } = useFigures(`/figures/series`);
+	console.log("figure: ", figure);
 	const {
 		figure: character,
 		isLoading: characterLoading,
 		error: characterError,
 	} = useFigures(`/figures/character`);
-	console.log("character: ", character);
 
-	const [initialImage, setInitialImage] = useState(null);
 	const [isOpenFigure, setIsOpenFigure] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
 
@@ -125,7 +124,7 @@ const Popovers = () => {
 									Series
 								</h2>
 								<div className="flex flex-col gap-y-2">
-									{figure?.slice(0, 8)?.map((category) => (
+									{figure?.map((category) => (
 										<Link
 											to={`/collections?series=${category?.series}&sort=&page=1`}
 											key={category._id}
@@ -143,11 +142,12 @@ const Popovers = () => {
 							</div>
 							{/* second row */}
 							<div className="flex flex-col">
-								<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
-									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
-									Popular Character
-								</h2>
-
+								<>
+									<h2 className="mb-2 text-lg flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+										<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+										Popular Character
+									</h2>
+								</>
 								<div className="flex justify-start items-center gap-x-2.5">
 									{character?.map((c) => (
 										<div
