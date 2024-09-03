@@ -3,7 +3,7 @@ import { useFigures } from "../../hooks/APIS";
 import { ArrowRight } from "lucide-react";
 
 const Series = () => {
-	const { figure, isLoading, error } = useFigures(`/figures/series`);
+	const { figure, isLoading, error } = useFigures(`/figures/series_home`);
 
 	return (
 		<>
