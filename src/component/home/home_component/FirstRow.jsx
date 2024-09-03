@@ -28,36 +28,27 @@ const FirstRow = () => {
 					</Link>
 				</div>
 				<div className="z-20 justify-center items-center gap-x-2.5 flex">
-					{isLoading ? (
-						<>
-							{/* <span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
-							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
-							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span>
-							<span className="h-[256px] rounded-md shadow-kala/70 shadow-xl w-[176px] bg-gray-300 animate-pulse"></span> */}
-						</>
-					) : (
-						fig.map((f) => (
-							<div key={f._id}>
-								<Link
-									to={`/collections?name=&category=&series=${f.series}&character=&sort=&order=asc&page=1`}
-									className="relative overflow-hidden group"
-								>
-									<div className="relative overflow-hidden border-t border-b rounded-md shadow-xl border-t-gray-300 border-b-gray-800 shadow-kala/70 h-72 w-44">
-										<div className="absolute inset-0 z-0 w-full h-full bg-gray-300 rounded-md shadow-xl shadow-kala/70 animate-pulse" />
-										<img
-											src={f.image}
-											alt={f.name}
-											loading="lazy"
-											className="relative z-10 object-cover w-full h-full duration-300 group-hover:scale-105"
-										/>
-									</div>
-									<p className="absolute bottom-0 left-0 right-0 z-30 flex justify-center py-2 text-sm font-medium text-center duration-300 bg-white opacity-0 backdrop-blur-sm bg-opacity-30 rounded-b-md group-hover:opacity-100 line-clamp-1 text-kala">
-										{f.series}
-									</p>
-								</Link>
-							</div>
-						))
-					)}
+					{fig.map((f) => (
+						<div key={f._id}>
+							<Link
+								to={`/collections?name=&category=&series=${f.series}&character=&sort=&order=asc&page=1`}
+								className="relative overflow-hidden group"
+							>
+								<div className="relative overflow-hidden border-t border-b rounded-md shadow-xl border-t-gray-300 border-b-gray-800 shadow-kala/70 h-72 w-44">
+									<div className="absolute inset-0 z-0 w-full h-full bg-gray-300 rounded-md shadow-xl shadow-kala/70 animate-pulse" />
+									<img
+										src={f.image}
+										alt={f.name}
+										loading="lazy"
+										className="relative z-10 object-cover w-full h-full duration-300 group-hover:scale-105"
+									/>
+								</div>
+								<div className="absolute inset-0 bottom-0 z-30 flex items-center justify-center duration-300 rounded-md opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
+									<p className="text-base font-medium text-center text-white">{f.series}</p>
+								</div>
+							</Link>
+						</div>
+					))}
 				</div>
 			</div>
 		</header>

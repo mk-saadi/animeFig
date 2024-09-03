@@ -6,6 +6,7 @@ import ComingSoon from "./home_component/ComingSoon";
 import Offer from "./home_component/Offer";
 import PreOwned from "./home_component/PreOwned";
 import Series from "./home_component/Series";
+import LastRow from "./home_component/LastRow";
 
 const Home = () => {
 	useTitle("Home");
@@ -32,6 +33,9 @@ const Home = () => {
 				</>
 				<>
 					<Series />
+				</>
+				<>
+					<LastRow />
 				</>
 			</main>
 		</>

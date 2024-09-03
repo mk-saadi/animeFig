@@ -79,7 +79,10 @@ const SearchBox = () => {
 					</div>
 				)}
 				{searchResults < 1 && searchQuery && (
-					<div className="absolute flex py-2 gap-y-1.5 flex-col justify-center items-center border z-[9999] top-9 shadow-ash/30 max-h-64 overflow-y-auto w-full mt-1 bg-white rounded-md shadow-lg">
+					<div
+						className="absolute flex py-2 gap-y-1.5 flex-col justify-center items-center border z-[9999] top-9 shadow-ash/30 max-h-64 overflow-y-auto w-full mt-1 bg-white rounded-md shadow-lg"
+						ref={searchResultsRef}
+					>
 						<p className="flex flex-col text-sm duration-300 cursor-pointer line-clamp-2 text-ash gap-y-3 hover:text-laal">
 							<Info />
 						</p>

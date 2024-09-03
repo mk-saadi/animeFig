@@ -27,12 +27,19 @@ const Series = () => {
 						to={`/collections?series=${fig.series}&sort=&page=1`}
 						className="flex flex-col items-center justify-center group"
 					>
-						<div className="w-44 h-44 overflow-none">
+						<div className="relative rounded-full shadow-md w-44 h-44 overflow-none">
 							<img
 								src={fig.images}
 								alt=""
 								className="object-cover w-full h-full duration-150 rounded-full hover:opacity-70"
 							/>
+							<div className="absolute inset-0 bottom-0 z-30 flex items-center justify-center duration-300 rounded-full opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
+								<p className="text-sm font-normal text-center text-white">
+									Browse
+									<br />
+									Collection
+								</p>
+							</div>
 						</div>
 						<p className="text-sm text-center text-ash group-hover:text-gray-500">{fig.series}</p>
 					</Link>
