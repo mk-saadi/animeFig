@@ -41,7 +41,6 @@ const Cart = () => {
 		<div>
 			<button
 				className="relative p-2 text-white duration-300 rounded-md hover:text-laal bg-ash/10 hover:bg-ash/15 focus:outline-0"
-				// onClick={() => setIsOpen(true)}
 				onMouseDown={() => setIsOpen(true)}
 			>
 				<ShoppingCartIcon
