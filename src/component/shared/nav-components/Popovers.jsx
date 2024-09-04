@@ -6,7 +6,6 @@ import { useCategoriesState, useFigures } from "../../hooks/APIS";
 const Popovers = () => {
 	const [categories] = useCategoriesState();
 	const { figure, isLoading, error } = useFigures(`/figures/series`);
-	console.log("figure: ", figure);
 	const {
 		figure: character,
 		isLoading: characterLoading,
@@ -69,7 +68,6 @@ const Popovers = () => {
 									<div className="w-5 h-[2px] rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 									Popular Series
 								</h2>
-
 								<div className="flex justify-start items-center gap-x-2.5">
 									{figure?.slice(0, 5)?.map((category) => (
 										<div
@@ -189,9 +187,6 @@ const Popovers = () => {
 				</div>
 			</div>
 		</div>
-		// <div>
-		// 	<p>Popovers</p>
-		// </div>
 	);
 };
 

@@ -33,7 +33,7 @@ const Series = () => {
 								alt=""
 								className="object-cover w-full h-full duration-150 rounded-full hover:opacity-70"
 							/>
-							<div className="absolute inset-0 bottom-0 z-30 flex items-center justify-center duration-300 rounded-full opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
+							<div className="absolute inset-0 z-30 flex items-center justify-center duration-300 rounded-full opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
 								<p className="text-sm font-normal text-center text-white">
 									Browse
 									<br />
