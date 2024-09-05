@@ -15,6 +15,7 @@ import Payment from "../Checkout/checkout-component/Payment";
 import OrderProcessing from "../dashboard/OrderProcessing";
 // import UserRoutes from "../private/PrivateRoute";
 import PrivateRoute from "../private/PrivateRoute";
+import ConfirmedPayment from "../Checkout/checkout-component/ConfirmedPayment";
 
 const router = createBrowserRouter([
 	{
@@ -82,6 +83,14 @@ const router = createBrowserRouter([
 			// <UserRoutes>
 			<PrivateRoute>
 				<OrderProcessing />
+			</PrivateRoute>
+		),
+	},
+	{
+		path: "/order_confirmed",
+		element: (
+			<PrivateRoute>
+				<ConfirmedPayment />
 			</PrivateRoute>
 		),
 	},

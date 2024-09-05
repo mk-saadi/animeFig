@@ -116,7 +116,7 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				grandTotal: grandTotal.toFixed(2),
 				date: new Date(),
 				quantity: cartItems.length,
-				orderStatus: "Figures Ordered",
+				orderStatus: "Pending",
 				cartItems,
 				address,
 				city,
@@ -133,14 +133,24 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				console.log("res", res);
 				if (res.data.acknowledged === true) {
 					setLoading(false);
-					toastMaster({
-						transition: "down",
-						type: "success",
-						message: "Order successful!",
-						bg: "white",
-					});
+					const pay = {
+						id: res.data.insertedId,
+						date: new Date(),
+					};
+					const ordered = pay;
+					localStorage.setItem("ordered", ordered);
 					localStorage.removeItem("cartItems-animeFig");
-					navigate("/order_progress");
+
+					setTimeout(() => {
+						toastMaster({
+							transition: "down",
+							type: "success",
+							message: "Order successful!",
+							bg: "white",
+							position: "bottomLeft",
+						});
+						navigate("/order_confirmed");
+					}, 2000);
 				}
 			});
 		}
