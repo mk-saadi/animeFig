@@ -138,18 +138,19 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 						date: new Date(),
 					};
 					const ordered = pay;
-					localStorage.setItem("ordered", ordered);
+					localStorage.setItem("ordered", JSON.stringify(ordered));
 					localStorage.removeItem("cartItems-animeFig");
 
 					setTimeout(() => {
 						toastMaster({
-							transition: "down",
+							transition: "up",
 							type: "success",
 							message: "Order successful!",
 							bg: "white",
 							position: "bottomLeft",
 						});
-						navigate("/order_confirmed");
+						navigate("/checkout/order_confirmed");
+						window.location.reload();
 					}, 2000);
 				}
 			});
@@ -323,12 +324,12 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				</div>
 			</form>
 			{error && <p className="text-error">{error}</p>}
-			{transaction && (
+			{/* {transaction && (
 				<p className="text-success">
 					Transaction complete <br />
 					TransactionId: {transaction}
 				</p>
-			)}
+			)} */}
 		</>
 	);
 };

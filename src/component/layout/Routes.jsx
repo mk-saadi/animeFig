@@ -87,7 +87,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/order_confirmed",
+		path: "/checkout/order_confirmed",
 		element: (
 			<PrivateRoute>
 				<ConfirmedPayment />
