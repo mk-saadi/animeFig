@@ -1,10 +1,21 @@
 import { CheckCircle } from "lucide-react";
 import React from "react";
 import Breadcrumbs from "../../hooks/BreadCrumbs";
+import { Link } from "react-router-dom";
 
 const ConfirmedPayment = () => {
 	const items = localStorage.getItem("ordered");
 	const item = JSON.parse(items);
+
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		if (isNaN(date)) {
+			return "Invalid date";
+		}
+
+		const options = { day: "2-digit", month: "short", year: "numeric" };
+		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
+	};
 
 	return (
 		<div className="flex flex-col min-h-screen bg-white">
@@ -17,19 +28,41 @@ const ConfirmedPayment = () => {
 
 			<>
 				<div className="flex flex-col items-center justify-center flex-grow">
-					<div className="flex flex-col text-center">
-						<CheckCircle
-							size={48}
-							className="text-green-500"
-						/>
-						<h1 className="text-2xl font-semibold text-kala">Your order has been confirmed</h1>
-						<p>
-							The order confirmation email with details of your order and a link to track its
-							progress will be sent to your email
-						</p>
-						<div>
-							<p>Order ID: {item?.id}</p>
-							<p>Order Date: {item?.date}</p>
+					<div className="flex flex-col items-center justify-center">
+						<div className="flex flex-col items-center justify-center mb-6">
+							<CheckCircle
+								size={72}
+								className="mb-4 text-green-500"
+							/>
+							<h1 className="text-3xl font-semibold text-kala">Thank you for Ordering</h1>
+							<p className="text-sm font-normal text-center text-ash max-w-prose">
+								The order confirmation email with details of your order and a link to track
+								its progress will be sent to your email
+							</p>
+							<div className="">
+								<p className="px-4 py-1 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
+									Order ID: <span className="font-semibold">{item?.id}</span>
+								</p>
+								<p>Order Date: {formatDate(item?.date)}</p>
+							</div>
+						</div>
+						<div className="flex flex-row w-fit justify-center items-center gap-x-2.5">
+							<Link
+								to="/"
+								className="w-full"
+							>
+								<button className="flex items-center justify-center w-full px-4 py-1 text-base font-semibold duration-300 rounded-md whitespace-nowrap text-holud ring-holud ring-2">
+									Go Home
+								</button>
+							</Link>
+							<Link
+								to="/order_progress"
+								className="w-full"
+							>
+								<button className="flex items-center justify-center w-full px-4 whitespace-nowrap py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud">
+									Track Order
+								</button>
+							</Link>
 						</div>
 					</div>
 				</div>
