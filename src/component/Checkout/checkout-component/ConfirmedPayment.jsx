@@ -1,10 +1,12 @@
 import { CheckCircle } from "lucide-react";
 import Breadcrumbs from "../../hooks/BreadCrumbs";
 import { Link } from "react-router-dom";
+import { useToast } from "react-toast-master";
 
 const ConfirmedPayment = () => {
 	const items = localStorage.getItem("ordered");
 	const item = JSON.parse(items);
+	const { toastMaster } = useToast();
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
@@ -40,8 +42,26 @@ const ConfirmedPayment = () => {
 							</p>
 							<div className="flex flex-col items-center justify-center text-ash gap-y-1">
 								<p className="px-4 py-1 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
-									Order ID: <span className="font-semibold">{item?.id}</span>
+									Order ID:
+									<span
+										className="font-semibold cursor-pointer"
+										onClick={() => {
+											if (item?.id) {
+												navigator.clipboard.writeText(item.id);
+												toastMaster({
+													type: "success",
+													message: "Order ID copied to clipboard!",
+													position: "bottomLeft",
+													transition: "top",
+													bg: "white",
+												});
+											}
+										}}
+									>
+										{item?.id}
+									</span>
 								</p>
+
 								<p className="text-sm">Order Date: {formatDate(item?.date)}</p>
 							</div>
 						</div>
