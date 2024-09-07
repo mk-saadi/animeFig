@@ -1,5 +1,4 @@
 import { CheckCircle } from "lucide-react";
-import React from "react";
 import Breadcrumbs from "../../hooks/BreadCrumbs";
 import { Link } from "react-router-dom";
 
@@ -34,7 +33,7 @@ const ConfirmedPayment = () => {
 								size={72}
 								className="mb-4 text-green-500"
 							/>
-							<h1 className="text-3xl font-semibold text-kala">Thank you for Ordering</h1>
+							<h1 className="mb-1 text-3xl font-semibold text-kala">Thank you for Ordering</h1>
 							<p className="text-sm font-normal text-center text-ash max-w-prose">
 								The order confirmation email with details of your order and a link to track
 								its progress will be sent to your email
