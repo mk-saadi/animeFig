@@ -21,14 +21,14 @@ const ConfirmedPayment = () => {
 			<div className="flex w-full px-8 py-3 border-b border-dhusor">
 				<h1 className="text-lg text-laal uppercase font-[900] font-serif">anime-Fig</h1>
 			</div>
-			<div className="mx-28">
+			<div className="mt-1 mx-28">
 				<Breadcrumbs />
 			</div>
 
 			<>
 				<div className="flex flex-col items-center justify-center flex-grow">
 					<div className="flex flex-col items-center justify-center">
-						<div className="flex flex-col items-center justify-center mb-6">
+						<div className="flex flex-col items-center justify-center mb-6 gap-y-2">
 							<CheckCircle
 								size={72}
 								className="mb-4 text-green-500"
@@ -38,11 +38,11 @@ const ConfirmedPayment = () => {
 								The order confirmation email with details of your order and a link to track
 								its progress will be sent to your email
 							</p>
-							<div className="">
+							<div className="flex flex-col items-center justify-center text-ash gap-y-1">
 								<p className="px-4 py-1 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
 									Order ID: <span className="font-semibold">{item?.id}</span>
 								</p>
-								<p>Order Date: {formatDate(item?.date)}</p>
+								<p className="text-sm">Order Date: {formatDate(item?.date)}</p>
 							</div>
 						</div>
 						<div className="flex flex-row w-fit justify-center items-center gap-x-2.5">
