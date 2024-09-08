@@ -29,10 +29,10 @@ const OrderProcessing = () => {
 		fetchUserPurchases();
 	}, [user, axiosSecure]);
 
-	const pending = orders?.filter((order) => order?.orderStatus === "Pending");
-	const approved = orders?.filter((order) => order?.orderStatus === "Approved");
-	const shipped = orders?.filter((order) => order?.orderStatus === "Shipped");
-	const received = orders?.filter((order) => order?.orderStatus === "Received");
+	// const pending = orders?.filter((order) => order?.orderStatus === "Pending");
+	// const approved = orders?.filter((order) => order?.orderStatus === "Approved");
+	// const shipped = orders?.filter((order) => order?.orderStatus === "Shipped");
+	// const received = orders?.filter((order) => order?.orderStatus === "Received");
 
 	const [orderId, setOrderId] = useState("");
 	const [filteredOrder, setFilteredOrder] = useState(null);
@@ -83,7 +83,17 @@ const OrderProcessing = () => {
 						value={orderId}
 						onChange={(e) => setOrderId(e.target.value)}
 						className="p-2 mb-4 border"
-						onFocus={(e) => e.target.select()}
+						// onFocus={(e) => e.target.select()}
+						onFocus={async (e) => {
+							e.target.select(); // Select the text in the input field
+							// Read the clipboard contents
+							try {
+								const text = await navigator.clipboard.readText();
+								setOrderId(text); // Set the clipboard text as the input value
+							} catch (err) {
+								console.error("Failed to read clipboard: ", err);
+							}
+						}}
 					/>
 					<button
 						onClick={handleTrackOrder}
