@@ -16,6 +16,7 @@ import OrdersTracking from "../dashboard/OrdersTracking";
 // import UserRoutes from "../private/PrivateRoute";
 import PrivateRoute from "../private/PrivateRoute";
 import ConfirmedPayment from "../Checkout/checkout-component/ConfirmedPayment";
+import OrderTracking from "../dashboard/OrderTracking";
 
 const router = createBrowserRouter([
 	{
@@ -48,11 +49,20 @@ const router = createBrowserRouter([
 				element: <Exp />,
 			},
 			{
-				path: "/order_progress",
+				path: "/orders_progress",
 				element: (
 					// <UserRoutes>
 					<PrivateRoute>
 						<OrdersTracking />
+					</PrivateRoute>
+				),
+			},
+			{
+				path: "/order_progress",
+				element: (
+					// <UserRoutes>
+					<PrivateRoute>
+						<OrderTracking />
 					</PrivateRoute>
 				),
 			},

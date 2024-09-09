@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useToast } from "react-toast-master";
 import UseAxiosHook from "../hooks/useAxiosHook";
+import { Link } from "react-router-dom";
 
 const OrderTracking = () => {
 	const items = localStorage.getItem("ordered");
 	const item = JSON.parse(items);
-	const id = item._id;
-	const { toastMaster } = useToast();
+	const _id = item.id;
+
 	const [order, setOrder] = useState([]);
+	console.log("order: ", order);
 	// const { user } = useContext(AuthContext);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
@@ -25,9 +26,9 @@ const OrderTracking = () => {
 	useEffect(() => {
 		const fetchUserPurchases = async () => {
 			setLoading(true);
-			if (id) {
+			if (_id) {
 				try {
-					const response = await axiosSecure.get(`/payments/user_payment?id=${id}`);
+					const response = await axiosSecure.get(`/payments/user_payment?_id=${_id}`);
 					setOrder(response.data);
 					setLoading(false);
 				} catch (error) {
@@ -38,9 +39,72 @@ const OrderTracking = () => {
 		};
 
 		fetchUserPurchases();
-	}, [id, axiosSecure]);
+	}, [_id, axiosSecure]);
 
-	return <div></div>;
+	return (
+		<div>
+			<p>OrderTracking</p>
+			<div className="grid grid-cols-2 gap-x-4">
+				<div>
+					{loading ? (
+						<p>Loading...</p>
+					) : (
+						order.map((item) => (
+							<div key={item._id}>
+								<p>Order ID: {item._id}</p>
+								<p>Status: {item.orderStatus}</p>
+								<p>Amount: {item.grandTotal}</p>
+								<p>Date: {formatDate(item.date)}</p>
+								<p>Ordered Figures: {item.orderedFigs.length}</p>
+							</div>
+						))
+					)}
+				</div>
+				<div>
+					{order?.map((item) => (
+						<div key={item._id}>
+							{item.orderedFigs.map((fig) => (
+								<div key={fig.figId}>
+									<div className="flex items-center py-2.5 justify-between gap-x-4">
+										<div className="flex h-full items-start gap-x-1.5 justify-start">
+											<Link
+												to={`/collections/${fig.figLink}`}
+												className="flex-shrink-0 h-32 overflow-hidden rounded-md w-28"
+											>
+												<img
+													src={fig.figImage}
+													className="object-cover object-center w-full h-full"
+												/>
+											</Link>
+											<div className="flex flex-col h-full py-1.5">
+												<div className="flex flex-col flex-1 gap-y-1">
+													<p className="px-2 py-[2px] text-xs text-white rounded-sm w-fit bg-blue-500">
+														{item?.figLabel}
+													</p>
+													<Link
+														to={`/collections/${fig.figLink}`}
+														className="text-base hover:underline text-kala"
+													>
+														{fig.figName}
+													</Link>
+												</div>
+											</div>
+										</div>
+										<div className="mr-10">
+											<p className="text-base text-kala">
+												<span className="text-lg">$</span>
+												{fig.figPrice}
+											</p>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default OrderTracking;
