@@ -12,7 +12,7 @@ import Login from "../auth/Login";
 import Register from "../auth/Register";
 import FiguresD from "../figures/FiguresD";
 import Payment from "../Checkout/checkout-component/Payment";
-import OrderProcessing from "../dashboard/OrderProcessing";
+import OrdersTracking from "../dashboard/OrdersTracking";
 // import UserRoutes from "../private/PrivateRoute";
 import PrivateRoute from "../private/PrivateRoute";
 import ConfirmedPayment from "../Checkout/checkout-component/ConfirmedPayment";
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 				element: (
 					// <UserRoutes>
 					<PrivateRoute>
-						<OrderProcessing />
+						<OrdersTracking />
 					</PrivateRoute>
 				),
 			},

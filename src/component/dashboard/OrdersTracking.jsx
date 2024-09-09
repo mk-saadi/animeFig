@@ -3,7 +3,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import UseAxiosHook from "../hooks/useAxiosHook";
 import { useToast } from "react-toast-master";
 
-const OrderProcessing = () => {
+const OrdersTracking = () => {
 	const [orders, setOrders] = useState([]);
 	console.log("orders: ", orders);
 	const { user } = useContext(AuthContext);
@@ -137,4 +137,4 @@ const OrderProcessing = () => {
 	);
 };
 
-export default OrderProcessing;
+export default OrdersTracking;

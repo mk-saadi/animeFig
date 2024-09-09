@@ -61,7 +61,6 @@ const ConfirmedPayment = () => {
 										{item?.id}
 									</span>
 								</p>
-
 								<p className="text-sm">Order Date: {formatDate(item?.date)}</p>
 							</div>
 						</div>
