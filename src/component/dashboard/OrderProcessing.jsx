@@ -47,33 +47,37 @@ const OrderProcessing = () => {
 		<div className="flex flex-col w-full min-h-screen bg-white">
 			<p>order_progress</p>
 			<div className="grid grid-cols-1 w-fit items-start justify-start gap-y-1.5">
-				{orders.map((order) => (
-					<div
-						key={order._id}
-						className="flex flex-col items-center justify-start"
-					>
-						<p className="px-4 py-1 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
-							Order ID:
-							<span
-								className="font-semibold cursor-pointer"
-								onClick={() => {
-									if (order?._id) {
-										navigator.clipboard.writeText(order._id);
-										toastMaster({
-											type: "success",
-											message: "Order ID copied to clipboard!",
-											position: "bottomLeft",
-											transition: "top",
-											bg: "white",
-										});
-									}
-								}}
-							>
-								{order?._id}
-							</span>
-						</p>
-					</div>
-				))}
+				{loading ? (
+					<div>loading</div>
+				) : (
+					orders.map((order) => (
+						<div
+							key={order._id}
+							className="flex flex-col items-center justify-start"
+						>
+							<p className="px-4 py-1 text-laal/70 text-center flex justify-start gap-x-1.5 items-center rounded-md bg-holud/15 w-full">
+								Order ID:
+								<span
+									className="font-semibold cursor-pointer"
+									onClick={() => {
+										if (order?._id) {
+											navigator.clipboard.writeText(order._id);
+											toastMaster({
+												type: "success",
+												message: "Order ID copied to clipboard!",
+												position: "bottomLeft",
+												transition: "top",
+												bg: "white",
+											});
+										}
+									}}
+								>
+									{order?._id}
+								</span>
+							</p>
+						</div>
+					))
+				)}
 			</div>
 			<div>
 				<div>

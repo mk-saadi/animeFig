@@ -47,6 +47,15 @@ const router = createBrowserRouter([
 				path: "/exp",
 				element: <Exp />,
 			},
+			{
+				path: "/order_progress",
+				element: (
+					// <UserRoutes>
+					<PrivateRoute>
+						<OrderProcessing />
+					</PrivateRoute>
+				),
+			},
 		],
 	},
 	{
@@ -74,15 +83,6 @@ const router = createBrowserRouter([
 			// <UserRoutes>
 			<PrivateRoute>
 				<Payment />
-			</PrivateRoute>
-		),
-	},
-	{
-		path: "/order_progress",
-		element: (
-			// <UserRoutes>
-			<PrivateRoute>
-				<OrderProcessing />
 			</PrivateRoute>
 		),
 	},
