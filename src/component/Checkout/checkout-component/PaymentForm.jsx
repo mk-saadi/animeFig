@@ -65,6 +65,18 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 		const deliverEmail = form.email.value;
 		const apartment = form.apartment.value;
 
+		const zoneDetail = {
+			address,
+			city,
+			state,
+			country,
+			zip,
+			phone,
+			deliverName,
+			deliverEmail,
+			apartment,
+		};
+
 		if (cartItems.length < 1) {
 			return;
 		}
@@ -118,15 +130,7 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				quantity: cartItems.length,
 				orderStatus: "Pending",
 				cartItems,
-				address,
-				city,
-				state,
-				country,
-				zip,
-				phone,
-				deliverName,
-				deliverEmail,
-				apartment,
+				zoneDetail,
 			};
 
 			axios.post(`${import.meta.env.VITE_URL}/payments/payments_history`, payment).then((res) => {
