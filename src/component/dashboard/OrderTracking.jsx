@@ -44,7 +44,7 @@ const OrderTracking = () => {
 	}, [_id, axiosSecure]);
 
 	return (
-		<div>
+		<>
 			<div className="mb-4">
 				<div className="flex flex-col items-center justify-center w-full mb-4">
 					<h2 className="text-2xl mb-2 flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
@@ -141,7 +141,9 @@ const OrderTracking = () => {
 									<ul className="w-full text-sm font-medium steps text-ash">
 										<li
 											className={`step  ${
-												item.orderStatus === "Ordered" ? "step-primary" : ""
+												item.orderStatus === "Ordered"
+													? "step-primary text-blue-500"
+													: ""
 											}`}
 										>
 											<span className="flex justify-center items-center gap-x-1.5">
@@ -151,7 +153,9 @@ const OrderTracking = () => {
 										</li>
 										<li
 											className={`step  ${
-												item.orderStatus === "Preparing" ? "step-primary" : ""
+												item.orderStatus === "Preparing"
+													? "step-primary text-blue-500"
+													: ""
 											}`}
 										>
 											<span className="flex justify-center items-center gap-x-1.5">
@@ -161,7 +165,9 @@ const OrderTracking = () => {
 										</li>
 										<li
 											className={`step  ${
-												item.orderStatus === "Shipped" ? "step-primary" : ""
+												item.orderStatus === "Shipped"
+													? "step-primary text-blue-500"
+													: ""
 											}`}
 										>
 											<span className="flex justify-center items-center gap-x-1.5">
@@ -171,7 +177,9 @@ const OrderTracking = () => {
 										</li>
 										<li
 											className={`step  ${
-												item.orderStatus === "Received" ? "step-primary" : ""
+												item.orderStatus === "Received"
+													? "step-primary text-blue-500"
+													: ""
 											}`}
 										>
 											<span className="flex justify-center items-center gap-x-1.5">
@@ -220,14 +228,6 @@ const OrderTracking = () => {
 													<p className="font-medium text-kala">Phone Number:</p>
 													<p className="text-sm font-normal">{z?.phone}</p>
 												</div>
-												{/* <p>{z?.zip}</p>
-												<p>{z?.city}</p>
-												<p>{z?.country}</p>
-												<p>{z?.state}</p>
-												<p>{z?.phone}</p>
-												<p>{z?.deliveryName}</p>
-												<p>{z?.deliveryEmail}</p>
-												<p>{z?.apartment}</p> */}
 											</div>
 										))}
 									</div>
@@ -279,7 +279,7 @@ const OrderTracking = () => {
 					))}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
