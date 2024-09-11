@@ -21,6 +21,22 @@
 				"totalPrice": 34.06
 			}
 		]
+	},
+	{
+		"_id": "66942593dc4566f1e4c9a2fe",
+		"name": "Steins; Gate Kurisu Makise: Wedding Dress Ver. 1/7 Scale Figure",
+		"price": 193.99,
+		"quantity": 14,
+		"brand": "Good Smile Company",
+		"release": "2024-09-12",
+		"series": "Steins;Gate",
+		"character": "Makise Kurisu",
+		"category": "Bishoujo Figures",
+		"rating": 0,
+		"label": "Coming Soon",
+		"offer": 10,
+		"dimension": "Height (approx.): 260 mm | 10.2\"",
+		"link": "steins-gate-kurisu-makise-wedding-dress-ver-17-scale-figure"
 	}
 ]
 // from assignment 12
