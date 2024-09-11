@@ -9,7 +9,6 @@ const OrderTracking = () => {
 	const _id = item.id;
 
 	const [order, setOrder] = useState([]);
-	console.log("order: ", order);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
 
@@ -45,9 +44,9 @@ const OrderTracking = () => {
 
 	return (
 		<>
-			<div className="mb-4">
+			<div className="mb-12">
 				<div className="flex flex-col items-center justify-center w-full mb-4">
-					<h2 className="text-2xl mb-2 flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+					<h2 className="text-2xl mb-4 flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
 						<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 						Order Tracking Page
 					</h2>
@@ -100,7 +99,7 @@ const OrderTracking = () => {
 						</div>
 					))}
 				</div>
-				<div className="w-full flex flex-col justify-center items-center gap-y-1.5">
+				<div className="flex flex-col items-center justify-center w-full gap-y-1">
 					<p className="flex gap-x-1.5 text-xl font-semibold text-ash">
 						Order Status
 						{order.map((item) => (
@@ -114,9 +113,9 @@ const OrderTracking = () => {
 					</p>
 					<p>
 						{
-							<p className="flex text-kala">
-								Order Date{" "}
-								<span className="text-sm font-normal text-ash">
+							<p className="flex gap-x-1.5 text-base font-medium text-ash">
+								Estimated Delivery Date{" "}
+								<span>
 									{new Date(
 										new Date(item.date).setDate(new Date(item.date).getDate() + 7)
 									).toLocaleDateString()}
@@ -181,6 +180,7 @@ const OrderTracking = () => {
 													? "step-primary text-blue-500"
 													: ""
 											}`}
+											data-content="✔"
 										>
 											<span className="flex justify-center items-center gap-x-1.5">
 												Received
@@ -189,7 +189,7 @@ const OrderTracking = () => {
 										</li>
 									</ul>
 								</div>
-								<div className="w-full pt-3 mt-8 border-t border-dhusor">
+								<div className="w-full pt-4 mt-12 border-t border-dhusor">
 									<div className="">
 										{zoneDetails.map((z) => (
 											<div
@@ -236,7 +236,11 @@ const OrderTracking = () => {
 						))
 					)}
 				</div>
-				<div>
+				<div className="w-full min-h-screen col-span-1">
+					<h2 className="text-xl font-medium text-kala">
+						Ordered Figures
+						<span>{order?.map((item) => item.quantity)}</span>
+					</h2>
 					{order?.map((item) => (
 						<div key={item._id}>
 							{item.orderedFigs.map((fig) => (
@@ -254,15 +258,16 @@ const OrderTracking = () => {
 											</Link>
 											<div className="flex flex-col h-full py-1.5">
 												<div className="flex flex-col flex-1 gap-y-1">
-													<p className="px-2 py-[2px] text-xs text-white rounded-sm w-fit bg-blue-500">
-														{item?.figLabel}
-													</p>
 													<Link
 														to={`/collections/${fig.figLink}`}
-														className="text-base hover:underline text-kala"
+														className="text-base h-max hover:underline text-kala"
 													>
 														{fig.figName}
 													</Link>
+
+													<p className="flex items-center justify-start text-ash gap-x-3">
+														Quantity {fig.quantity}
+													</p>
 												</div>
 											</div>
 										</div>
