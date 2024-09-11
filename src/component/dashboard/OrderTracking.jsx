@@ -8,10 +8,15 @@ const OrderTracking = () => {
 	const _id = item.id;
 
 	const [order, setOrder] = useState([]);
-	console.log("order: ", order);
+	console.log(
+		"order: ",
+		order.map((item) => item.zoneDetail)
+	);
 	// const { user } = useContext(AuthContext);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
+
+	const zoneDetails = order.map((item) => item.zoneDetail);
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
@@ -53,9 +58,64 @@ const OrderTracking = () => {
 							<div key={item._id}>
 								<p>Order ID: {item._id}</p>
 								<p>Status: {item.orderStatus}</p>
+								<div>
+									<ul className="steps">
+										<li
+											className={`step ${
+												item.orderStatus === "Pending" ? "step-primary" : ""
+											}`}
+										>
+											Pending
+										</li>
+										<li
+											className={`step ${
+												item.orderStatus === "Approved" ? "step-primary" : ""
+											}`}
+										>
+											Approved
+										</li>
+										<li
+											className={`step ${
+												item.orderStatus === "Shipped" ? "step-primary" : ""
+											}`}
+										>
+											Shipped
+										</li>
+										<li
+											className={`step ${
+												item.orderStatus === "Received" ? "step-primary" : ""
+											}`}
+										>
+											Received
+										</li>
+									</ul>
+								</div>
 								<p>Amount: {item.grandTotal}</p>
 								<p>Date: {formatDate(item.date)}</p>
 								<p>Ordered Figures: {item.orderedFigs.length}</p>
+								<div>
+									{/* {item?.zoneDetail?.map((index, fig) => (
+										<div key={index}>
+											<p>{fig.address}</p>
+										</div>
+									))} */}
+									<p>
+										Zone Details:{" "}
+										{zoneDetails.map((z) => (
+											<div key={z.zip}>
+												<p>{z?.address}</p>
+												<p>{z?.zip}</p>
+												<p>{z?.city}</p>
+												<p>{z?.country}</p>
+												<p>{z?.state}</p>
+												<p>{z?.phone}</p>
+												<p>{z?.deliveryName}</p>
+												<p>{z?.deliveryEmail}</p>
+												<p>{z?.apartment}</p>
+											</div>
+										))}
+									</p>
+								</div>
 							</div>
 						))
 					)}
