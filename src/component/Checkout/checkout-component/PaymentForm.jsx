@@ -128,7 +128,7 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 				grandTotal: grandTotal.toFixed(2),
 				date: new Date(),
 				quantity: cartItems.length,
-				orderStatus: "Pending",
+				orderStatus: "Ordered",
 				cartItems,
 				zoneDetail,
 			};

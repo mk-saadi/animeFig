@@ -32,7 +32,6 @@ const FiguresD = () => {
 
 	/* -------------------------- fetch current figure -------------------------- */
 	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
-	console.log("fig: ", fig);
 
 	/* -------------------------- fetch similar figures ------------------------- */
 	const {
