@@ -13,6 +13,7 @@ import useTitle from "../hooks/useWebTitle";
 import { ArrowDownUp } from "lucide-react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Loader from "../hooks/Loader";
+import { Fade } from "react-awesome-reveal";
 
 const Collections = () => {
 	useScrollToTop();
@@ -25,7 +26,6 @@ const Collections = () => {
 	const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page")) || 1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
-	console.log("isLoading: ", isLoading);
 	const [filters, setFilters] = useState({
 		name: "",
 		category: "",
@@ -190,12 +190,8 @@ const Collections = () => {
 	}, [isLoading]);
 
 	return (
-		<SwitchTransition>
-			<CSSTransition
-				key={location.key}
-				classNames="fade"
-				timeout={300}
-			>
+		<>
+			<Fade triggerOnce>
 				<section className="relative grid min-h-screen grid-cols-4 bg-white gap-x-4">
 					{/* Filter/sort column */}
 					<div className="col-span-1 overflow-y-auto ">
@@ -301,8 +297,8 @@ const Collections = () => {
 						/>
 					</div>
 				</section>
-			</CSSTransition>
-		</SwitchTransition>
+			</Fade>
+		</>
 	);
 };
 

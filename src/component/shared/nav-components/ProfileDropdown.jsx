@@ -1,13 +1,4 @@
-import {
-	ArrowRightFromLine,
-	LogIn,
-	LogOut,
-	Settings,
-	ShoppingCart,
-	User,
-	UserCircleIcon,
-	History,
-} from "lucide-react";
+import { LogIn, LogOut, Settings, ShoppingCart, User, UserCircleIcon, History } from "lucide-react";
 import { useState } from "react";
 import Cart from "../Cart";
 import { Link } from "react-router-dom";
