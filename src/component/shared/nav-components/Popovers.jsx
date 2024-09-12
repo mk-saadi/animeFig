@@ -30,7 +30,7 @@ const Popovers = () => {
 						<ChevronDownIcon className={`w-5 h-5 duration-300 ${isOpenFigure ? "mt-1" : ""}`} />
 					</button>
 					<div
-						className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
+						className={`absolute w-full -left-4 origin-top-left transition-all duration-300 ease-in-out ${
 							isOpenFigure
 								? "opacity-100 transform translate-y-0"
 								: "opacity-0 transform -translate-y-2 pointer-events-none"
@@ -106,7 +106,7 @@ const Popovers = () => {
 						<ChevronDownIcon className={`w-5 h-5 duration-300 ${isOpenSeries ? "mt-1" : ""}`} />
 					</button>
 					<div
-						className={`absolute w-full left-0 origin-top-left transition-all duration-300 ease-in-out ${
+						className={`absolute w-full -left-4 origin-top-left transition-all duration-300 ease-in-out ${
 							isOpenSeries
 								? "opacity-100 transform translate-y-0"
 								: "opacity-0 transform -translate-y-2 pointer-events-none"
