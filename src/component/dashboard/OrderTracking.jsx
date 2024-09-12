@@ -55,7 +55,7 @@ const OrderTracking = () => {
 						subject to change without advance notice.
 					</p>
 				</div>
-				<div className="w-full mb-5 border rounded-md border-dhusor">
+				<div className="w-full mb-16 border rounded-md border-dhusor">
 					{order.map((item) => (
 						<div
 							key={item._id}

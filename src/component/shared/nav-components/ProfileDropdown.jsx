@@ -6,6 +6,7 @@ import {
 	ShoppingCart,
 	User,
 	UserCircleIcon,
+	History,
 } from "lucide-react";
 import { useState } from "react";
 import Cart from "../Cart";
@@ -54,7 +55,10 @@ const ProfileDropdown = ({ user, handleLogOut, isScrolled, toggleDrawer, isOpenC
 								</div>
 							)}
 							{user && (
-								<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
+								<Link
+									className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
+									to="/profile"
+								>
 									<User size={20} />
 									Profile
 								</Link>
@@ -68,16 +72,25 @@ const ProfileDropdown = ({ user, handleLogOut, isScrolled, toggleDrawer, isOpenC
 									Login
 								</Link>
 							)}
-							<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
+							<Link
+								className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
+								to="/checkout"
+							>
 								<ShoppingCart size={20} />
 								View Cart
 							</Link>
-							<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-								<ArrowRightFromLine size={20} />
-								Checkout
+							<Link
+								className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
+								to="/profile/browsing_history"
+							>
+								<History size={20} />
+								Browsing History
 							</Link>
-							<Link className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal">
-								<Settings size={20} /> Settings
+							<Link
+								className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
+								to="/profile/orders_progress"
+							>
+								<Settings size={20} /> Track Order
 							</Link>
 							{user && (
 								<p

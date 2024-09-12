@@ -147,7 +147,7 @@ const Navbar = () => {
 										as="p"
 										className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
 									>
-										Settings
+										Track Order
 									</Disclosure.Button>
 									<Disclosure.Button
 										as="button"
