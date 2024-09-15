@@ -91,7 +91,9 @@ const Profile = () => {
 							</div>
 							<div>
 								{item?.zoneDetail ? (
-									<div key={item.zoneDetail.zip}>
+									<div
+									//  key={item.zoneDetail.zip}
+									>
 										<p>
 											Ship to: {item.zoneDetail.address}, {item.zoneDetail.city}
 										</p>
