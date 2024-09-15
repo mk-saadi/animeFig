@@ -4,13 +4,14 @@ import Breadcrumbs from "../hooks/BreadCrumbs";
 import UseAxiosHook from "../hooks/useAxiosHook";
 import { Link } from "react-router-dom";
 import { ArrowRight, Ban } from "lucide-react";
+import { useToast } from "react-toast-master";
 
 const Profile = () => {
 	const { user } = useContext(AuthContext);
 	const [orders, setOrders] = useState([]);
-	console.log("orders: ", orders);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
+	const { toastMaster } = useToast();
 
 	useEffect(() => {
 		const fetchUserPurchases = async () => {
@@ -42,37 +43,58 @@ const Profile = () => {
 		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
 	};
 
+	const cancelOrder = async (id) => {
+		const confirm = toastMaster({
+			type: "confirmDark",
+			message: "Confirm cancellation",
+			footer: "Are you sure you want to cancel this batch of order?",
+			position: "center",
+			align: "left",
+		});
+		if (confirm) {
+			console.log(id);
+		}
+		// try {
+		// 	const response = await axiosSecure.delete(`/payments/${id}`);
+		// 	console.log(response);
+		// } catch (error) {
+		// 	console.error("Error cancelling order:", error);
+		// }
+	};
+
 	return (
-		<div>
+		<div className="flex flex-col w-full min-h-screen gap-y-8">
 			<div>
-				<>
-					<Breadcrumbs />
-				</>
-				<h1 className=" text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
-					<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
-					Profile
-				</h1>
-			</div>
-			<div className="w-full px-8 py-4 border rounded-md border-dhusor">
-				<div className="flex justify-start place-items-start gap-x-6">
-					<div className="w-20 overflow-hidden rounded-md h-28">
-						<img
-							src={user.photoURL}
-							alt={user.displayName}
-							className="object-cover w-full h-full rounded-md"
-						/>
-					</div>
-					<div className="">
-						<h2 className="text-xl font-semibold text-kala">{user.displayName}</h2>
-						<div className="flex text-base gap-x-3 text-ash">
-							<p>Email: {user.email},</p>
-							{zoneDetails?.slice(0, 1).map((item) => (
-								<p key={item.zip}>Phone: {item?.phone}</p>
-							))}
+				<div>
+					<>
+						<Breadcrumbs />
+					</>
+					<h1 className="mb-4 text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+						<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+						Profile
+					</h1>
+				</div>
+				<div className="w-full px-8 py-4 border rounded-md border-dhusor">
+					<div className="flex justify-start place-items-start gap-x-6">
+						<div className="w-20 overflow-hidden rounded-md h-28">
+							<img
+								src={user.photoURL}
+								alt={user.displayName}
+								className="object-cover w-full h-full rounded-md"
+							/>
 						</div>
-						<div className="flex flex-col text-base gap-x-3 text-ash">
-							<p>Joined: {user.metadata.creationTime}</p>
-							<p>Last Logged In: {user.metadata.creationTime}</p>
+						<div className="">
+							<h2 className="text-xl font-semibold text-kala">{user.displayName}</h2>
+							<div className="flex text-base gap-x-3 text-ash">
+								<p>Email: {user.email},</p>
+								{zoneDetails?.slice(0, 1).map((item) => (
+									<p key={item.zip}>Phone: {item?.phone}</p>
+								))}
+							</div>
+							<div className="flex flex-col text-base gap-x-3 text-ash">
+								<p>Joined: {user.metadata.creationTime}</p>
+								<p>Last Logged In: {user.metadata.creationTime}</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -106,7 +128,10 @@ const Profile = () => {
 									<p className="text-ash">Date: {formatDate(item.date)}</p>
 								</div>
 								<div className="flex items-center justify-start gap-x-3">
-									<button className="flex items-center justify-center gap-x-1.5 px-2 py-1 duration-300 rounded-md text-white font-medium bg-laal">
+									<button
+										className="flex items-center justify-center gap-x-1.5 px-2 py-1 duration-300 rounded-md text-white font-medium bg-laal"
+										onClick={() => cancelOrder(item._id)}
+									>
 										<Ban size={20} />
 										Cancel Order
 									</button>
@@ -145,7 +170,7 @@ const Profile = () => {
 								</div>
 							</div>
 							{/* ordered figures */}
-							<div className="grid grid-cols-3 gap-4 mt-3 ">
+							<div className="grid grid-cols-3 gap-2 mt-3 ">
 								{item.orderedFigs.map((item) => (
 									<div
 										key={item._id}
@@ -158,9 +183,9 @@ const Profile = () => {
 												className="object-cover w-20 h-20 rounded-md"
 											/>
 										</>
-										<div className="w-full border">
-											<p className=" line-clamp-1">{item.figName}</p>
-											<p>
+										<div className="flex flex-col w-full">
+											<p className="line-clamp-2">{item.figName}</p>
+											<p className="font-medium">
 												{item.quantity} = ${item.totalPrice}
 											</p>
 										</div>
