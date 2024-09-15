@@ -7,7 +7,6 @@ import { ArrowRight, Ban } from "lucide-react";
 
 const Profile = () => {
 	const { user } = useContext(AuthContext);
-	console.log("user: ", user);
 	const [orders, setOrders] = useState([]);
 	console.log("orders: ", orders);
 	const [axiosSecure] = UseAxiosHook();
@@ -32,6 +31,16 @@ const Profile = () => {
 	}, [user, axiosSecure]);
 
 	const zoneDetails = orders.map((item) => item.zoneDetail);
+
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		if (isNaN(date)) {
+			return "Invalid date";
+		}
+
+		const options = { day: "2-digit", month: "short", year: "numeric" };
+		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
+	};
 
 	return (
 		<div>
@@ -80,13 +89,24 @@ const Profile = () => {
 							key={item._id}
 							className="w-full px-8 py-4 border rounded-md border-dhusor"
 						>
-							<div className="flex items-center justify-between">
-								<div>
-									<p>Order ID: {item._id}</p>
-									<p>Order Date: {item.date}</p>
+							<div className="flex items-center justify-between pb-3 border-b border-dhusor">
+								<div className="">
+									<p className="text-base text-kala">
+										Order ID: {item._id} -{" "}
+										<span
+											className={`font-semibold ${
+												item.orderStatus === "Received"
+													? "text-green-500"
+													: "text-blue-500"
+											}`}
+										>
+											{item.orderStatus}
+										</span>
+									</p>
+									<p className="text-ash">Date: {formatDate(item.date)}</p>
 								</div>
 								<div className="flex items-center justify-start gap-x-3">
-									<button className="flex items-center justify-center gap-x-1.5 px-2 py-1 duration-300 rounded-md hover:text-laal text-kala font-medium bg-ash/5 hover:bg-ash/10">
+									<button className="flex items-center justify-center gap-x-1.5 px-2 py-1 duration-300 rounded-md text-white font-medium bg-laal">
 										<Ban size={20} />
 										Cancel Order
 									</button>
@@ -99,19 +119,53 @@ const Profile = () => {
 									</Link>
 								</div>
 							</div>
-							<div>
-								{item?.zoneDetail ? (
+							{/* info section */}
+							<div className="flex justify-around w-full mt-4 border-b border-dhusor">
+								<div className="text-ash">
+									<p className="text-kala mb-[2px]">Contact:</p>
+									<p>{item.zoneDetail?.deliverName}</p>
+									<p>{item.zoneDetail?.deliverEmail}</p>
+									<p>{item.zoneDetail?.phone}</p>
+								</div>
+								<div className="text-ash">
+									<p className="text-kala mb-[2px]">Shipping Address:</p>
+									<p>{item.zoneDetail?.country}</p>
+									<p>
+										{item.zoneDetail?.apartment}, {item.zoneDetail?.address},{" "}
+										{item.zoneDetail.city}
+									</p>
+									<p>ZIP: {item.zoneDetail.zip}</p>
+								</div>
+								<div className="text-ash">
+									<p className="text-kala mb-[2px]">Payment:</p>
+									<p>Visa</p>
+									<p>**** 4242</p>
+									<p>Shipping Fee: $17.30</p>
+									<p>Total paid: ${item.grandTotal}</p>
+								</div>
+							</div>
+							{/* ordered figures */}
+							<div className="grid grid-cols-3 gap-4 mt-3 ">
+								{item.orderedFigs.map((item) => (
 									<div
-									//  key={item.zoneDetail.zip}
+										key={item._id}
+										className="flex w-full p-2 gap-x-2 text-ash"
 									>
-										<p>
-											Ship to: {item.zoneDetail.address}, {item.zoneDetail.city}
-										</p>
-										<p>ZIP: {item.zoneDetail.zip}</p>
+										<>
+											<img
+												src={item?.figImage}
+												alt=""
+												className="object-cover w-20 h-20 rounded-md"
+											/>
+										</>
+										<div className="w-full border">
+											<p className=" line-clamp-1">{item.figName}</p>
+											<p>
+												{item.quantity} = ${item.totalPrice}
+											</p>
+										</div>
 									</div>
-								) : (
-									<p>No zone details available</p>
-								)}
+								))}
 							</div>
 						</div>
 					))}
