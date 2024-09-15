@@ -44,22 +44,30 @@ const Profile = () => {
 	};
 
 	const cancelOrder = async (id) => {
-		const confirm = toastMaster({
+		const confirm = await toastMaster({
 			type: "confirmDark",
 			message: "Confirm cancellation",
 			footer: "Are you sure you want to cancel this batch of order?",
 			position: "center",
 			align: "left",
 		});
+
 		if (confirm) {
-			console.log(id);
+			try {
+				const response = await axiosSecure.delete(`/payments/${id}`);
+				if (response.data.deletedCount > 0) {
+					setOrders((prevOrders) => prevOrders.filter((order) => order._id !== id));
+					toastMaster({
+						type: "success",
+						message: "Order cancelled successfully",
+						position: "bottomLeft",
+						transition: "top",
+					});
+				}
+			} catch (error) {
+				console.error("Error cancelling order:", error);
+			}
 		}
-		// try {
-		// 	const response = await axiosSecure.delete(`/payments/${id}`);
-		// 	console.log(response);
-		// } catch (error) {
-		// 	console.error("Error cancelling order:", error);
-		// }
 	};
 
 	return (
