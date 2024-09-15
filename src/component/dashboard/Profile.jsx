@@ -3,6 +3,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import Breadcrumbs from "../hooks/BreadCrumbs";
 import UseAxiosHook from "../hooks/useAxiosHook";
 import { Link } from "react-router-dom";
+import { ArrowRight, Ban } from "lucide-react";
 
 const Profile = () => {
 	const { user } = useContext(AuthContext);
@@ -84,9 +85,18 @@ const Profile = () => {
 									<p>Order ID: {item._id}</p>
 									<p>Order Date: {item.date}</p>
 								</div>
-								<div className="flex items-start justify-center gap-x-4">
-									<button>Cancel Order</button>
-									<Link to="/profile/orders_progress">Track Order</Link>
+								<div className="flex items-center justify-start gap-x-3">
+									<button className="flex items-center justify-center gap-x-1.5 px-2 py-1 duration-300 rounded-md hover:text-laal text-kala font-medium bg-ash/5 hover:bg-ash/10">
+										<Ban size={20} />
+										Cancel Order
+									</button>
+									<Link
+										to="/profile/orders_progress"
+										className="flex text-kala hover:text-laal duration-150 font-medium items-center gap-x-1.5 justify-center"
+									>
+										Track Order
+										<ArrowRight size={20} />
+									</Link>
 								</div>
 							</div>
 							<div>
