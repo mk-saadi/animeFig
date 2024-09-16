@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { toast } from "react-hot-toast";
 import Cart from "./Cart";
 import { Disclosure } from "@headlessui/react";
 import { X, Menu as MenuIcon } from "lucide-react";

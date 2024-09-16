@@ -4,6 +4,11 @@ const useScroll = (elementId) => {
 	const [isScrolled, setIsScrolled] = useState(false);
 
 	useEffect(() => {
+		/**
+		 * Handles the scroll event and updates the scrolled state based on the element's position.
+		 *
+		 * @return {void}
+		 */
 		const handleScroll = () => {
 			const element = document.getElementById(elementId);
 			if (element) {
