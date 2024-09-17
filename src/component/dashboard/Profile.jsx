@@ -99,6 +99,7 @@ const Profile = () => {
 									<p key={item.zip}>Phone: {item?.phone}</p>
 								))}
 							</div>
+
 							<div className="flex flex-col text-base gap-x-3 text-ash">
 								<p>Joined: {user.metadata.creationTime}</p>
 								<p>Last Logged In: {user.metadata.creationTime}</p>
