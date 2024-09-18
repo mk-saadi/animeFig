@@ -81,51 +81,47 @@ const FiguresD = () => {
 	return (
 		<>
 			{isLoading ? (
-				// <div className="flex items-center justify-center min-h-screen bg-white">
-				// 	<Fade>
-				// 		<p className="text-3xl font-bold text-ash">Loading...</p>
-				// 	</Fade>
-				// </div>
-				<div className="grid h-screen grid-cols-5 px-12 pt-16 pb-12 bg-white gap-x-8">
-					{/* Product Image Placeholder */}
-					<div className="w-full col-span-2 overflow-hidden bg-gray-300 rounded-lg aspect-w-1 aspect-h-1">
-						<div className="flex items-center justify-center h-full">
-							<svg
-								className="w-12 h-12 text-gray-400"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-								></path>
-							</svg>
+				<Fade>
+					<div className="grid h-screen grid-cols-5 px-12 pt-16 pb-12 bg-white gap-x-8">
+						{/* Product Image Placeholder */}
+						<div className="w-full col-span-2 overflow-hidden bg-gray-300 rounded-lg aspect-w-1 aspect-h-1">
+							<div className="flex items-center justify-center h-full">
+								<svg
+									className="w-12 h-12 text-gray-400"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+									></path>
+								</svg>
+							</div>
+						</div>
+						<div className="flex flex-col col-span-3 gap-y-8">
+							{/* Product Info Placeholder */}
+							<div className="w-3/4 h-8 bg-gray-300 rounded" />
+							<div className="flex items-center justify-center gap-x-4">
+								<div className="w-3/4 h-16 mt-4 bg-gray-300 rounded" />
+								<div className="w-3/4 h-16 mt-4 bg-gray-300 rounded" />
+							</div>
+							<div className="h-32 bg-gray-300 rounded " />
 						</div>
 					</div>
-					<div className="flex flex-col col-span-3 gap-y-8">
-						{/* Product Info Placeholder */}
-						<div className="w-3/4 h-8 bg-gray-300 rounded" />
-						<div className="flex items-center justify-center gap-x-4">
-							<div className="w-3/4 h-16 mt-4 bg-gray-300 rounded" />
-							<div className="w-3/4 h-16 mt-4 bg-gray-300 rounded" />
-						</div>
-						<div className="h-32 bg-gray-300 rounded " />
-					</div>
-				</div>
+				</Fade>
 			) : (
 				<>
 					<>
 						<Navbar />
 					</>
-					<Fade triggerOnce>
+					<Fade>
 						<section
 							className={`flex px-12 flex-col overflow-visible items-center justify-center bg-white 
-				${isScrolled ? "pt-40" : "pt-40"}
-				`}
+										${isScrolled ? "pt-40" : "pt-40"}`}
 						>
 							<div className="flex justify-between gap-x-4">
 								{/* image component */}
