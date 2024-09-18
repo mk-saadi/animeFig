@@ -88,7 +88,7 @@ const Items = ({ fig, removeItem }) => {
 					title={fig?.name}
 				>
 					<img
-						src={fig?.image}
+						src={fig?.images}
 						alt={fig?.name}
 						className="object-cover w-full h-full duration-300 group-hover:scale-105"
 					/>

@@ -55,15 +55,17 @@ const FiguresD = () => {
 	// };
 
 	const [visitedFigures, setVisitedFigures] = useState(() => {
-		return JSON.parse(localStorage.getItem("visitedFigures")) || [];
+		return JSON.parse(sessionStorage.getItem("visitedFigures")) || [];
 	});
 
 	useEffect(() => {
 		if (fig.images) {
 			const figureDetails = {
 				name: fig.name,
-				image: fig.images[0],
+				images: fig.images[0],
 				link: fig.link,
+				price: fig.price,
+				label: fig.label,
 			};
 
 			const isFigureVisited = visitedFigures.some((item) => item.link === figureDetails.link);
@@ -73,7 +75,7 @@ const FiguresD = () => {
 
 				setVisitedFigures(updatedVisitedFigures);
 
-				localStorage.setItem("visitedFigures", JSON.stringify(updatedVisitedFigures));
+				sessionStorage.setItem("visitedFigures", JSON.stringify(updatedVisitedFigures));
 			}
 		}
 	}, [fig, isLoading, error, visitedFigures]);
