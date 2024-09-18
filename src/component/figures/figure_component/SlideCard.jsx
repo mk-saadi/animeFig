@@ -13,7 +13,7 @@ import "swiper/css/navigation";
 const ProductSlider = ({ figures }) => {
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
-	const [isStart, setIsStart] = useState(true);
+	const [isBeginning, setIsStart] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
 
 	return (
@@ -29,7 +29,7 @@ const ProductSlider = ({ figures }) => {
 					swiper.params.navigation.nextEl = nextRef.current;
 				}}
 				onSlideChange={(swiper) => {
-					setIsStart(swiper.isStart);
+					setIsStart(swiper.isBeginning);
 					setIsEnd(swiper.isEnd);
 				}}
 				spaceBetween={50}
@@ -60,30 +60,29 @@ const ProductSlider = ({ figures }) => {
 				)}
 			</Swiper>
 			{/* navigation button */}
-			<>
-				<button
-					ref={prevRef}
-					className={`absolute left-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-						isStart
-							? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
-							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-					}`}
-					disabled={isStart}
-				>
-					<ArrowLeft className="w-6 h-6" />
-				</button>
-				<button
-					ref={nextRef}
-					className={`absolute right-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-						isEnd
-							? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
-							: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-					}`}
-					disabled={isEnd}
-				>
-					<ArrowRight className="w-6 h-6" />
-				</button>
-			</>
+
+			<button
+				ref={prevRef}
+				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isBeginning
+						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isBeginning}
+			>
+				<ArrowLeft className="w-6 h-6" />
+			</button>
+			<button
+				ref={nextRef}
+				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
+					isEnd
+						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
+						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
+				}`}
+				disabled={isEnd}
+			>
+				<ArrowRight className="w-6 h-6" />
+			</button>
 		</div>
 	);
 };

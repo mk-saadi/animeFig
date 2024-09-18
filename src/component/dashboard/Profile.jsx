@@ -77,7 +77,7 @@ const Profile = () => {
 					<>
 						<Breadcrumbs />
 					</>
-					<h1 className="mb-4 text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+					<h1 className="my-4 text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
 						<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 						Profile
 					</h1>
@@ -202,6 +202,11 @@ const Profile = () => {
 							</div>
 						</div>
 					))}
+					{orders.length === 0 && (
+						<div className="flex items-center justify-center w-full">
+							<p>No order found</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
