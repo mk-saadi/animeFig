@@ -29,11 +29,6 @@ const OrdersTracking = () => {
 		fetchUserPurchases();
 	}, [user, axiosSecure]);
 
-	// const pending = orders?.filter((order) => order?.orderStatus === "Pending");
-	// const approved = orders?.filter((order) => order?.orderStatus === "Approved");
-	// const shipped = orders?.filter((order) => order?.orderStatus === "Shipped");
-	// const received = orders?.filter((order) => order?.orderStatus === "Received");
-
 	const [orderId, setOrderId] = useState("");
 	const [filteredOrder, setFilteredOrder] = useState(null);
 
@@ -98,13 +93,8 @@ const OrdersTracking = () => {
 								console.error("Failed to read clipboard: ", err);
 							}
 						}}
-					/>
-					<button
 						onClick={handleTrackOrder}
-						className="px-4 py-2 text-white bg-yellow-500"
-					>
-						Track
-					</button>
+					/>
 					{/* Display the matched order if found */}
 					<div>
 						{filteredOrder ? (

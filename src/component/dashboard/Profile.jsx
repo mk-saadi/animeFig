@@ -204,7 +204,9 @@ const Profile = () => {
 					))}
 					{orders.length === 0 && (
 						<div className="flex items-center justify-center w-full mt-16 h-fit">
-							<p className="text-xl font-medium text-ash">You haven't made a purchase yet.</p>
+							<p className="text-xl font-medium text-ash">
+								You haven&apos;t made a purchase yet.
+							</p>
 						</div>
 					)}
 				</div>

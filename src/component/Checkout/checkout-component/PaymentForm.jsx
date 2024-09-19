@@ -104,6 +104,13 @@ const CheckOutForm = ({ cartItems, user, grandTotal }) => {
 
 		setProcessing(true);
 
+		toastMaster({
+			type: "loading",
+			message: "Please wait...",
+			transition: "top",
+			position: "bottomLeft",
+		});
+
 		const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
 			payment_method: {
 				card: card,
