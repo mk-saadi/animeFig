@@ -72,7 +72,7 @@ const ProfileDropdown = ({ user, handleLogOut, isScrolled, toggleDrawer, isOpenC
 							</Link>
 							<Link
 								className="flex items-center justify-start px-4 py-2 text-sm duration-300 gap-x-4 text-ash hover:text-laal"
-								to="/profile/browsing_history"
+								to="/browsing_history"
 							>
 								<History size={20} />
 								Browsing History

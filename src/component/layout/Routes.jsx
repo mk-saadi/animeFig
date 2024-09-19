@@ -64,7 +64,7 @@ const router = createBrowserRouter([
 				element: <OrdersTracking />,
 			},
 			{
-				path: "/profile/browsing_history",
+				path: "/browsing_history",
 				element: <BrowsingHistory />,
 			},
 			{
