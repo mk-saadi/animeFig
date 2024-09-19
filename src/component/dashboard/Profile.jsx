@@ -203,8 +203,8 @@ const Profile = () => {
 						</div>
 					))}
 					{orders.length === 0 && (
-						<div className="flex items-center justify-center w-full">
-							<p>No order found</p>
+						<div className="flex items-center justify-center w-full mt-16 h-fit">
+							<p className="text-xl font-medium text-ash">You haven't made a purchase yet.</p>
 						</div>
 					)}
 				</div>
