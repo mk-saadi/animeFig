@@ -9,6 +9,7 @@ import { useToast } from "react-toast-master";
 const Profile = () => {
 	const { user } = useContext(AuthContext);
 	const [orders, setOrders] = useState([]);
+	console.log("orders: ", orders);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
 	const { toastMaster } = useToast();
