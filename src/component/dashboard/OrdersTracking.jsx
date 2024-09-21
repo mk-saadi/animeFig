@@ -109,11 +109,11 @@ const OrdersTracking = () => {
 					{/* Display the matched order if found */}
 					<div>
 						{filteredOrder ? (
-							<div className="p-4 mt-4 border rounded-md border-dhusor">
+							<div className="p-4 mt-8 border rounded-md border-dhusor">
 								{/* top row */}
 								<div className="mb-4">
 									<div className="flex flex-col items-center justify-center w-full mb-4">
-										<h2 className="text-2xl flex mb-1 justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+										<h2 className="text-2xl flex mt-4 mb-1 justify-center items-center gap-x-2.5 font-medium text-center text-kala">
 											<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 											Order Status for ID{" "}
 											<span className="font-bold">{filteredOrder?._id}</span>
@@ -298,9 +298,7 @@ const OrdersTracking = () => {
 								</div>
 							)
 						)}
-						{filteredOrder === null && (
-							<p className="mt-4 text-red-500">Enter ID to find order</p>
-						)}
+						{filteredOrder === null && <p className="mt-4 text-ash">Enter ID to find order</p>}
 					</div>
 				</div>
 			</div>
