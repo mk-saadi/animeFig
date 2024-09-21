@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import UseAxiosHook from "../hooks/useAxiosHook";
 import { useToast } from "react-toast-master";
+import { Package, PackageCheck, Settings, Truck } from "lucide-react";
 
 const OrdersTracking = () => {
 	const [orders, setOrders] = useState([]);
-	console.log("orders: ", orders);
 	const { user } = useContext(AuthContext);
 	const [axiosSecure] = UseAxiosHook();
 	const { toastMaster } = useToast();
@@ -38,9 +38,20 @@ const OrdersTracking = () => {
 		setFilteredOrder(matchingOrder);
 	};
 
+	const zoneDetails = orders.map((item) => item.zoneDetail);
+
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		if (isNaN(date)) {
+			return "Invalid date";
+		}
+
+		const options = { day: "2-digit", month: "short", year: "numeric" };
+		return new Intl.DateTimeFormat("en-GB", options).format(date).replace(/ /g, ". ");
+	};
+
 	return (
 		<div className="flex flex-col w-full min-h-screen bg-white">
-			<p>order_progress</p>
 			<div className="grid grid-cols-1 w-fit items-start justify-start gap-y-1.5">
 				{loading ? (
 					<div>loading</div>
@@ -81,14 +92,12 @@ const OrdersTracking = () => {
 						placeholder="Enter Order ID"
 						value={orderId}
 						onChange={(e) => setOrderId(e.target.value)}
-						className="p-2 mb-4 border"
-						// onFocus={(e) => e.target.select()}
+						className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-700/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash placeholder:text-sm placeholder:text-ash/70 placeholder:font-normal"
 						onFocus={async (e) => {
-							e.target.select(); // Select the text in the input field
-							// Read the clipboard contents
+							e.target.select();
 							try {
 								const text = await navigator.clipboard.readText();
-								setOrderId(text); // Set the clipboard text as the input value
+								setOrderId(text);
 							} catch (err) {
 								console.error("Failed to read clipboard: ", err);
 							}
@@ -99,6 +108,92 @@ const OrdersTracking = () => {
 					<div>
 						{filteredOrder ? (
 							<div className="p-4 mt-4 border">
+								{/* top row */}
+								<div className="mb-12">
+									<div className="flex flex-col items-center justify-center w-full mb-4">
+										<h2 className="text-2xl mb-4 flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+											<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+											Order Status for ID{" "}
+											<span className="font-bold">{filteredOrder?._id}</span>
+										</h2>
+										<p className="text-base font-normal text-ash">
+											Please note that these are accurate but not guaranteed estimates.
+											Delivery dates are subject to change without advance notice.
+										</p>
+									</div>
+									<div className="w-full mb-16 border rounded-md border-dhusor">
+										<div className="w-full">
+											<div className="flex items-center justify-around p-4">
+												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
+													Order Date{" "}
+													<span className="text-sm font-normal text-ash">
+														{formatDate(filteredOrder?.date)}
+													</span>
+												</p>
+												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
+													Total{" "}
+													<span className="text-sm font-normal text-ash">
+														${filteredOrder?.grandTotal}
+													</span>
+												</p>
+												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
+													Ship to{" "}
+													<span className="text-sm font-normal text-ash">
+														{zoneDetails.map((item) => (
+															<p key={item?.zip}>
+																{item?.address}, {item?.city}
+															</p>
+														))}
+													</span>
+												</p>
+												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
+													ZIP{" "}
+													<span className="text-sm font-normal text-ash">
+														{zoneDetails?.map((item) => (
+															<div key={item?.zip}>
+																<p>{item?.zip}</p>
+															</div>
+														))}
+													</span>
+												</p>
+												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
+													Order ID{" "}
+													<span className="text-sm font-normal text-ash">
+														{filteredOrder?._id}
+													</span>
+												</p>
+											</div>
+										</div>
+									</div>
+									<div className="flex flex-col items-center justify-center w-full gap-y-1">
+										<p className="flex gap-x-1.5 text-xl font-semibold text-ash">
+											Order Status
+											{orders.map((item) => (
+												<span
+													key={item._id}
+													className="text-blue-500"
+												>
+													{item.orderStatus}
+												</span>
+											))}
+										</p>
+										<p>
+											{
+												<p className="flex gap-x-1.5 text-base font-medium text-ash">
+													Estimated Delivery Date{" "}
+													<span>
+														{new Date(
+															new Date(filteredOrder.date).setDate(
+																new Date(filteredOrder.date).getDate() + 7
+															)
+														).toLocaleDateString()}
+													</span>
+												</p>
+											}
+										</p>
+									</div>
+								</div>
+								{/* top row end */}
 								<p>Order ID: {filteredOrder._id}</p>
 								<p>Status: {filteredOrder.orderStatus}</p>
 								<p>Price: {filteredOrder.grandTotal}</p>

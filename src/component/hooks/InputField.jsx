@@ -1,5 +1,3 @@
-import React from "react";
-
 const InputField = ({ label, type = "text", id, name, placeholder, required, defaultValue }) => {
 	return (
 		<div className="flex flex-col w-full gap-y-1.5">
