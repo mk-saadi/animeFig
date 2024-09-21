@@ -13,7 +13,7 @@ const Footer = () => {
 						alt=""
 						className="w-24 h-24 mx-auto pointer-events-none select-none grayscale"
 					/>
-					<h4 className="mb-6 text-2xl font-bold">Authenticity Guaranteed</h4>
+					<h4 className="mb-6 text-2xl font-bold text-gray-300">Authenticity Guaranteed</h4>
 					<p className="text-xs text-gray-400 sm:text-sm">
 						Shipping Japan's finest OTAKU goods to the world! <br /> That is the AnimeFig's Shop
 						mission!

@@ -32,7 +32,7 @@ const Products = ({ fig, isLoading }) => {
 		<Fade
 			// cascade
 			triggerOnce
-			duration={2000}
+			duration={1400}
 		>
 			{/* {isLoading && <Loader />} */}
 
