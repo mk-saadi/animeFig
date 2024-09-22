@@ -1,7 +1,7 @@
 import "./footer.css";
 import image from "../../assets/img.png";
 import gur from "../../assets/gur.png";
-import { FaFacebookSquare, FaInstagramSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
+import { Facebook, Instagram, Linkedin, Bird } from "lucide-react";
 
 const Footer = () => {
 	return (
@@ -43,27 +43,27 @@ const Footer = () => {
 							className="flex items-center justify-center gap-1 link link-hover"
 							href="#"
 						>
-							<FaFacebookSquare />
+							<Facebook />
 							Facebook
 						</a>
 						<a
 							className="flex items-center justify-center gap-1 link link-hover"
 							href="#"
 						>
-							<FaInstagramSquare /> Instagram
+							<Instagram /> Instagram
 						</a>
 						<a
 							className="flex items-center justify-center gap-1 link link-hover"
 							href="#"
 						>
-							<FaTwitterSquare />
+							<Bird />
 							Twitter
 						</a>
 						<a
 							className="flex items-center justify-center gap-1 link link-hover"
 							href="#"
 						>
-							<FaLinkedin />
+							<Linkedin />
 							LinkedIn
 						</a>
 					</div>

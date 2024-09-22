@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import useTitle from "../hooks/useWebTitle";
-import { BsQuestionSquareFill } from "react-icons/bs";
 import axios from "axios";
 import { ref, getDownloadURL, getStorage, uploadBytes } from "firebase/storage";
-import { ImagePlus } from "lucide-react";
+import { ImagePlus, MessageCircleQuestion } from "lucide-react";
 import { useToast } from "react-toast-master";
 import InputField from "../hooks/InputField";
 import useScrollToTop from "../hooks/useScrollToTop";
@@ -296,7 +295,7 @@ const AddToys = () => {
 									tabIndex={0}
 									className="btn btn-circle btn-ghost btn-xs text-info"
 								>
-									<BsQuestionSquareFill className="text-xl" />
+									<MessageCircleQuestion className="text-xl" />
 								</label>
 								<div
 									tabIndex={0}

@@ -1,5 +1,5 @@
+import { ArrowBigLeft, LucideMessageCircleQuestion } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { BsFillArrowLeftSquareFill, BsQuestionSquareFill } from "react-icons/bs";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 const EditMyToys = () => {
@@ -188,7 +188,7 @@ const EditMyToys = () => {
 									tabIndex={0}
 									className="btn btn-circle btn-ghost btn-xs text-info"
 								>
-									<BsQuestionSquareFill className="text-xl" />
+									<LucideMessageCircleQuestion className="text-xl" />
 								</label>
 								<div
 									tabIndex={0}
@@ -232,7 +232,7 @@ const EditMyToys = () => {
 							className="flex items-center gap-1 text-white rounded-sm btn btn-error"
 							onClick={handleGoBack}
 						>
-							<BsFillArrowLeftSquareFill />
+							<ArrowBigLeft />
 							Go Back
 						</button>
 						<input
