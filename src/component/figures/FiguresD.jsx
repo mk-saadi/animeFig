@@ -16,6 +16,7 @@ import ProductSlider from "./figure_component/SlideCard";
 import Comment from "./figure_component/CommentComponent";
 import { useEffect, useState } from "react";
 import RecentlyViewed from "./figure_component/RecentlyViewed";
+import axios from "axios";
 
 const FiguresD = () => {
 	const { link } = useParams();
@@ -31,7 +32,23 @@ const FiguresD = () => {
 	}, [location]);
 
 	/* -------------------------- fetch current figure -------------------------- */
-	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
+	// const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
+	const [fig, setFIgure] = useState([]);
+	const [isLoading, setIsLoading] = useState([]);
+	const [error, setError] = useState([]);
+
+	useEffect(() => {
+		setIsLoading(true);
+		const fetchFigures = async () => {
+			const res = await axios.get(`https://server-anime-fig-brown.vercel.app/figures/${link}`);
+			const data = res.data;
+			if (res.data) {
+				setIsLoading(false);
+			}
+			setFIgure(data);
+		};
+		fetchFigures();
+	}, [link]);
 
 	/* -------------------------- fetch similar figures ------------------------- */
 	const {

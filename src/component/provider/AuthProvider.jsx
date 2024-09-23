@@ -1,14 +1,12 @@
 import {
-	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	getAuth,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
-	signInWithRedirect,
 	signOut,
 	updateProfile,
 } from "firebase/auth";
-import app from "../../firebase/firebase.config";
+import app from "../../../firebase/firebase.config";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -20,7 +18,6 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const googleProvider = new GoogleAuthProvider();
 
 	const newUser = (email, password) => {
 		setLoading(true);
@@ -37,14 +34,6 @@ const AuthProvider = ({ children }) => {
 	const signIn = (email, password) => {
 		setLoading(true);
 		return signInWithEmailAndPassword(auth, email, password);
-	};
-
-	googleProvider.setCustomParameters({
-		prompt: "login",
-	});
-
-	const signInWithGoogleRedirect = () => {
-		signInWithRedirect(auth, googleProvider);
 	};
 
 	const logOut = () => {
@@ -78,7 +67,7 @@ const AuthProvider = ({ children }) => {
 			setUser(currentUser);
 			if (currentUser) {
 				axios
-					.post("http://localhost:3000/jwt", {
+					.post(`${import.meta.env.VITE_URL}/jwt`, {
 						email: currentUser.email,
 					})
 					.then((data) => {
@@ -100,7 +89,6 @@ const AuthProvider = ({ children }) => {
 		loading,
 		newUser,
 		signIn,
-		signInWithGoogleRedirect,
 		logOut,
 		updateProfileInfo,
 	};

@@ -1,5 +1,5 @@
 import { useCart } from "../provider/CartProvider";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import FirstSec from "./checkout-component/FirstSec";
 import SecondSec from "./checkout-component/SecondSec";
@@ -7,17 +7,6 @@ import TopSec from "./checkout-component/TopSec";
 
 const CheckOut = () => {
 	const { user } = useContext(AuthContext);
-	// const {
-	// 	cartItems,
-	// 	increaseQuantity,
-	// 	decreaseQuantity,
-	// 	removeFromCart,
-	// 	toggleProtection,
-	// 	totalPrice,
-	// 	shippingCost,
-	// 	protectionCost,
-	// } = useCart();
-	// const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
 	const {
 		cartItems,
 		increaseQuantity,
@@ -30,18 +19,9 @@ const CheckOut = () => {
 		totalPrice,
 	} = useCart();
 
-	const [isProtectionChecked, setIsProtectionChecked] = useState(false);
 	const totalFigPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
 
 	const cartItemsWithoutComingSoon = cartItems.filter((item) => item.figLabel === "Coming Soon");
-
-	// const handleProtectionChange = (e) => {
-	// 	const isChecked = e.target.checked;
-	// 	setIsProtectionChecked(isChecked);
-	// 	toggleProtection(isChecked);
-	// };
-
-	// const finalTotalPrice = totalPrice + shippingCost + protectionCost;
 
 	return (
 		<>
@@ -66,11 +46,7 @@ const CheckOut = () => {
 					<>
 						<SecondSec
 							user={user}
-							// handleProtectionChange={handleProtectionChange}
-							// isProtectionChecked={isProtectionChecked}
-							// finalTotalPrice={finalTotalPrice}
 							totalFigPrice={totalFigPrice}
-							// protectionCost={protectionCost}
 							toggleProtectionFee={toggleProtectionFee}
 							includeProtectionFee={includeProtectionFee}
 							shippingCost={shippingCost}

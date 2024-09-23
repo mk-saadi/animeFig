@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { storage } from "../../firebase/firebase.config";
+import { storage } from "../../../firebase/firebase.config";
 import useTitle from "../hooks/useWebTitle";
 import imageCompression from "browser-image-compression";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
