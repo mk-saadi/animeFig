@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useFigures } from "../../hooks/APIS";
+// import { useFigures } from "../../hooks/APIS";
 import Products from "../../prouducts/Products";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,11 +10,29 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "../../hooks/Loader";
+import axios from "axios";
 
 const NewArrival = () => {
-	const { figure, isLoading, error } = useFigures(`/figures/latest_figures`);
+	// const { figure, isLoading, error } = useFigures(`/figures/latest_figures`);
+	const [figure, setFigure] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		const fetchFigures = async () => {
+			setIsLoading(true);
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_URL}/figures/latest_figures`);
+				const data = res.data;
+				setFigure(data);
+				setIsLoading(false);
+			} catch (error) {
+				console.error("Failed to fetch figures:", error);
+			}
+		};
+		fetchFigures();
+	}, []);
 
 	const figs = figure?.detailedFigures || [];
 

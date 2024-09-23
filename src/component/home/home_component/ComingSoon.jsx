@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
-import { useFigures } from "../../hooks/APIS";
+// import { useFigures } from "../../hooks/APIS";
 import Products from "../../prouducts/Products";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ComingSoon = () => {
-	const { figure: soon, isLoading: soon_loading, error } = useFigures(`/figures/coming_soon`);
+	// const { figure: soon, isLoading: soon_loading, error } = useFigures(`/figures/coming_soon`);
+
+	const [soon, setSoon] = useState([]);
+	const [soon_loading, setSoonLoading] = useState(false);
+
+	useEffect(() => {
+		setSoonLoading(true);
+		axios
+			.get(`${import.meta.env.VITE_URL}/figures/coming_soon`)
+			.then((res) => {
+				setSoon(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				setSoonLoading(false);
+			});
+	}, []);
 
 	const figs = soon?.detailedFigures || [];
 	const add = soon?.additionalFigures || [];

@@ -1,9 +1,24 @@
 import { Link } from "react-router-dom";
 import image from "../../../assets/background.jpg";
-import { useFigures } from "../../hooks/APIS";
+// import { useFigures } from "../../hooks/APIS";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const FirstRow = () => {
-	const { figure: fig, isLoading, error } = useFigures(`/figures/features`);
+	// const { figure: fig, isLoading, error } = useFigures(`/figures/features`);
+
+	const [fig, setFig] = useState([]);
+
+	useEffect(() => {
+		axios
+			.get(`${import.meta.env.VITE_URL}/figures/features`)
+			.then((res) => {
+				setFig(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	return (
 		<header className="overflow-hidden">
