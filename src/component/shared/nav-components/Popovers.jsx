@@ -162,7 +162,7 @@ const Popovers = () => {
 											to={`/collections?series=${category?.series}&sort=&page=1`}
 											key={category._id}
 											onClick={() => setIsOpenSeries(false)}
-											className="flex items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
+											className="flex items-center w-[200px] border justify-start gap-x-1.5 duration-200 ml-8 text-sm group text-ash hover:text-laal"
 										>
 											{category.series}
 											<ArrowRight
