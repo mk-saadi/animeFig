@@ -1,51 +1,51 @@
 import { ArrowRight, ChevronDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useCategoriesState, useFigures } from "../../hooks/APIS";
+// import { useCategoriesState, useFigures } from "../../hooks/APIS";
 import axios from "axios";
 
 const Popovers = () => {
-	const [categories] = useCategoriesState();
-	const { figure, isLoading, error } = useFigures(`/figures/series`);
-	// const [figure, setFigure] = useState([]);
-	// useEffect(() => {
-	// 	const fetchFigures = async () => {
-	// 		const res = await axios.get(`${import.meta.env.VITE_URL}/figures/series`);
-	// 		const data = res.data;
-	// 		setFigure(data);
-	// 	};
-	// 	fetchFigures();
-	// });
+	// const [categories] = useCategoriesState();
+	// const { figure, isLoading, error } = useFigures(`/figures/series`);
+	const [figure, setFigure] = useState([]);
+	useEffect(() => {
+		const fetchFigures = async () => {
+			const res = await axios.get(`${import.meta.env.VITE_URL}/figures/series`);
+			const data = res.data;
+			setFigure(data);
+		};
+		fetchFigures();
+	}, []);
 
-	// const [character, setSeries] = useState([]);
-	// useEffect(() => {
-	// 	const fetchSeries = async () => {
-	// 		const res = await axios.get(`${import.meta.env.VITE_URL}/figures/character`);
-	// 		const data = res.data;
-	// 		console.log("data: ", data);
-	// 		setSeries(data);
-	// 	};
-	// 	fetchSeries();
-	// });
-	const {
-		figure: character,
-		isLoading: characterLoading,
-		error: characterError,
-	} = useFigures(`/figures/character`);
-	// const [categories, setCategories] = useState([]);
-	// useEffect(() => {
-	// 	const fetchCategories = async () => {
-	// 		try {
-	// 			const response = await fetch(`${import.meta.env.VITE_URL}/categories`);
-	// 			const data = await response.json();
-	// 			setCategories(data);
-	// 		} catch (error) {
-	// 			console.error("Failed to fetch categories", error);
-	// 		}
-	// 	};
+	const [character, setSeries] = useState([]);
+	useEffect(() => {
+		const fetchSeries = async () => {
+			const res = await axios.get(`${import.meta.env.VITE_URL}/figures/character`);
+			const data = res.data;
+			console.log("data: ", data);
+			setSeries(data);
+		};
+		fetchSeries();
+	}, []);
+	// const {
+	// 	figure: character,
+	// 	isLoading: characterLoading,
+	// 	error: characterError,
+	// } = useFigures(`/figures/character`);
+	const [categories, setCategories] = useState([]);
+	useEffect(() => {
+		const fetchCategories = async () => {
+			try {
+				const response = await fetch(`${import.meta.env.VITE_URL}/categories`);
+				const data = await response.json();
+				setCategories(data);
+			} catch (error) {
+				console.error("Failed to fetch categories", error);
+			}
+		};
 
-	// 	fetchCategories();
-	// });
+		fetchCategories();
+	}, []);
 
 	const [isOpenFigure, setIsOpenFigure] = useState(false);
 	const [isOpenSeries, setIsOpenSeries] = useState(false);
