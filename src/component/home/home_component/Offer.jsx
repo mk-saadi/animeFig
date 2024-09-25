@@ -2,9 +2,28 @@ import { Link } from "react-router-dom";
 import { useFigures } from "../../hooks/APIS";
 import Products from "../../prouducts/Products";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Offer = () => {
-	const { figure, isLoading, error } = useFigures(`/figures/with_offer`);
+	// const { figure, isLoading, error } = useFigures(`/figures/with_offer`);
+	const [figure, setFigure] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		const fetchFigures = async () => {
+			setIsLoading(true);
+			try {
+				const res = await axios.get(`${import.meta.env.VITE_URL}/figures/with_offer`);
+				const data = res.data;
+				setFigure(data);
+				setIsLoading(false);
+			} catch (error) {
+				console.error("Failed to fetch figures:", error);
+			}
+		};
+		fetchFigures();
+	}, []);
 
 	const figs = figure?.figuresWithOffer || [];
 	const add = figure?.additionalFigures || [];

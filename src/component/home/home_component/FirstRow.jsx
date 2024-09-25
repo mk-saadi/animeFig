@@ -11,7 +11,7 @@ const FirstRow = () => {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:3000/figures/features`)
+			.get(`${import.meta.env.VITE_URL}/figures/features`)
 			.then((res) => {
 				setFig(res.data);
 			})

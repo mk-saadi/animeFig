@@ -25,7 +25,8 @@ const NewArrival = () => {
 			try {
 				const res = await axios.get(`${import.meta.env.VITE_URL}/figures/latest_figures`);
 				const data = res.data;
-				setFigure(data);
+				const fig = data.detailedFigures;
+				setFigure(fig);
 				setIsLoading(false);
 			} catch (error) {
 				console.error("Failed to fetch figures:", error);
@@ -34,7 +35,7 @@ const NewArrival = () => {
 		fetchFigures();
 	}, []);
 
-	const figs = figure?.detailedFigures || [];
+	// const figs = figure?.detailedFigures || [];
 
 	return (
 		<div>
@@ -52,9 +53,9 @@ const NewArrival = () => {
 				</Link>
 			</div>
 			<div className="overflow-hidden">
-				{figs.length > 0 && (
+				{figure.length > 0 && (
 					<div className="relative w-full">
-						<ProductSlider figures={figs} />
+						<ProductSlider figures={figure} />
 					</div>
 				)}
 			</div>
