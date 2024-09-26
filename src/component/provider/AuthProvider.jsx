@@ -41,27 +41,6 @@ const AuthProvider = ({ children }) => {
 		return signOut(auth);
 	};
 
-	// useEffect(() => {
-	// 	const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-	// 		setLoading(false);
-	// 		setUser(currentUser);
-	// 		if (currentUser) {
-	// 			localStorage.setItem("user", JSON.stringify(currentUser));
-	// 		} else {
-	// 			localStorage.removeItem("user");
-	// 		}
-	// 	});
-	// 	return () => {
-	// 		return unsubscribe;
-	// 	};
-	// }, []);
-
-	// useEffect(() => {
-	// 	const storedUser = localStorage.getItem("user");
-	// 	if (storedUser) {
-	// 		setUser(JSON.parse(storedUser));
-	// 	}
-	// }, []);
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);

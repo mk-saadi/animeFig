@@ -27,10 +27,10 @@ const Home = () => {
 					<ComingSoon />
 				</>
 				<>
-					<Offer />
+					<Reviews />
 				</>
 				<>
-					<Reviews />
+					<Offer />
 				</>
 				<>
 					<PreOwned />

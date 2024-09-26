@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useFigures } from "../../hooks/APIS";
 import { ArrowRight } from "lucide-react";
+import { Fade } from "react-awesome-reveal";
 
 const Series = () => {
 	const { figure, isLoading, error } = useFigures(`/figures/series_home`);
@@ -22,27 +23,33 @@ const Series = () => {
 			</div>
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{figure.map((fig) => (
-					<Link
+					<Fade
 						key={fig._id}
-						to={`/collections?series=${fig.series}&sort=&page=1`}
-						className="flex flex-col items-center justify-center group"
+						triggerOnce
 					>
-						<div className="relative rounded-full shadow-md w-44 h-44 overflow-none">
-							<img
-								src={fig.images}
-								alt=""
-								className="object-cover w-full h-full duration-150 rounded-full hover:opacity-70"
-							/>
-							<div className="absolute inset-0 z-30 flex items-center justify-center duration-300 rounded-full opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
-								<p className="text-sm font-normal text-center text-white">
-									Browse
-									<br />
-									Collection
-								</p>
+						<Link
+							to={`/collections?series=${fig.series}&sort=&page=1`}
+							className="flex flex-col items-center justify-center group"
+						>
+							<div className="relative rounded-full shadow-md w-44 h-44 overflow-none">
+								<img
+									src={fig.images}
+									alt=""
+									className="object-cover w-full h-full duration-150 rounded-full hover:opacity-70"
+								/>
+								<div className="absolute inset-0 z-30 flex items-center justify-center duration-300 rounded-full opacity-0 bg-ash backdrop-blur-sm bg-opacity-30 group-hover:opacity-100 ">
+									<p className="text-sm font-normal text-center text-white">
+										Browse
+										<br />
+										Collection
+									</p>
+								</div>
 							</div>
-						</div>
-						<p className="text-sm text-center text-ash group-hover:text-gray-500">{fig.series}</p>
-					</Link>
+							<p className="text-sm text-center text-ash group-hover:text-gray-500">
+								{fig.series}
+							</p>
+						</Link>
+					</Fade>
 				))}
 			</div>
 		</>
