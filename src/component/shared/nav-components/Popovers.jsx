@@ -86,7 +86,7 @@ const Popovers = () => {
 											to={`/collections?category=${category.name}&sort=&page=1`}
 											key={category._id}
 											onClick={() => setIsOpenFigure(false)}
-											className="flex items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
+											className="flex hover:underline items-center justify-start gap-x-1.5 duration-200 ml-8 text-sm group whitespace-nowrap text-ash hover:text-laal"
 										>
 											{category.name}
 											<ArrowRight
@@ -107,7 +107,7 @@ const Popovers = () => {
 									{figure?.slice(0, 5)?.map((category) => (
 										<div
 											key={category?._id}
-											className="flex flex-col items-start justify-center"
+											className="flex flex-col items-start justify-center group"
 										>
 											<Link
 												to={`/collections?series=${category?.series}&sort=&page=1`}
@@ -120,7 +120,7 @@ const Popovers = () => {
 													className="object-cover w-full h-full duration-150 rounded-sm hover:opacity-70"
 												/>
 											</Link>
-											<p className="text-sm text-center line-clamp-1 text-ash group-hover:text-gray-500">
+											<p className="text-sm text-center group-hover:underline group-hover:text-laal line-clamp-1 text-ash">
 												{category?.series}
 											</p>
 										</div>
@@ -162,7 +162,7 @@ const Popovers = () => {
 											to={`/collections?series=${category?.series}&sort=&page=1`}
 											key={category._id}
 											onClick={() => setIsOpenSeries(false)}
-											className="flex items-center w-[200px] border justify-start gap-x-1.5 duration-200 ml-8 text-sm group text-ash hover:text-laal"
+											className="flex hover:underline items-center w-[200px] justify-start gap-x-1.5 duration-200 ml-8 text-sm group text-ash hover:text-laal"
 										>
 											{category.series}
 											<ArrowRight
@@ -185,7 +185,7 @@ const Popovers = () => {
 									{character?.map((c) => (
 										<div
 											key={c?._id}
-											className="flex flex-col items-start justify-center"
+											className="flex flex-col items-start justify-center group"
 										>
 											<Link
 												to={`/collections?character=${c?.character}&sort=&page=1`}
@@ -198,7 +198,7 @@ const Popovers = () => {
 													className="object-cover w-full h-full duration-150 rounded-sm hover:opacity-70"
 												/>
 											</Link>
-											<p className="text-sm text-center line-clamp-1 text-ash group-hover:text-gray-500">
+											<p className="text-sm text-center group-hover:underline line-clamp-1 text-ash group-hover:text-laal">
 												{c?.character}
 											</p>
 										</div>
@@ -209,17 +209,19 @@ const Popovers = () => {
 					</div>
 				</div>
 				{/* trending */}
-				<div className="relative w-full">
-					<div className="text-white duration-300 cursor-pointer hover:underline">
-						<p>Trending</p>
-					</div>
-				</div>
+				<Link
+					className="text-white duration-300 cursor-pointer hover:underline"
+					to="/collections"
+				>
+					<p>Trending</p>
+				</Link>
 				{/* contacts */}
-				<div className="relative w-full">
-					<div className="text-white duration-300 cursor-pointer hover:underline">
-						<p>Contacts</p>
-					</div>
-				</div>
+				<Link
+					className="text-white duration-300 cursor-pointer hover:underline"
+					to="/collections"
+				>
+					<p>Contacts</p>
+				</Link>
 			</div>
 		</div>
 	);
