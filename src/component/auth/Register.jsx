@@ -52,23 +52,26 @@ const Register = () => {
 		// Validate password and confirm password
 		if (password.length < 6) {
 			return toastMaster({
-				type: "error",
+				type: "errorDark",
+				transition: "top",
+				position: "bottomLeft",
 				message: "password must be at least 6 characters long",
-				bg: "white",
 			});
 		}
 		if (password !== confirmPassword) {
 			return toastMaster({
-				type: "error",
+				type: "errorDark",
+				transition: "top",
+				position: "bottomLeft",
 				message: "Passwords do not match",
-				bg: "white",
 			});
 		}
 		if (!image) {
 			return toastMaster({
-				type: "error",
+				type: "errorDark",
+				transition: "top",
+				position: "bottomLeft",
 				message: "Please select an image",
-				bg: "white",
 			});
 		}
 
@@ -82,9 +85,10 @@ const Register = () => {
 		};
 
 		toastMaster({
-			type: "loading",
+			type: "loadingDark",
+			transition: "top",
+			position: "bottomLeft",
 			message: "Please wait...",
-			bg: "white",
 		});
 
 		try {
@@ -159,9 +163,10 @@ const Register = () => {
 								.then((response) => {
 									if (response.data.acknowledged === true) {
 										toastMaster({
-											type: "success",
+											type: "successDark",
+											transition: "top",
+											position: "bottomLeft",
 											message: "Registration successful",
-											bg: "white",
 										});
 
 										const savedLocation = JSON.parse(
@@ -174,26 +179,29 @@ const Register = () => {
 								})
 								.catch((error) => {
 									toastMaster({
-										type: "error",
+										type: "errorDark",
+										transition: "top",
+										position: "bottomLeft",
 										message: "Registration failed",
-										bg: "white",
 									});
 								});
 						}
 					);
 				} else {
 					toastMaster({
-						type: "error",
+						type: "errorDark",
+						transition: "top",
+						position: "bottomLeft",
 						message: "Registration failed",
-						bg: "white",
 					});
 				}
 			};
 		} catch (error) {
 			toastMaster({
-				type: "error",
+				type: "errorDark",
+				transition: "top",
+				position: "bottomLeft",
 				message: "Registration failed",
-				bg: "white",
 			});
 		}
 	};

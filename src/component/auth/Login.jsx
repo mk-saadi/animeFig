@@ -32,10 +32,10 @@ const Login = () => {
 
 		try {
 			toastMaster({
-				transition: "down",
-				type: "loading",
+				type: "loadingDark",
 				message: "Logging in...",
-				bg: "white",
+				position: "bottomLeft",
+				transition: "top",
 			});
 			const { user } = await signIn(email.value, password.value);
 			const savedLocation = JSON.parse(sessionStorage.getItem("previousLocation"));
@@ -45,18 +45,18 @@ const Login = () => {
 
 			if (user.uid) {
 				toastMaster({
-					transition: "down",
-					type: "success",
+					type: "successDark",
 					message: "Successfully Logged In",
-					bg: "white",
+					position: "bottomLeft",
+					transition: "top",
 				});
 			}
 		} catch {
 			toastMaster({
-				transition: "down",
-				type: "error",
+				type: "errorDark",
 				message: "Login Failed",
-				bg: "white",
+				position: "bottomLeft",
+				transition: "top",
 			});
 			event.target.reset();
 		}
