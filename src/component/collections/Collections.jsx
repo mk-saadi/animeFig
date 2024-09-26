@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 
 import { useState, useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Products from "../prouducts/Products";
 import Pagination from "../hooks/Pagination";
@@ -11,14 +11,12 @@ import FilterButtonGroup from "../hooks/FilterButtonGroup";
 import useScrollToTop from "../hooks/useScrollToTop";
 import useTitle from "../hooks/useWebTitle";
 import { ArrowDownUp } from "lucide-react";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
 import Loader from "../hooks/Loader";
 import { Fade } from "react-awesome-reveal";
 
 const Collections = () => {
 	useScrollToTop();
 	useTitle("Collections");
-	const location = useLocation();
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [figures, setFigures] = useState([]);
