@@ -2,9 +2,11 @@ import { Frown, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "../../provider/CartProvider";
 import { Link } from "react-router-dom";
+import { useToast } from "react-toast-master";
 
 const ButtonComponent = ({ fig }) => {
 	const { addToCart, isItemInCart } = useCart();
+	const { toastMaster } = useToast();
 	const { _id: id, name, images, price, link, offer, label, release } = fig;
 
 	const today = new Date();
@@ -38,6 +40,20 @@ const ButtonComponent = ({ fig }) => {
 		};
 
 		addToCart(selectedFig);
+		if (addToCart) {
+			toastMaster({
+				type: "successDark",
+				message: "Added to cart",
+				position: "bottomLeft",
+				transition: "top",
+				footer: (
+					<p>
+						Costs are calculated at checkout. Please navigate to Checkout page to see your order.
+					</p>
+				),
+				align: "left",
+			});
+		}
 	};
 
 	return (

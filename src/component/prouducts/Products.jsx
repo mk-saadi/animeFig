@@ -2,11 +2,12 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../provider/CartProvider";
 import { ShoppingCart, X, Calendar } from "lucide-react";
-import Loader from "../hooks/Loader";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
+import { useToast } from "react-toast-master";
 
 const Products = ({ fig, isLoading }) => {
 	const { addToCart, isItemInCart } = useCart();
+	const { toastMaster } = useToast();
 
 	const addFigToCart = (id, name, img, price, link, label) => {
 		const figName = name;
@@ -26,20 +27,28 @@ const Products = ({ fig, isLoading }) => {
 		};
 
 		addToCart(selectedFig);
+		if (addToCart) {
+			toastMaster({
+				type: "successDark",
+				message: "Added to cart",
+				position: "bottomLeft",
+				transition: "top",
+				footer: (
+					<p>
+						Costs are calculated at checkout. Please navigate to Checkout page to see your order.
+					</p>
+				),
+				align: "left",
+			});
+		}
 	};
 
 	return (
 		<Fade
-			// cascade
 			triggerOnce
 			duration={1400}
 		>
-			{/* {isLoading && <Loader />} */}
-
-			<div
-				// key={fig?._id}
-				className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group"
-			>
+			<div className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group">
 				<div className="p-4 h-[28.6rem]">
 					<Link to={`/collections/${fig?.link}`}>
 						<div

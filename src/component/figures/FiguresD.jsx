@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import useTitle from "../hooks/useWebTitle";
 import useScrollToTop from "../hooks/useScrollToTop";
 import Breadcrumbs from "../hooks/BreadCrumbs";
@@ -6,7 +6,7 @@ import { InfoIcon } from "lucide-react";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import useScroll from "../hooks/Scroll";
-// import { useFigures, useFetchSimilarItems } from "../hooks/APIS";
+import { useFigures, useFetchSimilarItems } from "../hooks/APIS";
 import ImageComponent from "./figure_component/ImageComponent";
 import ButtonComponent from "./figure_component/ButtonComponent";
 import ShareComponent from "./figure_component/ShareComponent";
@@ -16,12 +16,10 @@ import ProductSlider from "./figure_component/SlideCard";
 import Comment from "./figure_component/CommentComponent";
 import { useEffect, useState } from "react";
 import RecentlyViewed from "./figure_component/RecentlyViewed";
-import axios from "axios";
 
 const FiguresD = () => {
 	const { link } = useParams();
 	const isScrolled = useScroll("top-navbar");
-	const navigate = useNavigate();
 
 	const location = useLocation();
 
@@ -32,79 +30,24 @@ const FiguresD = () => {
 	}, [location]);
 
 	/* -------------------------- fetch current figure -------------------------- */
-	// const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
-	const [fig, setFIgure] = useState([]);
-	const [isLoading, setIsLoading] = useState([]);
-	const [error, setError] = useState([]);
-
-	useEffect(() => {
-		setIsLoading(true);
-		const fetchFigures = async () => {
-			const res = await axios.get(`${import.meta.env.VITE_URL}/figures/${link}`);
-			const data = res.data;
-			if (res.data) {
-				setIsLoading(false);
-			}
-			setFIgure(data);
-		};
-		fetchFigures();
-	}, [link]);
+	const { figure: fig, isLoading, error } = useFigures(`/figures/${link}`);
 
 	/* -------------------------- fetch similar figures ------------------------- */
-	// const {
-	// 	items: simCharacters,
-	// 	isLoading: simCharIsLoading,
-	// 	error: simCharError,
-	// } = useFetchSimilarItems("/similar_characters", link);
-	const [simCharacters, setSimCharacters] = useState([]);
-	const [simCharIsLoading, setSimCharIsLoading] = useState(false);
-
-	useEffect(() => {
-		setSimCharIsLoading(true);
-		const fetchFigures = async () => {
-			const res = await axios.get(
-				`${import.meta.env.VITE_URL}/figures/similar_characters?link=${link}`
-			);
-			const data = res.data;
-			console.log("data: ", data);
-			if (res.data) {
-				setSimCharIsLoading(false);
-			}
-			setSimCharacters(data);
-		};
-		fetchFigures();
-	}, [link]);
-	// figures/similar_characters?link=naruto-figure
+	const {
+		items: simCharacters,
+		isLoading: simCharIsLoading,
+		error: simCharError,
+	} = useFetchSimilarItems("/similar_characters", link);
 
 	/* -------------------------- fetch similar series -------------------------- */
-	// const {
-	// 	items: simSeries,
-	// 	isLoading: simSerIsLoading,
-	// 	error: simSerError,
-	// } = useFetchSimilarItems("/similar_series", link);
-	const [simSeries, setSimSeries] = useState([]);
-	const [simSerIsLoading, setSimSerIsLoading] = useState(false);
-
-	useEffect(() => {
-		setSimSerIsLoading(true);
-		const fetchFigures = async () => {
-			const res = await axios.get(`${import.meta.env.VITE_URL}/figures/similar_series?link=${link}`);
-			const data = res.data;
-			console.log("data: ", data);
-			if (res.data) {
-				setSimSerIsLoading(false);
-			}
-			setSimSeries(data);
-		};
-		fetchFigures();
-	}, [link]);
+	const {
+		items: simSeries,
+		isLoading: simSerIsLoading,
+		error: simSerError,
+	} = useFetchSimilarItems("/similar_series", link);
 
 	useScrollToTop();
 	useTitle("Collections | " + fig?.name);
-
-	// const handleGoBack = () => {
-	// 	navigate(-1);
-	// };
 
 	const [visitedFigures, setVisitedFigures] = useState(() => {
 		return JSON.parse(sessionStorage.getItem("visitedFigures")) || [];
