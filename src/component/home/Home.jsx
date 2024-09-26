@@ -7,6 +7,7 @@ import Offer from "./home_component/Offer";
 import PreOwned from "./home_component/PreOwned";
 import Series from "./home_component/Series";
 import LastRow from "./home_component/LastRow";
+import Reviews from "./home_component/Reviews";
 
 const Home = () => {
 	useTitle("Home");
@@ -27,6 +28,9 @@ const Home = () => {
 				</>
 				<>
 					<Offer />
+				</>
+				<>
+					<Reviews />
 				</>
 				<>
 					<PreOwned />

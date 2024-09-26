@@ -9,13 +9,10 @@ import Popovers from "./nav-components/Popovers";
 import ProfileDropdown from "./nav-components/ProfileDropdown";
 import TopNav from "./nav-components/TopNav";
 import SearchBox from "./nav-components/SearchBox";
-// import useUser from "../hooks/useUser";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
 	const isScrolled = useScroll("top-navbar");
-	// const [isUser, isUserLoading] = useUser();
-	// console.log('isUser: ', isUser);
 
 	const handleLogOut = () => {
 		logOut()
@@ -112,7 +109,7 @@ const Navbar = () => {
 								<div className="flex items-center px-5">
 									<div className="flex-shrink-0">
 										<img
-											className="w-10 h-10 rounded-full"
+											className="object-cover w-10 h-10 rounded-full"
 											src={user?.photoURL}
 											alt=""
 											loading="lazy"

@@ -75,7 +75,7 @@ const TopNav = ({ user, isScrolled }) => {
 									<img
 										src={user?.photoURL}
 										alt=""
-										className="w-8 h-8 rounded-full"
+										className="object-cover w-8 h-8 rounded-full"
 									/>
 									<p className="text-sm text-ash">{user?.displayName}</p>
 								</div>

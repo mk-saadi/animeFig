@@ -13,7 +13,7 @@ const ProfileDropdown = ({ user, handleLogOut, isScrolled, toggleDrawer, isOpenC
 					{/* Profile dropdown large device */}
 					{user ? (
 						<img
-							className="w-8 h-8 rounded-full cursor-pointer"
+							className="object-cover w-8 h-8 rounded-full cursor-pointer"
 							src={user?.photoURL}
 							alt={user?.displayName}
 							onMouseEnter={() => setIsOpenMenu(true)}
