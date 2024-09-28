@@ -58,7 +58,7 @@ const ButtonComponent = ({ fig }) => {
 
 	return (
 		<>
-			<div className="grid w-full grid-cols-2 gap-4">
+			<div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
 				<div
 					className={`${
 						label === "Out Of Stock" ? "overflow-hidden w-full relative cursor-auto" : "w-full"
@@ -96,7 +96,7 @@ const ButtonComponent = ({ fig }) => {
 										{offer && (
 											<p className="text-sm line-through text-white/60">${price}</p>
 										)}
-										<p className="text-lg">${finalPrice}</p>
+										<p className="text-base lg:text-lg">${finalPrice}</p>
 									</div>
 								</Link>
 							) : label === "Coming Soon" ? (
@@ -113,7 +113,7 @@ const ButtonComponent = ({ fig }) => {
 										{offer && (
 											<p className="text-sm line-through text-white/60">${price}</p>
 										)}
-										<p className="text-lg">${finalPrice}</p>
+										<p className="text-base lg:text-lg">${finalPrice}</p>
 									</div>
 								</Link>
 							) : (
@@ -161,7 +161,7 @@ const ButtonComponent = ({ fig }) => {
 							label === "Pre Owned" ||
 							label === "Re-Release" ? (
 								<button
-									className="flex focus:outline-0 justify-center gap-x-1.5 w-full font-serif text-lg h-full font-semibold items-center text-white"
+									className="flex py-3 lg:py-0 focus:outline-0 justify-center gap-x-1.5 w-full font-serif text-base lg:text-lg h-full font-semibold items-center text-white"
 									onClick={() => addFigToCart(id, name, images[0], price, link, label)}
 								>
 									<ShoppingCart
@@ -179,7 +179,7 @@ const ButtonComponent = ({ fig }) => {
 										</p>
 									</div>
 									<div className="flex flex-col items-end justify-end h-full">
-										<p className="text-lg">{finalDays}</p>
+										<p className="text-base lg:text-lg">{finalDays}</p>
 										<p className="text-sm text-white/70">days left</p>
 									</div>
 								</div>

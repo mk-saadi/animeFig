@@ -62,7 +62,7 @@ const Cart = () => {
 			/>
 			{/* Drawer */}
 			<div
-				className={`fixed top-0 right-0 w-56 md:w-80 lg:w-96 xl:w-[30rem] h-full bg-white shadow-2xl transform transition-transform duration-300 ${
+				className={`fixed top-0 right-0 w-full md:w-80 lg:w-96 xl:w-[30rem] h-full bg-white shadow-2xl transform transition-transform duration-300 ${
 					isOpen ? "translate-x-0" : "translate-x-full"
 				}`}
 			>
@@ -117,7 +117,7 @@ const Cart = () => {
 												<div className="flex flex-col flex-1 gap-y-1">
 													<Link
 														to={`/collections/${item.figLink}`}
-														className="text-base hover:underline line-clamp-1 text-ash"
+														className="text-sm lg:text-base hover:underline line-clamp-1 text-ash"
 														onClick={() => setIsOpen(false)}
 													>
 														{item.figName}

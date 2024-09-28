@@ -23,7 +23,7 @@ const FirstRow = () => {
 	return (
 		<header className="overflow-hidden">
 			<div
-				className="relative h-[21rem] rounded-md pointer-events-auto px-4 w-full flex justify-between"
+				className="relative h-[21rem] rounded-md pointer-events-auto px-4 w-full flex justify-between flex-col lg:flex-row"
 				style={{
 					backgroundImage: `url(${image})`,
 					backgroundSize: "cover",
@@ -32,7 +32,7 @@ const FirstRow = () => {
 			>
 				<div className="absolute rounded-md inset-0 z-10 bg-gradient-to-r from-[#000000] via-[#0000003b] to-[#ffffff00]" />
 				<div className="z-20 flex flex-col items-center justify-center gap-y-6">
-					<h1 className="text-4xl font-serif leading-[2.7rem] font-extrabold text-white">
+					<h1 className="text-2xl lg:text-4xl font-serif leading-6 lg:leading-[2.7rem] font-extrabold text-white">
 						Shipping Japan&apos;s <br /> finest OTAKU <br /> goods to the world!
 					</h1>
 					<Link

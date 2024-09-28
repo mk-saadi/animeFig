@@ -117,30 +117,32 @@ const FiguresD = () => {
 					</>
 					<Fade>
 						<section
-							className={`flex px-12 flex-col overflow-visible items-center justify-center bg-white 
+							className={`flex px-1 lg:px-12 flex-col overflow-visible items-center justify-center bg-white 
 										${isScrolled ? "pt-40" : "pt-40"}`}
 						>
-							<div className="flex justify-between gap-x-4">
+							<div className="flex flex-col justify-between w-full lg:flex-row lg:gap-x-4">
+								<div className="block mb-2 lg:hidden">
+									<Breadcrumbs />
+								</div>
 								{/* image component */}
 								<>
 									<ImageComponent fig={fig} />
 								</>
 								{/* info component */}
 								<div
-									className={`top-[5%] pl-4 h-full w-full min-h-screen overflow-visible duration-500
+									className={`top-[5%] lg:pl-4 h-full w-full min-h-screen overflow-visible duration-500
 						${isScrolled ? "pt-10" : "pt-0"}
 						`}
 									id="position_sticky"
 								>
 									<div className="">
-										<>
+										<div className="hidden lg:block">
 											<Breadcrumbs />
-										</>
+										</div>
 										<div className="flex flex-col items-start justify-start mt-4">
 											<h1
-												className="mb-8 text-kala"
+												className="mb-8 text-kala text-lg lg:text-[24px]"
 												style={{
-													fontSize: "24px",
 													fontWeight: "400",
 													lineHeight: "29px",
 													letterSpacing: "0px",
@@ -153,7 +155,7 @@ const FiguresD = () => {
 												<ButtonComponent fig={fig} />
 											</>
 											{fig?.label === "Coming Soon" && (
-												<div className="w-full p-2 mt-4 text-[#1071a6] rounded-md bg-[#e0f2fe]">
+												<div className="w-full p-2 mt-4 text-[#1071a6] rounded-md bg-[#dbeffc]">
 													<div className="flex items-center justify-center gap-x-3">
 														<InfoIcon size={30} />
 														<p className="text-xs font-normal">
@@ -195,8 +197,8 @@ const FiguresD = () => {
 							<div className="flex flex-col w-full my-20 overflow-x-hidden gap-y-10">
 								{simCharacters.length > 0 && (
 									<div className="w-full">
-										<h2 className="mb-6 text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
-											<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+										<h2 className="mb-1 lg:mb-4 text-lg lg:text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+											<div className="w-6 lg:w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 											More from {fig.character}
 										</h2>
 										<ProductSlider
@@ -207,8 +209,8 @@ const FiguresD = () => {
 								)}
 								{simSeries.length > 0 && (
 									<div className="w-full">
-										<h2 className="mb-6 text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
-											<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+										<h2 className="mb-1 lg:mb-4 text-lg lg:text-2xl flex justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+											<div className="w-6 lg:w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
 											More from {fig.series}
 										</h2>
 										<ProductSlider

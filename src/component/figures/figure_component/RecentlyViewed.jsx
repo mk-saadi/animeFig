@@ -22,10 +22,10 @@ const RecentlyViewed = ({ visitedFigures, setVisitedFigures }) => {
 	return (
 		<div className="max-w-5xl product-slider-container">
 			<div className="flex justify-between w-full mb-3">
-				<h2 className="text-xl font-medium text-kala">Recently Viewed</h2>
+				<h2 className="text-base font-medium lg:text-xl text-kala">Recently Viewed</h2>
 				<button
 					onClick={removeAll}
-					className="text-sm text-ash hover:text-ash/70"
+					className="text-xs lg:text-sm text-ash hover:text-ash/70"
 				>
 					Remove All
 				</button>
@@ -40,19 +40,19 @@ const RecentlyViewed = ({ visitedFigures, setVisitedFigures }) => {
 				className="select-none product-slider"
 				breakpoints={{
 					320: {
-						slidesPerView: 1,
-						spaceBetween: 10,
+						slidesPerView: 5,
+						spaceBetween: 2,
 					},
 					640: {
-						slidesPerView: 2,
-						spaceBetween: 10,
+						slidesPerView: 5,
+						spaceBetween: 2,
 					},
 					768: {
-						slidesPerView: 3,
+						slidesPerView: 6,
 						spaceBetween: 10,
 					},
 					1024: {
-						slidesPerView: 4,
+						slidesPerView: 6,
 						spaceBetween: 20,
 					},
 					1280: {
@@ -95,7 +95,7 @@ const Items = ({ fig, removeItem }) => {
 					{/* remove this item */}
 				</Link>
 				<button
-					className="absolute top-0 z-20 duration-200 opacity-100 right-4 bg-white/70 text-ash"
+					className="absolute top-0 z-20 duration-200 opacity-100 right-[2px] lg:right-4 bg-white/70 text-ash"
 					onClick={() => removeItem(fig.link)}
 				>
 					<X size={18} />

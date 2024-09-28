@@ -30,7 +30,7 @@ const InfoComponent = ({ fig }) => {
 		<>
 			<div
 				// className="flex flex-wrap gap-y-4 gap-x-14 text-ash"
-				className="grid grid-cols-4 gap-4 text-ash"
+				className="grid grid-cols-2 gap-4 lg:grid-cols-4 text-ash"
 			>
 				<div className="flex flex-col justify-start">
 					<p className="font-medium text-kala">Series:</p>

@@ -39,9 +39,9 @@ const ProductSlider = ({ figures }) => {
 				scrollbar={{ draggable: true }}
 				className="select-none product-slider"
 				breakpoints={{
-					480: {
-						slidesPerView: 4,
-						spaceBetween: 20,
+					320: {
+						slidesPerView: 2,
+						spaceBetween: 6,
 					},
 					1280: {
 						slidesPerView: 5,
@@ -95,7 +95,7 @@ const Products = ({ fig }) => {
 				className="group"
 			>
 				<div className="flex items-center justify-center w-full mb-1 rounded-md">
-					<div className="w-48 overflow-hidden rounded-md h-72">
+					<div className="overflow-hidden rounded-md md:w-48 h-52 md:h-72">
 						<img
 							src={fig?.images}
 							alt={fig?.name}
@@ -104,9 +104,11 @@ const Products = ({ fig }) => {
 					</div>
 				</div>
 				<div className="product-info">
-					<h3 className="text-base text-kala line-clamp-2 group-hover:underline">{fig?.name}</h3>
+					<h3 className="text-sm md:text-base text-kala line-clamp-2 group-hover:underline">
+						{fig?.name}
+					</h3>
 				</div>
-				<div className="mt-[1.2rem]">
+				<div className="mt-[1.4rem]">
 					<Link
 						to={`/collections/${fig?.link}`}
 						className={`relative flex flex-col items-center justify-center w-full py-1.5 text-white rounded-md shadow-md ${
@@ -127,9 +129,9 @@ const Products = ({ fig }) => {
 						) : (
 							<span className="text-xs">{fig?.label}</span>
 						)}
-						<span className="text-base font-semibold">$ {fig?.price}</span>
+						<span className="text-sm font-semibold md:text-base">$ {fig?.price}</span>
 						{fig?.offer && (
-							<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/35 rounded-md p-1 -top-4 -right-2.5">
+							<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/35 rounded-md p-1 -top-4 md:-right-2.5 -right-1">
 								sale {fig?.offer}% off
 							</span>
 						)}
