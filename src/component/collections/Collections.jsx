@@ -7,13 +7,12 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Products from "../prouducts/Products";
 import Pagination from "../hooks/Pagination";
-import FilterButtonGroup from "../hooks/FilterButtonGroup";
 import useScrollToTop from "../hooks/useScrollToTop";
 import useTitle from "../hooks/useWebTitle";
-import { ArrowDownUp } from "lucide-react";
 import Loader from "../hooks/Loader";
 import { Fade } from "react-awesome-reveal";
 import Filter from "./collections_component/Filter";
+import { SearchX } from "lucide-react";
 
 const Collections = () => {
 	useScrollToTop();
@@ -191,9 +190,9 @@ const Collections = () => {
 	return (
 		<>
 			<Fade triggerOnce>
-				<section className="relative grid min-h-screen grid-cols-1 bg-white lg:grid-cols-4 gap-x-4">
+				<section className="relative grid min-h-screen grid-cols-1 bg-white lg:grid-cols-4 gap-y-0 lg:gap-x-4">
 					{/* Filter/sort column */}
-					<div className="col-span-1 overflow-y-auto ">
+					<div className="w-full col-span-1 overflow-y-auto">
 						<Filter
 							handleFilterChange={handleFilterChange}
 							filters={filters}
@@ -224,8 +223,11 @@ const Collections = () => {
 							)}
 							{/* if no figures found */}
 							{figures?.length === 0 && showNothingFound && (
-								<div className="flex items-center justify-center h-[100vh] text-center">
-									Nothing found
+								<div className="flex items-center justify-center flex-col h-[80vh] text-ash text-center">
+									<SearchX size={120} />
+									<span className="mt-4 text-lg font-semibold text-kala">
+										No figure found for {filters?.name}
+									</span>
 								</div>
 							)}
 							{/* render figures */}

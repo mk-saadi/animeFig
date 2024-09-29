@@ -49,7 +49,7 @@ const Products = ({ fig, isLoading }) => {
 			duration={1400}
 		>
 			<div className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group">
-				<div className="p-4 h-[27.5rem] lg:h-[28.6rem]">
+				<div className="p-1 lg:p-4 h-[27rem] lg:h-[28.6rem]">
 					<Link to={`/collections/${fig?.link}`}>
 						<div
 							className={`relative overflow-hidden mb-1.5 rounded-md h-fit ${

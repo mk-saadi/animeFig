@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FilterButtonGroup from "../../hooks/FilterButtonGroup";
-import { ArrowDownUp } from "lucide-react";
+import { ArrowDownUp, FilterIcon } from "lucide-react";
 
 const Filter = ({
 	handleFilterChange,
@@ -22,11 +22,11 @@ const Filter = ({
 	return (
 		<>
 			<button
-				className="w-full px-4 py-2 mb-4 text-white bg-blue-600 rounded-md lg:hidden"
+				className="lg:hidden flex items-center my-4 justify-center w-full py-1.5 text-base font-semibold text-white rounded-md shadow-lg shadow-ash/25 gap-x-1 bg-holud"
 				onClick={toggleFilterVisibility}
 			>
 				{isFilterVisible ? "Hide Filters" : "Show Filters"}
-				<Filter
+				<FilterIcon
 					className="inline-block ml-2"
 					size={20}
 				/>
