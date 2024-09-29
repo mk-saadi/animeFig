@@ -40,7 +40,7 @@ const Cart = () => {
 	return (
 		<div>
 			<button
-				className="relative p-2 text-white duration-300 rounded-md hover:text-laal bg-ash/10 hover:bg-ash/15 focus:outline-0"
+				className="relative p-2 duration-300 rounded-md text-ash lg:text-white hover:text-laal bg-ash/10 hover:bg-ash/15 focus:outline-0"
 				onMouseDown={() => setIsOpen(true)}
 			>
 				<ShoppingCartIcon

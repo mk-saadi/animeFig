@@ -16,7 +16,7 @@ const SecondSec = ({
 }) => {
 	return (
 		<>
-			<div className="w-full col-span-1 mt-2.5">
+			<div className="w-full col-span-1 mt-2.5 lg:order-2 order-1">
 				{/* shipping protection */}
 				<div className="flex items-center justify-between mb-1.5">
 					<div className="flex items-center justify-start">

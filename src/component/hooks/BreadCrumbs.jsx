@@ -7,7 +7,7 @@ const Breadcrumbs = () => {
 	let breadcrumbPath = "";
 
 	return (
-		<div className="p-0 m-0 text-sm text-ash">
+		<div className="p-0 m-0 text-xs lg:text-sm text-ash">
 			<Link
 				to="/"
 				className="hover:underline"

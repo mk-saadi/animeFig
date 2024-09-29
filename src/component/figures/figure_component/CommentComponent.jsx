@@ -112,8 +112,10 @@ const Comment = ({ fig }) => {
 	return (
 		<>
 			<section className="max-w-5xl">
-				<h2 className="text-2xl text-kala">Excited about this item?</h2>
-				<p className="text-sm text-ash">Comment here! Discuss your excitement with other users!</p>
+				<h2 className="text-base lg:text-2xl text-kala">Excited about this item?</h2>
+				<p className="text-xs lg:text-sm text-ash">
+					Comment here! Discuss your excitement with other users!
+				</p>
 				<div className="w-full mt-8 bg-white">
 					<form
 						onSubmit={handleComment}
@@ -139,7 +141,7 @@ const Comment = ({ fig }) => {
 								<textarea
 									name="body"
 									placeholder="Add Comment..."
-									className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg border-dhusor shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash"
+									className="w-full px-3 py-2 bg-transparent border rounded-md shadow-lg placeholder:text-sm border-dhusor shadow-gray-900/10 text-ash focus:outline-none focus:ring-2 focus:ring-ash"
 								></textarea>
 							</div>
 						</div>
@@ -148,13 +150,13 @@ const Comment = ({ fig }) => {
 								<input
 									type="submit"
 									value="Submit"
-									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1 lg:py-1.5 text-sm lg:text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
 									disabled={loading === true}
 								/>
 							)}
 							{!user && (
 								<Link
-									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1.5 text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
+									className="flex items-center justify-center cursor-pointer w-fit px-8 py-1 lg:py-1.5 text-sm lg:text-base font-semibold text-white duration-300 rounded-md shadow-lg shadow-ash/25 hover:scale-105 hover:text-white gap-x-1 bg-holud"
 									to="/auth/login"
 								>
 									Login to comment
@@ -173,8 +175,10 @@ const Comment = ({ fig }) => {
 								strokeWidth={1.2}
 							/>
 							<div>
-								<p className="text-base text-kala">Be the first to write a comment</p>
-								<p className={`text-sm text-ash ${user ? "mt-0" : "mt-2"}`}>
+								<p className="text-sm lg:text-base text-kala">
+									Be the first to write a comment
+								</p>
+								<p className={`text-xs lg:text-sm text-ash ${user ? "mt-0" : "mt-2"}`}>
 									Get <span className="text-laal">30 points</span> for your published
 									comment.
 								</p>

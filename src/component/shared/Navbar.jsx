@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import Cart from "./Cart";
 import { Disclosure } from "@headlessui/react";
 import { X, Menu as MenuIcon } from "lucide-react";
 import useScroll from "../hooks/Scroll";
@@ -9,6 +8,7 @@ import Popovers from "./nav-components/Popovers";
 import ProfileDropdown from "./nav-components/ProfileDropdown";
 import TopNav from "./nav-components/TopNav";
 import SearchBox from "./nav-components/SearchBox";
+import MobileCom from "./nav-components/MobileCom";
 
 const Navbar = () => {
 	const { user, logOut } = useContext(AuthContext);
@@ -96,64 +96,14 @@ const Navbar = () => {
 								</div>
 							</div>
 						</div>
-						<Disclosure.Panel className="md:hidden bg-ash">
-							<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-								<Disclosure.Button
-									as="p"
-									className="block px-3 py-2 text-base font-medium rounded-md text-dhusor hover:bg-gray-700 hover:text-white"
-								>
-									Home
-								</Disclosure.Button>
-							</div>
-							<div className="pt-4 pb-3 border-t border-gray-700">
-								<div className="flex items-center px-5">
-									<div className="flex-shrink-0">
-										<img
-											className="object-cover w-10 h-10 rounded-full"
-											src={user?.photoURL}
-											alt=""
-											loading="lazy"
-										/>
-									</div>
-									<div className="ml-3">
-										<div className="text-base font-medium leading-none text-white">
-											{user?.displayName}
-										</div>
-										<div className="text-sm font-medium leading-none text-gray-400">
-											{user?.email}
-										</div>
-									</div>
-									{/* cart drawer */}
-									<div className="relative flex justify-end w-full">
-										<Cart
-											isOpen={isOpenCart}
-											onCloseCart={toggleDrawer}
-										/>
-									</div>
-								</div>
-								<div className="px-2 mt-3 space-y-1">
-									<Disclosure.Button
-										as="p"
-										className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
-									>
-										Profile
-									</Disclosure.Button>
-									<Disclosure.Button
-										as="p"
-										className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
-									>
-										Track Order
-									</Disclosure.Button>
-									<Disclosure.Button
-										as="button"
-										onClick={handleLogOut}
-										className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-gray-700 hover:text-white"
-									>
-										Logout
-									</Disclosure.Button>
-								</div>
-							</div>
-						</Disclosure.Panel>
+						<>
+							<MobileCom
+								user={user}
+								isOpenCart={isOpenCart}
+								toggleDrawer={toggleDrawer}
+								handleLogOut={handleLogOut}
+							/>
+						</>
 					</>
 				)}
 			</Disclosure>

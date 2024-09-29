@@ -13,7 +13,7 @@ const FirstSec = ({ cartItems, decreaseQuantity, increaseQuantity, removeFromCar
 					<h2 className="text-lg font-medium text-ash">Cart is empty.</h2>
 				</div>
 			)}
-			<div className="flex flex-col col-span-3">
+			<div className="flex flex-col order-2 col-span-3 lg:order-1">
 				{cartItems.length > 0 && (
 					<div className="flex flex-1 px-4 my-4 bg-white">
 						<div className="flex flex-col divide-y-[1px] divide-dhusor/70">
@@ -39,7 +39,7 @@ const FirstSec = ({ cartItems, decreaseQuantity, increaseQuantity, removeFromCar
 												</p>
 												<Link
 													to={`/collections/${item.figLink}`}
-													className="text-base hover:underline text-kala"
+													className="text-sm lg:text-base lg:line-clamp-3 line-clamp-2 hover:underline text-kala"
 												>
 													{item.figName}
 												</Link>
@@ -56,7 +56,7 @@ const FirstSec = ({ cartItems, decreaseQuantity, increaseQuantity, removeFromCar
 														>
 															-
 														</button>
-														<p className="px-4">{item.quantity}</p>
+														<p className="px-1 lg:px-4">{item.quantity}</p>
 														<button
 															className="px-3 duration-300 rounded-md focus:outline-0 hover:text-laal text-ash"
 															onClick={() =>

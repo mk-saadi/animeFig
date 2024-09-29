@@ -76,7 +76,7 @@ const Products = ({ fig, isLoading }) => {
 				</div>
 				{/* button component */}
 				<div className="absolute bottom-0 left-0 w-full">
-					<div className="flex flex-col justify-between p-3 gap-y-2">
+					<div className="flex flex-col justify-between p-1 lg:p-3 gap-y-2">
 						<Link
 							to={`/collections/${fig?.link}`}
 							className={`relative flex flex-col items-center justify-center w-full py-1 text-white rounded-md shadow-md ${

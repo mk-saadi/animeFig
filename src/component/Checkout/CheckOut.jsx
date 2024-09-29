@@ -32,7 +32,7 @@ const CheckOut = () => {
 						cartItems={cartItems}
 					/>
 				</>
-				<div className="grid justify-between grid-cols-4 mt-8">
+				<div className="grid justify-between grid-cols-1 mt-8 lg:grid-cols-4">
 					{/* section 1 */}
 					<>
 						<FirstSec

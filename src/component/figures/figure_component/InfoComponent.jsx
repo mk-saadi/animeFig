@@ -2,19 +2,7 @@ import { Plane, Rocket, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const InfoComponent = ({ fig }) => {
-	const {
-		name,
-		character,
-		brand,
-		dimension,
-		description,
-		release,
-		quantity,
-		label,
-		rating,
-		series,
-		category,
-	} = fig;
+	const { character, brand, dimension, description, release, label, series, category } = fig;
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
@@ -33,55 +21,55 @@ const InfoComponent = ({ fig }) => {
 				className="grid grid-cols-2 gap-4 lg:grid-cols-4 text-ash"
 			>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Series:</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Series:</p>
 					<Link
-						className="text-sm font-normal underline duration-300 cursor-pointer hover:text-laal"
+						className="text-xs font-normal underline duration-300 cursor-pointer lg:text-sm hover:text-laal"
 						to={`/collections?name=&category=&series=${series}&character=&sort=&order=asc&page=1`}
 					>
 						{series}
 					</Link>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Manufacturer:</p>
-					<p className="text-sm font-normal">{brand}</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Manufacturer:</p>
+					<p className="text-xs font-normal lg:text-sm">{brand}</p>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Release Date:</p>
-					<p className="text-sm font-normal">{formatDate(release)}</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Release Date:</p>
+					<p className="text-xs font-normal lg:text-sm">{formatDate(release)}</p>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Character:</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Character:</p>
 					<Link
-						className="text-sm font-normal underline duration-300 cursor-pointer hover:text-laal"
+						className="text-xs font-normal underline duration-300 cursor-pointer lg:text-sm hover:text-laal"
 						to={`/collections?name=&category=&series=${series}&character=${character}&sort=&order=asc&page=1`}
 					>
 						{character}
 					</Link>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Category:</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Category:</p>
 					<Link
-						className="text-sm font-normal underline duration-300 cursor-pointer hover:text-laal"
+						className="text-xs font-normal underline duration-300 cursor-pointer lg:text-sm hover:text-laal"
 						to={`/collections?name=&category=${category}&series=&character=&sort=&order=asc&page=1`}
 					>
 						{category}
 					</Link>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Dimension:</p>
-					<p className="text-sm font-normal">{dimension}</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Dimension:</p>
+					<p className="text-xs font-normal lg:text-sm">{dimension}</p>
 				</div>
 				<div className="flex flex-col justify-start">
-					<p className="font-medium text-kala">Status:</p>
-					<p className="text-sm font-normal">{label}</p>
+					<p className="text-sm font-medium text-kala lg:text-base">Status:</p>
+					<p className="text-xs font-normal lg:text-sm">{label}</p>
 				</div>
 			</div>
 			{/* description */}
 			<div className="my-8 ">
-				<p className="font-medium text-kala">Description:</p>
+				<p className="text-sm font-medium text-kala lg:text-base">Description:</p>
 				<p
 					// style={{ whiteSpace: "pre-line" }}
-					className="text-sm font-light whitespace-pre-line text-ash"
+					className="text-xs font-light whitespace-pre-line lg:text-sm text-ash"
 				>
 					{description}
 				</p>
