@@ -79,7 +79,7 @@ const FiguresD = () => {
 		<>
 			{isLoading ? (
 				<Fade>
-					<div className="grid h-screen grid-cols-5 px-12 pt-16 pb-12 bg-white gap-x-8">
+					<div className="grid h-screen grid-cols-1 gap-y-2.5 lg:gap-y-0 px-12 pt-16 pb-12 bg-white lg:grid-cols-5 gap-x-8">
 						{/* Product Image Placeholder */}
 						<div className="w-full col-span-2 overflow-hidden bg-gray-300 rounded-lg aspect-w-1 aspect-h-1">
 							<div className="flex items-center justify-center h-full">
@@ -118,7 +118,7 @@ const FiguresD = () => {
 					<Fade>
 						<section
 							className={`flex px-1 lg:px-12 flex-col overflow-visible items-center justify-center bg-white 
-										${isScrolled ? "pt-40" : "pt-40"}`}
+										${isScrolled ? "pt-32 lg:pt-40" : "pt-32 lg:pt-40"}`}
 						>
 							<div className="flex flex-col justify-between w-full lg:flex-row lg:gap-x-4">
 								<div className="block mb-2 lg:hidden">
@@ -131,7 +131,7 @@ const FiguresD = () => {
 								{/* info component */}
 								<div
 									className={`top-[5%] lg:pl-4 h-full w-full min-h-screen overflow-visible duration-500
-						${isScrolled ? "pt-10" : "pt-0"}
+						${isScrolled ? "pt-0 lg:pt-10" : "pt-0"}
 						`}
 									id="position_sticky"
 								>

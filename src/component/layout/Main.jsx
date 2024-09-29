@@ -16,7 +16,7 @@ const Main = () => {
 		<div className="w-full bg-white">
 			<Navbar />
 
-			<div className="w-full px-1 pt-40 pb-20 overflow-x-hidden overflow-y-auto lg:px-8 will-change-scroll">
+			<div className="w-full px-1 pt-32 pb-20 overflow-x-hidden overflow-y-auto lg:pt-40 lg:px-8 will-change-scroll">
 				<Outlet />
 			</div>
 			<Footer />
