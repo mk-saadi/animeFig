@@ -101,6 +101,10 @@ const ProductSlider = ({ figures }) => {
 				scrollbar={{ draggable: true }}
 				className="select-none product-slider"
 				breakpoints={{
+					320: {
+						slidesPerView: 2,
+						spaceBetween: 6,
+					},
 					480: {
 						slidesPerView: 4,
 						spaceBetween: 20,

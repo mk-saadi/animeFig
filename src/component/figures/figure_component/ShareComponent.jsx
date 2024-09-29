@@ -13,12 +13,12 @@ const ShareComponent = () => {
 							/>
 							<div className="flex flex-col items-start justify-start">
 								<p className="text-[14px] text-kala">Refer a friend</p>
-								<p className="text-[12px] -mt-[3px] text-ash">
+								<p className="text-[10px] lg:text-[12px] -mt-[3px] text-ash">
 									Get 500 points when they make their first purchase!
 								</p>
 							</div>
 						</div>
-						<div className="flex gap-x-2.5">
+						<div className="flex gap-x-1 lg:gap-x-2.5">
 							<Twitter size={18} />
 							<Facebook size={18} />
 							<Mail size={18} />

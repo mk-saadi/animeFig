@@ -126,7 +126,7 @@ const ButtonComponent = ({ fig }) => {
 							)}
 							{/* sale absolute div */}
 							{offer && (
-								<div className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/40 rounded-md p-1 -top-4 -right-2.5">
+								<div className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/40 rounded-md p-1 -top-4 right-2 lg:-right-2.5">
 									Sale {offer}% off
 								</div>
 							)}
@@ -144,7 +144,7 @@ const ButtonComponent = ({ fig }) => {
 				<div className={`${label === "Out Of Stock" ? "overflow-hidden w-full relative" : "w-full"}`}>
 					{fig ? (
 						<div
-							className={`flex focus:outline-0 h-full relative items-center overflow-hidden px-3 rounded-md justify-start w-full 
+							className={`flex py-3 lg:py-0  focus:outline-0 h-full relative items-center overflow-hidden px-3 rounded-md justify-start w-full 
 											${
 												{
 													Limited: "bg-holud hover:scale-105 duration-300",
@@ -161,7 +161,7 @@ const ButtonComponent = ({ fig }) => {
 							label === "Pre Owned" ||
 							label === "Re-Release" ? (
 								<button
-									className="flex py-3 lg:py-0 focus:outline-0 justify-center gap-x-1.5 w-full font-serif text-base lg:text-lg h-full font-semibold items-center text-white"
+									className="flex focus:outline-0 justify-center gap-x-1.5 w-full font-serif text-base lg:text-lg h-full font-semibold items-center text-white"
 									onClick={() => addFigToCart(id, name, images[0], price, link, label)}
 								>
 									<ShoppingCart

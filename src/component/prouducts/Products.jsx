@@ -49,7 +49,7 @@ const Products = ({ fig, isLoading }) => {
 			duration={1400}
 		>
 			<div className="relative duration-300 rounded-md shadow-lg bg-[#ffffff] shadow-ash/15 hover:shadow-ash/30 group">
-				<div className="p-4 h-[28.6rem]">
+				<div className="p-4 h-[27.5rem] lg:h-[28.6rem]">
 					<Link to={`/collections/${fig?.link}`}>
 						<div
 							className={`relative overflow-hidden mb-1.5 rounded-md h-fit ${
@@ -68,10 +68,10 @@ const Products = ({ fig, isLoading }) => {
 								</p>
 							)}
 						</div>
-						<h2 className="text-base font-medium group-hover:underline line-clamp-2 text-kala">
+						<h2 className="text-sm font-medium lg:text-base group-hover:underline line-clamp-2 text-kala">
 							{fig?.name}
 						</h2>
-						<p className="text-sm line-clamp-1 text-ash/70">{fig?.series}</p>
+						<p className="text-xs lg:text-sm line-clamp-1 text-ash/70">{fig?.series}</p>
 					</Link>
 				</div>
 				{/* button component */}
@@ -97,7 +97,7 @@ const Products = ({ fig, isLoading }) => {
 							) : (
 								<span className="text-xs">{fig.label}</span>
 							)}
-							<span className="text-base font-semibold">$ {fig.price}</span>
+							<span className="text-sm font-semibold lg:text-base">$ {fig.price}</span>
 							{fig?.offer && (
 								<span className="absolute bg-white text-laal text-[10px] font-semibold uppercase shadow-equal shadow-ash/35 rounded-md p-1 -top-4 -right-2.5">
 									sale {fig?.offer}% off
