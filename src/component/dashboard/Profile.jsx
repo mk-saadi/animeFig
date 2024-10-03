@@ -145,7 +145,7 @@ const Profile = () => {
 										Cancel Order
 									</button>
 									<Link
-										to="/profile/orders_progress"
+										to="/orders_progress"
 										className="flex text-kala hover:text-laal duration-150 font-medium items-center gap-x-1.5 justify-center"
 									>
 										Track Order

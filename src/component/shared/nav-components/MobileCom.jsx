@@ -1,6 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import Cart from "../Cart";
 import { NavLink } from "react-router-dom";
+import { UserCircleIcon } from "lucide-react";
 
 const MobileCom = ({ user, isOpenCart, toggleDrawer, handleLogOut }) => {
 	return (
@@ -38,12 +39,23 @@ const MobileCom = ({ user, isOpenCart, toggleDrawer, handleLogOut }) => {
 			<div className="pt-4 pb-3 border-t border-gray-700">
 				<div className="flex items-center px-5">
 					<div className="flex-shrink-0">
-						<img
+						{/* <img
 							className="object-cover w-10 h-10 rounded-full"
 							src={user?.photoURL}
 							alt=""
 							loading="lazy"
-						/>
+						/> */}
+						{user ? (
+							<img
+								className="object-cover w-8 h-8 rounded-full cursor-pointer"
+								src={user?.photoURL}
+								alt={user?.displayName}
+							/>
+						) : (
+							<p>
+								<UserCircleIcon className="rounded-full cursor-pointer text-ash w-7 h-7" />
+							</p>
+						)}
 					</div>
 					<div className="ml-3">
 						<div className="text-base font-medium leading-none text-kala">
@@ -60,25 +72,33 @@ const MobileCom = ({ user, isOpenCart, toggleDrawer, handleLogOut }) => {
 					</div>
 				</div>
 				<div className="flex flex-col px-2 pt-2 pb-3 space-y-1 text-sm mobile-nav text-kala">
-					<Disclosure.Button
-						as="a"
-						className="block w-full px-2 py-1 font-medium "
-					>
-						Profile
-					</Disclosure.Button>
-					<Disclosure.Button
-						as="a"
+					{user ? (
+						<NavLink
+							to="/profile"
+							className="block w-full px-2 py-1 font-medium "
+						>
+							Profile
+						</NavLink>
+					) : (
+						<NavLink
+							to="/auth/login"
+							className="block w-full px-2 py-1 font-medium "
+						>
+							Login
+						</NavLink>
+					)}
+					<NavLink
+						to="/orders_progress"
 						className="block w-full px-2 py-1 font-medium "
 					>
 						Track Order
-					</Disclosure.Button>
-					<Disclosure.Button
-						as="button"
+					</NavLink>
+					<button
 						onClick={handleLogOut}
-						className="block px-2 py-1 font-medium w-fit text-laal"
+						className="block px-2 py-1 font-medium w-fit text-ash"
 					>
 						Logout
-					</Disclosure.Button>
+					</button>
 				</div>
 			</div>
 		</Disclosure.Panel>

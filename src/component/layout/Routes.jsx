@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: "/profile/orders_progress",
+				path: "/orders_progress",
 				element: <OrdersTracking />,
 			},
 			{

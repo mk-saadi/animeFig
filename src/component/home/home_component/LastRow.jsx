@@ -1,10 +1,10 @@
 const LastRow = () => {
 	return (
-		<div className="flex items-end justify-between mt-4 gap-x-3">
+		<div className="flex flex-col items-end justify-between mt-4 gap-y-5 lg:flex-row gap-x-3">
 			<div className="flex flex-col gap-y-4">
-				<h2 className="text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
-					<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
-					About AnimeFIg
+				<h2 className="text-xl lg:text-2xl flex justify-start items-center gap-x-2.5 font-semibold text-start text-kala">
+					<div className="w-8 lg:w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+					About AnimeFig
 				</h2>
 				<p className="text-sm text-ash">
 					Founded in 2008 in Tokyo, AnimeFig has been a leading international anime store and

@@ -210,7 +210,7 @@ const Collections = () => {
 						<div className="flex flex-col min-h-screen">
 							{/* skeleton loader */}
 							{isLoading && (
-								<div className="grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+								<div className="grid grid-cols-2 gap-4-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
 									<Loader />
 									<Loader />
 									<Loader />

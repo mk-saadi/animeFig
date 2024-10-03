@@ -109,23 +109,25 @@ const OrdersTracking = () => {
 					{/* Display the matched order if found */}
 					<div>
 						{filteredOrder ? (
-							<div className="p-4 mt-8 border rounded-md border-dhusor">
+							<div className="p-1 mt-8 border rounded-md lg:p-4 border-dhusor">
 								{/* top row */}
 								<div className="mb-4">
 									<div className="flex flex-col items-center justify-center w-full mb-4">
-										<h2 className="text-2xl flex mt-4 mb-1 justify-center items-center gap-x-2.5 font-medium text-center text-kala">
-											<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
-											Order Status for ID{" "}
+										<h2 className="text-2xl flex flex-col lg:flex-row mt-4 mb-1 justify-center items-center gap-x-2.5 font-medium text-center text-kala">
+											<span className="flex items-center justify-center gap-x-1.5 lg:gap-x-2.5">
+												<div className="w-10 h-1.5 rounded-full bg-gradient-to-r from-[#e7230d] to-[#f4ae18]" />
+												Order Status for ID{" "}
+											</span>
 											<span className="font-bold">{filteredOrder?._id}</span>
 										</h2>
-										<p className="mb-2 text-base font-normal text-ash">
+										<p className="mb-2 text-xs font-normal text-center lg:text-base text-ash">
 											Please note that these are accurate but not guaranteed estimates.
 											Delivery dates are subject to change without advance notice.
 										</p>
 									</div>
 									<div className="w-full mb-10 border rounded-md border-dhusor">
 										<div className="w-full">
-											<div className="flex items-center justify-around p-4">
+											<div className="grid items-center justify-around grid-cols-2 p-4 gap-y-4 lg:grid-cols-5 sm:grid-cols-3">
 												<p className="flex flex-col items-center justify-center text-base font-medium text-kala">
 													Order Date{" "}
 													<span className="text-sm font-normal text-ash">
@@ -250,7 +252,7 @@ const OrdersTracking = () => {
 									</ul>
 								</div>
 								{/* top row end */}
-								<div className="grid w-full grid-cols-3 gap-3">
+								<div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
 									{filteredOrder?.orderedFigs?.map((fig) => (
 										<div
 											className="flex items-center py-2.5 justify-between gap-x-4"

@@ -47,7 +47,7 @@ const Navbar = () => {
 									<Link
 										to="/"
 										className={`flex-shrink-0 text-white select-none flex font-sans flex-col leading-3 items-end ${
-											isScrolled ? "block duration-300 mr-2" : "hidden"
+											isScrolled ? "block duration-300 mr-2" : "block lg:hidden"
 										}`}
 									>
 										<h2 className="text-2xl font-extrabold">ANIME</h2>
