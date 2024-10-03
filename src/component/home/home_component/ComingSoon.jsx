@@ -18,7 +18,7 @@ const ComingSoon = () => {
 			</h2>
 			<div className="overflow-hidden">
 				{figs?.length > 0 && (
-					<div className="grid grid-cols-1 transition duration-500 transform gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
+					<div className="grid grid-cols-2 transition duration-500 transform sm:grid-cols-3 gap-x-2 gap-y-4 md:grid-cols-4 lg:grid-cols-5">
 						{figs?.map((fig) => (
 							<Products
 								key={fig._id}

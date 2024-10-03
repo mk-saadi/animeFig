@@ -21,7 +21,7 @@ const Series = () => {
 					<ArrowRight size={18} />
 				</Link>
 			</div>
-			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div className="grid grid-cols-4 gap-4 sm:grid-cols-5 lg:grid-cols-6">
 				{figure.map((fig) => (
 					<Fade
 						key={fig._id}
@@ -31,7 +31,7 @@ const Series = () => {
 							to={`/collections?series=${fig.series}&sort=&page=1`}
 							className="flex flex-col items-center justify-center group"
 						>
-							<div className="relative rounded-full shadow-md w-44 h-44 overflow-none">
+							<div className="relative w-24 h-24 rounded-full shadow-md lg:w-44 lg:h-44 overflow-none">
 								<img
 									src={fig.images}
 									alt=""
@@ -45,7 +45,7 @@ const Series = () => {
 									</p>
 								</div>
 							</div>
-							<p className="text-sm text-center text-ash group-hover:text-gray-500">
+							<p className="text-sm text-center line-clamp-2 text-ash group-hover:text-gray-500">
 								{fig.series}
 							</p>
 						</Link>
