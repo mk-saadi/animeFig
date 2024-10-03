@@ -9,27 +9,58 @@ import { useRef, useState } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
+import { useEffect } from "react";
 
 const ProductSlider = ({ figures }) => {
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
-	const [isBeginning, setIsStart] = useState(true);
+	const [isBeginning, setIsBeginning] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
+	const [swiper, setSwiper] = useState(null);
+	const [isHovered, setIsHovered] = useState(false);
 
-	return (
-		<div className="relative product-slider-container hover:bg-white">
-			<Swiper
-				modules={[Pagination, Navigation]}
-				navigation={{
-					prevEl: prevRef.current,
-					nextEl: nextRef.current,
-				}}
-				onBeforeInit={(swiper) => {
+	useEffect(() => {
+		if (swiper) {
+			const updateNavigation = () => {
+				if (swiper.params && swiper.navigation) {
 					swiper.params.navigation.prevEl = prevRef.current;
 					swiper.params.navigation.nextEl = nextRef.current;
-				}}
+					swiper.navigation.destroy();
+					swiper.navigation.init();
+					swiper.navigation.update();
+				}
+			};
+
+			updateNavigation();
+
+			if (document.readyState === "complete") {
+				updateNavigation();
+			} else {
+				window.addEventListener("load", updateNavigation);
+				return () => window.removeEventListener("load", updateNavigation);
+			}
+		}
+	}, [swiper]);
+
+	const handleMouseEnter = () => setIsHovered(true);
+	const handleMouseLeave = () => setIsHovered(false);
+
+	return (
+		<div
+			className="relative product-slider-container"
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			style={{
+				"--button-bg-opacity": isHovered ? "1" : "0.5",
+				"--button-hover-bg": isHovered ? "rgba(96, 165, 250, 1)" : "rgba(255, 255, 255, 0.5)",
+				"--button-hover-text": isHovered ? "white" : "#6B7280",
+			}}
+		>
+			<Swiper
+				modules={[Pagination, Navigation]}
+				onSwiper={setSwiper}
 				onSlideChange={(swiper) => {
-					setIsStart(swiper.isBeginning);
+					setIsBeginning(swiper.isBeginning);
 					setIsEnd(swiper.isEnd);
 				}}
 				spaceBetween={50}
@@ -39,19 +70,17 @@ const ProductSlider = ({ figures }) => {
 				scrollbar={{ draggable: true }}
 				className="select-none product-slider"
 				breakpoints={{
-					320: {
-						slidesPerView: 2,
-						spaceBetween: 6,
-					},
-					1280: {
-						slidesPerView: 5,
-						spaceBetween: 20,
-					},
+					320: { slidesPerView: 2, spaceBetween: 6 },
+					480: { slidesPerView: 3, spaceBetween: 20 },
+					1280: { slidesPerView: 5, spaceBetween: 20 },
 				}}
 			>
-				{figures.length > 0 ? (
-					figures.map((fig) => (
-						<SwiperSlide key={fig?._id}>
+				{figures?.length > 0 ? (
+					figures?.map((fig) => (
+						<SwiperSlide
+							key={fig?._id}
+							className="pb-8"
+						>
 							<Products fig={fig} />
 						</SwiperSlide>
 					))
@@ -59,27 +88,29 @@ const ProductSlider = ({ figures }) => {
 					<p>No products available</p>
 				)}
 			</Swiper>
-			{/* navigation button */}
-
 			<button
 				ref={prevRef}
-				className={`absolute left-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-					isBeginning
-						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-				}`}
+				className={`absolute focus:outline-0 backdrop-blur-sm left-0 z-10 px-2 py-3 duration-300 transform -translate-y-3/4 rounded-sm shadow-md top-1/2 
+          ${isBeginning ? "cursor-not-allowed  backdrop-blur-sm" : "hover:px-3 hover:py-5"}
+          transition-all`}
 				disabled={isBeginning}
+				style={{
+					backgroundColor: "var(--button-hover-bg)",
+					color: "var(--button-hover-text)",
+				}}
 			>
 				<ArrowLeft className="w-6 h-6" />
 			</button>
 			<button
 				ref={nextRef}
-				className={`absolute right-0 z-10 px-2 py-3 duration-300 transform text-ash backdrop-blur-sm -translate-y-3/4 bg-white bg-opacity-60 rounded-sm shadow-md top-1/2 ${
-					isEnd
-						? "cursor-not-allowed text-ash bg-opacity-50 backdrop-blur-sm"
-						: "[.hover\\:bg-white:hover_&]:px-3 [.hover\\:bg-white:hover_&]:py-5 [.hover\\:bg-white:hover_&]:text-white [.hover\\:bg-white:hover_&]:bg-blue-400"
-				}`}
+				className={`absolute focus:outline-0 backdrop-blur-sm right-0 z-10 px-2 py-3 duration-300 transform -translate-y-3/4 rounded-sm shadow-md top-1/2 
+          ${isEnd ? "cursor-not-allowed backdrop-blur-sm" : "hover:px-3 hover:py-5"}
+          transition-all`}
 				disabled={isEnd}
+				style={{
+					backgroundColor: "var(--button-hover-bg)",
+					color: "var(--button-hover-text)",
+				}}
 			>
 				<ArrowRight className="w-6 h-6" />
 			</button>
