@@ -1,54 +1,14 @@
 import { Link } from "react-router-dom";
-// import { useFigures } from "../../hooks/APIS";
+import { useFigures } from "../../hooks/APIS";
 import Products from "../../prouducts/Products";
 import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const ComingSoon = () => {
-	// const { figure: soon, isLoading: soon_loading, error } = useFigures(`/figures/coming_soon`);
+	const { figure: soon, isLoading: soon_loading, error } = useFigures(`/figures/coming_soon`);
+	console.log("soon: ", soon);
 
-	const [soon, setSoon] = useState([]);
-	const [soonA, setSoonA] = useState([]);
-	const [soon_loading, setSoonLoading] = useState(false);
-
-	// useEffect(() => {
-	// 	setSoonLoading(true);
-	// 	axios
-	// 		.get(`${import.meta.env.VITE_URL}/figures/coming_soon`)
-	// 		.then((res) => {
-	// 			setSoon(res.data);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		})
-	// 		.finally(() => {
-	// 			setSoonLoading(false);
-	// 		});
-	// }, []);
-
-	useEffect(() => {
-		const fetchFigures = async () => {
-			setSoonLoading(true);
-			try {
-				const res = await axios.get(`${import.meta.env.VITE_URL}/figures/with_offer`);
-				const data = res.data;
-				console.log("data: ", data);
-				const fig = data.figuresWithOffer;
-
-				const add = data.additionalFigures;
-				setSoon(fig);
-				setSoonA(add);
-				setSoonLoading(false);
-			} catch (error) {
-				console.error("Failed to fetch figures:", error);
-			}
-		};
-		fetchFigures();
-	}, []);
-
-	// const figs = soon?.detailedFigures || [];
-	// const add = soon?.additionalFigures || [];
+	const figs = soon?.detailedFigures || [];
+	const add = soon?.additionalFigures || [];
 
 	return (
 		<div>
@@ -57,9 +17,9 @@ const ComingSoon = () => {
 				Early Bird Specials
 			</h2>
 			<div className="overflow-hidden">
-				{soon?.length > 0 && (
+				{figs?.length > 0 && (
 					<div className="grid grid-cols-1 transition duration-500 transform gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
-						{soon.map((fig) => (
+						{figs?.map((fig) => (
 							<Products
 								key={fig._id}
 								fig={fig}
@@ -67,7 +27,7 @@ const ComingSoon = () => {
 							/>
 						))}
 						<div className="relative grid items-center justify-center grid-cols-2 mx-2 group">
-							{soonA.map((fig) => (
+							{add?.map((fig) => (
 								<div key={fig._id}>
 									<div className="w-[4.8rem] overflow-hidden rounded-md shadow-lg shadow-ash/25 h-[8.5rem]">
 										<img
