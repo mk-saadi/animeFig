@@ -9,7 +9,6 @@ import { useToast } from "react-toast-master";
 const Profile = () => {
 	const { user } = useContext(AuthContext);
 	const [orders, setOrders] = useState([]);
-	console.log("orders: ", orders);
 	const [axiosSecure] = UseAxiosHook();
 	const [loading, setLoading] = useState(false);
 	const { toastMaster } = useToast();
@@ -156,13 +155,13 @@ const Profile = () => {
 							{/* info section */}
 							<div className="flex justify-around w-full mt-4 border-b border-dhusor">
 								<div className="text-ash">
-									<p className="text-kala mb-[2px]">Contact:</p>
+									<p className="text-kala mb-[2px] font-medium">Contact:</p>
 									<p>{item.zoneDetail?.deliverName}</p>
 									<p>{item.zoneDetail?.deliverEmail}</p>
 									<p>{item.zoneDetail?.phone}</p>
 								</div>
 								<div className="text-ash">
-									<p className="text-kala mb-[2px]">Shipping Address:</p>
+									<p className="text-kala mb-[2px] font-medium">Shipping Address:</p>
 									<p>{item.zoneDetail?.country}</p>
 									<p>
 										{item.zoneDetail?.apartment}, {item.zoneDetail?.address},{" "}
@@ -171,7 +170,7 @@ const Profile = () => {
 									<p>ZIP: {item.zoneDetail.zip}</p>
 								</div>
 								<div className="text-ash">
-									<p className="text-kala mb-[2px]">Payment:</p>
+									<p className="text-kala mb-[2px] font-medium">Payment:</p>
 									<p>Visa</p>
 									<p>**** 4242</p>
 									<p>Shipping Fee: $17.30</p>
