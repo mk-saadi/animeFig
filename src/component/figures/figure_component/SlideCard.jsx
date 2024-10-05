@@ -79,7 +79,7 @@ const ProductSlider = ({ figures }) => {
 					figures?.map((fig) => (
 						<SwiperSlide
 							key={fig?._id}
-							className="pb-8"
+							className="pb-2"
 						>
 							<Products fig={fig} />
 						</SwiperSlide>
