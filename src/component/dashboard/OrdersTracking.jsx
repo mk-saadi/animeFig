@@ -32,7 +32,6 @@ const OrdersTracking = () => {
 
 	const [orderId, setOrderId] = useState("");
 	const [filteredOrder, setFilteredOrder] = useState(null);
-	console.log("orderId: ", orderId);
 
 	const handleTrackOrder = () => {
 		const matchingOrder = orders.find((order) => order._id === orderId);
@@ -40,6 +39,8 @@ const OrdersTracking = () => {
 	};
 
 	const zoneDetails = orders.map((item) => item.zoneDetail);
+
+
 
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
